@@ -6,13 +6,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		
-		int aaa = 0;
-		System.out.println("Hallo MMMMMartin");
-		for(int c = 0;c<10;c++){
-			int b = 4;
-			System.out.println("Hallo dfaqsfasdfasdin");
-			int asdf = 4;
-		}
+
+		System.out.println("hasldfj");
+
 		
 		
 	}
