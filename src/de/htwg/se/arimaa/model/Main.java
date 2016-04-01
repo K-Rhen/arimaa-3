@@ -6,12 +6,12 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		
-		int aaa = 2;
+		int aaa = 0;
 		System.out.println("Hallo MMMMMartin");
 		for(int c = 0;c<10;c++){
-			int b = 34;
+			int b = 4;
 			System.out.println("Hallo dfaqsfasdfasdin");
-			int asdf = 34;
+			int asdf = 4;
 		}
 		
 		
