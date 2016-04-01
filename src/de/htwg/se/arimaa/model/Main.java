@@ -5,9 +5,13 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("Hallo Martin");
-		for(int i = 0;i<2;++i){
-			System.out.println("Hallo Martin");
+		
+		int aaa = 2;
+		System.out.println("Hallo MMMMMartin");
+		for(int c = 0;c<10;c++){
+			int b = 34;
+			System.out.println("Hallo dfaqsfasdfasdin");
+			int asdf = 34;
 		}
 		
 		
