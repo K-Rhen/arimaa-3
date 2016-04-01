@@ -6,6 +6,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		System.out.println("Hallo Martin");
+		for(int i = 0;i<3;++i){
+			System.out.println("Hallo Martin");
+		}
 		
 		
 	}
