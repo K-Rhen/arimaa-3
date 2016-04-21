@@ -5,8 +5,8 @@ public class Position {
 	private int y;
 
 	public Position(int x, int y) {
-		 setX(x);
-		 setY(y);
+		setX(x);
+		setY(y);
 	}
 
 	public void setPositon(int x, int y) {
@@ -31,6 +31,19 @@ public class Position {
 
 	public int getY() {
 		return y;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Position po = null;
+		if (obj instanceof Position)
+			po = (Position) obj;
+
+		if (po == null) {
+			return false;
+		} else {
+			return (po.x == x && po.y == y);
+		}
 	}
 
 }
