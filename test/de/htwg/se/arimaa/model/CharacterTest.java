@@ -8,7 +8,7 @@ import org.junit.Test;
 import de.htwg.se.arimaa.model.Character.CHARAKTER_NAME;
 import de.htwg.se.arimaa.util.character.Position;
 
-public class ModelTest {
+public class CharacterTest {
 
 	Character character;
 	Position p;
