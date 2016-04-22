@@ -4,7 +4,7 @@ import de.htwg.se.arimaa.util.character.Position;
 
 public class Character {
 
-	public static enum CHARAKTER_NAME {
+	public enum CHARAKTER_NAME {
 		RABBIT, CAT, DOG, HORSE, CAMEL, ELEPHANT
 	};
 
