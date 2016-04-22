@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.htwg.se.arimaa.util.observer.OberservableTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-04-22T10:08:42" hostname="3dlab11" time="0.001">
+  <properties/>
+  <testcase name="testNotify" classname="de.htwg.se.arimaa.util.observer.OberservableTest" time="0.001"/>
+  <testcase name="testRemove" classname="de.htwg.se.arimaa.util.observer.OberservableTest" time="0.0"/>
+  <testcase name="testRemoveAll" classname="de.htwg.se.arimaa.util.observer.OberservableTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
