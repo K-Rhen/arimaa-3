@@ -7,21 +7,44 @@ public class Pitch {
 	private static final int PITCHSIZE = 7;
 
 	public Pitch(String player1Name, String player2Name) {
-//		p1 = new Player(player1Name);
-//		p2 = new Player(player2Name);
+		p1 = new Player(player1Name);
+		p2 = new Player(player2Name);
 	}
+	
+	
+
+	public Player getP1() {
+		return p1;
+	}
+
+
+
+	public Player getP2() {
+		return p2;
+	}
+
+
 
 	@Override
 	public String toString() {
-//		StringBuilder sb = new StringBuilder();
-//		
-//		sb.append("--------------------------");
-//		sb.append("a");
-//		for(int y = 0; y < 8; y++){
-//		for(int x = 0; x<= 8;x++ ){
-//			sb.append()
+		StringBuilder sb = new StringBuilder();
+
+//		sb.append("+-------------------------------+\n");
+//		for (int y = 0; y < 8; y++) {
+//			if (y > 0)
+//				sb.append("+---+---+---+---+---+---+---+---+\n");
+//			for (int x = 0; x <= 8; x++) {
+//				if ((x == 2 || x == 5) &&( y == 2 || y == 5))
+//					sb.append("| # ");
+//				else
+//					sb.append("|   ");
+//			}
+//			sb.append(8 - y);
+//			sb.append("\n");
 //		}
-//		}
+//		sb.append("+-------------------------------+\n");
+//		sb.append("  a   b   c   d   e   f   g   h\n");
+//		return sb.toString();
 		return super.toString();
 	}
 
