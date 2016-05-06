@@ -5,12 +5,22 @@ plugins {
 repositories {
     mavenCentral()
 }
+
 apply plugin: "java"
+apply plugin: "idea"
 apply plugin: "sonar-runner"
 apply plugin: "org.sonarqube"
 apply plugin: "eclipse"
 apply plugin: "maven"
 apply plugin: "jacoco"
+
+idea {
+    project {
+        //if you want to set specific jdk and language level
+        jdkName = '1.8'
+        languageLevel = '1.8'
+    }
+}
 
 dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-api',  version: '2.2'
@@ -25,12 +35,16 @@ sourceSets {
     test.java.srcDir "test"
 }
 
-sonarqube {
-properties {
-property "sonar.projectName", "de.htwg.se.arimaa"
-property "sonar.projectKey", "de.htwg.se.arimaa"
-property "sonar.projectVersion", "1.0"
-property "sonar.binaries", "bin"
-property "sonar.java.coveragePlugin", "jacoco"
+jar {
+    manifest.attributes "Main-Class":"de.htwg.se.arimaa.arimaa"
 }
+  
+sonarqube {
+    properties {
+    property "sonar.projectName", "SE2016SS-06-Arimaa"
+    property "sonar.projectKey", "de.htwg.se.arimaa"
+    property "sonar.projectVersion", "0.1"
+    property "sonar.binaries", "build/classes"
+    property "sonar.java.coveragePlugin", "jacoco"
+  }
 }
