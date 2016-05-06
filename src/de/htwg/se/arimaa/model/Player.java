@@ -21,6 +21,7 @@ public class Player {
 		figures.add(new Character(new Position(0, 0), CHARAKTER_NAME.RABBIT));
 		figures.add(new Character(new Position(0, 1), CHARAKTER_NAME.ELEPHANT));
 		// TODO INIT ALL FIGURES
+		// TODO TEST CLEAN
 	}
 
 	public CHARAKTER_NAME getFigur(Position pos) {
