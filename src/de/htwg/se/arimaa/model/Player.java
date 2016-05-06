@@ -11,17 +11,17 @@ public class Player {
 
 	public Player(String playerName) {
 		this.playerName = playerName;
-	}
-
-	public void setFigur(CHARAKTER_NAME cname, Position pos) {
-		this.playerName = playerName;
-
+		
 		// TODO POSITON FIGURS VARIABLE
 		figures = new ArrayList<Character>();
 		figures.add(new Character(new Position(0, 0), CHARAKTER_NAME.RABBIT));
 		figures.add(new Character(new Position(0, 1), CHARAKTER_NAME.ELEPHANT));
 		// TODO INIT ALL FIGURES
 		// TODO TEST CLEAN
+	}
+
+	public void setFigur(CHARAKTER_NAME cname, Position pos) {
+		this.playerName = playerName;
 	}
 
 	public CHARAKTER_NAME getFigur(Position pos) {

@@ -16,7 +16,7 @@ public class Pitch {
 		pl.add(new Player(player1Name));
 		pl.add(new Player(player2Name));
 	}
-	
+
 	public Player getP1() {
 		return pl.get(0);
 	}
@@ -28,7 +28,7 @@ public class Pitch {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append("+-------------------------------+\n");
 		for (int y = 0; y < 8; y++) {
 			if (y > 0)
@@ -36,22 +36,23 @@ public class Pitch {
 			for (int x = 0; x <= 8; x++) {
 				if ((x == 2 || x == 5) && (y == 2 || y == 5))
 					sb.append("| # ");
-				else
+				else {
 					sb.append("| ");
 
-				boolean occupied = false;
-				Position pos = new Position(x, y);
-				for (Player p : pl) {
-					CHARAKTER_NAME c = p.getFigur(pos);
-					if (c != null) {
-						sb.append(c);
-						occupied = true;
+					boolean occupied = false;
+					Position pos = new Position(x, y);
+					for (Player p : pl) {
+						CHARAKTER_NAME c = p.getFigur(pos);
+						if (c != null) {
+							sb.append(c);
+							occupied = true;
+						}
 					}
+					if (occupied == true)
+						sb.append(" ");
+					else
+						sb.append("  ");
 				}
-				if (occupied == true)
-					sb.append(" ");
-				else
-					sb.append("  ");
 			}
 			sb.append(8 - y);
 			sb.append("\n");
