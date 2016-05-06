@@ -65,6 +65,8 @@ public class PitchTest {
 		}
 		sb.append("+-------------------------------+\n");
 		sb.append("  a   b   c   d   e   f   g   h\n");
-		System.out.println(sb.toString());
+		
+		String testpitch = sb.toString();
+		assertEquals(testpitch, pitch.toString());
 	}
 }
