@@ -7,14 +7,12 @@ import de.htwg.se.arimaa.util.character.Position;
 
 public class Pitch {
 
-	private Player p1;
-	private Player p2;
 	ArrayList<Player> pl = new ArrayList<>();
 	private static final int PITCHSIZE = 7;
 
-	public Pitch(String player1Name, String player2Name) {
-		pl.add(new Player(player1Name));
-		pl.add(new Player(player2Name));
+	public Pitch(String player1Name, String player2Name,ArrayList<Character> figures1, ArrayList<Character> figures2) {
+		pl.add(new Player(player1Name,figures1));
+		pl.add(new Player(player2Name,figures2));
 	}
 
 	public Player getP1() {

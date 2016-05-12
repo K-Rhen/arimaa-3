@@ -16,7 +16,7 @@ public class CharacterTest {
 	@Before
 	public void setUp() throws Exception {
 		p = new Position(0, 0);
-		character = new Character(p, CHARAKTER_NAME.RABBIT);
+		character = new Character(p, CHARAKTER_NAME.R);
 	}
 
 	@Test
@@ -30,6 +30,6 @@ public class CharacterTest {
 	
 	@Test
 	public void testgetName(){
-		assertEquals(CHARAKTER_NAME.RABBIT, character.getName());
+		assertEquals(CHARAKTER_NAME.R, character.getName());
 	}
 }

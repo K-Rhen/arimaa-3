@@ -31,9 +31,7 @@ public class PositionTest {
 		po.setPositon(1, 0);
 		assertFalse(position.equals(po));
 		
-		assertFalse(position.equals(new Player("Alias")));
-		
-	
+		assertFalse(position.equals(null));
 	}
 
 }

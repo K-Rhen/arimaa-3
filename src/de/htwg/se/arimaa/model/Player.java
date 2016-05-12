@@ -9,15 +9,9 @@ public class Player {
 	private ArrayList<Character> figures;
 	private String playerName;
 
-	public Player(String playerName) {
+	public Player(String playerName ,ArrayList<Character> figures) {
 		this.playerName = playerName;
-		
-		// TODO POSITON FIGURS VARIABLE
-		figures = new ArrayList<Character>();
-		figures.add(new Character(new Position(0, 0), CHARAKTER_NAME.RABBIT));
-		figures.add(new Character(new Position(0, 1), CHARAKTER_NAME.ELEPHANT));
-		// TODO INIT ALL FIGURES
-		// TODO TEST CLEAN
+		this.figures = figures;
 	}
 
 	public void setFigur(CHARAKTER_NAME cname, Position pos) {
