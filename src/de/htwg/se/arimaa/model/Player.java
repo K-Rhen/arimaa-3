@@ -30,4 +30,15 @@ public class Player {
 		return playerName;
 	}
 
+	public boolean setFigureChangePositon(Position start, Position end){
+		//TODO start end position exist on pitch
+		if(getFigur(start)== null){
+			throw new IllegalArgumentException("no figure on start" + start.getX() +" " + start.getY());
+		}
+			for (Character cr : figures) {
+			if (cr.getPosition().equals(start))
+				cr.setPosition(end);
+		}
+	return false;
+	}
 }

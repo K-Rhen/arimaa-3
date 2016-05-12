@@ -9,20 +9,23 @@ public class Character {
 		r, c, d, h, l, e // player2
 	};
 
-	private Position positon;
+	private Position position;
 	private CHARAKTER_NAME name;
 
 	public Character(Position positon, CHARAKTER_NAME name) {
-		this.positon = positon;
+		this.position = positon;
 		this.name = name;
 	}
 
 	public void setPosition(int x, int y) {
-		positon = new Position(x, y);
+		position = new Position(x, y);
+	}
+	public void setPosition(Position newpos) {
+		position = new Position(newpos.getX(),newpos.getY());
 	}
 
 	public Position getPosition() {
-		return positon;
+		return position;
 	}
 
 	public CHARAKTER_NAME getName() {

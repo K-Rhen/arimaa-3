@@ -56,9 +56,10 @@ public class Arimaa {
 		figures2.add(new Character(new Position(6, 6), CHARAKTER_NAME.h));
 		figures2.add(new Character(new Position(7, 6), CHARAKTER_NAME.r));
 		
-		Pitch p = new Pitch("Player1", "Player2",figures1,figures2);
-		System.out.println(p.toString());
-
+		Pitch pitch = new Pitch("Player1", "Player2",figures1,figures2);
+		System.out.println(pitch.toString());
+		pitch.getP1().setFigureChangePositon(new Position(0,1), new Position(0,2));
+		System.out.println(pitch.toString());
 	}
 
 }
