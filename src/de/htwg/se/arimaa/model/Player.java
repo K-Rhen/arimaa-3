@@ -9,7 +9,7 @@ public class Player {
 	private ArrayList<Character> figures;
 	private String playerName;
 
-	public Player(String playerName ,ArrayList<Character> figures) {
+	public Player(String playerName, ArrayList<Character> figures) {
 		this.playerName = playerName;
 		this.figures = figures;
 	}

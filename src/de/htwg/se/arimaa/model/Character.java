@@ -5,7 +5,8 @@ import de.htwg.se.arimaa.util.character.Position;
 public class Character {
 
 	public enum CHARAKTER_NAME {
-		R, C, D, H, L, E
+		R, C, D, H, L, E, // player1
+		r, c, d, h, l, e // player2
 	};
 
 	private Position positon;
