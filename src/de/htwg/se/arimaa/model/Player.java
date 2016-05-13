@@ -34,7 +34,6 @@ public class Player {
 		for (Character cr : figures) {
 			if (cr.getPosition().equals(start)) {
 				cr.setPosition(end);
-				System.out.println("pos:"+ start.getX() + " " +start.getY() );
 				return true;
 			}
 		}
