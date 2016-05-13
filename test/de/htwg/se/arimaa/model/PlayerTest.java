@@ -44,15 +44,17 @@ public class PlayerTest {
 		assertEquals(playerName, player.getPlayerName());
 	}
 	
-	@Test (expected= IllegalArgumentException.class)
-	public void testsetFigureChangePositon() {
+	@Test
+	public void testsetFigureChangePositonTrue() {
 		Position start = new Position(0,0);
 		Position end = new Position(0,1);
-		assertTrue(player.setFigureChangePositon(start, end));
-		
-		start = new Position(1,0);
-		end = new Position(1,1);
-		assertFalse(player.setFigureChangePositon(start, end));
-		
+		assertTrue(player.setFigureChangePositon(start, end));	
+	}
+	
+	@Test
+	public void testsetFigureChangePositonFalse() {
+		Position start = new Position(0,5);
+		Position end = new Position(0,1);
+		assertFalse(player.setFigureChangePositon(start, end));	
 	}
 }

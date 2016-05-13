@@ -58,8 +58,10 @@ public class Arimaa {
 		
 		Pitch pitch = new Pitch("Player1", "Player2",figures1,figures2);
 		System.out.println(pitch.toString());
-		pitch.getP1().setFigureChangePositon(new Position(0,1), new Position(0,2));
-		System.out.println(pitch.toString());
+		
+		//TODO TEST
+//		pitch.getP1().setFigureChangePositon(new Position(0,1), new Position(0,2));
+//		System.out.println(pitch.toString());
 	}
 
 }
