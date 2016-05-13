@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 import de.htwg.se.arimaa.controller.ArimaaController;
 import de.htwg.se.arimaa.model.Character;
-import de.htwg.se.arimaa.model.Pitch;
 import de.htwg.se.arimaa.model.Character.CHARAKTER_NAME;
+import de.htwg.se.arimaa.model.Pitch;
 import de.htwg.se.arimaa.util.character.Position;
 import de.htwg.se.arimaa.view.TextUI;
 
@@ -59,6 +59,7 @@ public class Arimaa {
 		System.out.println(pitch.toString());
 
 		// TODO TEST
+		
 		// pitch.getP1().setFigureChangePositon(new Position(0,1), new
 		// Position(0,2));
 		// System.out.println(pitch.toString());

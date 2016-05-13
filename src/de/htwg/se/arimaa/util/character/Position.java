@@ -5,23 +5,14 @@ public class Position {
 	private int y;
 
 	public Position(int x, int y) {
-		setX(x);
-		setY(y);
+		setPositon(x, y);
 	}
 
 	public void setPositon(int x, int y) {
-
-		setX(x);
-		setY(y);
-	}
-
-	public void setX(int x) {
+		if (!positionOnPitchXY(x, y))
+			throw new IllegalArgumentException("position not on pitch");
 
 		this.x = x;
-	}
-
-	public void setY(int y) {
-
 		this.y = y;
 	}
 
@@ -33,6 +24,18 @@ public class Position {
 		return y;
 	}
 
+	private static boolean positionOnPitchXY(int x, int y) {
+		if (x < 8 && y < 8 && x >= 0 && y >= 0)
+		
+			return true;
+		
+		return false;
+	}
+
+	public static boolean positionOnPitch(Position pos) {
+		return positionOnPitchXY(pos.x, pos.y);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		Position po = null;
@@ -42,7 +45,7 @@ public class Position {
 		if (po == null) {
 			return false;
 		} else {
-			return (po.x == x && po.y == y);
+			return po.x == x && po.y == y;
 		}
 	}
 
