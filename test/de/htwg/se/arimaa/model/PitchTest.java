@@ -48,7 +48,7 @@ public class PitchTest {
 		for (int y = 0; y < 8; y++) {
 			if (y > 0)
 				sb.append("+---+---+---+---+---+---+---+---+\n");
-			for (int x = 0; x <= 8; x++) {
+			for (int x = 0; x < 8; x++) {
 				if ((x == 2 || x == 5) && (y == 2 || y == 5))
 					sb.append("| # ");
 				else {

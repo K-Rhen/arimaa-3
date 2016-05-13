@@ -16,25 +16,5 @@ public class TestRules {
 		
 	}
 	
-	@Test
-	public void testpositionOnPitch() {
-		Position end = new Position(0, 0);
-		assertTrue(rules.positionOnPitch(end));
-		
-		end = new Position(9, 9);
-		assertFalse(rules.positionOnPitch(end));
-		end = new Position(0, 9);
-		assertFalse(rules.positionOnPitch(end));
-		end = new Position(9, 0);
-		assertFalse(rules.positionOnPitch(end));
-		
-		end = new Position(-1, -1);
-		assertFalse(rules.positionOnPitch(end));
-		end = new Position(0, -1);
-		assertFalse(rules.positionOnPitch(end));
-		end = new Position(-1, 0);
-		assertFalse(rules.positionOnPitch(end));
-		
-		
-	}
+
 }

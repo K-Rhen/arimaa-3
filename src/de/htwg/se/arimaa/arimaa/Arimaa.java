@@ -59,7 +59,9 @@ public class Arimaa {
 		System.out.println(pitch.toString());
 
 		// TODO TEST
-		
+		Position test = null;
+
+	
 		// pitch.getP1().setFigureChangePositon(new Position(0,1), new
 		// Position(0,2));
 		// System.out.println(pitch.toString());
