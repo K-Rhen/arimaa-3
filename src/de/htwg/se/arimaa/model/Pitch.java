@@ -8,7 +8,7 @@ import de.htwg.se.arimaa.util.character.Position;
 public class Pitch {
 
 	ArrayList<Player> pl = new ArrayList<>();
-	private static final int PITCHSIZE = 7;
+	private static final int PITCHSIZE = 8;
 
 	public Pitch(String player1Name, String player2Name, ArrayList<Character> figures1, ArrayList<Character> figures2) {
 		pl.add(new Player(player1Name, figures1));
@@ -28,10 +28,10 @@ public class Pitch {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("+-------------------------------+\n");
-		for (int y = 0; y < 8; y++) {
+		for (int y = 0; y < PITCHSIZE; y++) {
 			if (y > 0)
 				sb.append("+---+---+---+---+---+---+---+---+\n");
-			for (int x = 0; x < 8; x++) {
+			for (int x = 0; x < PITCHSIZE; x++) {
 				if ((x == 2 || x == 5) && (y == 2 || y == 5))
 					sb.append("| # ");
 				else {
@@ -53,7 +53,7 @@ public class Pitch {
 				}
 			}
 			sb.append("| ");
-			sb.append(8 - y);
+			sb.append(PITCHSIZE - y);
 			sb.append("\n");
 		}
 		sb.append("+-------------------------------+\n");
