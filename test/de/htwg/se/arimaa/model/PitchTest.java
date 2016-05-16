@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.arimaa.model.Character.CHARAKTER_NAME;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class PitchTest {

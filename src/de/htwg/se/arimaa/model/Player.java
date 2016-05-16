@@ -2,7 +2,6 @@ package de.htwg.se.arimaa.model;
 
 import java.util.List;
 
-import de.htwg.se.arimaa.model.Character.CHARAKTER_NAME;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class Player {

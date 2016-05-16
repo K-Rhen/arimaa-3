@@ -3,8 +3,8 @@ package de.htwg.se.arimaa.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.htwg.se.arimaa.model.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.Character;
-import de.htwg.se.arimaa.model.Character.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.Pitch;
 import de.htwg.se.arimaa.util.character.Position;
 
