@@ -1,7 +1,5 @@
 package de.htwg.se.arimaa.util.character;
 
-import java.util.Objects;
-
 public class Position {
 	private int x;
 	private int y;

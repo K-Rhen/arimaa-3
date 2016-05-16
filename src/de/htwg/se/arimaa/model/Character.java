@@ -20,8 +20,9 @@ public class Character {
 	public void setPosition(int x, int y) {
 		position = new Position(x, y);
 	}
+
 	public void setPosition(Position newpos) {
-		position = new Position(newpos.getX(),newpos.getY());
+		position = new Position(newpos.getX(), newpos.getY());
 	}
 
 	public Position getPosition() {

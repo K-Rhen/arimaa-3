@@ -72,7 +72,7 @@ public class Pitch {
 				break;
 			}
 		}
-		
+
 		if (occupied)
 			sb.append(" ");
 		else

@@ -1,6 +1,5 @@
 package de.htwg.se.arimaa.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.htwg.se.arimaa.model.Character.CHARAKTER_NAME;

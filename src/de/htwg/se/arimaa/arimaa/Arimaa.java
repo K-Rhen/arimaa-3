@@ -7,8 +7,6 @@ public class Arimaa {
 	}
 
 	public static void main(final String[] args) {
-
-		// TODO implements
 		ArimaaController controller = new ArimaaController();
 		controller.ShowPitch();
 
