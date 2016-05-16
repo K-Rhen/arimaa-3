@@ -1,5 +1,7 @@
 package de.htwg.se.arimaa.util.observer;
 
+import java.awt.Event;
+
 public interface IObserver {
-	public void update();
+    void update(Event e);
 }

@@ -3,17 +3,19 @@ package de.htwg.se.arimaa.util.observer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Event;
+
 import org.junit.Before;
 import org.junit.Test;
 
-public class OberservableTest {
+public class ObserveTest {
 	private boolean ping=false;
-	private TestObserver testObserver;
+	private ObserverTest testObserver;
 	private Observable testObservable;
 	
-	class TestObserver implements IObserver {
-		@Override
-		public void update() {
+	class ObserverTest implements IObserver {
+		//@Override
+		public void update(Event e) {
 			ping=true;
 		}
 		
@@ -21,7 +23,7 @@ public class OberservableTest {
 
 	@Before
 	public void setUp() throws Exception {
-		testObserver = new TestObserver();
+		testObserver = new ObserverTest();
 		testObservable = new Observable();
 		testObservable.addObserver(testObserver);
 	}

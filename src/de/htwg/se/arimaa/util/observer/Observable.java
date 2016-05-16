@@ -1,28 +1,41 @@
 package de.htwg.se.arimaa.util.observer;
 
+import java.awt.Event;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
-public class Observable {
 
-	protected Vector<IObserver> subscribers = new Vector<IObserver>(2);
+public class Observable implements IObservable {
+/* Fields */
+    private List<IObserver> subscribers = new ArrayList<IObserver>(2);
 
-	public void addObserver(IObserver s) {
-		subscribers.addElement(s);
-	}
+/* Methods */
+    @Override
+    public void addObserver(IObserver s) {
+        subscribers.add(s);
+    }
 
-	public void removeObserver(IObserver s) {
-		subscribers.removeElement(s);
-	}
+    @Override
+    public void removeObserver(IObserver s) {
+        subscribers.remove(s);
+    }
 
-	public void removeAllObservers() {
-		subscribers.removeAllElements();
-	}
+    @Override
+    public void removeAllObservers() {
+        subscribers.clear();
+    }
 
-	public void notifyObservers() {
-		for (Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();) {
-			IObserver observer = iter.next();
-			observer.update();
-		}
-	}
+    @Override
+    public void notifyObservers() {
+        notifyObservers(null);
+    }
+
+    @Override
+    public void notifyObservers(Event e) {
+        for (IObserver observer: subscribers) {
+            observer.update(e);
+        }
+    }
 }
