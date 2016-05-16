@@ -54,8 +54,7 @@ public class Position {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.getX());
 		sb.append(this.getY());
-		int hash = sb.toString().hashCode();
-		return hash;
+		return sb.toString().hashCode();
 	}
 
 }
