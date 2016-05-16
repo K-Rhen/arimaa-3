@@ -32,7 +32,7 @@ public class PositionTest {
 		assertTrue(Position.positionOnPitch(end));
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testIlligalArgumentConstrukor() {
 		testIlligalArgumentConstrukorhelper(-1,2);
 		testIlligalArgumentConstrukorhelper(1,8);

@@ -43,12 +43,13 @@ public class PitchTest {
 	@Test
 	public void testToString() {
 		StringBuilder sb = new StringBuilder();
-
+		
+		int PITCHSIZE = 8;
 		sb.append("+-------------------------------+\n");
-		for (int y = 0; y < 8; y++) {
+		for (int y = 0; y < PITCHSIZE; y++) {
 			if (y > 0)
 				sb.append("+---+---+---+---+---+---+---+---+\n");
-			for (int x = 0; x < 8; x++) {
+			for (int x = 0; x < PITCHSIZE; x++) {
 				if ((x == 2 || x == 5) && (y == 2 || y == 5))
 					sb.append("| # ");
 				else {
@@ -69,7 +70,8 @@ public class PitchTest {
 						sb.append("  ");
 				}
 			}
-			sb.append(8 - y);
+			sb.append("| ");
+			sb.append(PITCHSIZE - y);
 			sb.append("\n");
 		}
 		sb.append("+-------------------------------+\n");
