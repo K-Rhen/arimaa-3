@@ -1,6 +1,7 @@
 package de.htwg.se.arimaa.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.htwg.se.arimaa.model.Character;
 import de.htwg.se.arimaa.model.Pitch;
@@ -9,16 +10,15 @@ import de.htwg.se.arimaa.util.character.Position;
 
 public class ArimaaController {
 	private Pitch pitch;
-	private Rules rules ;
-	
-	
-	public ArimaaController(){
+	private Rules rules;
+
+	public ArimaaController() {
 		initPitchPlayer();
 		rules = new Rules(pitch);
 	}
-	
-	private void initPitchPlayer(){
-		ArrayList<Character> figures1 = new ArrayList<>();
+
+	private void initPitchPlayer() {
+		List<Character> figures1 = new ArrayList<>();
 		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
 		figures1.add(new Character(new Position(1, 0), CHARAKTER_NAME.R));
 		figures1.add(new Character(new Position(2, 0), CHARAKTER_NAME.R));
@@ -36,7 +36,7 @@ public class ArimaaController {
 		figures1.add(new Character(new Position(6, 1), CHARAKTER_NAME.H));
 		figures1.add(new Character(new Position(7, 1), CHARAKTER_NAME.R));
 
-		ArrayList<Character> figures2 = new ArrayList<>();
+		List<Character> figures2 = new ArrayList<>();
 		figures2.add(new Character(new Position(0, 7), CHARAKTER_NAME.r));
 		figures2.add(new Character(new Position(1, 7), CHARAKTER_NAME.r));
 		figures2.add(new Character(new Position(2, 7), CHARAKTER_NAME.r));
@@ -54,10 +54,10 @@ public class ArimaaController {
 		figures2.add(new Character(new Position(6, 6), CHARAKTER_NAME.h));
 		figures2.add(new Character(new Position(7, 6), CHARAKTER_NAME.r));
 
-	    pitch = new Pitch("Player1", "Player2", figures1, figures2);
+		pitch = new Pitch("Player1", "Player2", figures1, figures2);
 	}
-	
-	public void ShowPitch(){
+
+	public void ShowPitch() {
 		System.out.println(pitch.toString());
 	}
 }

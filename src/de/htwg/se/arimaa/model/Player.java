@@ -1,15 +1,16 @@
 package de.htwg.se.arimaa.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.htwg.se.arimaa.model.Character.CHARAKTER_NAME;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class Player {
-	private ArrayList<Character> figures;
+	private List<Character> figures;
 	private String playerName;
 
-	public Player(String playerName, ArrayList<Character> figures) {
+	public Player(String playerName, List<Character> figures) {
 		this.playerName = playerName;
 		this.figures = figures;
 	}

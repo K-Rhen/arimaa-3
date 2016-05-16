@@ -1,16 +1,17 @@
 package de.htwg.se.arimaa.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.htwg.se.arimaa.model.Character.CHARAKTER_NAME;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class Pitch {
 
-	ArrayList<Player> pl = new ArrayList<>();
+	List<Player> pl = new ArrayList<>();
 	private static final int PITCHSIZE = 8;
 
-	public Pitch(String player1Name, String player2Name, ArrayList<Character> figures1, ArrayList<Character> figures2) {
+	public Pitch(String player1Name, String player2Name, List<Character> figures1, List<Character> figures2) {
 		pl.add(new Player(player1Name, figures1));
 		pl.add(new Player(player2Name, figures2));
 	}

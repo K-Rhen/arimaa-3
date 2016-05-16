@@ -8,9 +8,7 @@ import de.htwg.se.arimaa.view.TextUI;
 
 public class Arimaa {
 
-	private  Scanner scanner;
-	private  TextUI tui;
-	private  ArimaaController controller;
+
 
 	public static void main(final String[] args) {
 
@@ -18,10 +16,6 @@ public class Arimaa {
 		ArimaaController controller = new ArimaaController();
 		controller.ShowPitch();
 
-		// TODO TEST
-		// pitch.getP1().setFigureChangePositon(new Position(0,1), new
-		// Position(0,2));
-		// System.out.println(pitch.toString());
 	}
 
 }
