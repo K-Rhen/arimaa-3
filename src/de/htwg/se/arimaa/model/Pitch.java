@@ -32,9 +32,9 @@ public class Pitch {
 		for (int y = 0; y < PITCHSIZE; y++) {
 			if (y > 0)
 				sb.append("+---+---+---+---+---+---+---+---+\n");
-			
+
 			sb.append(getPitchRow(y));
-			
+
 			sb.append("| ");
 			sb.append(PITCHSIZE - y);
 			sb.append("\n");
@@ -53,22 +53,31 @@ public class Pitch {
 			else {
 				sb.append("| ");
 
-				boolean occupied = false;
 				Position pos = new Position(x, y);
-				for (Player p : pl) {
-					CHARAKTER_NAME c = p.getFigur(pos);
-					if (c != null) {
-						sb.append(c);
-						occupied = true;
-					}
-				}
-				if (occupied)
-					sb.append(" ");
-				else
-					sb.append("  ");
+				sb.append(getCellFigure(pos));
 			}
 		}
 		return sb.toString();
 	}
 
+	private String getCellFigure(Position pos) {
+		StringBuilder sb = new StringBuilder();
+
+		boolean occupied = false;
+		for (Player p : pl) {
+			CHARAKTER_NAME c = p.getFigur(pos);
+			if (c != null) {
+				sb.append(c);
+				occupied = true;
+				break;
+			}
+		}
+		
+		if (occupied)
+			sb.append(" ");
+		else
+			sb.append("  ");
+
+		return sb.toString();
+	}
 }
