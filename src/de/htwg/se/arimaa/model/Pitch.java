@@ -32,33 +32,42 @@ public class Pitch {
 		for (int y = 0; y < PITCHSIZE; y++) {
 			if (y > 0)
 				sb.append("+---+---+---+---+---+---+---+---+\n");
-			for (int x = 0; x < PITCHSIZE; x++) {
-				if ((x == 2 || x == 5) && (y == 2 || y == 5))
-					sb.append("| # ");
-				else {
-					sb.append("| ");
-
-					boolean occupied = false;
-					Position pos = new Position(x, y);
-					for (Player p : pl) {
-						CHARAKTER_NAME c = p.getFigur(pos);
-						if (c != null) {
-							sb.append(c);
-							occupied = true;
-						}
-					}
-					if (occupied == true)
-						sb.append(" ");
-					else
-						sb.append("  ");
-				}
-			}
+			
+			sb.append(getPitchRow(y));
+			
 			sb.append("| ");
 			sb.append(PITCHSIZE - y);
 			sb.append("\n");
 		}
 		sb.append("+-------------------------------+\n");
 		sb.append("  a   b   c   d   e   f   g   h\n");
+		return sb.toString();
+	}
+
+	private String getPitchRow(int y) {
+		StringBuilder sb = new StringBuilder();
+
+		for (int x = 0; x < PITCHSIZE; x++) {
+			if ((x == 2 || x == 5) && (y == 2 || y == 5))
+				sb.append("| # ");
+			else {
+				sb.append("| ");
+
+				boolean occupied = false;
+				Position pos = new Position(x, y);
+				for (Player p : pl) {
+					CHARAKTER_NAME c = p.getFigur(pos);
+					if (c != null) {
+						sb.append(c);
+						occupied = true;
+					}
+				}
+				if (occupied)
+					sb.append(" ");
+				else
+					sb.append("  ");
+			}
+		}
 		return sb.toString();
 	}
 
