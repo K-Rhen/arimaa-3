@@ -1,5 +1,7 @@
 package de.htwg.se.arimaa.util.character;
 
+import java.util.Objects;
+
 public class Position {
 	private int x;
 	private int y;
@@ -26,9 +28,9 @@ public class Position {
 
 	private static boolean positionOnPitchXY(int x, int y) {
 		if (x < 8 && y < 8 && x >= 0 && y >= 0)
-		
+
 			return true;
-		
+
 		return false;
 	}
 
@@ -47,6 +49,15 @@ public class Position {
 		} else {
 			return po.x == x && po.y == y;
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getX());
+		sb.append(this.getY());
+		int hash = sb.toString().hashCode();
+		return hash;
 	}
 
 }
