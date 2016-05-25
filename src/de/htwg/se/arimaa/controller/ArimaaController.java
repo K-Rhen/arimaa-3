@@ -6,6 +6,7 @@ import java.util.List;
 import de.htwg.se.arimaa.model.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.Character;
 import de.htwg.se.arimaa.model.Pitch;
+import de.htwg.se.arimaa.model.Player;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class ArimaaController {
@@ -59,5 +60,9 @@ public class ArimaaController {
 
 	public void ShowPitch() {
 		System.out.println(pitch.toString());
+	}
+
+	public boolean setFigur(int player, Position from, Position to){
+		return false;
 	}
 }

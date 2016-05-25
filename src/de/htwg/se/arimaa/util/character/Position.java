@@ -35,7 +35,7 @@ public class Position {
 	public static boolean positionOnPitch(Position pos) {
 		return positionOnPitchXY(pos.x, pos.y);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		Position po = null;

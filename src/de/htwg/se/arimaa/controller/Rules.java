@@ -20,4 +20,7 @@ public class Rules {
 
 		return false;
 	}
+	public boolean posDistance(Position p1, Position p2){
+		return false;
+	}
 }

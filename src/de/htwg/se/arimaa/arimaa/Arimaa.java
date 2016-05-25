@@ -10,6 +10,8 @@ public class Arimaa {
 		ArimaaController controller = new ArimaaController();
 		controller.ShowPitch();
 
+		
+		
 	}
 
 }

@@ -34,5 +34,17 @@ public class TestRules {
 		assertFalse(rules.occupiedCell(new Position(1,1)));
 		assertFalse(rules.occupiedCell(new Position(0,1)));
 	}
+	
+	@Test
+	public void testposDistance(){
+		Position p1 = new Position(0, 0);
+		Position p2 = new Position(0, 0);
+		
+		assertTrue(rules.posDistance(p1, p2));
+		p2 = new Position(0, 2);
+		assertFalse(rules.posDistance(p1, p2));
+		p1 = new Position(2, 2);
+		assertFalse(rules.posDistance(p1, p2));
+	}
 
 }
