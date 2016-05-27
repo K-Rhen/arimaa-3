@@ -32,7 +32,7 @@ public class TestRules {
 	public void testoccupiedCell() {
 		assertTrue(rules.occupiedCell(new Position(0,0)));
 		assertFalse(rules.occupiedCell(new Position(1,1)));
-		assertFalse(rules.occupiedCell(new Position(0,1)));
+		assertTrue(rules.occupiedCell(new Position(0,7)));
 	}
 	
 	@Test
@@ -45,6 +45,11 @@ public class TestRules {
 		assertFalse(rules.posDistance(p1, p2));
 		p1 = new Position(2, 2);
 		assertFalse(rules.posDistance(p1, p2));
+		p1 = new Position(0, 0);
+		p2 = new Position(2, 0);
+		assertFalse(rules.posDistance(p1, p2));
+		p1 = new Position(0, 2);
+		p2 = new Position(0, 0);
+		assertFalse(rules.posDistance(p1, p2));
 	}
-
 }

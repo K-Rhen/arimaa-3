@@ -21,6 +21,10 @@ public class Rules {
 		return false;
 	}
 	public boolean posDistance(Position p1, Position p2){
-		return false;
+		if(p1.getX() - p2.getX() > 1 || p2.getX() - p1.getX() > 1)
+			return false;
+		if(p1.getY() - p2.getY() > 1 || p2.getY() - p1.getY() > 1 )
+			return false;
+		return true;
 	}
 }
