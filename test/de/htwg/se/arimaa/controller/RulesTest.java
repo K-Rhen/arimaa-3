@@ -13,7 +13,7 @@ import de.htwg.se.arimaa.model.Character;
 import de.htwg.se.arimaa.model.Pitch;
 import de.htwg.se.arimaa.util.character.Position;
 
-public class TestRules {
+public class RulesTest {
 	private Pitch pitch;
 	private Rules rules;
 

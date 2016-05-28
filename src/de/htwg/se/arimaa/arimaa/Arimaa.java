@@ -1,16 +1,17 @@
 package de.htwg.se.arimaa.arimaa;
 
-import de.htwg.se.arimaa.controller.ArimaaController;
+import de.htwg.se.arimaa.view.TextUI;
+
+
 
 public class Arimaa {
 	private Arimaa() {
 	}
 
 	public static void main(final String[] args) {
-		ArimaaController controller = new ArimaaController();
-		controller.ShowPitch();
-
-		
+		TextUI tui = new TextUI();
+		tui.start();
+		//tui.run(); 
 		
 	}
 
