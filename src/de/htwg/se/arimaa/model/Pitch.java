@@ -1,6 +1,7 @@
 package de.htwg.se.arimaa.model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import de.htwg.se.arimaa.util.character.Position;
@@ -8,10 +9,11 @@ import de.htwg.se.arimaa.util.character.Position;
 public class Pitch {
 
 	private List<Player> pl = new ArrayList<>();
-	List<Pitch> pitchList = new ArrayList<>();
+	List<String> pitchList = new LinkedList<>();
 	private static final int PITCHSIZE = 8;
-	
-	public Pitch(String player1Name, String player2Name, List<Character> figures1, List<Character> figures2) {
+
+	public Pitch(String player1Name, String player2Name,
+			List<Character> figures1, List<Character> figures2) {
 		pl.add(new Player(player1Name, figures1));
 		pl.add(new Player(player2Name, figures2));
 	}
@@ -80,24 +82,22 @@ public class Pitch {
 
 		return sb.toString();
 	}
-	public boolean equals(Pitch pitch){
-		if(pitch.toString().equals(this.toString()))
+
+	public boolean equals(Pitch pitch) {
+		if (pitch.toString().equals(this.toString()))
 			return true;
 		return false;
 	}
-	
-	public boolean pitchAlreadyExisted(){ //true if NOT already exsited
 
-		System.out.println(pitchList.toString()+ "!!!!!!!!!!!!!!!!!!!!!!!!"); //debug: delete it 
-		for(Pitch a : pitchList){
-			if(this.equals(a)){
-				pitchList.add(this);
-//				System.out.println(a.toString()); //debug: delete it 
-				return false;
-			}
+	public boolean pitchAlreadyExisted() { // true if NOT already existed
+
+		Pitch c = this;
+		if (pitchList.contains(c.toString())) {
+			return false;
+
 		}
-		pitchList.add(this);
+		pitchList.add(c.toString());
 		return true;
 	}
-	
+
 }

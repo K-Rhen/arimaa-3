@@ -108,24 +108,25 @@ public class PitchTest {
 		Pitch a = new Pitch("p1","p2",figures1,figures2);
 		figures2.add(new Character(new Position(0, 2), CHARAKTER_NAME.H));
 		Pitch b = new Pitch("p1","p2",figures1,figures2);
+		Pitch d = new Pitch("p1","p2",figures1,figures2);
 		
 		assertTrue(a.pitchAlreadyExisted());
 		assertFalse(a.pitchAlreadyExisted());
 		assertTrue(b.pitchAlreadyExisted());
-//		assertFalse(a.pitchAlreadyExisted());
-//		assertFalse(a.pitchAlreadyExisted());
-//		assertFalse(a.pitchAlreadyExisted());
-//		assertFalse(b.pitchAlreadyExisted());
-//		Pitch c = b;
-//		assertFalse(c.pitchAlreadyExisted());
-//		assertFalse(a.pitchAlreadyExisted());
-//		b = new Pitch("p1","p2",figures1,figures2);
-//		assertTrue(b.pitchAlreadyExisted()); //hier ist der Fehler.... sollte eigentlich false raus kommen da dieses Spielfeld
-//		so schon existiert hat... warum erkennt er es nicht nachdem ein neues objekt angelegt wurde O.o ????
-//		assertFalse(b.pitchAlreadyExisted());
-//		figures2.add(new Character(new Position(0, 3), CHARAKTER_NAME.r));
-//		c = new Pitch("p1","p2",figures1,figures2);
-//		assertTrue(c.pitchAlreadyExisted());
+		assertFalse(a.pitchAlreadyExisted());
+		assertFalse(a.pitchAlreadyExisted());
+		assertFalse(a.pitchAlreadyExisted());
+		assertFalse(b.pitchAlreadyExisted());
+		assertFalse(d.pitchAlreadyExisted());
+		Pitch c = b;
+		assertFalse(c.pitchAlreadyExisted());
+		assertFalse(a.pitchAlreadyExisted());
+		b = new Pitch("p1","p2",figures1,figures2);
+//		assertFalse(b.pitchAlreadyExisted()); 
+		assertFalse(a.pitchAlreadyExisted());
+		figures2.add(new Character(new Position(0, 3), CHARAKTER_NAME.r));
+		c = new Pitch("p1","p2",figures1,figures2);
+		assertTrue(c.pitchAlreadyExisted());
 		
 	}
 		
