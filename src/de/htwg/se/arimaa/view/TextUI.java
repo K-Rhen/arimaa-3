@@ -19,11 +19,11 @@ public class TextUI {
 
 	public void start() {
 
-		System.out.println("Hallo. Willkommen zu Arimaa.");
-		System.out.println("Spieler eins bitte geb deinen Namen ein.\n");
+		System.out.println("Hallo. Willkommen bei Arimaa.");
+		System.out.println("Spieler Eins bitte geb deinen Namen ein.\n");
 		player1 = EINGABE.nextLine();
 		System.out.println("\nHallo " + player1 + "\n");
-		System.out.println("Spieler zwei bitte geb deinen Namen ein.\n");
+		System.out.println("Spieler Zwei bitte geb deinen Namen ein.\n");
 		player2 = EINGABE.nextLine();
 		System.out.println("\nHallo " + player2 + "\n");
 
@@ -31,7 +31,8 @@ public class TextUI {
 		System.out.println("indem du z.B. \"R a1\" eingibst, oder \"egal\" "
 				+ " für die Standartbesetzung.");
 		if (EINGABE.nextLine().equals("egal")) {
-			System.out.println("TODO");
+			controller.initdefaultPitch(1);
+			System.out.println("Danke.");
 		} else {
 			for (int i = 0; i < 16; ++i) {
 				System.out.println("Du kannst noch " + (16 - i)
@@ -44,7 +45,8 @@ public class TextUI {
 		System.out.println("indem du z.B. \"r h1\" eingibst, oder \"egal\" "
 				+ " für die Standartbesetzung.");
 		if (EINGABE.nextLine().equals("egal")) {
-			System.out.println("TODO");
+			controller.initdefaultPitch(2);
+			System.out.println("Danke.");
 		} else {
 			for (int i = 0; i < 16; ++i) {
 				System.out.println("Du kannst noch " + (16 - i)
@@ -60,7 +62,7 @@ public class TextUI {
 		while (true) {
 
 			controller.ShowPitch();
-			System.out.printf("Mache einen Zug <z.B. mit a3-a4>\n");
+			System.out.printf("Mache einen Zug z.B. mit \"a3-a4\"\n");
 			System.out.println("help fuer Hilfe\n");
 
 			String eingabe = EINGABE.nextLine();
