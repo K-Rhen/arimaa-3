@@ -72,12 +72,16 @@ public class ArimaaController {
 	}
 
 	public void setFigure(String player, String string) {
-		String figurename = null;
-		String position = null;
-		String[] parts = string.split(" ");
-		parts[0] = figurename;
-		parts[1] = position;
-		Position pos = new Position(readposx(position), readposy(position));
+		char figurename = ' ' ;
+		char positionx = ' ';
+		char positiony = ' ';
+		if(!(string.length() == 4))
+			throw new IllegalArgumentException("Die Eingabe muss dem Format \" h b4\" entsprechen.");
+		char[] parts = string.toCharArray();
+		figurename = parts[0] ;
+		positionx = parts[2] ;
+		positiony = parts[3] ;
+		Position pos = new Position(readposx(positionx), readposy(positiony));
 		CHARAKTER_NAME figur = readname(figurename);
 		Character character = new Character(pos, figur);
 		figures1.add(character);
@@ -89,9 +93,9 @@ public class ArimaaController {
 		return false;
 	}
 
-	private int readposx(String posx) {
-		char[] c = posx.toCharArray();
-		switch (c[0]){
+	private int readposx(char c) {
+		
+		switch (c){
 		case 'a':
 			return 0;
 		case 'b':
@@ -109,13 +113,13 @@ public class ArimaaController {
 		case 'h':
 			return 7;
 		default:
-			throw new IllegalArgumentException(c[0] + " ist keine korrekte x-Koordinate. Sie muss zwischen a und h liegen");
+			throw new IllegalArgumentException(c + " ist keine korrekte x-Koordinate. Sie muss zwischen a und h liegen");
 		}
 	}
 
-	private int readposy(String posy) {
-		char[] c = posy.toCharArray();
-		switch (c[0]){
+	private int readposy(char c) {
+		
+		switch (c){
 		case '1':
 			return 0;
 		case '2':
@@ -133,35 +137,35 @@ public class ArimaaController {
 		case '8':
 			return 7;
 		default:
-			throw new IllegalArgumentException(c[0] + " ist keine korrekte y-Koordinate. Sie muss zwischen 1 und 8 liegen");
+			throw new IllegalArgumentException(c + " ist keine korrekte y-Koordinate. Sie muss zwischen 1 und 8 liegen");
 		}
 	}
 
-	private CHARAKTER_NAME readname(String name) {
+	private CHARAKTER_NAME readname(char name) {
 		switch (name){
-		case "r":
+		case 'r':
 			return CHARAKTER_NAME.r;
-		case "c":
+		case 'c':
 			return CHARAKTER_NAME.c;
-		case "d":
+		case 'd':
 			return CHARAKTER_NAME.d;
-		case "h":
+		case 'h':
 			return CHARAKTER_NAME.h;
-		case "l":
+		case 'l':
 			return CHARAKTER_NAME.l;
-		case "e":
+		case 'e':
 			return CHARAKTER_NAME.e;
-		case "R":
+		case 'R':
 			return CHARAKTER_NAME.R;
-		case "C":
+		case 'C':
 			return CHARAKTER_NAME.C;
-		case "D":
+		case 'D':
 			return CHARAKTER_NAME.D;
-		case "H":
+		case 'H':
 			return CHARAKTER_NAME.H;
-		case "L":
+		case 'L':
 			return CHARAKTER_NAME.L;
-		case "E":
+		case 'E':
 			return CHARAKTER_NAME.E;
 		default:
 			throw new IllegalArgumentException(name + " ist keine korrekter Figurenname.");

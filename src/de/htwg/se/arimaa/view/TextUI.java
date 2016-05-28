@@ -37,7 +37,13 @@ public class TextUI {
 			for (int i = 0; i < 16; ++i) {
 				System.out.println("Du kannst noch " + (16 - i)
 						+ " Figuren setzen");
-				controller.setFigure("p1", EINGABE.nextLine());
+				try{
+					controller.setFigure("p1", EINGABE.nextLine());
+					} catch (IllegalArgumentException e){
+						System.out.println("Falsche Eingabe: " + e.getMessage());
+						System.out.println("Eingabe wird nicht gewertet");
+						--i;
+					}
 			}
 		}
 		
@@ -51,10 +57,17 @@ public class TextUI {
 			for (int i = 0; i < 16; ++i) {
 				System.out.println("Du kannst noch " + (16 - i)
 						+ " Figuren setzen");
-				controller.setFigure("p1", EINGABE.nextLine());
+				try{
+				controller.setFigure("p2", EINGABE.nextLine());
+				} catch (IllegalArgumentException e){
+					System.out.println("Falsche Eingabe: " + e.getMessage());
+					System.out.println("Eingabe wird nicht gewertet");
+					--i;
+				}
 			}
 		}
 
+		controller.ShowPitch();  // zur Kontrolle. später entfernen
 	}
 
 	public void run() {
