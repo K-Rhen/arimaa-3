@@ -19,47 +19,49 @@ public class TextUI {
 
 	public void start() {
 
+		// ---------------------------Begrüßung--------------------------------
+
 		System.out.println("Hallo. Willkommen bei Arimaa.");
 		System.out.println("Spieler Eins bitte geb deinen Namen ein.\n");
 		player1 = EINGABE.nextLine();
-		System.out.println("\nHallo " + player1 + "\n");
+		System.out.println("\nHallo " + player1 + ".\n");
 		System.out.println("Spieler Zwei bitte geb deinen Namen ein.\n");
 		player2 = EINGABE.nextLine();
-		System.out.println("\nHallo " + player2 + "\n");
+		System.out.println("\nHallo " + player2 + ".\n");
 
-		System.out.println(player1 + " bitte setze deine Figuren,");
-		System.out.println("indem du z.B. \"R a1\" eingibst, oder \"egal\" "
-				+ " für die Standartbesetzung.");
-		if (EINGABE.nextLine().equals("egal")) {
-			controller.initdefaultPitch(1);
-			System.out.println("Danke.");
-		} else {
-			for (int i = 0; i < 16; ++i) {
-				System.out.println("Du kannst noch " + (16 - i)
-						+ " Figuren setzen");
-				try{
-					controller.setFigure("p1", EINGABE.nextLine());
-					} catch (IllegalArgumentException e){
-						System.out.println("Falsche Eingabe: " + e.getMessage());
-						System.out.println("Eingabe wird nicht gewertet");
-						--i;
-					}
+		// ---------------------------Spieler 1 setzt Figuren------------------
+
+		System.out.println(player1
+				+ " möchtest du deine Figuren individuell setzten?");
+		System.out.println("Tippe \"j\" für individuelles setzen der Figuren\n"
+				+ "oder \"n\" für eine Standartbesetzung.");
+
+		String a = EINGABE.nextLine();
+		boolean falscheEingabe = false;
+
+		while (!falscheEingabe) { // falsche Eingabe abfangen
+			if (a.equals("j") || a.equals("n")) {
+				falscheEingabe = true;
+
+			} else {
+				System.out
+						.println("Falsche Eingabe. Bitte wähle zwischen \"j\" und \"n\"");
+				a = EINGABE.nextLine();
 			}
 		}
-		
-		System.out.println(player2 + " bitte setze deine Figuren,");
-		System.out.println("indem du z.B. \"r h1\" eingibst, oder \"egal\" "
-				+ " für die Standartbesetzung.");
-		if (EINGABE.nextLine().equals("egal")) {
-			controller.initdefaultPitch(2);
+
+		if (a.equals("n")) {
+			controller.initdefaultPitch(1);
 			System.out.println("Danke.");
-		} else {
+		} else if (a.equals("j")) {
 			for (int i = 0; i < 16; ++i) {
 				System.out.println("Du kannst noch " + (16 - i)
 						+ " Figuren setzen");
-				try{
-				controller.setFigure("p2", EINGABE.nextLine());
-				} catch (IllegalArgumentException e){
+				try {
+					controller.setFigure("p1", EINGABE.nextLine());
+					controller.ShowPitch();
+					System.out.println("So sieht das Spielfeld bis jetzt aus");
+				} catch (IllegalArgumentException e) {
 					System.out.println("Falsche Eingabe: " + e.getMessage());
 					System.out.println("Eingabe wird nicht gewertet");
 					--i;
@@ -67,7 +69,47 @@ public class TextUI {
 			}
 		}
 
-		controller.ShowPitch();  // zur Kontrolle. später entfernen
+		// ---------------------------Spieler 2 setzt Figuren------------------
+
+		System.out.println(player2
+				+ " möchtest du deine Figuren individuell setzten?");
+		System.out.println("Tippe \"j\" für individuelles setzen der Figuren\n"
+				+ "oder \"n\" für eine Standartbesetzung.");
+		a = EINGABE.nextLine();
+		falscheEingabe = false;
+
+		while (!falscheEingabe) { // falsche Eingabe abfangen
+			if (a.equals("j") || a.equals("n")) {
+				falscheEingabe = true;
+
+			} else {
+				System.out
+						.println("Falsche Eingabe. Bitte wähle zwischen \"j\" und \"n\"");
+				a = EINGABE.nextLine();
+			}
+		}
+		if (a.equals("n")) {
+			controller.initdefaultPitch(2);
+			System.out.println("Danke.");
+		}
+		if (a.equals("j")) {
+			for (int i = 0; i < 16; ++i) {
+				System.out.println("Du kannst noch " + (16 - i)
+						+ " Figuren setzen");
+				try {
+					controller.setFigure("p2", EINGABE.nextLine());
+					controller.ShowPitch();
+					System.out.println("So sieht das Spielfeld bis jetzt aus");
+				} catch (IllegalArgumentException e) {
+					System.out.println("Falsche Eingabe: " + e.getMessage());
+					System.out.println("Eingabe wird nicht gewertet");
+					--i;
+				}
+			}
+		}
+
+		controller.ShowPitch(); 
+		System.out.println("Dies ist euer Spielfeld. Viel Spass.");
 	}
 
 	public void run() {
@@ -81,13 +123,12 @@ public class TextUI {
 			String eingabe = EINGABE.nextLine();
 
 			if (eingabe.equals("exit")) {
+				System.out.println("Auf Wiedersehen.");
 				return;
 			}
 			if (eingabe.equals("help")) {
 				System.out.println("TODO");
 			}
-
 		}
 	}
-
 }

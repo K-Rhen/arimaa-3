@@ -72,30 +72,67 @@ public class ArimaaController {
 	}
 
 	public void setFigure(String player, String string) {
-		char figurename = ' ' ;
+		char figurename = ' ';
 		char positionx = ' ';
 		char positiony = ' ';
-		if(!(string.length() == 4))
-			throw new IllegalArgumentException("Die Eingabe muss dem Format \" h b4\" entsprechen.");
+		if (!(string.length() == 4))
+			throw new IllegalArgumentException(
+					"Die Eingabe muss dem Format \"c h4\" entsprechen.");
 		char[] parts = string.toCharArray();
-		figurename = parts[0] ;
-		positionx = parts[2] ;
-		positiony = parts[3] ;
-		Position pos = new Position(readposx(positionx), readposy(positiony));
+		figurename = parts[0];
+		positionx = parts[2];
+		positiony = parts[3];
 		CHARAKTER_NAME figur = readname(figurename);
+		int x = readposx(positionx);
+		int y = readposy(positiony);
+		checkSetFigure(player, figurename);
+		checkSetPosition(player, positionx, 1);
+		checkSetPosition(player, positiony, 2);
+		Position pos = new Position(x, y);
 		Character character = new Character(pos, figur);
-		figures1.add(character);
+		if (player.equals("p1"))
+			figures1.add(character);
+		if (player.equals("p2"))
+			figures2.add(character);
 
 	}
 
-	public boolean moveFigur(int player, Position from, Position to) {
+	private void checkSetFigure(String player, char figure) {
 
-		return false;
+		throw new IllegalArgumentException("Alle Figuren des Typs " + figure
+				+ " wurden bereits gesetzt.");
 	}
+
+	private void checkSetPosition(String player, char pos, int axis) { // hier stehen geblieben
+		if (player.equals("p1") && axis == 1) {
+
+		}
+		if (player.equals("p1") && axis == 2) {
+
+		}
+		if (player.equals("p2") && axis == 1) {
+
+		}
+		if(player.equals("p2") && axis == 2){
+			
+		}
+
+		String fehler = null;
+
+		if (player.equals("p1"))
+			fehler = "Position ist auserhalb deines Bereiches.\n"
+					+ "Dein Bereich liegt zwischen a1 und b8.";
+		if (player.equals("p2"))
+			fehler = "Position ist auserhalb deines Bereiches.\n"
+					+ "Dein Bereich liegt zwischen g1 und h8.";
+		throw new IllegalArgumentException(fehler);
+	}
+
+	
 
 	private int readposx(char c) {
-		
-		switch (c){
+
+		switch (c) {
 		case 'a':
 			return 0;
 		case 'b':
@@ -113,13 +150,15 @@ public class ArimaaController {
 		case 'h':
 			return 7;
 		default:
-			throw new IllegalArgumentException(c + " ist keine korrekte x-Koordinate. Sie muss zwischen a und h liegen");
+			throw new IllegalArgumentException(
+					c
+							+ " ist keine korrekte x-Koordinate. Sie muss zwischen a und h liegen");
 		}
 	}
 
 	private int readposy(char c) {
-		
-		switch (c){
+
+		switch (c) {
 		case '1':
 			return 0;
 		case '2':
@@ -137,12 +176,14 @@ public class ArimaaController {
 		case '8':
 			return 7;
 		default:
-			throw new IllegalArgumentException(c + " ist keine korrekte y-Koordinate. Sie muss zwischen 1 und 8 liegen");
+			throw new IllegalArgumentException(
+					c
+							+ " ist keine korrekte y-Koordinate. Sie muss zwischen 1 und 8 liegen");
 		}
 	}
 
 	private CHARAKTER_NAME readname(char name) {
-		switch (name){
+		switch (name) {
 		case 'r':
 			return CHARAKTER_NAME.r;
 		case 'c':
@@ -168,9 +209,14 @@ public class ArimaaController {
 		case 'E':
 			return CHARAKTER_NAME.E;
 		default:
-			throw new IllegalArgumentException(name + " ist keine korrekter Figurenname.");
+			throw new IllegalArgumentException(name
+					+ " ist keine korrekter Figurenname.");
 		}
 
+	}
+	public boolean moveFigur(int player, Position from, Position to) {
+
+		return false;
 	}
 
 }
