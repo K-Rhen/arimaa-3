@@ -52,4 +52,40 @@ public class RulesTest {
 		p2 = new Position(0, 0);
 		assertFalse(rules.posDistance(p1, p2));
 	}
+	
+	@Test
+	public void pitchAlreadyExistedCheck(){
+		ArrayList<Character> figures1 = new ArrayList<>();
+		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
+		ArrayList<Character> figures2 = new ArrayList<>();
+		figures2.add(new Character(new Position(0, 1), CHARAKTER_NAME.r));
+		Pitch a = new Pitch("p1","p2",figures1,figures2);
+		Pitch d = new Pitch("p1","p2",figures1,figures2); 		
+		assertTrue(rules.pitchAlreadyExisted(a));
+		assertFalse(rules.pitchAlreadyExisted(a));
+		assertFalse(rules.pitchAlreadyExisted(a));
+		ArrayList<Character> figures3 = new ArrayList<>();
+		figures3.add(new Character(new Position(0, 2), CHARAKTER_NAME.H));
+		Pitch b = new Pitch("p1","p2",figures1,figures3);
+		
+		assertTrue(rules.pitchAlreadyExisted(b));
+		assertFalse(rules.pitchAlreadyExisted(b));
+
+		assertFalse(rules.pitchAlreadyExisted(a));
+		assertFalse(rules.pitchAlreadyExisted(a));
+		assertFalse(rules.pitchAlreadyExisted(b));
+		assertFalse(rules.pitchAlreadyExisted(d));   
+		Pitch c = b;
+		assertFalse(rules.pitchAlreadyExisted(c));
+		assertFalse(rules.pitchAlreadyExisted(a));
+		b = new Pitch("p1","p2",figures1,figures2);
+		assertFalse(rules.pitchAlreadyExisted(b)); 		
+		assertFalse(rules.pitchAlreadyExisted(a));
+		
+		ArrayList<Character> figures4 = new ArrayList<>();
+		figures4.add(new Character(new Position(0, 2), CHARAKTER_NAME.H));
+		c = new Pitch("p1","p2",figures1,figures4);
+		assertFalse(rules.pitchAlreadyExisted(c));
+		
+	}
 }

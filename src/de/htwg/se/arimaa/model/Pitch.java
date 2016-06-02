@@ -9,7 +9,7 @@ import de.htwg.se.arimaa.util.character.Position;
 public class Pitch {
 
 	private List<Player> pl = new ArrayList<>();
-	private List<Pitch> pitchList = new ArrayList<>();
+	
 	private static final int PITCHSIZE = 8;
 
 	public Pitch(String player1Name, String player2Name,
@@ -83,20 +83,12 @@ public class Pitch {
 		return sb.toString();
 	}
 
-	public boolean equals(Pitch pitch) {
+	public boolean pitchEquals(Pitch pitch) {
 		if (pitch.toString().equals(this.toString()))
 			return true;
 		return false;
 	}
 
-	public boolean pitchAlreadyExisted() { // true if NOT already existed
-
-		Pitch c = this;
-		if(pitchList.contains(c))
-				return false;
-		
-		pitchList.add(c);
-		return true;
-	}
+	
 
 }

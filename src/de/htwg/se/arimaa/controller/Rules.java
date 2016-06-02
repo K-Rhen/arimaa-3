@@ -1,13 +1,19 @@
 package de.htwg.se.arimaa.controller;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import de.htwg.se.arimaa.model.Pitch;
 import de.htwg.se.arimaa.model.Player;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class Rules {
 
-	Player p1;
-	Player p2;
+	private Player p1;
+	private Player p2;
+	
+	private List<Pitch> pitchList = new ArrayList<>();
 
 	public Rules(Pitch pitch) {
 		this.p1 = pitch.getP1();
@@ -26,5 +32,19 @@ public class Rules {
 		if(p1.getY() - p2.getY() > 1 || p2.getY() - p1.getY() > 1 )
 			return false;
 		return true;
+	}
+	
+	public boolean pitchAlreadyExisted(Pitch a) { // true if NOT already existed
+
+		boolean found = false;
+		for(Pitch b: pitchList)
+			if(a.toString().equals(b.toString())){
+				found = true; 
+			}
+			
+		if(!found){
+			pitchList.add(a);
+		}
+		return !found;
 	}
 }
