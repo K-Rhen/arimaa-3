@@ -36,24 +36,24 @@ public class TextUI {
 		System.out.println("Tippe \"j\" für individuelles setzen der Figuren\n"
 				+ "oder \"n\" für eine Standartbesetzung.");
 
-		String a = EINGABE.nextLine();
+		String eingabe = EINGABE.nextLine();
 		boolean falscheEingabe = false;
 
 		while (!falscheEingabe) { // falsche Eingabe abfangen
-			if (a.equals("j") || a.equals("n")) {
+			if (eingabe.equals("j") || eingabe.equals("n")) {
 				falscheEingabe = true;
 
 			} else {
 				System.out
 						.println("Falsche Eingabe. Bitte wähle zwischen \"j\" und \"n\"");
-				a = EINGABE.nextLine();
+				eingabe = EINGABE.nextLine();
 			}
 		}
 
-		if (a.equals("n")) {
+		if (eingabe.equals("n")) {
 			controller.initdefaultPitch(1);
 			System.out.println("Danke.");
-		} else if (a.equals("j")) {
+		} else if (eingabe.equals("j")) {
 			for (int i = 0; i < 16; ++i) {
 				System.out.println("Du kannst noch " + (16 - i)
 						+ " Figuren setzen");
@@ -75,24 +75,24 @@ public class TextUI {
 				+ " möchtest du deine Figuren individuell setzten?");
 		System.out.println("Tippe \"j\" für individuelles setzen der Figuren\n"
 				+ "oder \"n\" für eine Standartbesetzung.");
-		a = EINGABE.nextLine();
+		eingabe = EINGABE.nextLine();
 		falscheEingabe = false;
 
 		while (!falscheEingabe) { // falsche Eingabe abfangen
-			if (a.equals("j") || a.equals("n")) {
+			if (eingabe.equals("j") || eingabe.equals("n")) {
 				falscheEingabe = true;
 
 			} else {
 				System.out
 						.println("Falsche Eingabe. Bitte wähle zwischen \"j\" und \"n\"");
-				a = EINGABE.nextLine();
+				eingabe = EINGABE.nextLine();
 			}
 		}
-		if (a.equals("n")) {
+		if (eingabe.equals("n")) {
 			controller.initdefaultPitch(2);
 			System.out.println("Danke.");
 		}
-		if (a.equals("j")) {
+		if (eingabe.equals("j")) {
 			for (int i = 0; i < 16; ++i) {
 				System.out.println("Du kannst noch " + (16 - i)
 						+ " Figuren setzen");

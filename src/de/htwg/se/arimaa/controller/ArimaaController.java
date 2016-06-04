@@ -3,6 +3,8 @@ package de.htwg.se.arimaa.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.xml.internal.txw2.IllegalAnnotationException;
+
 import de.htwg.se.arimaa.model.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.Character;
 import de.htwg.se.arimaa.model.Pitch;
@@ -15,6 +17,11 @@ public class ArimaaController {
 
 	private List<Character> figures1 = new ArrayList<>();
 	private List<Character> figures2 = new ArrayList<>();
+
+	private int[] figureSetList1 = { 8, 2, 2, 2, 1, 1 }; // 8 rabbits, 2 cats, 2
+															// dogs,2 horses, 1
+															// camel, 1elephant
+	private int[] figureSetList2 = { 8, 2, 2, 2, 1, 1 };
 
 	public ArimaaController() {
 		initPitchPlayer();
@@ -83,12 +90,13 @@ public class ArimaaController {
 		positionx = parts[2];
 		positiony = parts[3];
 		CHARAKTER_NAME figur = readname(figurename);
-		int x = readposx(positionx);
-		int y = readposy(positiony);
+		int x = readPosX(positionx);
+		int y = readPosY(positiony);
+		checkSetPosition(player, positiony);
 		checkSetFigure(player, figurename);
-		checkSetPosition(player, positionx, 1);
-		checkSetPosition(player, positiony, 2);
 		Position pos = new Position(x, y);
+		if(rules.occupiedCell(pos))
+			throw new IllegalArgumentException("Feld ist bereits belegt");
 		Character character = new Character(pos, figur);
 		if (player.equals("p1"))
 			figures1.add(character);
@@ -99,38 +107,111 @@ public class ArimaaController {
 
 	private void checkSetFigure(String player, char figure) {
 
-		throw new IllegalArgumentException("Alle Figuren des Typs " + figure
-				+ " wurden bereits gesetzt.");
+		boolean fehler = false;
+
+		if (player.equals("p1")) {
+			switch (figure) {
+			case 'r':
+				--figureSetList1[0];
+				if(figureSetList1[0] < 0)
+					fehler = true;
+				break;
+			case 'c':
+				--figureSetList1[1];
+				if(figureSetList1[1] < 0)
+					fehler = true;
+				break;
+			case 'd':
+				--figureSetList1[2];
+				if(figureSetList1[2] < 0)
+					fehler = true;
+				break;
+			case 'h':
+				--figureSetList1[3];
+				if(figureSetList1[3] < 0)
+					fehler = true;
+				break;
+			case 'l':
+				--figureSetList1[4];
+				if(figureSetList1[4] < 0)
+					fehler = true;
+				break;
+			case 'e':
+				--figureSetList1[5];
+				if(figureSetList1[5] < 0)
+					fehler = true;
+				break;
+				
+			default:
+				throw new IllegalAnnotationException("Unerwarteter Fehler");
+
+			}
+		}
+
+		if (player.equals("p2")) {
+			switch (figure) {
+			case 'r':
+				--figureSetList2[0];
+				if(figureSetList2[0] < 0)
+					fehler = true;
+				break;
+			case 'c':
+				--figureSetList2[1];
+				if(figureSetList2[1] < 0)
+					fehler = true;
+				break;
+			case 'd':
+				--figureSetList2[2];
+				if(figureSetList2[2] < 0)
+					fehler = true;
+				break;
+			case 'h':
+				--figureSetList2[3];
+				if(figureSetList2[3] < 0)
+					fehler = true;
+				break;
+			case 'l':
+				--figureSetList2[4];
+				if(figureSetList2[4] < 0)
+					fehler = true;
+				break;
+			case 'e':
+				--figureSetList2[5];
+				if(figureSetList2[5] < 0)
+					fehler = true;
+				break;
+				
+			default:
+				throw new IllegalAnnotationException("Unerwarteter Fehler");
+			}
+		}
+
+		if (fehler) {
+			throw new IllegalArgumentException("Alle Figuren des Typs "
+					+ figure + " wurden bereits gesetzt.");
+		}
 	}
 
-	private void checkSetPosition(String player, char pos, int axis) { // hier stehen geblieben
-		if (player.equals("p1") && axis == 1) {
-
+	private void checkSetPosition(String player, char yPos) { 
+		if (player.equals("p1") && (yPos == '7'  || yPos == '8')) {
+			return;
 		}
-		if (player.equals("p1") && axis == 2) {
-
-		}
-		if (player.equals("p2") && axis == 1) {
-
-		}
-		if(player.equals("p2") && axis == 2){
-			
+		if (player.equals("p2") && (yPos == '1' || yPos == '2')) {
+			return;
 		}
 
 		String fehler = null;
 
 		if (player.equals("p1"))
 			fehler = "Position ist auserhalb deines Bereiches.\n"
-					+ "Dein Bereich liegt zwischen a1 und b8.";
+					+ "Dein Bereich liegt zwischen a8 und b7.";
 		if (player.equals("p2"))
 			fehler = "Position ist auserhalb deines Bereiches.\n"
-					+ "Dein Bereich liegt zwischen g1 und h8.";
+					+ "Dein Bereich liegt zwischen a1 und h2.";
 		throw new IllegalArgumentException(fehler);
 	}
 
-	
-
-	private int readposx(char c) {
+	private int readPosX(char c) {
 
 		switch (c) {
 		case 'a':
@@ -156,25 +237,25 @@ public class ArimaaController {
 		}
 	}
 
-	private int readposy(char c) {
+	private int readPosY(char c) {
 
 		switch (c) {
 		case '1':
-			return 0;
-		case '2':
-			return 1;
-		case '3':
-			return 2;
-		case '4':
-			return 3;
-		case '5':
-			return 4;
-		case '6':
-			return 5;
-		case '7':
-			return 6;
-		case '8':
 			return 7;
+		case '2':
+			return 6;
+		case '3':
+			return 5;
+		case '4':
+			return 4;
+		case '5':
+			return 3;
+		case '6':
+			return 2;
+		case '7':
+			return 1;
+		case '8':
+			return 0;
 		default:
 			throw new IllegalArgumentException(
 					c
@@ -214,6 +295,7 @@ public class ArimaaController {
 		}
 
 	}
+
 	public boolean moveFigur(int player, Position from, Position to) {
 
 		return false;
