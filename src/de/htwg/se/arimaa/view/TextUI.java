@@ -1,11 +1,10 @@
 package de.htwg.se.arimaa.view;
 
-import java.util.List;
+
 import java.util.Scanner;
 
 import de.htwg.se.arimaa.controller.ArimaaController;
-import de.htwg.se.arimaa.model.Character;
-import de.htwg.se.arimaa.model.Player;
+
 
 import java.lang.System;
 

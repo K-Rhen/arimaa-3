@@ -1,7 +1,7 @@
 package de.htwg.se.arimaa.controller;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+
 import java.util.List;
 
 import de.htwg.se.arimaa.model.Pitch;

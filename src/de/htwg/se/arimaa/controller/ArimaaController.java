@@ -8,7 +8,7 @@ import com.sun.xml.internal.txw2.IllegalAnnotationException;
 import de.htwg.se.arimaa.model.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.Character;
 import de.htwg.se.arimaa.model.Pitch;
-import de.htwg.se.arimaa.model.Player;
+
 import de.htwg.se.arimaa.util.character.Position;
 
 public class ArimaaController {
@@ -92,11 +92,11 @@ public class ArimaaController {
 		CHARAKTER_NAME figur = readname(figurename);
 		int x = readPosX(positionx);
 		int y = readPosY(positiony);
-		checkSetPosition(player, positiony);
-		checkSetFigure(player, figurename);
 		Position pos = new Position(x, y);
 		if(rules.occupiedCell(pos))
 			throw new IllegalArgumentException("Feld ist bereits belegt");
+		checkSetPosition(player, positiony);
+		checkSetFigure(player, figurename);
 		Character character = new Character(pos, figur);
 		if (player.equals("p1"))
 			figures1.add(character);
