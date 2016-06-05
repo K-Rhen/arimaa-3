@@ -8,12 +8,14 @@ import com.sun.xml.internal.txw2.IllegalAnnotationException;
 import de.htwg.se.arimaa.model.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.Character;
 import de.htwg.se.arimaa.model.Pitch;
-
+import de.htwg.se.arimaa.model.Player;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class ArimaaController {
 	private Pitch pitch;
 	private Rules rules;
+	private Player player1;
+	private Player player2;
 
 	private List<Character> figures1 = new ArrayList<>();
 	private List<Character> figures2 = new ArrayList<>();
@@ -28,6 +30,8 @@ public class ArimaaController {
 		rules = new Rules(pitch);
 	}
 
+	//---------------------Methods to set figures on Pitch-------------
+	
 	private void initPitchPlayer() {
 		pitch = new Pitch("Player1", "Player2", figures1, figures2);
 	}
@@ -296,9 +300,62 @@ public class ArimaaController {
 
 	}
 
+	//---------------------Methods to play -------------------------
+	
+	public void checkEingabe(int player, String eingabe){
+		if(eingabe.length() != 5){
+			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
+		}
+		char[] parts = eingabe.toCharArray();
+		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
+		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
+		
+		if(!moveFigur(player, from, to))
+			throw new IllegalArgumentException("Ungueltiger Zug");
+	}
+	
 	public boolean moveFigur(int player, Position from, Position to) {
+		if(!rules.posDistance(from, to))
+			throw new IllegalArgumentException("Du kannst hoechstens 1 Feld weiter ziehen.");
+		if(rules.occupiedCell(to))
+			throw new IllegalArgumentException("Die Position auf welche du ziehen willst ist bereits belegt");
+		
+		
+		
+		if(player == 1){
+			Character characterStart = new Character(from, player1.getFigur(from));
+			Character characterEnd = new Character(to, player1.getFigur(from));
+			
+			for(Character deletechar: figures1){
+				if(deletechar.getPosition().equals(characterStart.getPosition()))
+					characterStart = deletechar;
+			}
+			figures1.remove(characterStart);
+			
+			figures1.add(characterEnd);
+			return true;
+		}
+		if(player == 2){
+			Character characterStart = new Character(from, player2.getFigur(from));
+			Character characterEnd = new Character(to, player2.getFigur(from));
+			
+			for(Character deletechar: figures2){
+				if(deletechar.getPosition().equals(characterStart.getPosition()))
+					characterStart = deletechar;
+			}
+			figures2.remove(characterStart);
+			figures2.add(characterEnd);
+			return true;
+		}
 
 		return false;
+	}
+
+	public void initializePitch(String playername1, String playername2) {
+		player1 = new Player(playername1, figures1);
+		player2 = new Player(playername2, figures2);
+		pitch = new Pitch(player1.getPlayerName(), player2.getPlayerName(), figures1, figures2);
+		
 	}
 
 }

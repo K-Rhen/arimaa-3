@@ -13,8 +13,8 @@ public class TextUI {
 	Scanner EINGABE = new Scanner(System.in);
 	ArimaaController controller = new ArimaaController();
 
-	String player1;
-	String player2;
+	private String player1;
+	private String player2;
 
 	public void start() {
 
@@ -111,13 +111,26 @@ public class TextUI {
 		System.out.println("Dies ist euer Spielfeld. Viel Spass.");
 	}
 
+	public void fastStart(){  // loeschen sobald tui laeuft
+		player1 = "Spieler1";
+		player2 = "Spieler2";
+		controller.initdefaultPitch(1);
+		controller.initdefaultPitch(2);
+	}
+	
 	public void run() {
-
+		boolean firstPlayer = true;
+		controller.initializePitch(player1, player2);
+		
 		while (true) {
 
 			controller.ShowPitch();
-			System.out.printf("Mache einen Zug z.B. mit \"a3-a4\"\n");
-			System.out.println("help fuer Hilfe\n");
+			if(firstPlayer){
+				System.out.printf(player1 + " du bist an der Reihe. Mache einen Zug z.B. mit \"a7-a6\"\n");
+			}else{
+				System.out.println(player2 + " du bist an der Reihe. Mache einen Zug z.B. mit \"b2-b3\"\n");
+			}
+			System.out.println("Schreib \"help\" fuer Hilfe\n");
 
 			String eingabe = EINGABE.nextLine();
 
@@ -127,7 +140,19 @@ public class TextUI {
 			}
 			if (eingabe.equals("help")) {
 				System.out.println("TODO");
+			}else{
+				try{
+					if(firstPlayer)
+						controller.checkEingabe(1 ,eingabe);
+					else
+						controller.checkEingabe(2 ,eingabe);
+				} catch(IllegalArgumentException e){
+					System.out.println("Falsche Eingabe: " +e.getMessage());
+				}
+							
 			}
+			
+			firstPlayer = !firstPlayer;
 		}
 	}
 }
