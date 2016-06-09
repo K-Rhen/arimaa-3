@@ -12,6 +12,7 @@ import de.htwg.se.arimaa.model.Player;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class ArimaaController {
+	private Position position;
 	private Pitch pitch;
 	private Rules rules;
 	private Player player1;
@@ -19,6 +20,8 @@ public class ArimaaController {
 
 	private List<Character> figures1 = new ArrayList<>();
 	private List<Character> figures2 = new ArrayList<>();
+	
+	private Position toPull; // benoetigt in pullFigureEnemy
 
 	private int[] figureSetList1 = { 8, 2, 2, 2, 1, 1 }; // 8 rabbits, 2 cats, 2
 															// dogs,2 horses, 1
@@ -302,19 +305,22 @@ public class ArimaaController {
 
 	//---------------------Methods to play -------------------------
 	
-	public void checkEingabe(int player, String eingabe){
+	public void checkEingabe(int player, String eingabe, boolean pull){
 		if(eingabe.length() != 5){
 			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
 		}
 		char[] parts = eingabe.toCharArray();
 		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
 		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
+		if(pull){
+			checkAblePull(from, toPull, player); //bevor figur gezogen -> erst pruefen ob es moeglich ist
+		}
 		
 		if(!moveFigur(player, from, to))
 			throw new IllegalArgumentException("Ungueltiger Zug");
 	}
 	
-	public boolean moveFigur(int player, Position from, Position to) {
+	public boolean moveFigur(int player, Position from, Position to) { // noch prüfen ob auch eigene Figur gezogen wird.
 		if(!rules.posDistance(from, to))
 			throw new IllegalArgumentException("Du kannst hoechstens 1 Feld weiter ziehen.");
 		if(rules.occupiedCell(to))
@@ -324,27 +330,24 @@ public class ArimaaController {
 		
 		if(player == 1){
 			Character characterStart = new Character(from, player1.getFigur(from));
-			Character characterEnd = new Character(to, player1.getFigur(from));
+
 			
-			for(Character deletechar: figures1){
-				if(deletechar.getPosition().equals(characterStart.getPosition()))
-					characterStart = deletechar;
+			for(Character usedchar: figures1){
+				if(usedchar.getPosition().equals(characterStart.getPosition()))
+					usedchar.setPosition(to);
 			}
-			figures1.remove(characterStart);
-			
-			figures1.add(characterEnd);
+
 			return true;
 		}
 		if(player == 2){
 			Character characterStart = new Character(from, player2.getFigur(from));
-			Character characterEnd = new Character(to, player2.getFigur(from));
 			
-			for(Character deletechar: figures2){
-				if(deletechar.getPosition().equals(characterStart.getPosition()))
-					characterStart = deletechar;
+			
+			for(Character usedchar: figures2){
+				if(usedchar.getPosition().equals(characterStart.getPosition()))
+					usedchar.setPosition(to);;
 			}
-			figures2.remove(characterStart);
-			figures2.add(characterEnd);
+			
 			return true;
 		}
 
@@ -357,5 +360,41 @@ public class ArimaaController {
 		pitch = new Pitch(player1.getPlayerName(), player2.getPlayerName(), figures1, figures2);
 		
 	}
+
+	public void pullFigureEnemy(boolean firstPlayer, String pull) { // markiert die gegnerische Figur die gezogen werden soll
+		if(pull.length() != 2){
+			throw new IllegalArgumentException("Falschen Format. Die Eingabe muss z.b. \"d4\" sein");
+		}
+		char[] pullPosition = pull.toCharArray();
+		toPull = new Position(readPosX(pullPosition[0]), readPosY(pullPosition[1]));
+		
+	
+	}
+	
+	public void pullFigureOwn(boolean firstPlayer, String ziehen){
+		if(firstPlayer){
+			checkEingabe(1, ziehen, true);
+			char[] tmp = ziehen.toCharArray();
+			Position to = new Position(readPosX(tmp[0]), readPosY(tmp[1]));
+			moveFigur(2, toPull, to);
+		}else{
+			checkEingabe(2, ziehen, true);
+			char[] tmp = ziehen.toCharArray();
+			Position to = new Position(readPosX(tmp[0]), readPosY(tmp[1]));
+			moveFigur(1, toPull, to);
+		}
+		
+		
+		
+	}
+	private void checkAblePull(Position from, Position to, int player ){
+		//noch prüfen ob figuren jeweils dem anderen gehören
+		//noch prüfen ob die figuren nebeneinander stehen
+		if(position.nextTo(from, to)){
+			
+		}
+		
+	}
+	
 
 }
