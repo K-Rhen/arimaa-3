@@ -3,8 +3,6 @@ package de.htwg.se.arimaa.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.xml.internal.txw2.IllegalAnnotationException;
-
 import de.htwg.se.arimaa.model.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.Character;
 import de.htwg.se.arimaa.model.Pitch;
@@ -150,7 +148,7 @@ public class ArimaaController {
 				break;
 				
 			default:
-				throw new IllegalAnnotationException("Unerwarteter Fehler");
+				throw new IllegalArgumentException("Unerwarteter Fehler");
 
 			}
 		}
@@ -189,7 +187,7 @@ public class ArimaaController {
 				break;
 				
 			default:
-				throw new IllegalAnnotationException("Unerwarteter Fehler");
+				throw new IllegalArgumentException("Unerwarteter Fehler");
 			}
 		}
 
