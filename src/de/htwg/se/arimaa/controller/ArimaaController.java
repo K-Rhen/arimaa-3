@@ -3,20 +3,20 @@ package de.htwg.se.arimaa.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.impl.Character;
 import de.htwg.se.arimaa.model.impl.PitchFactory;
-import de.htwg.se.arimaa.model.IPitch;
-import de.htwg.se.arimaa.model.IPitchFactory;
-import de.htwg.se.arimaa.model.impl.Player;
+import de.htwg.se.arimaa.model.impl.PlayerFactory;
+import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class ArimaaController {
 	private Position position;
 	private IPitch pitch;
 	private Rules rules;
-	private Player player1;
-	private Player player2;
+	private IPlayer player1;
+	private IPlayer player2;
 
 	private List<Character> figures1 = new ArrayList<>();
 	private List<Character> figures2 = new ArrayList<>();
@@ -372,9 +372,10 @@ public class ArimaaController {
 	}
 
 	public void initializePitch(String playername1, String playername2) {
-		player1 = new Player(playername1, figures1);
-		player2 = new Player(playername2, figures2);
-		//pitch = new IPitch(player1.getPlayerName(), player2.getPlayerName(), figures1, figures2);
+		
+		player1 = PlayerFactory.getInstance(playername1, figures1);
+		player2 = PlayerFactory.getInstance(playername2, figures2);
+
 		pitch = PitchFactory.getInstance(player1.getPlayerName(), player2.getPlayerName(), figures1, figures2);
 		
 	}

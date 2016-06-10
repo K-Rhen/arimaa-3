@@ -2,9 +2,10 @@ package de.htwg.se.arimaa.model.impl;
 
 import java.util.List;
 
+import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.character.Position;
 
-public class Player {
+public class Player implements IPlayer {
 	private List<Character> figures;
 	private String playerName;
 

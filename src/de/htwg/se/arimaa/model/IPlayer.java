@@ -1,0 +1,12 @@
+package de.htwg.se.arimaa.model;
+
+import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
+import de.htwg.se.arimaa.util.character.Position;
+
+public interface IPlayer {
+
+	CHARAKTER_NAME getFigur(Position from);
+
+	String getPlayerName();
+
+}
