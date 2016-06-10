@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.util.character.Position;
 
@@ -14,7 +15,7 @@ public class Pitch implements IPitch {
 	private static final int PITCHSIZE = 8;
 
 	public Pitch(String player1Name, String player2Name,
-			List<Character> figures1, List<Character> figures2) {
+			List<ICharacter> figures1, List<ICharacter> figures2) {
 		pl.add(new Player(player1Name, figures1));
 		pl.add(new Player(player2Name, figures2));
 	}

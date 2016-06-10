@@ -1,8 +1,9 @@
 package de.htwg.se.arimaa.model.impl;
 
+import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.util.character.Position;
 
-public class Character {
+public class Character implements ICharacter{
 
 	private Position position;
 	private CHARAKTER_NAME name;

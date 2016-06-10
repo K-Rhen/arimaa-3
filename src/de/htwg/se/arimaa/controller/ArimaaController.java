@@ -5,7 +5,8 @@ import java.util.List;
 
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.Character;
+import de.htwg.se.arimaa.model.impl.CharacterFactory;
+import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.impl.PitchFactory;
 import de.htwg.se.arimaa.model.impl.PlayerFactory;
 import de.htwg.se.arimaa.model.IPlayer;
@@ -18,8 +19,8 @@ public class ArimaaController {
 	private IPlayer player1;
 	private IPlayer player2;
 
-	private List<Character> figures1 = new ArrayList<>();
-	private List<Character> figures2 = new ArrayList<>();
+	private List<ICharacter> figures1 = new ArrayList<>();
+	private List<ICharacter> figures2 = new ArrayList<>();
 	
 	private Position toPull; // benoetigt in pullFigureEnemy
 
@@ -43,40 +44,40 @@ public class ArimaaController {
 	public void initdefaultPitch(int a) {
 
 		if (a == 1) {
-			figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
-			figures1.add(new Character(new Position(1, 0), CHARAKTER_NAME.R));
-			figures1.add(new Character(new Position(2, 0), CHARAKTER_NAME.R));
-			figures1.add(new Character(new Position(3, 0), CHARAKTER_NAME.D));
-			figures1.add(new Character(new Position(4, 0), CHARAKTER_NAME.D));
-			figures1.add(new Character(new Position(5, 0), CHARAKTER_NAME.R));
-			figures1.add(new Character(new Position(6, 0), CHARAKTER_NAME.R));
-			figures1.add(new Character(new Position(7, 0), CHARAKTER_NAME.R));
-			figures1.add(new Character(new Position(0, 1), CHARAKTER_NAME.R));
-			figures1.add(new Character(new Position(1, 1), CHARAKTER_NAME.H));
-			figures1.add(new Character(new Position(2, 1), CHARAKTER_NAME.C));
-			figures1.add(new Character(new Position(3, 1), CHARAKTER_NAME.L));
-			figures1.add(new Character(new Position(4, 1), CHARAKTER_NAME.E));
-			figures1.add(new Character(new Position(5, 1), CHARAKTER_NAME.C));
-			figures1.add(new Character(new Position(6, 1), CHARAKTER_NAME.H));
-			figures1.add(new Character(new Position(7, 1), CHARAKTER_NAME.R));
+			figures1.add(CharacterFactory.getInstance(new Position(0, 0), CHARAKTER_NAME.R));
+			figures1.add(CharacterFactory.getInstance(new Position(1, 0), CHARAKTER_NAME.R));
+			figures1.add(CharacterFactory.getInstance(new Position(2, 0), CHARAKTER_NAME.R));
+			figures1.add(CharacterFactory.getInstance(new Position(3, 0), CHARAKTER_NAME.D));
+			figures1.add(CharacterFactory.getInstance(new Position(4, 0), CHARAKTER_NAME.D));
+			figures1.add(CharacterFactory.getInstance(new Position(5, 0), CHARAKTER_NAME.R));
+			figures1.add(CharacterFactory.getInstance(new Position(6, 0), CHARAKTER_NAME.R));
+			figures1.add(CharacterFactory.getInstance(new Position(7, 0), CHARAKTER_NAME.R));
+			figures1.add(CharacterFactory.getInstance(new Position(0, 1), CHARAKTER_NAME.R));
+			figures1.add(CharacterFactory.getInstance(new Position(1, 1), CHARAKTER_NAME.H));
+			figures1.add(CharacterFactory.getInstance(new Position(2, 1), CHARAKTER_NAME.C));
+			figures1.add(CharacterFactory.getInstance(new Position(3, 1), CHARAKTER_NAME.L));
+			figures1.add(CharacterFactory.getInstance(new Position(4, 1), CHARAKTER_NAME.E));
+			figures1.add(CharacterFactory.getInstance(new Position(5, 1), CHARAKTER_NAME.C));
+			figures1.add(CharacterFactory.getInstance(new Position(6, 1), CHARAKTER_NAME.H));
+			figures1.add(CharacterFactory.getInstance(new Position(7, 1), CHARAKTER_NAME.R));
 		}
 		if (a == 2) {
-			figures2.add(new Character(new Position(0, 7), CHARAKTER_NAME.r));
-			figures2.add(new Character(new Position(1, 7), CHARAKTER_NAME.r));
-			figures2.add(new Character(new Position(2, 7), CHARAKTER_NAME.r));
-			figures2.add(new Character(new Position(3, 7), CHARAKTER_NAME.d));
-			figures2.add(new Character(new Position(4, 7), CHARAKTER_NAME.d));
-			figures2.add(new Character(new Position(5, 7), CHARAKTER_NAME.r));
-			figures2.add(new Character(new Position(6, 7), CHARAKTER_NAME.r));
-			figures2.add(new Character(new Position(7, 7), CHARAKTER_NAME.r));
-			figures2.add(new Character(new Position(0, 6), CHARAKTER_NAME.r));
-			figures2.add(new Character(new Position(1, 6), CHARAKTER_NAME.h));
-			figures2.add(new Character(new Position(2, 6), CHARAKTER_NAME.c));
-			figures2.add(new Character(new Position(3, 6), CHARAKTER_NAME.l));
-			figures2.add(new Character(new Position(4, 6), CHARAKTER_NAME.e));
-			figures2.add(new Character(new Position(5, 6), CHARAKTER_NAME.c));
-			figures2.add(new Character(new Position(6, 6), CHARAKTER_NAME.h));
-			figures2.add(new Character(new Position(7, 6), CHARAKTER_NAME.r));
+			figures2.add(CharacterFactory.getInstance(new Position(0, 7), CHARAKTER_NAME.r));
+			figures2.add(CharacterFactory.getInstance(new Position(1, 7), CHARAKTER_NAME.r));
+			figures2.add(CharacterFactory.getInstance(new Position(2, 7), CHARAKTER_NAME.r));
+			figures2.add(CharacterFactory.getInstance(new Position(3, 7), CHARAKTER_NAME.d));
+			figures2.add(CharacterFactory.getInstance(new Position(4, 7), CHARAKTER_NAME.d));
+			figures2.add(CharacterFactory.getInstance(new Position(5, 7), CHARAKTER_NAME.r));
+			figures2.add(CharacterFactory.getInstance(new Position(6, 7), CHARAKTER_NAME.r));
+			figures2.add(CharacterFactory.getInstance(new Position(7, 7), CHARAKTER_NAME.r));
+			figures2.add(CharacterFactory.getInstance(new Position(0, 6), CHARAKTER_NAME.r));
+			figures2.add(CharacterFactory.getInstance(new Position(1, 6), CHARAKTER_NAME.h));
+			figures2.add(CharacterFactory.getInstance(new Position(2, 6), CHARAKTER_NAME.c));
+			figures2.add(CharacterFactory.getInstance(new Position(3, 6), CHARAKTER_NAME.l));
+			figures2.add(CharacterFactory.getInstance(new Position(4, 6), CHARAKTER_NAME.e));
+			figures2.add(CharacterFactory.getInstance(new Position(5, 6), CHARAKTER_NAME.c));
+			figures2.add(CharacterFactory.getInstance(new Position(6, 6), CHARAKTER_NAME.h));
+			figures2.add(CharacterFactory.getInstance(new Position(7, 6), CHARAKTER_NAME.r));
 		}
 		initPitchPlayer();
 
@@ -105,7 +106,7 @@ public class ArimaaController {
 			throw new IllegalArgumentException("Feld ist bereits belegt");
 		checkSetPosition(player, positiony);
 		checkSetFigure(player, figurename);
-		Character character = new Character(pos, figur);
+		ICharacter character = CharacterFactory.getInstance(pos, figur);
 		if (player.equals("p1"))
 			figures1.add(character);
 		if (player.equals("p2"))
@@ -328,9 +329,9 @@ public class ArimaaController {
 		if(!moveFigur(player, from, to))
 			throw new IllegalArgumentException("Ungueltiger Zug");
 	}
-	private boolean isFigurOwn(List<Character> figures, Position from){
+	private boolean isFigurOwn(List<ICharacter> figures, Position from){
 				
-		for(Character usedchar: figures){
+		for(ICharacter usedchar: figures){
 			if(usedchar.getPosition().equals(from))
 				return true;
 		}
@@ -346,10 +347,10 @@ public class ArimaaController {
 		
 		
 		if(player == 1){
-			Character characterStart = new Character(from, player1.getFigur(from));
+			ICharacter characterStart = CharacterFactory.getInstance(from, player1.getFigur(from));
 
 			
-			for(Character usedchar: figures1){
+			for(ICharacter usedchar: figures1){
 				if(usedchar.getPosition().equals(characterStart.getPosition()))
 					usedchar.setPosition(to);
 			}
@@ -357,10 +358,10 @@ public class ArimaaController {
 			return true;
 		}
 		if(player == 2){
-			Character characterStart = new Character(from, player2.getFigur(from));
+			ICharacter characterStart = CharacterFactory.getInstance(from, player2.getFigur(from));
 			
 			
-			for(Character usedchar: figures2){
+			for(ICharacter usedchar: figures2){
 				if(usedchar.getPosition().equals(characterStart.getPosition()))
 					usedchar.setPosition(to);;
 			}
