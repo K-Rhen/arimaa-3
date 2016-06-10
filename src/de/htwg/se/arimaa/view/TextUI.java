@@ -154,10 +154,10 @@ public class TextUI {
 					
 					try{
 						String ziehen = EINGABE.nextLine();
-						controller.pullFigureEnemy(firstPlayer, ziehen);
+						controller.pullFigureEnemy(firstPlayer, ziehen); //markiert die Figur die gezogen wird
 						System.out.println("Von wo nach wo möchtest du deine Figur ziehen?");
-						ziehen = EINGABE.nextLine();
-						controller.pullFigureOwn(firstPlayer, ziehen);
+						ziehen = EINGABE.nextLine(); 
+						controller.pullFigureOwn(firstPlayer, ziehen); //setzt die eigene figur an neue position und zieht gegnerische mit
 						
 					} catch(IllegalArgumentException e){
 						System.out.println("Falsche Eingabe: " + e.getMessage());

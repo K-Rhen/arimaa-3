@@ -314,11 +314,27 @@ public class ArimaaController {
 			checkAblePull(from, toPull, player); //bevor figur gezogen -> erst pruefen ob es moeglich ist
 		}
 		
+		//ist figur auch vom eigenen Spieler	
+		if(player == 1)
+			if(!isFigurOwn(figures1, from))
+				throw new IllegalArgumentException("Figur gehoert dir nicht");
+		else
+			if(!isFigurOwn(figures2, from))
+				throw new IllegalArgumentException("Figur gehoert dir nicht");
+		
 		if(!moveFigur(player, from, to))
 			throw new IllegalArgumentException("Ungueltiger Zug");
 	}
+	private boolean isFigurOwn(List<Character> figures, Position from){
+				
+		for(Character usedchar: figures){
+			if(usedchar.getPosition().equals(from))
+				return true;
+		}
+		return false;
+	}
 	
-	public boolean moveFigur(int player, Position from, Position to) { // noch prüfen ob auch eigene Figur gezogen wird.
+	public boolean moveFigur(int player, Position from, Position to) { 
 		if(!rules.posDistance(from, to))
 			throw new IllegalArgumentException("Du kannst hoechstens 1 Feld weiter ziehen.");
 		if(rules.occupiedCell(to))
@@ -365,6 +381,13 @@ public class ArimaaController {
 		}
 		char[] pullPosition = pull.toCharArray();
 		toPull = new Position(readPosX(pullPosition[0]), readPosY(pullPosition[1]));
+		if(firstPlayer){
+			if(isFigurOwn(figures1, toPull))
+				throw new IllegalArgumentException("Es muss eine gegnerische Figur sein.");
+		}else{
+			if(isFigurOwn(figures2, toPull))
+				throw new IllegalArgumentException("Es muss eine gegnerische Figur sein.");
+		}
 		
 	
 	}

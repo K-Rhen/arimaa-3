@@ -13,9 +13,7 @@ public class Player {
 		this.figures = figures;
 	}
 
-	public void setFigur(CHARAKTER_NAME cname, Position pos) {
-		this.playerName = playerName;  //WTF ??? ich blick des nicht
-	}
+
 
 	public CHARAKTER_NAME getFigur(Position pos) {
 		for (Character cr : figures) {

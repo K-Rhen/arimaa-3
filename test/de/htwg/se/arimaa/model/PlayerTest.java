@@ -26,19 +26,7 @@ public class PlayerTest {
 		player = new Player(playerName,figures);
 	}
 
-	@Test
-	public void testsetFigur() {
-		player.setFigur(CHARAKTER_NAME.R, pos);
-		assertEquals(CHARAKTER_NAME.R, player.getFigur(pos));
-	}
 
-	@Test
-	public void testgetFigur() {
-		player.setFigur(CHARAKTER_NAME.R, pos);
-		assertEquals(CHARAKTER_NAME.R, player.getFigur(pos));
-		
-		assertEquals(null, player.getFigur(new Position(1,0)));
-	}
 
 	@Test
 	public void testgetName() {
