@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.arimaa.model.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.Character;
-import de.htwg.se.arimaa.model.Pitch;
+import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
+import de.htwg.se.arimaa.model.impl.Character;
+import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class RulesTest {

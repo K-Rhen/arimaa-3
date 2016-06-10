@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import de.htwg.se.arimaa.model.Pitch;
-import de.htwg.se.arimaa.model.Player;
+import de.htwg.se.arimaa.model.IPitch;
+import de.htwg.se.arimaa.model.impl.Player;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class Rules {
@@ -13,9 +13,9 @@ public class Rules {
 	private Player p1;
 	private Player p2;
 	
-	private List<Pitch> pitchList = new ArrayList<>();
+	private List<IPitch> pitchList = new ArrayList<>();
 
-	public Rules(Pitch pitch) {
+	public Rules(IPitch pitch) {
 		this.p1 = pitch.getP1();
 		this.p2 = pitch.getP2();
 	}
@@ -34,10 +34,10 @@ public class Rules {
 		return true;
 	}
 	
-	public boolean pitchAlreadyExisted(Pitch a) { // true if NOT already existed
+	public boolean pitchAlreadyExisted(IPitch a) { // true if NOT already existed
 
 		boolean found = false;
-		for(Pitch b: pitchList)
+		for(IPitch b: pitchList)
 			if(a.toString().equals(b.toString())){
 				found = true; 
 			}

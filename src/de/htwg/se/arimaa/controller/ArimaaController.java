@@ -3,15 +3,17 @@ package de.htwg.se.arimaa.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.htwg.se.arimaa.model.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.Character;
-import de.htwg.se.arimaa.model.Pitch;
-import de.htwg.se.arimaa.model.Player;
+import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
+import de.htwg.se.arimaa.model.impl.Character;
+import de.htwg.se.arimaa.model.impl.PitchFactory;
+import de.htwg.se.arimaa.model.IPitch;
+import de.htwg.se.arimaa.model.IPitchFactory;
+import de.htwg.se.arimaa.model.impl.Player;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class ArimaaController {
 	private Position position;
-	private Pitch pitch;
+	private IPitch pitch;
 	private Rules rules;
 	private Player player1;
 	private Player player2;
@@ -34,7 +36,8 @@ public class ArimaaController {
 	//---------------------Methods to set figures on Pitch-------------
 	
 	private void initPitchPlayer() {
-		pitch = new Pitch("Player1", "Player2", figures1, figures2);
+		//pitch = new Pitch("Player1", "Player2", figures1, figures2);
+		pitch = PitchFactory.getInstance("Player1", "Player2", figures1, figures2);
 	}
 
 	public void initdefaultPitch(int a) {
@@ -371,7 +374,8 @@ public class ArimaaController {
 	public void initializePitch(String playername1, String playername2) {
 		player1 = new Player(playername1, figures1);
 		player2 = new Player(playername2, figures2);
-		pitch = new Pitch(player1.getPlayerName(), player2.getPlayerName(), figures1, figures2);
+		//pitch = new IPitch(player1.getPlayerName(), player2.getPlayerName(), figures1, figures2);
+		pitch = PitchFactory.getInstance(player1.getPlayerName(), player2.getPlayerName(), figures1, figures2);
 		
 	}
 

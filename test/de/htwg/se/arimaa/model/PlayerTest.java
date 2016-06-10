@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
+import de.htwg.se.arimaa.model.impl.Character;
+import de.htwg.se.arimaa.model.impl.Player;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class PlayerTest {

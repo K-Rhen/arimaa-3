@@ -1,4 +1,4 @@
-package de.htwg.se.arimaa.model;
+package de.htwg.se.arimaa.model.impl;
 
 import de.htwg.se.arimaa.util.character.Position;
 

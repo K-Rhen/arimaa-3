@@ -1,4 +1,4 @@
-package de.htwg.se.arimaa.model;
+package de.htwg.se.arimaa.model.impl;
 
 //Player1: R, C, D, H, L, E
 //Player2: r, c, d, h, l, e 

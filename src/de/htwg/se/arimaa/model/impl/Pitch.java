@@ -1,12 +1,13 @@
-package de.htwg.se.arimaa.model;
+package de.htwg.se.arimaa.model.impl;
 
 import java.util.ArrayList;
 
 import java.util.List;
 
+import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.util.character.Position;
 
-public class Pitch {
+public class Pitch implements IPitch {
 
 	private List<Player> pl = new ArrayList<>();
 	
