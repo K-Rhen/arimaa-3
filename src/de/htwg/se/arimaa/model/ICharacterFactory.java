@@ -8,6 +8,6 @@ import de.htwg.se.arimaa.util.character.Position;
 public interface ICharacterFactory {
 
 	static Character getInstance(Position positon, CHARAKTER_NAME name){
-		return null;
+		return new Character(positon, name);
 	}
 }

@@ -23,7 +23,7 @@ public class PlayerTest {
 		playerName = "Alias";
 		pos = new Position (0,0);
 		
-		ArrayList<Character> figures = new ArrayList<>();
+		ArrayList<ICharacter> figures = new ArrayList<>();
 		figures.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
 		player = IPlayerFactory.getInstance(playerName, figures);
 	}

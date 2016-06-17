@@ -9,8 +9,7 @@ public interface IPitchFactory {
 	
 	  static Pitch getInstance(String player1Name, String player2Name, List<ICharacter> figures1,
 			List<ICharacter> figures2) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Pitch(player1Name, player2Name, figures1, figures2);
 	}
 	  
 }
