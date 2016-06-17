@@ -9,22 +9,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.Character;
-import de.htwg.se.arimaa.model.impl.Pitch;
+import de.htwg.se.arimaa.model.ICharacter;
+import de.htwg.se.arimaa.model.ICharacterFactory;
+import de.htwg.se.arimaa.model.IPitch;
+import de.htwg.se.arimaa.model.IPitchFactory;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class RulesTest {
-	private Pitch pitch;
+	private IPitch pitch;
 	private Rules rules;
 
 	@Before
 	public void setUp() throws Exception {
-		ArrayList<Character> figures1 = new ArrayList<>();
-		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
-		ArrayList<Character> figures2 = new ArrayList<>();
-		figures2.add(new Character(new Position(0, 7), CHARAKTER_NAME.r));
+		ArrayList<ICharacter> figures1 = new ArrayList<>();
+		figures1.add(ICharacterFactory.getInstance(new Position(0, 0), CHARAKTER_NAME.R));
+		ArrayList<ICharacter> figures2 = new ArrayList<>();
+		figures2.add(ICharacterFactory.getInstance(new Position(0, 7), CHARAKTER_NAME.r));
 
-		pitch = new Pitch("Player1", "Player2", figures1, figures2);
+		pitch =IPitchFactory.getInstance("Player1", "Player2", figures1, figures2);
 		rules = new Rules(pitch);
 	}
 
@@ -55,18 +57,18 @@ public class RulesTest {
 	
 	@Test
 	public void pitchAlreadyExistedCheck(){
-		ArrayList<Character> figures1 = new ArrayList<>();
-		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
-		ArrayList<Character> figures2 = new ArrayList<>();
-		figures2.add(new Character(new Position(0, 1), CHARAKTER_NAME.r));
-		Pitch a = new Pitch("p1","p2",figures1,figures2);
-		Pitch d = new Pitch("p1","p2",figures1,figures2); 		
+		ArrayList<ICharacter> figures1 = new ArrayList<>();
+		figures1.add(ICharacterFactory.getInstance(new Position(0, 0), CHARAKTER_NAME.R));
+		ArrayList<ICharacter> figures2 = new ArrayList<>();
+		figures2.add(ICharacterFactory.getInstance(new Position(0, 1), CHARAKTER_NAME.r));
+		IPitch a = IPitchFactory.getInstance("p1","p2",figures1,figures2);
+		IPitch d = IPitchFactory.getInstance("p1","p2",figures1,figures2); 		
 		assertTrue(rules.pitchAlreadyExisted(a));
 		assertFalse(rules.pitchAlreadyExisted(a));
 		assertFalse(rules.pitchAlreadyExisted(a));
-		ArrayList<Character> figures3 = new ArrayList<>();
-		figures3.add(new Character(new Position(0, 2), CHARAKTER_NAME.H));
-		Pitch b = new Pitch("p1","p2",figures1,figures3);
+		ArrayList<ICharacter> figures3 = new ArrayList<>();
+		figures3.add(ICharacterFactory.getInstance(new Position(0, 2), CHARAKTER_NAME.H));
+		IPitch b = IPitchFactory.getInstance("p1","p2",figures1,figures3);
 		
 		assertTrue(rules.pitchAlreadyExisted(b));
 		assertFalse(rules.pitchAlreadyExisted(b));
@@ -75,16 +77,16 @@ public class RulesTest {
 		assertFalse(rules.pitchAlreadyExisted(a));
 		assertFalse(rules.pitchAlreadyExisted(b));
 		assertFalse(rules.pitchAlreadyExisted(d));   
-		Pitch c = b;
+		IPitch c = b;
 		assertFalse(rules.pitchAlreadyExisted(c));
 		assertFalse(rules.pitchAlreadyExisted(a));
-		b = new Pitch("p1","p2",figures1,figures2);
+		b = IPitchFactory.getInstance("p1","p2",figures1,figures2);
 		assertFalse(rules.pitchAlreadyExisted(b)); 		
 		assertFalse(rules.pitchAlreadyExisted(a));
 		
-		ArrayList<Character> figures4 = new ArrayList<>();
-		figures4.add(new Character(new Position(0, 2), CHARAKTER_NAME.H));
-		c = new Pitch("p1","p2",figures1,figures4);
+		ArrayList<ICharacter> figures4 = new ArrayList<>();
+		figures4.add(ICharacterFactory.getInstance(new Position(0, 2), CHARAKTER_NAME.H));
+		c = IPitchFactory.getInstance("p1","p2",figures1,figures4);
 		assertFalse(rules.pitchAlreadyExisted(c));
 		
 	}

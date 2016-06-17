@@ -1,11 +1,9 @@
 package de.htwg.se.arimaa.util.character;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.arimaa.model.impl.Player;
 
 public class PositionTest {
 
@@ -43,6 +41,7 @@ public class PositionTest {
 	}
 
 	private void testIlligalArgumentConstrukorhelper(int x, int y) {
+		@SuppressWarnings("unused")
 		Position test = null;
 		boolean catched = false;
 		try {

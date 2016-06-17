@@ -8,26 +8,27 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.Character;
-import de.htwg.se.arimaa.model.impl.Pitch;
-import de.htwg.se.arimaa.model.impl.Player;
+import de.htwg.se.arimaa.model.ICharacter;
+import de.htwg.se.arimaa.model.IPitch;
+
+import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class PitchTest {
-	ArrayList<Player> pl = new ArrayList<>();
-	Pitch pitch;
+	ArrayList<IPlayer> pl = new ArrayList<>();
+	IPitch pitch;
 
 	@Before
 	public void setUp() throws Exception {
-		ArrayList<Character> figures1 = new ArrayList<>();
-		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
-		figures1.add(new Character(new Position(0, 1), CHARAKTER_NAME.E));
+		ArrayList<ICharacter> figures1 = new ArrayList<>();
+		figures1.add(ICharacterFactory.getInstance(new Position(0, 0), CHARAKTER_NAME.R));
+		figures1.add(ICharacterFactory.getInstance(new Position(0, 1), CHARAKTER_NAME.E));
 		
-		ArrayList<Character> figures2 = new ArrayList<>();
-		figures2.add(new Character(new Position(7, 0), CHARAKTER_NAME.R));
-		figures2.add(new Character(new Position(7, 1), CHARAKTER_NAME.E));
+		ArrayList<ICharacter> figures2 = new ArrayList<>();
+		figures2.add(ICharacterFactory.getInstance(new Position(7, 0), CHARAKTER_NAME.R));
+		figures2.add(ICharacterFactory.getInstance(new Position(7, 1), CHARAKTER_NAME.E));
 		
-		pitch = new Pitch("T1", "T2",figures1,figures2);
+		pitch = IPitchFactory.getInstance("T1", "T2", figures1, figures2);
 
 		pl.add(pitch.getP1());
 		pl.add(pitch.getP2());
@@ -60,7 +61,7 @@ public class PitchTest {
 
 					boolean occupied = false;
 					Position pos = new Position(x, y);
-					for (Player p : pl) {
+					for (IPlayer p : pl) {
 						CHARAKTER_NAME c = p.getFigur(pos);
 						if (c != null) {
 							sb.append(c);
@@ -87,18 +88,18 @@ public class PitchTest {
 	@Test
 	public void equalsCheck(){
 		
-		ArrayList<Character> figures1 = new ArrayList<>();
-		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
-		ArrayList<Character> figures2 = new ArrayList<>();
-		figures2.add(new Character(new Position(0, 1), CHARAKTER_NAME.r));
-		Pitch a = new Pitch("p1","p2",figures1,figures2);
-		Pitch b = new Pitch("p1","p2",figures1,figures2);
+		ArrayList<ICharacter> figures1 = new ArrayList<>();
+		figures1.add(ICharacterFactory.getInstance(new Position(0, 0), CHARAKTER_NAME.R));
+		ArrayList<ICharacter> figures2 = new ArrayList<>();
+		figures2.add(ICharacterFactory.getInstance(new Position(0, 1), CHARAKTER_NAME.r));
+		IPitch a = IPitchFactory.getInstance("p1","p2",figures1,figures2);
+		IPitch b = IPitchFactory.getInstance("p1","p2",figures1,figures2);
 		assertTrue(a.pitchEquals(b));
-		ArrayList<Character> figures3 = new ArrayList<>();
-		figures3.add(new Character(new Position(0, 2), CHARAKTER_NAME.H));
-		b = new Pitch("p1","p2",figures1,figures3);
+		ArrayList<ICharacter> figures3 = new ArrayList<>();
+		figures3.add(ICharacterFactory.getInstance(new Position(0, 2), CHARAKTER_NAME.H));
+		b = IPitchFactory.getInstance("p1","p2",figures1,figures3);
 		assertFalse(a.pitchEquals(b));
-		b = new Pitch("p1","p2",figures1,figures2);
+		b = IPitchFactory.getInstance("p1","p2",figures1,figures2);
 		assertTrue(a.pitchEquals(b));
 	}
 	

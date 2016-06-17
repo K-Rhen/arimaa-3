@@ -9,4 +9,6 @@ public interface IPlayer {
 
 	String getPlayerName();
 
+	boolean setFigureChangePositon(Position start, Position end);
+
 }

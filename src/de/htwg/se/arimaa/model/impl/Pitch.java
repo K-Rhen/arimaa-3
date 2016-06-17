@@ -85,11 +85,13 @@ public class Pitch implements IPitch {
 		return sb.toString();
 	}
 
-	public boolean pitchEquals(Pitch pitch) {
+	public boolean pitchEquals(IPitch pitch) {
 		if (pitch.toString().equals(this.toString()))
 			return true;
 		return false;
 	}
+
+
 
 	
 

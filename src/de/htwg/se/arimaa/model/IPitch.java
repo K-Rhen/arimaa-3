@@ -7,6 +7,8 @@ public interface IPitch {
 	Player getP2();
 
 	Player getP1();
+
+	boolean pitchEquals(IPitch b);
 	
 	
 
