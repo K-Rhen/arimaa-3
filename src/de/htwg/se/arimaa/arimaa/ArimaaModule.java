@@ -9,12 +9,14 @@ public class ArimaaModule extends AbstractModule{
 
 	@Override
 	protected void configure() {
+		//TODO
 //	    bind(IGridFactory.class)
 //        .to(de.htwg.sudoku.model.impl.GridFactory.class);
 //	    
 //	    bind(ISudokuController.class).to(
 //        de.htwg.sudoku.controller.logwrapper.SudokuController.class);
-//		
+//	
+		
 	}
 
 }
