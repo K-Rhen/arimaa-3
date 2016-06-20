@@ -17,6 +17,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 	//private GridPanel gridPanel;
 //	private HighlightButtonPanel digitPanel;
 //	private StatusPanel statusPanel;
+	private PitchPanel pitchpanel;
 	private ArimaaController controller; //TODO I
 	
 	public ArimaaFrame(final ArimaaController controller) {
@@ -50,6 +51,9 @@ public class ArimaaFrame extends JFrame implements IObserver {
 //		}
 //		statusPanel = new StatusPanel();
 //		pane.add(statusPanel, BorderLayout.SOUTH);
+		pitchpanel = new PitchPanel();
+		pane.add(pitchpanel);
+		
 		setVisible(true);
 		repaint();
 	}
