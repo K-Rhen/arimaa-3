@@ -11,6 +11,8 @@ import java.util.EnumMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import de.htwg.se.arimaa.controller.ArimaaController;
@@ -20,11 +22,24 @@ import de.htwg.se.arimaa.util.character.Position;
 
 public class PitchPanel extends JPanel {
 	ArimaaController controller;
+	
 
 	BufferedImage pitchImage;
 	EnumMap<CHARAKTER_NAME, BufferedImage> figuresImage;
 	Point figuresize = new Point(40, 40);
-	Point offset = new Point(80,50);
+	Point offset = new Point(20,15);
+	
+	//BUTTON
+	JButton commitButton;
+	Point commitPoint = new Point(20,430);
+	JButton playerChangeButton;
+	Point playerChangePoint = new Point(330,430);
+	
+	//Info
+	JLabel actPlayerLabel;
+	Point actPlayerPoint = new Point(160,425);
+	JLabel moveRemainLabel;
+	Point moveRemainPoint = new Point(200,450);
 	
 	public PitchPanel(ArimaaController controller) {
 		this.controller = controller;
@@ -32,6 +47,23 @@ public class PitchPanel extends JPanel {
 
 		pitchImage = loadImage("BoardStoneSmall");
 		initFigures();
+		
+		this.setLayout(null);
+		
+		commitButton = new JButton("commit");
+		commitButton.setBounds(commitPoint.x, commitPoint.y, 90, 30);
+		this.add(commitButton);
+		playerChangeButton = new JButton("change");
+		playerChangeButton.setBounds(playerChangePoint.x, playerChangePoint.y, 90, 30);
+		this.add(playerChangeButton);
+		
+		actPlayerLabel = new JLabel("Player: -");
+		actPlayerLabel.setBounds(actPlayerPoint.x,actPlayerPoint.y, 100, 20);
+		this.add(actPlayerLabel);
+		moveRemainLabel = new JLabel("Moves: -");
+		moveRemainLabel.setBounds(moveRemainPoint.x,moveRemainPoint.y, 100, 20);
+		this.add(moveRemainLabel);
+		
 	}
 
 	private BufferedImage loadImage(String name) {
@@ -66,11 +98,11 @@ public class PitchPanel extends JPanel {
 		super.paintComponent(g);
 
 		// Paint the background.
-		g.setColor(Color.green);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, getSize().width, getSize().height);
 
 		// Paint pitch
-		 g.drawImage(pitchImage, 80, 50, 400, 400, null);
+		 g.drawImage(pitchImage, offset.x,offset.y, 400, 400, null);
 
 		// Paint Player1
 		List<ICharacter> p1figure = controller.getPitch().getP1().getFigures();
@@ -80,7 +112,7 @@ public class PitchPanel extends JPanel {
 		List<ICharacter> p2figure = controller.getPitch().getP2().getFigures();
 		printFigures(g,p2figure,offset,figuresize);
 
-		
+		//remove?
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}

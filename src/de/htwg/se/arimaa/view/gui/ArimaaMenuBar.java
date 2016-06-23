@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import de.htwg.se.arimaa.controller.ArimaaController;
@@ -37,7 +38,19 @@ public class ArimaaMenuBar extends JMenuBar {
 		newMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
+				String[] yesNoOptions = { "Ja", "Nein"};
+				int n = JOptionPane.showOptionDialog( null,
+				          "Neus Spiel?",             
+				          "Neus Spiel?",          
+				          JOptionPane.YES_NO_OPTION,
+				          JOptionPane.QUESTION_MESSAGE, 
+				          null, yesNoOptions,yesNoOptions[0] );
+
+				if ( n == JOptionPane.YES_OPTION )
+				  System.out.println("Ja gewählt");
 				// TODO make a new game
+
 			}
 		});
 		newMenuItem.setMnemonic(KeyEvent.VK_N);
@@ -55,6 +68,7 @@ public class ArimaaMenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent event) {
 				frame.setVisible(false);
 				frame.dispose();
+				System.exit(0);
 			}
 		});
 		fileMenu.add(quitMenuItem);
@@ -72,6 +86,7 @@ public class ArimaaMenuBar extends JMenuBar {
 		helpMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
+				JOptionPane.showMessageDialog( null, "Arimaa Blabla info" );
 				//TODO help text
 			}
 		});
