@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputAdapter;
 
 import de.htwg.se.arimaa.controller.ArimaaController;
 import de.htwg.se.arimaa.model.ICharacter;
@@ -46,6 +47,10 @@ public class PitchPanel extends JPanel {
 	JLabel moveRemainLabel;
 	Point moveRemainPoint = new Point(200, 450);
 
+	// Mouse
+	Point mousePoint = null;
+	boolean mouseMove = false; //remove?
+
 	public PitchPanel(ArimaaController controller) {
 		this.controller = controller;
 		figuresImage = new EnumMap<>(CHARAKTER_NAME.class);
@@ -64,7 +69,7 @@ public class PitchPanel extends JPanel {
 		commitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				// Todo change Player
+				// Todo commit
 			}
 		});
 		this.add(commitButton);
@@ -89,33 +94,65 @@ public class PitchPanel extends JPanel {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("x" + e.getX() + " y" + e.getY());
 				Point mouse = new Point(e.getX(), e.getY());
-				Point cell = getCell(mouse);
-				if(cell != null)
-				System.out.println("Cell:" + cell.x +" " + cell.y);
+				mousegetCellHandler(mouse);
 			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				//mouseMove = false;
+				Point mouse = new Point(e.getX(), e.getY());
+				Point p = getCell(mouse);
+				p.setLocation(offset.getX() +p.getX()* figuresize.x,offset.getY()+ p.getY()*figuresize.getY());
+				System.out.println(p.toString());
+				mousePoint.setLocation(p);
+				repaintPanel();
+			}
+		});
+
+		this.addMouseMotionListener(new MouseInputAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				if (mousePoint == null)
+					mousePoint = new Point(e.getX(), e.getY());
+				else
+					mousePoint.setLocation(e.getX(), e.getY());
+
+				mouseMove = true;
+				repaintPanel();
+			}
+
 		});
 	}
 
+	private void repaintPanel() {
+		this.repaint();
+	}
+
+	private void mousegetCellHandler(Point mouse) {
+		Point cell = getCell(mouse);
+		if (cell != null)
+			System.out.println("Cell:" + cell.x + " " + cell.y);
+		// TODO
+	}
+
 	private Point getCell(Point mouse) {
-		Point cellPoint;
 		Rectangle inPitch = new Rectangle();
 		inPitch.setBounds(offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.y);
 
 		if (!inPitch.contains(mouse)) {
 			return null;
 		}
-		
+
 		Rectangle cell = new Rectangle();
 		for (int y = 0; y < 8; y++) {
 			for (int x = 0; x < 8; x++) {
-				cell.setBounds(offset.x + figuresize.x* x, offset.y +figuresize.y*y, figuresize.x, figuresize.y);
-				if(cell.contains(mouse))
+				cell.setBounds(offset.x + figuresize.x * x, offset.y + figuresize.y * y, figuresize.x, figuresize.y);
+				if (cell.contains(mouse))
 					return new Point(x, y);
 			}
 		}
-	
+
 		return null;
 	}
 
@@ -165,9 +202,12 @@ public class PitchPanel extends JPanel {
 		List<ICharacter> p2figure = controller.getPitch().getP2().getFigures();
 		printFigures(g, p2figure, offset, figuresize);
 
-		// Test
-		g.setColor(Color.green);
-		g.drawRect(offset.x, offset.y, figuresize.x, figuresize.y);
+		// Test Mouse
+		if (mouseMove == true) {
+			g.setColor(Color.green);
+			g.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
+		}
+
 		// remove?
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
