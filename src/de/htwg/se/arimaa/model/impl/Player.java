@@ -38,4 +38,9 @@ public class Player implements IPlayer {
 		}
 		return false;
 	}
+	
+	//vor GUI
+	public List<ICharacter> getFigures(){
+		return figures;
+	}
 }

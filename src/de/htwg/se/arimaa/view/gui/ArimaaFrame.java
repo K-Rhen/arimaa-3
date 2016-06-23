@@ -11,8 +11,8 @@ import de.htwg.se.arimaa.util.observer.IObserver;
 
 public class ArimaaFrame extends JFrame implements IObserver {
 
-	private static final int DEFAULT_Y = 630;
-	private static final int DEFAULT_X = 528;
+	private static final int DEFAULT_Y = 600;
+	private static final int DEFAULT_X = 800;
 	private Container pane;
 	//private GridPanel gridPanel;
 //	private HighlightButtonPanel digitPanel;
@@ -51,7 +51,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 //		}
 //		statusPanel = new StatusPanel();
 //		pane.add(statusPanel, BorderLayout.SOUTH);
-		pitchpanel = new PitchPanel();
+		pitchpanel = new PitchPanel(controller);
 		pane.add(pitchpanel);
 		
 		setVisible(true);
