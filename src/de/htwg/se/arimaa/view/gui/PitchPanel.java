@@ -4,7 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.EnumMap;
@@ -22,48 +27,96 @@ import de.htwg.se.arimaa.util.character.Position;
 
 public class PitchPanel extends JPanel {
 	ArimaaController controller;
-	
 
 	BufferedImage pitchImage;
+	Point pitchSizePoint = new Point(400, 400);
 	EnumMap<CHARAKTER_NAME, BufferedImage> figuresImage;
-	Point figuresize = new Point(40, 40);
-	Point offset = new Point(20,15);
-	
-	//BUTTON
+	Point figuresize = new Point(50, 50);
+	Point offset = new Point(20, 15);
+
+	// BUTTON
 	JButton commitButton;
-	Point commitPoint = new Point(20,430);
+	Point commitPoint = new Point(20, 430);
 	JButton playerChangeButton;
-	Point playerChangePoint = new Point(330,430);
-	
-	//Info
+	Point playerChangePoint = new Point(330, 430);
+
+	// Info
 	JLabel actPlayerLabel;
-	Point actPlayerPoint = new Point(160,425);
+	Point actPlayerPoint = new Point(160, 425);
 	JLabel moveRemainLabel;
-	Point moveRemainPoint = new Point(200,450);
-	
+	Point moveRemainPoint = new Point(200, 450);
+
 	public PitchPanel(ArimaaController controller) {
 		this.controller = controller;
 		figuresImage = new EnumMap<>(CHARAKTER_NAME.class);
 
 		pitchImage = loadImage("BoardStoneSmall");
 		initFigures();
-		
+
+		initGUI();
+	}
+
+	private void initGUI() {
 		this.setLayout(null);
-		
+
 		commitButton = new JButton("commit");
 		commitButton.setBounds(commitPoint.x, commitPoint.y, 90, 30);
+		commitButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				// Todo change Player
+			}
+		});
 		this.add(commitButton);
+
 		playerChangeButton = new JButton("change");
 		playerChangeButton.setBounds(playerChangePoint.x, playerChangePoint.y, 90, 30);
+		playerChangeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				// Todo change Player
+			}
+		});
 		this.add(playerChangeButton);
-		
+
 		actPlayerLabel = new JLabel("Player: -");
-		actPlayerLabel.setBounds(actPlayerPoint.x,actPlayerPoint.y, 100, 20);
+		actPlayerLabel.setBounds(actPlayerPoint.x, actPlayerPoint.y, 100, 20);
 		this.add(actPlayerLabel);
 		moveRemainLabel = new JLabel("Moves: -");
-		moveRemainLabel.setBounds(moveRemainPoint.x,moveRemainPoint.y, 100, 20);
+		moveRemainLabel.setBounds(moveRemainPoint.x, moveRemainPoint.y, 100, 20);
 		this.add(moveRemainLabel);
+
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("x" + e.getX() + " y" + e.getY());
+				Point mouse = new Point(e.getX(), e.getY());
+				Point cell = getCell(mouse);
+				if(cell != null)
+				System.out.println("Cell:" + cell.x +" " + cell.y);
+			}
+		});
+	}
+
+	private Point getCell(Point mouse) {
+		Point cellPoint;
+		Rectangle inPitch = new Rectangle();
+		inPitch.setBounds(offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.y);
+
+		if (!inPitch.contains(mouse)) {
+			return null;
+		}
 		
+		Rectangle cell = new Rectangle();
+		for (int y = 0; y < 8; y++) {
+			for (int x = 0; x < 8; x++) {
+				cell.setBounds(offset.x + figuresize.x* x, offset.y +figuresize.y*y, figuresize.x, figuresize.y);
+				if(cell.contains(mouse))
+					return new Point(x, y);
+			}
+		}
+	
+		return null;
 	}
 
 	private BufferedImage loadImage(String name) {
@@ -102,29 +155,32 @@ public class PitchPanel extends JPanel {
 		g.fillRect(0, 0, getSize().width, getSize().height);
 
 		// Paint pitch
-		 g.drawImage(pitchImage, offset.x,offset.y, 400, 400, null);
+		g.drawImage(pitchImage, offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.x, null);
 
 		// Paint Player1
 		List<ICharacter> p1figure = controller.getPitch().getP1().getFigures();
-		printFigures(g,p1figure,offset,figuresize);
-		
+		printFigures(g, p1figure, offset, figuresize);
+
 		// Paint Player2
 		List<ICharacter> p2figure = controller.getPitch().getP2().getFigures();
-		printFigures(g,p2figure,offset,figuresize);
+		printFigures(g, p2figure, offset, figuresize);
 
-		//remove?
+		// Test
+		g.setColor(Color.green);
+		g.drawRect(offset.x, offset.y, figuresize.x, figuresize.y);
+		// remove?
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
-	
-	public void printFigures(Graphics g,List<ICharacter> figure, Point offset, Point figuresize){
+
+	public void printFigures(Graphics g, List<ICharacter> figure, Point offset, Point figuresize) {
 		for (ICharacter f : figure) {
 			CHARAKTER_NAME fname = f.getName();
 			BufferedImage fimg = figuresImage.get(fname);
 
 			Position fpos = f.getPosition();
-			g.drawImage(fimg,fpos.getX()+ offset.x,fpos.getY() + offset.y, figuresize.x, figuresize.y, null);
-		}		
+			g.drawImage(fimg, fpos.getX() + offset.x, fpos.getY() + offset.y, figuresize.x, figuresize.y, null);
+		}
 	}
-	
+
 }

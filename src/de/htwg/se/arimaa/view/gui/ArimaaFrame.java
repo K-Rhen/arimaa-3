@@ -30,6 +30,8 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		pitchpanel = new PitchPanel(controller);
 		mainPanel.add(pitchpanel,BorderLayout.SOUTH);
 		
+
+		
 		this.setContentPane(mainPanel);
 		
 		this.setTitle("HTWG Arimaa");
