@@ -32,7 +32,7 @@ public class Arimaa {
 	public static void main(final String[] args) {
 	     Arimaa game = new Arimaa();
 	     
-//		game.tui.start();
+
 		game.tui.fastStart();  //zum schnellen starten des spiels ohne eingabe. sobald tui lauft, loeschen.
 		game.tui.run(); 
 		
