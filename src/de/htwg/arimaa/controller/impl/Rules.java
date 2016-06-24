@@ -1,4 +1,4 @@
-package de.htwg.se.arimaa.controller;
+package de.htwg.arimaa.controller.impl;
 
 import java.util.ArrayList;
 

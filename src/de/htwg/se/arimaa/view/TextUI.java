@@ -2,7 +2,7 @@ package de.htwg.se.arimaa.view;
 
 import java.util.Scanner;
 
-import de.htwg.se.arimaa.controller.ArimaaController;
+import de.htwg.arimaa.controller.impl.ArimaaController;
 
 import java.lang.System;
 
@@ -48,7 +48,7 @@ public class TextUI {
 		}
 
 		if (eingabe.equals("n")) {
-			controller.initdefaultPitch(1);
+		//	controller.initdefaultPitch(1);
 			System.out.println("Danke.");
 		} else if (eingabe.equals("j")) {
 			for (int i = 0; i < 16; ++i) {
@@ -86,7 +86,7 @@ public class TextUI {
 			}
 		}
 		if (eingabe.equals("n")) {
-			controller.initdefaultPitch(2);
+		//	controller.initdefaultPitch(2);
 			System.out.println("Danke.");
 		}
 		if (eingabe.equals("j")) {
@@ -112,13 +112,13 @@ public class TextUI {
 	public void fastStart() { // loeschen sobald tui laeuft
 		player1 = "Spieler1";
 		player2 = "Spieler2";
-		controller.initdefaultPitch(1);
-		controller.initdefaultPitch(2);
+	//	controller.initdefaultPitch(1);
+		//controller.initdefaultPitch(2);
 	}
 
 	public void run() {
 		boolean firstPlayer = true; // steuert welcher Spieler an der Reihe ist
-		controller.initializePitch(player1, player2);
+		//controller.initializePitch(player1, player2);
 
 		while (true) {
 			for (int i = 0; i < 4; ++i) { //jeder Spieler hat maximal 4 Zuege pro Runde
