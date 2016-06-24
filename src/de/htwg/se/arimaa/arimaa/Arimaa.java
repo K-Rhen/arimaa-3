@@ -16,7 +16,7 @@ public class Arimaa {
 		controller = new ArimaaController(); //TODO inject
 		
 		tui = new TextUI();
-		gui = new ArimaaFrame(controller); 
+//		gui = new ArimaaFrame(controller); 
 	}
 
 	public TextUI getTui() {
@@ -30,7 +30,7 @@ public class Arimaa {
 	public static void main(final String[] args) {
 	     Arimaa game = new Arimaa();
 	     
-		//tui.start();
+//		game.tui.start();
 		game.tui.fastStart();  //zum schnellen starten des spiels ohne eingabe. sobald tui lauft, loeschen.
 		game.tui.run(); 
 		

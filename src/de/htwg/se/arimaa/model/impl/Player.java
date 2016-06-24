@@ -25,6 +25,7 @@ public class Player implements IPlayer {
 		return null;
 	}
 
+
 	public String getPlayerName() {
 		return playerName;
 	}
@@ -38,6 +39,7 @@ public class Player implements IPlayer {
 		}
 		return false;
 	}
+	
 	
 	//vor GUI
 	public List<ICharacter> getFigures(){

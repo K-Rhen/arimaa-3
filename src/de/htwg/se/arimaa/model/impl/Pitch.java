@@ -14,10 +14,48 @@ public class Pitch implements IPitch {
 	
 	private static final int PITCHSIZE = 8;
 
-	public Pitch(String player1Name, String player2Name,
-			List<ICharacter> figures1, List<ICharacter> figures2) {
+	public Pitch(String player1Name, String player2Name) {
+		List<ICharacter> figures1 = new ArrayList<>(); 
+		List<ICharacter> figures2 = new ArrayList<>();
+		initializeDefaultPitch(figures1, figures2);
 		pl.add(new Player(player1Name, figures1));
 		pl.add(new Player(player2Name, figures2));
+	}
+	
+	private void initializeDefaultPitch(List<ICharacter> figures1, List<ICharacter> figures2){
+		figures1.add(CharacterFactory.getInstance(new Position(0, 0), CHARAKTER_NAME.R));
+		figures1.add(CharacterFactory.getInstance(new Position(1, 0), CHARAKTER_NAME.R));
+		figures1.add(CharacterFactory.getInstance(new Position(2, 0), CHARAKTER_NAME.R));
+		figures1.add(CharacterFactory.getInstance(new Position(3, 0), CHARAKTER_NAME.D));
+		figures1.add(CharacterFactory.getInstance(new Position(4, 0), CHARAKTER_NAME.D));
+		figures1.add(CharacterFactory.getInstance(new Position(5, 0), CHARAKTER_NAME.R));
+		figures1.add(CharacterFactory.getInstance(new Position(6, 0), CHARAKTER_NAME.R));
+		figures1.add(CharacterFactory.getInstance(new Position(7, 0), CHARAKTER_NAME.R));
+		figures1.add(CharacterFactory.getInstance(new Position(0, 1), CHARAKTER_NAME.R));
+		figures1.add(CharacterFactory.getInstance(new Position(1, 1), CHARAKTER_NAME.H));
+		figures1.add(CharacterFactory.getInstance(new Position(2, 1), CHARAKTER_NAME.C));
+		figures1.add(CharacterFactory.getInstance(new Position(3, 1), CHARAKTER_NAME.L));
+		figures1.add(CharacterFactory.getInstance(new Position(4, 1), CHARAKTER_NAME.E));
+		figures1.add(CharacterFactory.getInstance(new Position(5, 1), CHARAKTER_NAME.C));
+		figures1.add(CharacterFactory.getInstance(new Position(6, 1), CHARAKTER_NAME.H));
+		figures1.add(CharacterFactory.getInstance(new Position(7, 1), CHARAKTER_NAME.R));
+	
+		figures2.add(CharacterFactory.getInstance(new Position(0, 7), CHARAKTER_NAME.r));
+		figures2.add(CharacterFactory.getInstance(new Position(1, 7), CHARAKTER_NAME.r));
+		figures2.add(CharacterFactory.getInstance(new Position(2, 7), CHARAKTER_NAME.r));
+		figures2.add(CharacterFactory.getInstance(new Position(3, 7), CHARAKTER_NAME.d));
+		figures2.add(CharacterFactory.getInstance(new Position(4, 7), CHARAKTER_NAME.d));
+		figures2.add(CharacterFactory.getInstance(new Position(5, 7), CHARAKTER_NAME.r));
+		figures2.add(CharacterFactory.getInstance(new Position(6, 7), CHARAKTER_NAME.r));
+		figures2.add(CharacterFactory.getInstance(new Position(7, 7), CHARAKTER_NAME.r));
+		figures2.add(CharacterFactory.getInstance(new Position(0, 6), CHARAKTER_NAME.r));
+		figures2.add(CharacterFactory.getInstance(new Position(1, 6), CHARAKTER_NAME.h));
+		figures2.add(CharacterFactory.getInstance(new Position(2, 6), CHARAKTER_NAME.c));
+		figures2.add(CharacterFactory.getInstance(new Position(3, 6), CHARAKTER_NAME.l));
+		figures2.add(CharacterFactory.getInstance(new Position(4, 6), CHARAKTER_NAME.e));
+		figures2.add(CharacterFactory.getInstance(new Position(5, 6), CHARAKTER_NAME.c));
+		figures2.add(CharacterFactory.getInstance(new Position(6, 6), CHARAKTER_NAME.h));
+		figures2.add(CharacterFactory.getInstance(new Position(7, 6), CHARAKTER_NAME.r));
 	}
 
 	public Player getP1() {

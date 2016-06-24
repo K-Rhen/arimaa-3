@@ -195,11 +195,11 @@ public class PitchPanel extends JPanel {
 		g.drawImage(pitchImage, offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.x, null);
 
 		// Paint Player1
-		List<ICharacter> p1figure = controller.getPitch().getP1().getFigures();
+		List<ICharacter> p1figure = controller.getPlayer1().getFigures();
 		printFigures(g, p1figure, offset, figuresize);
 
 		// Paint Player2
-		List<ICharacter> p2figure = controller.getPitch().getP2().getFigures();
+		List<ICharacter> p2figure = controller.getPlayer2().getFigures();
 		printFigures(g, p2figure, offset, figuresize);
 
 		// Test Mouse
@@ -219,7 +219,7 @@ public class PitchPanel extends JPanel {
 			BufferedImage fimg = figuresImage.get(fname);
 
 			Position fpos = f.getPosition();
-			g.drawImage(fimg, fpos.getX() + offset.x, fpos.getY() + offset.y, figuresize.x, figuresize.y, null);
+			g.drawImage(fimg, fpos.getX()*figuresize.x + offset.x, fpos.getY()*figuresize.y + offset.y, figuresize.x, figuresize.y, null);
 		}
 	}
 

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.impl.Character;
+import de.htwg.se.arimaa.model.impl.Player;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class PlayerTest {
@@ -25,7 +26,7 @@ public class PlayerTest {
 		
 		ArrayList<ICharacter> figures = new ArrayList<>();
 		figures.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
-		player = IPlayerFactory.getInstance(playerName, figures);
+		player = new Player(playerName, figures);
 	}
 
 
