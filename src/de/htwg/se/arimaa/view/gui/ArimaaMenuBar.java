@@ -12,11 +12,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import de.htwg.se.arimaa.controller.ArimaaController;
+import de.htwg.arimaa.controller.impl.ArimaaController;
+import de.htwg.se.arimaa.controller.IArimaaController;
 
 public class ArimaaMenuBar extends JMenuBar {
 
-	ArimaaController controller;
+	IArimaaController controller;
 
 	JMenu fileMenu;
 	JMenuItem newMenuItem, quitMenuItem;
@@ -24,13 +25,13 @@ public class ArimaaMenuBar extends JMenuBar {
 	JMenu infoMenu;
 	JMenuItem helpMenuItem;
 
-	public ArimaaMenuBar(ArimaaController controller, JFrame frame) {
+	public ArimaaMenuBar(IArimaaController controller, JFrame frame) {
 		this.controller = controller;
 		createFileMenu(controller, frame);
 		createInfoMenu(controller,frame);
 	}
 
-	private void createFileMenu(ArimaaController controller, JFrame frame) {
+	private void createFileMenu(IArimaaController controller, JFrame frame) {
 		fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 
@@ -76,7 +77,7 @@ public class ArimaaMenuBar extends JMenuBar {
 		this.add(fileMenu);
 	}
 
-	private void createInfoMenu(ArimaaController controller, JFrame frame) {
+	private void createInfoMenu(IArimaaController controller, JFrame frame) {
 		infoMenu = new JMenu("Info");
 		infoMenu.setMnemonic(KeyEvent.VK_F);
 		

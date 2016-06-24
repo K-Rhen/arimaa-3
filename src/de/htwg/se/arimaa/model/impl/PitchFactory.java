@@ -1,8 +1,6 @@
 package de.htwg.se.arimaa.model.impl;
 
-import java.util.List;
 
-import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.IPitchFactory;
 
 public class PitchFactory implements IPitchFactory{

@@ -8,16 +8,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import de.htwg.se.arimaa.controller.ArimaaController;
+import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.util.observer.IObserver;
 
 public class ArimaaFrame extends JFrame implements IObserver {
 
 
 	private PitchPanel pitchpanel;
-	private ArimaaController controller; //TODO I
+	private IArimaaController controller; //TODO I
 	
-	public ArimaaFrame(final ArimaaController controller) {
+	public ArimaaFrame(final IArimaaController controller) {
 		this.controller = controller;
 		//controller.addObserver(this);
 

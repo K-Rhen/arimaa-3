@@ -1,18 +1,19 @@
-package de.htwg.se.arimaa.controller;
+package de.htwg.arimaa.controller.impl;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.impl.CharacterFactory;
+import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.impl.PitchFactory;
 import de.htwg.se.arimaa.model.impl.Player;
-import de.htwg.se.arimaa.model.IPlayer;
+
 import de.htwg.se.arimaa.util.character.Position;
 
-public class ArimaaController {
+public class ArimaaController implements IArimaaController{
 	private Position position;
 	private IPitch pitch;
 	private Rules rules;

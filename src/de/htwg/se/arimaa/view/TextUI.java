@@ -2,7 +2,7 @@ package de.htwg.se.arimaa.view;
 
 import java.util.Scanner;
 
-import de.htwg.se.arimaa.controller.ArimaaController;
+import de.htwg.arimaa.controller.impl.ArimaaController;
 
 import java.lang.System;
 

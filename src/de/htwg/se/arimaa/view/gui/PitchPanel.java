@@ -21,13 +21,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
-import de.htwg.se.arimaa.controller.ArimaaController;
+import de.htwg.arimaa.controller.impl.ArimaaController;
+import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class PitchPanel extends JPanel {
-	ArimaaController controller;
+	IArimaaController controller;
 
 	BufferedImage pitchImage;
 	Point pitchSizePoint = new Point(400, 400);
@@ -51,7 +52,7 @@ public class PitchPanel extends JPanel {
 	Point mousePoint = null;
 	boolean mouseMove = false; //remove?
 
-	public PitchPanel(ArimaaController controller) {
+	public PitchPanel(IArimaaController controller) {
 		this.controller = controller;
 		figuresImage = new EnumMap<>(CHARAKTER_NAME.class);
 

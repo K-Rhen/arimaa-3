@@ -1,22 +1,24 @@
 package de.htwg.se.arimaa.arimaa;
 
-import de.htwg.se.arimaa.controller.ArimaaController;
+
+import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.controller.IArimaaControllerFactory;
 import de.htwg.se.arimaa.view.TextUI;
 import de.htwg.se.arimaa.view.gui.ArimaaFrame;
 
 
 public class Arimaa {
-	protected ArimaaController controller;
+	protected IArimaaController controller;
 	
 	private TextUI tui;
 	private ArimaaFrame gui;
 	
 	private Arimaa() {
 		
-		controller = new ArimaaController(); //TODO inject
+		controller = IArimaaControllerFactory.getInstance(); //TODO inject
 		
 		tui = new TextUI();
-//		gui = new ArimaaFrame(controller); 
+		gui = new ArimaaFrame(controller); 
 	}
 
 	public TextUI getTui() {
