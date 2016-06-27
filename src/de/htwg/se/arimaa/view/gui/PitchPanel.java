@@ -21,9 +21,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
-import de.htwg.arimaa.controller.impl.ArimaaController;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICharacter;
+import de.htwg.se.arimaa.model.ICharacterFactory;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
 import de.htwg.se.arimaa.util.character.Position;
 
@@ -49,8 +49,10 @@ public class PitchPanel extends JPanel {
 	Point moveRemainPoint = new Point(200, 450);
 
 	// Mouse
-	Point mousePoint = null;
-	boolean mouseMove = false; //remove?
+	Point mousePoint = new Point(0, 0);
+	boolean mouseMove = false; // remove?
+	ICharacter mouseFigure = null;
+	boolean figureSet = false;
 
 	public PitchPanel(IArimaaController controller) {
 		this.controller = controller;
@@ -70,7 +72,15 @@ public class PitchPanel extends JPanel {
 		commitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
+				if (figureSet) {
+					
+					mouseFigure = null;
+					mouseMove = false;
+					figureSet = false;
+				}
+			repaint();
 				// Todo commit
+			
 			}
 		});
 		this.add(commitButton);
@@ -94,33 +104,17 @@ public class PitchPanel extends JPanel {
 
 		this.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				Point mouse = new Point(e.getX(), e.getY());
-				mousegetCellHandler(mouse);
-			}
-
-			@Override
 			public void mouseReleased(MouseEvent e) {
-				//mouseMove = false;
 				Point mouse = new Point(e.getX(), e.getY());
-				Point p = getCell(mouse);
-				p.setLocation(offset.getX() +p.getX()* figuresize.x,offset.getY()+ p.getY()*figuresize.getY());
-				System.out.println(p.toString());
-				mousePoint.setLocation(p);
-				repaintPanel();
+				mouseReleasedHandler(mouse);
 			}
 		});
 
 		this.addMouseMotionListener(new MouseInputAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				if (mousePoint == null)
-					mousePoint = new Point(e.getX(), e.getY());
-				else
-					mousePoint.setLocation(e.getX(), e.getY());
-
-				mouseMove = true;
-				repaintPanel();
+				Point mouse = new Point(e.getX(), e.getY());
+				mouseDraggedHandler(mouse);
 			}
 
 		});
@@ -130,20 +124,87 @@ public class PitchPanel extends JPanel {
 		this.repaint();
 	}
 
-	private void mousegetCellHandler(Point mouse) {
-		Point cell = getCell(mouse);
-		if (cell != null)
-			System.out.println("Cell:" + cell.x + " " + cell.y);
-		// TODO
+	private boolean updateMousePos(Point mouse) {
+		if (!isPosInPitch(mouse))
+			return false;
+
+		mousePoint.setLocation(mouse);
+
+		if (mouseFigure == null)
+			initMoveFigure(mouse);
+
+		return true;
 	}
 
-	private Point getCell(Point mouse) {
+	private void initMoveFigure(Point mouse) {
+		if (mouseFigure != null)
+			return;
+
+		Point cell = getCell(mouse);
+		if (cell == null)
+			return;
+
+		Position pos = new Position((int) cell.getX(), (int) cell.getY());
+		CHARAKTER_NAME figureName = getCharacter(pos);
+		mouseFigure = ICharacterFactory.getInstance(pos, figureName);
+
+	}
+
+	private void mouseReleasedHandler(Point mouse) {
+		if (figureSet)
+			return;
+
+		Point cell = getCell(mouse);
+		if (cell == null)
+			return;
+
+		System.out.println("Cell:" + cell.x + " " + cell.y);
+		// TODO
+
+		double mx = offset.getX() + cell.getX() * figuresize.x;
+		double my = offset.getY() + cell.getY() * figuresize.getY();
+
+		Point mp = new Point();
+		mp.setLocation(mx, my);
+		updateMousePos(mp);
+		// mouseMove = false;
+		mouseMove = true;
+
+		repaintPanel();
+
+		figureSet = true;
+	}
+
+	private void mouseDraggedHandler(Point mouse) {
+		if (figureSet)
+			return;
+
+		updateMousePos(mouse);
+		mouseMove = true;
+		repaintPanel();
+	}
+
+	private CHARAKTER_NAME getCharacter(Position cell) {
+		CHARAKTER_NAME name = null;
+		name = controller.getPlayer1().getFigur(cell);
+		if (name == null)
+			name = controller.getPlayer2().getFigur(cell);
+		return name;
+	}
+
+	private boolean isPosInPitch(Point mouse) {
 		Rectangle inPitch = new Rectangle();
 		inPitch.setBounds(offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.y);
 
-		if (!inPitch.contains(mouse)) {
+		if (inPitch.contains(mouse))
+			return true;
+
+		return false;
+	}
+
+	private Point getCell(Point mouse) {
+		if (!isPosInPitch(mouse))
 			return null;
-		}
 
 		Rectangle cell = new Rectangle();
 		for (int y = 0; y < 8; y++) {
@@ -207,6 +268,9 @@ public class PitchPanel extends JPanel {
 		if (mouseMove == true) {
 			g.setColor(Color.green);
 			g.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
+			CHARAKTER_NAME fname = mouseFigure.getName();
+			BufferedImage fimg = figuresImage.get(fname);
+			g.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
 		}
 
 		// remove?
@@ -220,7 +284,13 @@ public class PitchPanel extends JPanel {
 			BufferedImage fimg = figuresImage.get(fname);
 
 			Position fpos = f.getPosition();
-			g.drawImage(fimg, fpos.getX()*figuresize.x + offset.x, fpos.getY()*figuresize.y + offset.y, figuresize.x, figuresize.y, null);
+			
+			//If figure is the moving figure
+			if(mouseFigure != null && fpos.equals(mouseFigure.getPosition()))
+			  continue;
+			
+			g.drawImage(fimg, fpos.getX() * figuresize.x + offset.x, fpos.getY() * figuresize.y + offset.y,
+					figuresize.x, figuresize.y, null);
 		}
 	}
 
