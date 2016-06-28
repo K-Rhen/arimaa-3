@@ -34,24 +34,23 @@ public class PitchPanel extends JPanel {
 	Point pitchSizePoint = new Point(400, 400);
 	EnumMap<CHARAKTER_NAME, BufferedImage> figuresImage;
 	Point figuresize = new Point(50, 50);
-	Point offset = new Point(20, 15);
+	Point offset = new Point(20, 45);
 
 	// BUTTON
 	JButton commitButton;
-	Point commitPoint = new Point(20, 430);
+	Point commitPoint = new Point(20, 460);
 	JButton playerChangeButton;
-	Point playerChangePoint = new Point(330, 430);
+	Point playerChangePoint = new Point(270, 460);
 
 	// Info
 	JLabel actPlayerLabel;
-	Point actPlayerPoint = new Point(160, 425);
+	Point actPlayerPoint = new Point(25,10 );
 	JLabel moveRemainLabel;
-	Point moveRemainPoint = new Point(200, 450);
+	Point moveRemainPoint = new Point(340, 10);
 
 	// Mouse
 	Point mousePoint = new Point(0, 0);
-	boolean mouseMove = false; // remove?
-	ICharacter mouseFigure = null;
+	ICharacter mouseFigure = null; // startposition
 	boolean figureSet = false;
 
 	public PitchPanel(IArimaaController controller) {
@@ -59,7 +58,7 @@ public class PitchPanel extends JPanel {
 		figuresImage = new EnumMap<>(CHARAKTER_NAME.class);
 
 		pitchImage = loadImage("BoardStoneSmall");
-		initFigures();
+		loadFiguresImage();
 
 		initGUI();
 	}
@@ -68,14 +67,13 @@ public class PitchPanel extends JPanel {
 		this.setLayout(null);
 
 		commitButton = new JButton("bestaetigen");
-		commitButton.setBounds(commitPoint.x, commitPoint.y, 90, 30);
+		commitButton.setBounds(commitPoint.x, commitPoint.y, 130, 30);
 		commitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				if (figureSet) {
 					
 					mouseFigure = null;
-					mouseMove = false;
 					figureSet = false;
 				}
 			repaint();
@@ -85,8 +83,8 @@ public class PitchPanel extends JPanel {
 		});
 		this.add(commitButton);
 
-		playerChangeButton = new JButton("naechster Spieler");
-		playerChangeButton.setBounds(playerChangePoint.x, playerChangePoint.y, 90, 30);
+		playerChangeButton = new JButton("Runde beenden");
+		playerChangeButton.setBounds(playerChangePoint.x, playerChangePoint.y, 150, 30);
 		playerChangeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -147,16 +145,20 @@ public class PitchPanel extends JPanel {
 		Position pos = new Position((int) cell.getX(), (int) cell.getY());
 		CHARAKTER_NAME figureName = getCharacter(pos);
 		mouseFigure = ICharacterFactory.getInstance(pos, figureName);
-
 	}
 
 	private void mouseReleasedHandler(Point mouse) {
-		if (figureSet)
+		if (figureSet|| mouseFigure == null)
 			return;
 
 		Point cell = getCell(mouse);
-		if (cell == null)
+		if (cell == null){
+			mouseFigure = null;
+			figureSet = false;
+			repaint();
 			return;
+		}
+			
 
 		System.out.println("Cell:" + cell.x + " " + cell.y);
 		// TODO
@@ -167,8 +169,6 @@ public class PitchPanel extends JPanel {
 		Point mp = new Point();
 		mp.setLocation(mx, my);
 		updateMousePos(mp);
-		// mouseMove = false;
-		mouseMove = true;
 
 		repaintPanel();
 
@@ -180,7 +180,7 @@ public class PitchPanel extends JPanel {
 			return;
 
 		updateMousePos(mouse);
-		mouseMove = true;
+		
 		repaintPanel();
 	}
 
@@ -229,7 +229,7 @@ public class PitchPanel extends JPanel {
 		return image;
 	}
 
-	private void initFigures() {
+	private void loadFiguresImage() {
 		figuresImage.put(CHARAKTER_NAME.R, loadImage("GoldRabbit"));
 		figuresImage.put(CHARAKTER_NAME.C, loadImage("GoldCat"));
 		figuresImage.put(CHARAKTER_NAME.D, loadImage("GoldDog"));
@@ -248,37 +248,38 @@ public class PitchPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		// Paint the background.
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(0, 0, getSize().width, getSize().height);
+		g2d.setColor(Color.LIGHT_GRAY);
+		g2d.fillRect(0, 0, getSize().width, getSize().height);
 
 		// Paint pitch
-		g.drawImage(pitchImage, offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.x, null);
+		g2d.drawImage(pitchImage, offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.x, null);
 
 		// Paint Player1
 		List<ICharacter> p1figure = controller.getPlayer1().getFigures();
-		printFigures(g, p1figure, offset, figuresize);
+		printFigures(g2d, p1figure, offset, figuresize);
 
 		// Paint Player2
 		List<ICharacter> p2figure = controller.getPlayer2().getFigures();
-		printFigures(g, p2figure, offset, figuresize);
+		printFigures(g2d, p2figure, offset, figuresize);
 
-		// Test Mouse
-		if (mouseMove == true) {
-			g.setColor(Color.green);
-			g.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
+		// Draw Mouse Figure
+		if (mouseFigure != null) {
+			g2d.setColor(Color.green);
+			g2d.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
 			CHARAKTER_NAME fname = mouseFigure.getName();
 			BufferedImage fimg = figuresImage.get(fname);
-			g.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
+			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
 		}
 
-		// remove?
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+
 	}
 
-	public void printFigures(Graphics g, List<ICharacter> figure, Point offset, Point figuresize) {
+	public void printFigures(Graphics2D g2d, List<ICharacter> figure, Point offset, Point figuresize) {
 		for (ICharacter f : figure) {
 			CHARAKTER_NAME fname = f.getName();
 			BufferedImage fimg = figuresImage.get(fname);
@@ -289,7 +290,7 @@ public class PitchPanel extends JPanel {
 			if(mouseFigure != null && fpos.equals(mouseFigure.getPosition()))
 			  continue;
 			
-			g.drawImage(fimg, fpos.getX() * figuresize.x + offset.x, fpos.getY() * figuresize.y + offset.y,
+			g2d.drawImage(fimg, fpos.getX() * figuresize.x + offset.x, fpos.getY() * figuresize.y + offset.y,
 					figuresize.x, figuresize.y, null);
 		}
 	}
