@@ -67,7 +67,7 @@ public class PitchPanel extends JPanel {
 	private void initGUI() {
 		this.setLayout(null);
 
-		commitButton = new JButton("commit");
+		commitButton = new JButton("bestaetigen");
 		commitButton.setBounds(commitPoint.x, commitPoint.y, 90, 30);
 		commitButton.addActionListener(new ActionListener() {
 			@Override
@@ -85,7 +85,7 @@ public class PitchPanel extends JPanel {
 		});
 		this.add(commitButton);
 
-		playerChangeButton = new JButton("change");
+		playerChangeButton = new JButton("naechster Spieler");
 		playerChangeButton.setBounds(playerChangePoint.x, playerChangePoint.y, 90, 30);
 		playerChangeButton.addActionListener(new ActionListener() {
 			@Override
