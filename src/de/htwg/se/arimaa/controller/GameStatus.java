@@ -12,5 +12,8 @@ public enum  GameStatus {
     RESET,
     WRONGTURN,
     MOVEFIGURE,
+    MOVESDONE,
+    MOVECHANGE,
+    CHANGEPLAYER,
    
 }

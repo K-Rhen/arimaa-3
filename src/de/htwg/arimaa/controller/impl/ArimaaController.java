@@ -20,9 +20,14 @@ public class ArimaaController  extends Observable implements IArimaaController{
 	private Rules rules;
 	private String player1Name ="Player1";
 	private String player2Name= "Player2";
-	
+	private int movecounter = 4;
+	private int lastPlayer = 1;
 	private GameStatus gamestatus;
 
+	public int getMoveCounter(){
+		return movecounter;
+	}
+	
 	public GameStatus getGameStatus() {
 		return gamestatus;
 	}
@@ -91,11 +96,31 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		}
 	}
 
+	private boolean reduceMove(int player){
+		if(player != lastPlayer)
+			return false;
+		
+		if(movecounter == 0){
+			return false;
+		}
+		
+		movecounter--;
+		gamestatus = GameStatus.MOVECHANGE;
+		notifyObservers();
+		return true;
+	}
 
 
 	// ---------------------Methods to play -------------------------
 
 	public boolean moveFigureByString(int player, String eingabe) {
+		
+		
+		if(movecounter == 0){
+			gamestatus = GameStatus.MOVESDONE;
+			notifyObservers();
+			return false;
+		}
 		if (eingabe.length() != 5) {
 			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
 		}
@@ -113,8 +138,12 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		
 		// Überprüfen ob gewonnen
 		isfinish();
+		// Anzahl der Züge reduzieren
+		reduceMove(player);
+		
 		gamestatus = GameStatus.MOVEFIGURE;
 		notifyObservers();
+		
 		return able;
 	}
 
@@ -186,17 +215,19 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		return pitch.getP2();
 	}
 
-	public boolean pushFigurs(int player, String line) {
+	public boolean pushFigurs(int player1, int player2, String line) {
 		
-		String[] parts = line.split(" ");
+		String[] parts = line.split("#");
 		String part1 = parts[0]; 
 		String part2 = parts[1];
 		
 		//TODO ÜBERPRÜFUNG
-		boolean firstmove = moveFigureByString(player, part1);
-		boolean secondmove = moveFigureByString(player, part2);
+		boolean firstmove = moveFigureByString(player1, part1);
+		if(!firstmove)
+			return false;
+		boolean secondmove = moveFigureByString(player2, part2);
 		
-		return firstmove && secondmove;
+		return secondmove;
 	}
 
 	//RULES
@@ -240,6 +271,25 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		gamestatus = GameStatus.EXIT;
 		notifyObservers();
 	}
+	
+	public void changePlayer(){
+		lastPlayer = getNextPlayer();
+		
+		movecounter = 4;
+		
+		gamestatus = GameStatus.CHANGEPLAYER;
+		notifyObservers();
+	}
+	public int getActualPlayer(){
+		return lastPlayer;
+	}
+	public int getNextPlayer(){
+		if(lastPlayer == 1)
+			return 2;
+		else
+			return 1;
+	}
+
 	
 	
 	

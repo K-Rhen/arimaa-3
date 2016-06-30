@@ -124,29 +124,27 @@ public class TextUI implements IObserver {
 	}
 
 	int i =1;
-	public boolean processInputLine(String next) {
+	public boolean processInputLine(String line) {
+		System.out.println("BLABLA");
 		
-		
-		if (next.matches("exit")) {
-			System.out.println("Auf Wiedersehen.");
-			// TODO GUI OBSERVER mitteilen
+		if (line.matches("exit")) {
+			controller.arimaaExit();
 			return false;
-		} else if (next.matches("help")) {
+		} else if (line.matches("help")) {
 			System.out.println("TODO");
-		} else if (next.matches("fertig")) { // bei help als befehl mit
-												// aufnehmen
-		// i = 4; // beendet die runde für den jeweiligen spieler
-			// TODO METHODE SCHREIBEN
-		} else if (next.matches("[a-h][1-8]-[a-h][1-8]")) { // normaler Zug
-			controller.moveFigureByString(i++, next); // TODO Player
-			if(i == 3)
-				i = 1;
-		} else if (next.matches("[a-h][1-8]-[a-h][1-8] [a-h][1-8]-[a-h][1-8]")) { // ziehen
-																					// schieben
-			controller.pushFigurs(1, next);  //TODO PLAYER
+		} else if (line.matches("done")) { // bei help als befehl mit
+		controller.changePlayer();
+		}else if (line.matches("[a-h][1-8]-[a-h][1-8]#[a-h][1-8]-[a-h][1-8]")) { // ziehen
+			System.out.println("BLABLA");																		// schieben
+			controller.pushFigurs(controller.getActualPlayer(),controller.getNextPlayer(), line);  //TODO PLAYER
 			
+		}else if (line.matches("[a-h][1-8]-[a-h][1-8]")) { // normaler Zug
+			controller.moveFigureByString(controller.getActualPlayer(), line); // TODO Player
+		
 		}
+		
 		controller.ShowPitch();  // spielfeld ausgeben
+		System.out.println("Spieler"+controller.getActualPlayer() +" hat noch " + controller.getMoveCounter() + " Zuege.");
 		return gameRunning;
 
 	}
@@ -166,6 +164,7 @@ public class TextUI implements IObserver {
 			System.out.println("Player 2 gewonnen");
 			controller.arimaaExit();
 	}else if(gs.equals(GameStatus.EXIT)){
+		System.out.println("Vielen Dank.");
 		gameRunning = false;
 	}
 	}
