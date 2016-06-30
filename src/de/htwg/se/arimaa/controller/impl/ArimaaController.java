@@ -12,7 +12,7 @@ import de.htwg.se.arimaa.model.impl.PitchFactory;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.character.Position;
 import de.htwg.se.arimaa.util.observer.Observable;
-import de.htwg.se.arimaa.view.TextUI;
+
 
 public class ArimaaController  extends Observable implements IArimaaController{
 

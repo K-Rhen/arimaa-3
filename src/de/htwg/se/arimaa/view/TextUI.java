@@ -9,6 +9,7 @@ import de.htwg.se.arimaa.util.observer.IObserver;
 
 public class TextUI implements IObserver {
 
+	
 	IArimaaController controller;
 	
 	public TextUI(IArimaaController controller) {
@@ -16,8 +17,7 @@ public class TextUI implements IObserver {
 		controller.addObserver(this);
 	}
 
-	private String player1 = "Spieler1";
-	private String player2 = "Spieler2";
+
 	boolean gameRunning = true;
 
 	public void run() {
@@ -119,7 +119,7 @@ public class TextUI implements IObserver {
 
 	int i =1;
 	public boolean processInputLine(String line) {
-		System.out.println("BLABLA");
+		
 		
 		if (line.matches("exit")) {
 			controller.arimaaExit();

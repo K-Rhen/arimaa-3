@@ -2,7 +2,7 @@ package de.htwg.se.arimaa.controller;
 
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.observer.IObservable;
-import de.htwg.se.arimaa.view.TextUI;
+
 
 
 public interface IArimaaController extends IObservable {
