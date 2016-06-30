@@ -135,7 +135,7 @@ public class TextUI implements IObserver {
 		} else if (line.matches("done")) { // bei help als befehl mit
 		controller.changePlayer();
 		}else if (line.matches("[a-h][1-8]-[a-h][1-8]#[a-h][1-8]-[a-h][1-8]")) { // ziehen
-			System.out.println("BLABLA");																		// schieben
+																			// schieben
 			controller.pushFigurs(controller.getActualPlayer(),controller.getNextPlayer(), line);  //TODO PLAYER
 			
 		}else if (line.matches("[a-h][1-8]-[a-h][1-8]")) { // normaler Zug

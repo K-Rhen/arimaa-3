@@ -9,7 +9,7 @@ import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.impl.PitchFactory;
-import de.htwg.se.arimaa.model.impl.Player;
+import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.character.Position;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.view.TextUI;
@@ -135,11 +135,15 @@ public class ArimaaController  extends Observable implements IArimaaController{
 			notifyObservers();
 			return false;
 		}
+	
 		
 		// Überprüfen ob gewonnen
 		isfinish();
 		// Anzahl der Züge reduzieren
 		reduceMove(player);
+		
+		if ((to.getX() == 2 || to.getX() == 5) && (to.getY() == 2 || to.getY() == 5))
+			pitch.getP1().deleteFigure(to);
 		
 		gamestatus = GameStatus.MOVEFIGURE;
 		notifyObservers();
@@ -169,7 +173,7 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		return false;
 
 	}
-	private boolean setFigureChangePosition(Player p, Position from, Position to){
+	private boolean setFigureChangePosition(IPlayer p, Position from, Position to){
 		return p.setFigureChangePositon(from, to);
 
 	}
@@ -208,10 +212,10 @@ public class ArimaaController  extends Observable implements IArimaaController{
 
 
 
-	public Player getPlayer1(){
+	public IPlayer getPlayer1(){
 		return pitch.getP1();
 	}
-	public Player getPlayer2(){
+	public IPlayer getPlayer2(){
 		return pitch.getP2();
 	}
 

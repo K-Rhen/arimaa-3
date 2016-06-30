@@ -45,4 +45,15 @@ public class Player implements IPlayer {
 	public List<ICharacter> getFigures(){
 		return figures;
 	}
+	
+	public boolean deleteFigure(Position pos){
+		if(getFigur(pos) == null)
+			return false;
+		for(int i = 0; i < figures.size(); i++){
+			if(figures.get(i).getPosition().equals(pos))
+				figures.remove(i);
+		}
+		return true;
+	}
+	
 }

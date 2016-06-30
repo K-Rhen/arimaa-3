@@ -14,5 +14,5 @@ public interface IPlayer {
 	boolean setFigureChangePositon(Position start, Position end);
 
 	List<ICharacter> getFigures();
-
+	
 }
