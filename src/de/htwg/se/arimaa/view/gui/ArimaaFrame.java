@@ -37,7 +37,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		this.setTitle("HTWG Arimaa");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(450, 580));
-		this.setResizable(false);
+		this.setResizable(true);
 		this.pack();
 		this.setVisible(true);
 	}

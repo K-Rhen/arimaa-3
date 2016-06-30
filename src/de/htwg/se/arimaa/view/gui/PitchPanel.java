@@ -1,6 +1,7 @@
 package de.htwg.se.arimaa.view.gui;
 
 import java.awt.Color;
+import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -21,14 +22,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
+import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICHARAKTER_NAME;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.ICharacterFactory;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
 import de.htwg.se.arimaa.util.character.Position;
+import de.htwg.se.arimaa.util.observer.IObserver;
 
-public class PitchPanel extends JPanel {
+public class PitchPanel extends JPanel implements IObserver {
 	IArimaaController controller;
 
 	BufferedImage pitchImage;
@@ -45,17 +48,20 @@ public class PitchPanel extends JPanel {
 
 	// Info
 	JLabel actPlayerLabel;
-	Point actPlayerPoint = new Point(25,10 );
+	Point actPlayerPoint = new Point(25, 10);
 	JLabel moveRemainLabel;
 	Point moveRemainPoint = new Point(340, 10);
 
 	// Mouse
 	Point mousePoint = new Point(0, 0);
-	ICharacter mouseFigure = null; // startposition
+	ICharacter mouseFigureFrom = null; // startposition
+	Position mouseFigureTo = null; //endposition
 	boolean figureSet = false;
 
 	public PitchPanel(IArimaaController controller) {
 		this.controller = controller;
+		controller.addObserver(this);
+		
 		figuresImage = new EnumMap<>(CHARAKTER_NAME.class);
 
 		pitchImage = loadImage("BoardStoneSmall");
@@ -73,13 +79,21 @@ public class PitchPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				if (figureSet) {
+
+			
+					System.out.println(mouseFigureFrom.getPosition().getX()+ " " + mouseFigureFrom.getPosition().getY());
+					System.out.println(mouseFigureTo.getX() +" " +mouseFigureTo.getY());
 					
-					mouseFigure = null;
+					Position from = mouseFigureFrom.getPosition();
+					Position to = mouseFigureTo;
+					controller.moveFigureByPosition(controller.getActualPlayer(),from,to);
+					
+					mouseFigureFrom = null;
 					figureSet = false;
 				}
-			repaint();
+				
 				// Todo commit
-			
+				repaint();
 			}
 		});
 		this.add(commitButton);
@@ -94,10 +108,10 @@ public class PitchPanel extends JPanel {
 		});
 		this.add(playerChangeButton);
 
-		actPlayerLabel = new JLabel("Player: -");
+		actPlayerLabel = new JLabel("Player: 1");
 		actPlayerLabel.setBounds(actPlayerPoint.x, actPlayerPoint.y, 100, 20);
 		this.add(actPlayerLabel);
-		moveRemainLabel = new JLabel("Moves: -");
+		moveRemainLabel = new JLabel("Moves: 4");
 		moveRemainLabel.setBounds(moveRemainPoint.x, moveRemainPoint.y, 100, 20);
 		this.add(moveRemainLabel);
 
@@ -129,14 +143,14 @@ public class PitchPanel extends JPanel {
 
 		mousePoint.setLocation(mouse);
 
-		if (mouseFigure == null)
+		if (mouseFigureFrom == null)
 			initMoveFigure(mouse);
 
 		return true;
 	}
 
 	private void initMoveFigure(Point mouse) {
-		if (mouseFigure != null)
+		if (mouseFigureFrom != null)
 			return;
 
 		Point cell = getCell(mouse);
@@ -145,24 +159,24 @@ public class PitchPanel extends JPanel {
 
 		Position pos = new Position((int) cell.getX(), (int) cell.getY());
 		ICHARAKTER_NAME figureName = getCharacter(pos);
-		mouseFigure = ICharacterFactory.getInstance(pos, figureName);
+		mouseFigureFrom = ICharacterFactory.getInstance(pos, figureName);
 	}
 
 	private void mouseReleasedHandler(Point mouse) {
-		if (figureSet|| mouseFigure == null)
+		if (figureSet || mouseFigureFrom == null)
 			return;
 
 		Point cell = getCell(mouse);
-		if (cell == null){
-			mouseFigure = null;
+		if (cell == null) {
+			mouseFigureFrom = null;
 			figureSet = false;
 			repaint();
 			return;
 		}
-			
 
 		System.out.println("Cell:" + cell.x + " " + cell.y);
 		// TODO
+		mouseFigureTo = new Position(cell.x, cell.y);
 
 		double mx = offset.getX() + cell.getX() * figuresize.x;
 		double my = offset.getY() + cell.getY() * figuresize.getY();
@@ -181,7 +195,7 @@ public class PitchPanel extends JPanel {
 			return;
 
 		updateMousePos(mouse);
-		
+
 		repaintPanel();
 	}
 
@@ -268,15 +282,13 @@ public class PitchPanel extends JPanel {
 		printFigures(g2d, p2figure, offset, figuresize);
 
 		// Draw Mouse Figure
-		if (mouseFigure != null) {
+		if (mouseFigureFrom != null) {
 			g2d.setColor(Color.green);
 			g2d.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
-			ICHARAKTER_NAME fname = mouseFigure.getName();
+			ICHARAKTER_NAME fname = mouseFigureFrom.getName();
 			BufferedImage fimg = figuresImage.get(fname);
 			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
 		}
-
-
 
 	}
 
@@ -286,14 +298,42 @@ public class PitchPanel extends JPanel {
 			BufferedImage fimg = figuresImage.get(fname);
 
 			Position fpos = f.getPosition();
-			
-			//If figure is the moving figure
-			if(mouseFigure != null && fpos.equals(mouseFigure.getPosition()))
-			  continue;
-			
+
+			// If figure is the moving figure
+			if (mouseFigureFrom != null && fpos.equals(mouseFigureFrom.getPosition()))
+				continue;
+
 			g2d.drawImage(fimg, fpos.getX() * figuresize.x + offset.x, fpos.getY() * figuresize.y + offset.y,
 					figuresize.x, figuresize.y, null);
 		}
+	}
+
+	@Override
+	public void update(Event e) {
+		GameStatus gs = controller.getGameStatus();
+		if (gs.equals(GameStatus.WinPLAYER1)) {
+			// System.out.println("Player 1 gewonnen");
+			// controller.arimaaExit();
+		} else if (gs.equals(GameStatus.WinPLAYER2)) {
+			// System.out.println("Player 2 gewonnen");
+			// controller.arimaaExit();
+		} else if (gs.equals(GameStatus.EXIT)) {
+			// TODO
+		} else if (gs.equals(GameStatus.WRONGTURN)) {
+			// TODO
+		} else if (gs.equals(GameStatus.MOVEFIGURE)) {
+			// TODO
+		} else if (gs.equals(GameStatus.MOVESDONE)) {
+			// TODO
+			repaint();
+		} else if (gs.equals(GameStatus.MOVECHANGE)) {
+			// TODO
+			moveRemainLabel.setText("Moves: "+ controller.getMoveCounter());
+		} else if (gs.equals(GameStatus.CHANGEPLAYER)) {
+			actPlayerLabel.setText("Player: "+ controller.getActualPlayer());
+			// TODO
+		}
+
 	}
 
 }

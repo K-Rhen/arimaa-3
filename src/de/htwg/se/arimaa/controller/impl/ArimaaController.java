@@ -114,19 +114,23 @@ public class ArimaaController  extends Observable implements IArimaaController{
 	// ---------------------Methods to play -------------------------
 
 	public boolean moveFigureByString(int player, String eingabe) {
+		if (eingabe.length() != 5) {
+			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
+		}
 		
-		
+		char[] parts = eingabe.toCharArray();
+		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
+		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
+
+		return moveFigureByPosition(player,from, to);
+	}
+	
+	public boolean moveFigureByPosition(int player, Position from , Position to) {
 		if(movecounter == 0){
 			gamestatus = GameStatus.MOVESDONE;
 			notifyObservers();
 			return false;
 		}
-		if (eingabe.length() != 5) {
-			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
-		}
-		char[] parts = eingabe.toCharArray();
-		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
-		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
 		
 		boolean able = moveFigur(player, from, to);
 
@@ -137,9 +141,9 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		}
 	
 		
-		// Überprüfen ob gewonnen
+		// ï¿½berprï¿½fen ob gewonnen
 		isfinish();
-		// Anzahl der Züge reduzieren
+		// Anzahl der Zï¿½ge reduzieren
 		reduceMove(player);
 		
 		if ((to.getX() == 2 || to.getX() == 5) && (to.getY() == 2 || to.getY() == 5))
@@ -225,7 +229,7 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		String part1 = parts[0]; 
 		String part2 = parts[1];
 		
-		//TODO ÜBERPRÜFUNG
+		//TODO ï¿½BERPRï¿½FUNG
 		boolean firstmove = moveFigureByString(player1, part1);
 		if(!firstmove)
 			return false;
