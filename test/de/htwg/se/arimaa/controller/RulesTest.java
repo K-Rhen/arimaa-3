@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.se.arimaa.controller.impl.Rules;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.arimaa.controller.impl.Rules;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.ICharacterFactory;
 import de.htwg.se.arimaa.model.IPitch;

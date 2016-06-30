@@ -1,4 +1,4 @@
-package de.htwg.arimaa.controller.impl;
+package de.htwg.se.arimaa.controller.impl;
 
 
 import java.util.List;
