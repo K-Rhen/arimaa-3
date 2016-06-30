@@ -4,16 +4,16 @@ package de.htwg.arimaa.controller.impl;
 import java.util.List;
 
 import de.htwg.se.arimaa.model.IPitch;
-import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.CharacterFactory;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.impl.PitchFactory;
 import de.htwg.se.arimaa.model.impl.Player;
 import de.htwg.se.arimaa.util.character.Position;
+import de.htwg.se.arimaa.util.observer.Observable;
+import de.htwg.se.arimaa.view.TextUI;
 
-public class ArimaaController implements IArimaaController{
-	private Position position;
+public class ArimaaController  extends Observable implements IArimaaController{
+
 	private IPitch pitch;
 	private Rules rules;
 	private String player1Name ="Player1";
@@ -31,28 +31,7 @@ public class ArimaaController implements IArimaaController{
 		System.out.println(pitch.toString());
 	}
 
-	public void setFigure(String player, String string) {
-
-	}
-
-
-
-	private void checkSetPosition(String player, char yPos) {
-		if (player.equals("p1") && (yPos == '7' || yPos == '8')) {
-			return;
-		}
-		if (player.equals("p2") && (yPos == '1' || yPos == '2')) {
-			return;
-		}
-
-		String fehler = null;
-
-		if (player.equals("p1"))
-			fehler = "Position ist auserhalb deines Bereiches.\n" + "Dein Bereich liegt zwischen a8 und b7.";
-		if (player.equals("p2"))
-			fehler = "Position ist auserhalb deines Bereiches.\n" + "Dein Bereich liegt zwischen a1 und h2.";
-		throw new IllegalArgumentException(fehler);
-	}
+	
 
 	private int readPosX(char c) {
 
@@ -104,37 +83,7 @@ public class ArimaaController implements IArimaaController{
 		}
 	}
 
-	private CHARAKTER_NAME readname(char name) {
-		switch (name) {
-		case 'r':
-			return CHARAKTER_NAME.r;
-		case 'c':
-			return CHARAKTER_NAME.c;
-		case 'd':
-			return CHARAKTER_NAME.d;
-		case 'h':
-			return CHARAKTER_NAME.h;
-		case 'l':
-			return CHARAKTER_NAME.l;
-		case 'e':
-			return CHARAKTER_NAME.e;
-		case 'R':
-			return CHARAKTER_NAME.R;
-		case 'C':
-			return CHARAKTER_NAME.C;
-		case 'D':
-			return CHARAKTER_NAME.D;
-		case 'H':
-			return CHARAKTER_NAME.H;
-		case 'L':
-			return CHARAKTER_NAME.L;
-		case 'E':
-			return CHARAKTER_NAME.E;
-		default:
-			throw new IllegalArgumentException(name + " ist keine korrekter Figurenname.");
-		}
 
-	}
 
 	// ---------------------Methods to play -------------------------
 
@@ -149,7 +98,10 @@ public class ArimaaController implements IArimaaController{
 		boolean able = moveFigur(player, from, to);
 		if (!able)
 			throw new IllegalArgumentException("Ungueltiger Zug");
-			
+		
+		// Überprüfen ob gewonnen
+		rules.isfinish();
+		
 		return able;
 	}
 
@@ -233,4 +185,8 @@ public class ArimaaController implements IArimaaController{
 		
 		return firstmove && secondmove;
 	}
+
+	
+	
+	
 }

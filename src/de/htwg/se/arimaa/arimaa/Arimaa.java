@@ -19,7 +19,7 @@ public class Arimaa {
 
 		controller = IArimaaControllerFactory.getInstance(); // TODO inject
 
-		tui = new TextUI();
+		tui = new TextUI(controller);
 		gui = new ArimaaFrame(controller);
 	}
 
