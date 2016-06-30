@@ -10,5 +10,7 @@ public enum  GameStatus {
     WinPLAYER2,
     EXIT,
     RESET,
+    WRONGTURN,
+    MOVEFIGURE,
    
 }

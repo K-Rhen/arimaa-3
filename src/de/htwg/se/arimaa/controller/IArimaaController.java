@@ -9,9 +9,10 @@ public interface IArimaaController extends IObservable {
 
 	IPlayer getPlayer1();
 	IPlayer getPlayer2();
-	boolean moveFigureByString(int i, String next);
+	void moveFigureByString(int i, String next);
 	boolean pushFigurs(int i, String next);
 	void ShowPitch();
+	GameStatus getGameStatus();
 
 
 	

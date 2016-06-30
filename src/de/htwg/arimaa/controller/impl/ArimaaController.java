@@ -4,8 +4,10 @@ package de.htwg.arimaa.controller.impl;
 import java.util.List;
 
 import de.htwg.se.arimaa.model.IPitch;
+import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICharacter;
+import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.impl.PitchFactory;
 import de.htwg.se.arimaa.model.impl.Player;
 import de.htwg.se.arimaa.util.character.Position;
@@ -18,6 +20,12 @@ public class ArimaaController  extends Observable implements IArimaaController{
 	private Rules rules;
 	private String player1Name ="Player1";
 	private String player2Name= "Player2";
+	
+	private GameStatus gamestatus;
+
+	public GameStatus getGameStatus() {
+		return gamestatus;
+	}
 
 	private Position toPull; // benoetigt in pullFigureEnemy
 
@@ -87,22 +95,27 @@ public class ArimaaController  extends Observable implements IArimaaController{
 
 	// ---------------------Methods to play -------------------------
 
-	public boolean moveFigureByString(int player, String eingabe) {
+	public void moveFigureByString(int player, String eingabe) {
 		if (eingabe.length() != 5) {
 			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
 		}
 		char[] parts = eingabe.toCharArray();
 		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
 		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
-
+		
 		boolean able = moveFigur(player, from, to);
-		if (!able)
-			throw new IllegalArgumentException("Ungueltiger Zug");
+
+		if(!able){
+			gamestatus = GameStatus.WRONGTURN;
+			notifyObservers();
+			return;
+		}
 		
 		// Überprüfen ob gewonnen
-		rules.isfinish();
+		isfinish();
+		gamestatus = GameStatus.MOVEFIGURE;
+		notifyObservers();
 		
-		return able;
 	}
 
 	private boolean isFigurOwn(List<ICharacter> figures, Position from) {
@@ -186,6 +199,42 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		return firstmove && secondmove;
 	}
 
+	//RULES
+	public boolean isfinish(){
+		if(finishP1()){
+			gamestatus = GameStatus.WinPLAYER1;
+			notifyObservers();
+			return true;
+		}
+		
+		if(finishP2()){
+			gamestatus = GameStatus.WinPLAYER2;
+			notifyObservers();
+			return true;
+		}
+	
+		return false;
+		
+	}
+
+	private boolean finishP1() {
+		for (ICharacter figure : pitch.getP1().getFigures()) {
+			if (figure.getName() == CHARAKTER_NAME.R
+					&& figure.getPosition().getY() == 7)
+				return true;
+		}
+		return false;
+
+	}
+
+	private boolean finishP2() {
+		for (ICharacter figure : pitch.getP2().getFigures()) {
+			if (figure.getName() == CHARAKTER_NAME.r
+					&& figure.getPosition().getY() == 0)
+				return true;
+		}
+		return false;
+	}
 	
 	
 	

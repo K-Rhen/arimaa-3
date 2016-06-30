@@ -3,6 +3,7 @@ package de.htwg.se.arimaa.view;
 import java.util.Scanner;
 
 import de.htwg.arimaa.controller.impl.ArimaaController;
+import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.util.observer.IObserver;
 
@@ -133,13 +134,11 @@ public class TextUI implements IObserver {
 		// i = 4; // beendet die runde für den jeweiligen spieler
 			// TODO METHODE SCHREIBEN
 		} else if (next.matches("[a-h][1-8]-[a-h][1-8]")) { // normaler Zug
-			boolean ableToMoveFigure = controller.moveFigureByString(1, next); // TODO
-																				// Player
-			if (!ableToMoveFigure)
-				System.out.println("Zug ging nicht");
+			controller.moveFigureByString(1, next); // TODO Player
+			
 		} else if (next.matches("[a-h][1-8]-[a-h][1-8] [a-h][1-8]-[a-h][1-8]")) { // ziehen
 																					// schieben
-			boolean ableToPush = controller.pushFigurs(1, next);  //TODO PLAYER
+			controller.pushFigurs(1, next);  //TODO PLAYER
 			
 		}
 		controller.ShowPitch();  // spielfeld ausgeben
@@ -154,8 +153,13 @@ public class TextUI implements IObserver {
 
 	@Override
 	public void update(Event e) {
-		// TODO Auto-generated method stub
+		GameStatus gs = controller.getGameStatus();
+		if(gs.equals(GameStatus.WinPLAYER1)){
+			System.out.println("Player 1 gewonnen");
+		}else if(gs.equals(GameStatus.WinPLAYER2)){
+			System.out.println("Player 2 gewonnen");
 		
+	}
 	}
 
 }

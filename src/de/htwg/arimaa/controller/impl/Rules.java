@@ -17,7 +17,7 @@ public class Rules extends Observable {
 	private Player p2;
 
 	
-	private GameStatus gamestatus;
+
 	
 
 	private List<IPitch> pitchList = new ArrayList<>();
@@ -59,38 +59,5 @@ public class Rules extends Observable {
 		return !found;
 	}
 	
-	public boolean isfinish(){
-		if(finishP1()){
-			gamestatus = GameStatus.WinPLAYER1;
-			notifyObservers();
-			return true;
-		}
-		
-		if(finishP2()){
-			gamestatus = GameStatus.WinPLAYER2;
-			notifyObservers();
-			return true;
-		}
-		return false;
-		
-	}
 
-	private boolean finishP1() {
-		for (ICharacter figure : p1.getFigures()) {
-			if (figure.getName() == CHARAKTER_NAME.R
-					&& figure.getPosition().getY() == 7)
-				return true;
-		}
-		return false;
-
-	}
-
-	private boolean finishP2() {
-		for (ICharacter figure : p1.getFigures()) {
-			if (figure.getName() == CHARAKTER_NAME.r
-					&& figure.getPosition().getY() == 0)
-				return true;
-		}
-		return false;
-	}
 }
