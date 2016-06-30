@@ -95,7 +95,7 @@ public class ArimaaController  extends Observable implements IArimaaController{
 
 	// ---------------------Methods to play -------------------------
 
-	public void moveFigureByString(int player, String eingabe) {
+	public boolean moveFigureByString(int player, String eingabe) {
 		if (eingabe.length() != 5) {
 			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
 		}
@@ -108,14 +108,14 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		if(!able){
 			gamestatus = GameStatus.WRONGTURN;
 			notifyObservers();
-			return;
+			return false;
 		}
 		
 		// Überprüfen ob gewonnen
 		isfinish();
 		gamestatus = GameStatus.MOVEFIGURE;
 		notifyObservers();
-		
+		return able;
 	}
 
 	private boolean isFigurOwn(List<ICharacter> figures, Position from) {
@@ -234,6 +234,11 @@ public class ArimaaController  extends Observable implements IArimaaController{
 				return true;
 		}
 		return false;
+	}
+	
+	public void arimaaExit(){
+		gamestatus = GameStatus.EXIT;
+		notifyObservers();
 	}
 	
 	

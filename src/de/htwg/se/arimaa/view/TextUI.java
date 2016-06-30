@@ -10,6 +10,8 @@ import de.htwg.se.arimaa.util.observer.IObserver;
 import java.awt.Event;
 import java.lang.System;
 
+import com.oracle.xmlns.internal.webservices.jaxws_databinding.ExistingAnnotationsType;
+
 
 public class TextUI implements IObserver {
 
@@ -21,7 +23,8 @@ public class TextUI implements IObserver {
 	}
 
 	private String player1 = "Spieler1";
-	private String player2 = "Spieler2";;
+	private String player2 = "Spieler2";
+	boolean gameRunning = true;
 
 	public void run() {
 //		boolean firstPlayer = true; // steuert welcher Spieler an der Reihe ist
@@ -120,8 +123,9 @@ public class TextUI implements IObserver {
 //		}
 	}
 
+	int i =1;
 	public boolean processInputLine(String next) {
-		boolean cont = true;
+		
 		
 		if (next.matches("exit")) {
 			System.out.println("Auf Wiedersehen.");
@@ -134,15 +138,16 @@ public class TextUI implements IObserver {
 		// i = 4; // beendet die runde für den jeweiligen spieler
 			// TODO METHODE SCHREIBEN
 		} else if (next.matches("[a-h][1-8]-[a-h][1-8]")) { // normaler Zug
-			controller.moveFigureByString(1, next); // TODO Player
-			
+			controller.moveFigureByString(i++, next); // TODO Player
+			if(i == 3)
+				i = 1;
 		} else if (next.matches("[a-h][1-8]-[a-h][1-8] [a-h][1-8]-[a-h][1-8]")) { // ziehen
 																					// schieben
 			controller.pushFigurs(1, next);  //TODO PLAYER
 			
 		}
 		controller.ShowPitch();  // spielfeld ausgeben
-		return cont;
+		return gameRunning;
 
 	}
 
@@ -156,9 +161,12 @@ public class TextUI implements IObserver {
 		GameStatus gs = controller.getGameStatus();
 		if(gs.equals(GameStatus.WinPLAYER1)){
 			System.out.println("Player 1 gewonnen");
+			controller.arimaaExit();
 		}else if(gs.equals(GameStatus.WinPLAYER2)){
 			System.out.println("Player 2 gewonnen");
-		
+			controller.arimaaExit();
+	}else if(gs.equals(GameStatus.EXIT)){
+		gameRunning = false;
 	}
 	}
 
