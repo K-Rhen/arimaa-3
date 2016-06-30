@@ -28,7 +28,7 @@ public class TextUI implements IObserver {
 //											// pro Runde
 //
 //				controller.ShowPitch(); // spielfeld ausgeben
-//				if (firstPlayer) { // einleitender satz in abhängigkeit wer dran
+//				if (firstPlayer) { // einleitender satz in abhï¿½ngigkeit wer dran
 //									// ist 
 //					System.out.printf(player1
 //							+ " du bist an der Reihe und hast noch " + (4 - i)
@@ -52,7 +52,7 @@ public class TextUI implements IObserver {
 //				}
 //				if (eingabe.equals("fertig")) { // bei help als befehl mit
 //												// aufnehmen
-//					i = 4; // beendet die runde für den jeweiligen spieler
+//					i = 4; // beendet die runde fï¿½r den jeweiligen spieler
 //
 //				}
 //				if (eingabe.equals("ziehen")) { // bei help als befehl mit
@@ -69,7 +69,7 @@ public class TextUI implements IObserver {
 //																			// gezogen
 //																			// wird
 //						System.out
-//								.println("Von wo nach wo möchtest du deine Figur ziehen?");
+//								.println("Von wo nach wo mï¿½chtest du deine Figur ziehen?");
 //						ziehen = EINGABE.nextLine();
 //						controller.pullFigureOwn(firstPlayer, ziehen); // setzt
 //																		// die
@@ -90,7 +90,7 @@ public class TextUI implements IObserver {
 //				} else {
 //					try {
 //						if (firstPlayer) // liest und verabeitet die Eingabe in
-//											// abhängigkeit wer dran ist
+//											// abhï¿½ngigkeit wer dran ist
 //							controller.moveFigureByString(1, eingabe); // false,
 //																		// da
 //																		// keine
@@ -153,10 +153,10 @@ public class TextUI implements IObserver {
 		GameStatus gs = controller.getGameStatus();
 		if(gs.equals(GameStatus.WinPLAYER1)){
 			System.out.println("Player 1 gewonnen");
-			controller.arimaaExit();
+			
 		}else if(gs.equals(GameStatus.WinPLAYER2)){
 			System.out.println("Player 2 gewonnen");
-			controller.arimaaExit();
+			
 	}else if(gs.equals(GameStatus.EXIT)){
 		System.out.println("Vielen Dank.");
 		gameRunning = false;

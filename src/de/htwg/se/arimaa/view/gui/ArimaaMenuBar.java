@@ -69,7 +69,7 @@ public class ArimaaMenuBar extends JMenuBar {
 			public void actionPerformed(ActionEvent event) {
 				JOptionPane.showMessageDialog(null,
 						"Entstanden im Rahmen der Vorlesung Softwareentwicklung an der HTWG Konstanz.\n"
-						+ "Für mehr Informationen über Arimaa,\n"
+						+ "Fuer mehr Informationen ueber Arimaa,\n"
 						+ "siehe http://arimaa.com/arimaa/","Arimaa 2016",JOptionPane.INFORMATION_MESSAGE);
 			}
 		});

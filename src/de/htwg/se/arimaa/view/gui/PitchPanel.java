@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -19,6 +20,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
@@ -55,13 +57,13 @@ public class PitchPanel extends JPanel implements IObserver {
 	// Mouse
 	Point mousePoint = new Point(0, 0);
 	ICharacter mouseFigureFrom = null; // startposition
-	Position mouseFigureTo = null; //endposition
+	Position mouseFigureTo = null; // endposition
 	boolean figureSet = false;
 
 	public PitchPanel(IArimaaController controller) {
 		this.controller = controller;
 		controller.addObserver(this);
-		
+
 		figuresImage = new EnumMap<>(CHARAKTER_NAME.class);
 
 		pitchImage = loadImage("BoardStoneSmall");
@@ -79,20 +81,13 @@ public class PitchPanel extends JPanel implements IObserver {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				if (figureSet) {
-
-			
-					System.out.println(mouseFigureFrom.getPosition().getX()+ " " + mouseFigureFrom.getPosition().getY());
-					System.out.println(mouseFigureTo.getX() +" " +mouseFigureTo.getY());
-					
 					Position from = mouseFigureFrom.getPosition();
 					Position to = mouseFigureTo;
-					controller.moveFigureByPosition(controller.getActualPlayer(),from,to);
-					
+					controller.moveFigureByPosition(controller.getActualPlayer(), from, to);
+
 					mouseFigureFrom = null;
 					figureSet = false;
 				}
-				
-				// Todo commit
 				repaint();
 			}
 		});
@@ -103,7 +98,7 @@ public class PitchPanel extends JPanel implements IObserver {
 		playerChangeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				// Todo change Player
+				controller.changePlayer();
 			}
 		});
 		this.add(playerChangeButton);
@@ -163,19 +158,16 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 	private void mouseReleasedHandler(Point mouse) {
-		if (figureSet || mouseFigureFrom == null)
+		if (figureSet || mouseFigureFrom == null||controller.getMoveCounter() == 0)
 			return;
 
 		Point cell = getCell(mouse);
 		if (cell == null) {
 			mouseFigureFrom = null;
 			figureSet = false;
-			repaint();
+			repaintPanel();
 			return;
 		}
-
-		System.out.println("Cell:" + cell.x + " " + cell.y);
-		// TODO
 		mouseFigureTo = new Position(cell.x, cell.y);
 
 		double mx = offset.getX() + cell.getX() * figuresize.x;
@@ -191,7 +183,7 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 	private void mouseDraggedHandler(Point mouse) {
-		if (figureSet)
+		if (figureSet||controller.getMoveCounter() == 0)
 			return;
 
 		updateMousePos(mouse);
@@ -289,7 +281,6 @@ public class PitchPanel extends JPanel implements IObserver {
 			BufferedImage fimg = figuresImage.get(fname);
 			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
 		}
-
 	}
 
 	public void printFigures(Graphics2D g2d, List<ICharacter> figure, Point offset, Point figuresize) {
@@ -312,26 +303,18 @@ public class PitchPanel extends JPanel implements IObserver {
 	public void update(Event e) {
 		GameStatus gs = controller.getGameStatus();
 		if (gs.equals(GameStatus.WinPLAYER1)) {
-			// System.out.println("Player 1 gewonnen");
-			// controller.arimaaExit();
+			JOptionPane.showMessageDialog(null,"Spieler 1 hat gewonnen",":D",JOptionPane.INFORMATION_MESSAGE);
 		} else if (gs.equals(GameStatus.WinPLAYER2)) {
-			// System.out.println("Player 2 gewonnen");
-			// controller.arimaaExit();
-		} else if (gs.equals(GameStatus.EXIT)) {
-			// TODO
+			JOptionPane.showMessageDialog(null,"Spieler 2 hat gewonnen",":D",JOptionPane.INFORMATION_MESSAGE);
 		} else if (gs.equals(GameStatus.WRONGTURN)) {
-			// TODO
+			JOptionPane.showMessageDialog(null,"Das sind nicht ihre Figuren",":(",JOptionPane.WARNING_MESSAGE);
 		} else if (gs.equals(GameStatus.MOVEFIGURE)) {
-			// TODO
-		} else if (gs.equals(GameStatus.MOVESDONE)) {
-			// TODO
-			repaint();
+			repaintPanel();
 		} else if (gs.equals(GameStatus.MOVECHANGE)) {
-			// TODO
-			moveRemainLabel.setText("Moves: "+ controller.getMoveCounter());
+			moveRemainLabel.setText("Moves: " + controller.getMoveCounter());
 		} else if (gs.equals(GameStatus.CHANGEPLAYER)) {
-			actPlayerLabel.setText("Player: "+ controller.getActualPlayer());
-			// TODO
+			actPlayerLabel.setText("Player: " + controller.getActualPlayer());
+			moveRemainLabel.setText("Moves: " + controller.getMoveCounter());
 		}
 
 	}
