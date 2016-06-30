@@ -133,7 +133,7 @@ public class TextUI {
 				System.out.println("Zug ging nicht");
 		} else if (next.matches("[a-h][1-8]-[a-h][1-8] [a-h][1-8]-[a-h][1-8]")) { // ziehen
 																					// schieben
-
+			boolean ableToPush = controller.pushFigurs(1, next);  //TODO PLAYER
 			
 		}
 		controller.ShowPitch();  // spielfeld ausgeben

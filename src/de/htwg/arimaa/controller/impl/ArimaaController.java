@@ -10,7 +10,6 @@ import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.impl.PitchFactory;
 import de.htwg.se.arimaa.model.impl.Player;
-
 import de.htwg.se.arimaa.util.character.Position;
 
 public class ArimaaController implements IArimaaController{
@@ -220,5 +219,18 @@ public class ArimaaController implements IArimaaController{
 	}
 	public Player getPlayer2(){
 		return pitch.getP2();
+	}
+
+	public boolean pushFigurs(int player, String line) {
+		
+		String[] parts = line.split(" ");
+		String part1 = parts[0]; 
+		String part2 = parts[1];
+		
+		//TODO ÜBERPRÜFUNG
+		boolean firstmove = moveFigureByString(player, part1);
+		boolean secondmove = moveFigureByString(player, part2);
+		
+		return firstmove && secondmove;
 	}
 }

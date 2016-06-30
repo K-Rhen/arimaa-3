@@ -38,6 +38,7 @@ public class Arimaa {
 		boolean continu = true;
 		scanner = new Scanner(System.in);
 		while (continu) {
+			System.out.println("Bitte um Eingabe: "); //TODO SCHÖNER SCHREIBEN
 			continu = game.tui.processInputLine(scanner.next());
 		}
 
