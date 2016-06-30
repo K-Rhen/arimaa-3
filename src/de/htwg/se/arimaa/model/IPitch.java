@@ -1,12 +1,12 @@
 package de.htwg.se.arimaa.model;
 
-import de.htwg.se.arimaa.model.impl.Player;
+import de.htwg.se.arimaa.model.IPlayer;
 
 public interface IPitch {
 
-	Player getP2();
+	IPlayer getP2();
 
-	Player getP1();
+	IPlayer getP1();
 
 	boolean pitchEquals(IPitch b);
 	

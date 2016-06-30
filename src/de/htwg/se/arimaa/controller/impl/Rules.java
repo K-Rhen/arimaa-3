@@ -3,18 +3,15 @@ package de.htwg.se.arimaa.controller.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.htwg.se.arimaa.controller.GameStatus;
-import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.IPitch;
-import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.Player;
+import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.character.Position;
 import de.htwg.se.arimaa.util.observer.Observable;
 
 public class Rules extends Observable {
 
-	private Player p1;
-	private Player p2;
+	private IPlayer p1;
+	private IPlayer p2;
 
 	
 
