@@ -139,7 +139,7 @@ public class ArimaaController implements IArimaaController{
 
 	// ---------------------Methods to play -------------------------
 
-	public void checkEingabe(int player, String eingabe, boolean pull) {
+	public boolean moveFigureByString(int player, String eingabe) {
 		if (eingabe.length() != 5) {
 			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
 		}
@@ -147,8 +147,11 @@ public class ArimaaController implements IArimaaController{
 		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
 		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
 
-		if (!moveFigur(player, from, to))
+		boolean able = moveFigur(player, from, to);
+		if (!able)
 			throw new IllegalArgumentException("Ungueltiger Zug");
+			
+		return able;
 	}
 
 	private boolean isFigurOwn(List<ICharacter> figures, Position from) {
@@ -166,29 +169,16 @@ public class ArimaaController implements IArimaaController{
 		if (rules.occupiedCell(to))
 			throw new IllegalArgumentException("Die Position auf welche du ziehen willst ist bereits belegt");
 
-		if (player == 1) {
-			ICharacter characterStart = CharacterFactory.getInstance(from, pitch.getP1().getFigur(from));
-
-			for (ICharacter usedchar : pitch.getP1().getFigures()) {
-				if (usedchar.getPosition().equals(characterStart.getPosition()))
-					usedchar.setPosition(to);
-			}
-
-			return true;
-		}
-		if (player == 2) {
-			ICharacter characterStart = CharacterFactory.getInstance(from, pitch.getP2().getFigur(from));
-
-			for (ICharacter usedchar : pitch.getP2().getFigures()) {
-				if (usedchar.getPosition().equals(characterStart.getPosition()))
-					usedchar.setPosition(to);
-				;
-			}
-
-			return true;
-		}
-
+		if (player == 1) 
+			return setFigureChangePosition(pitch.getP1(), from , to);
+		if (player == 2) 
+			return setFigureChangePosition(pitch.getP2(), from , to);
 		return false;
+
+	}
+	private boolean setFigureChangePosition(Player p, Position from, Position to){
+		return p.setFigureChangePositon(from, to);
+
 	}
 
 
@@ -209,18 +199,18 @@ public class ArimaaController implements IArimaaController{
 	}
 
 	public void pullFigureOwn(boolean firstPlayer, String ziehen) {
-		if (firstPlayer) {
-			checkEingabe(1, ziehen, true);
-			char[] tmp = ziehen.toCharArray();
-			Position to = new Position(readPosX(tmp[0]), readPosY(tmp[1]));
-			moveFigur(2, toPull, to);
-		} else {
-			checkEingabe(2, ziehen, true);
-			char[] tmp = ziehen.toCharArray();
-			Position to = new Position(readPosX(tmp[0]), readPosY(tmp[1]));
-			moveFigur(1, toPull, to);
-		}
-
+//		if (firstPlayer) {
+//			checkEingabe(1, ziehen);
+//			char[] tmp = ziehen.toCharArray();
+//			Position to = new Position(readPosX(tmp[0]), readPosY(tmp[1]));
+//			moveFigur(2, toPull, to);
+//		} else {
+//			checkEingabe(2, ziehen, true);
+//			char[] tmp = ziehen.toCharArray();
+//			Position to = new Position(readPosX(tmp[0]), readPosY(tmp[1]));
+//			moveFigur(1, toPull, to);
+//		}
+//
 	}
 
 
