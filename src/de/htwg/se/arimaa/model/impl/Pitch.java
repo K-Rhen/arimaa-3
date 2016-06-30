@@ -1,9 +1,9 @@
 package de.htwg.se.arimaa.model.impl;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
+import de.htwg.se.arimaa.model.ICHARAKTER_NAME;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.util.character.Position;
@@ -107,7 +107,7 @@ public class Pitch implements IPitch {
 
 		boolean occupied = false;
 		for (Player p : pl) {
-			CHARAKTER_NAME c = p.getFigur(pos);
+			ICHARAKTER_NAME c = p.getFigur(pos);
 			if (c != null) {
 				sb.append(c);
 				occupied = true;

@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
 import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.model.ICHARAKTER_NAME;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.ICharacterFactory;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
@@ -143,7 +144,7 @@ public class PitchPanel extends JPanel {
 			return;
 
 		Position pos = new Position((int) cell.getX(), (int) cell.getY());
-		CHARAKTER_NAME figureName = getCharacter(pos);
+		ICHARAKTER_NAME figureName = getCharacter(pos);
 		mouseFigure = ICharacterFactory.getInstance(pos, figureName);
 	}
 
@@ -184,8 +185,8 @@ public class PitchPanel extends JPanel {
 		repaintPanel();
 	}
 
-	private CHARAKTER_NAME getCharacter(Position cell) {
-		CHARAKTER_NAME name = null;
+	private ICHARAKTER_NAME getCharacter(Position cell) {
+		ICHARAKTER_NAME name = null;
 		name = controller.getPlayer1().getFigur(cell);
 		if (name == null)
 			name = controller.getPlayer2().getFigur(cell);
@@ -270,7 +271,7 @@ public class PitchPanel extends JPanel {
 		if (mouseFigure != null) {
 			g2d.setColor(Color.green);
 			g2d.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
-			CHARAKTER_NAME fname = mouseFigure.getName();
+			ICHARAKTER_NAME fname = mouseFigure.getName();
 			BufferedImage fimg = figuresImage.get(fname);
 			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
 		}
@@ -281,7 +282,7 @@ public class PitchPanel extends JPanel {
 
 	public void printFigures(Graphics2D g2d, List<ICharacter> figure, Point offset, Point figuresize) {
 		for (ICharacter f : figure) {
-			CHARAKTER_NAME fname = f.getName();
+			ICHARAKTER_NAME fname = f.getName();
 			BufferedImage fimg = figuresImage.get(fname);
 
 			Position fpos = f.getPosition();

@@ -1,14 +1,15 @@
 package de.htwg.se.arimaa.model.impl;
 
+import de.htwg.se.arimaa.model.ICHARAKTER_NAME;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class Character implements ICharacter{
 
 	private Position position;
-	private CHARAKTER_NAME name;
+	private ICHARAKTER_NAME name;
 
-	public Character(Position positon, CHARAKTER_NAME name) {
+	public Character(Position positon, ICHARAKTER_NAME name) {
 		this.position = positon;
 		this.name = name;
 	}
@@ -25,7 +26,7 @@ public class Character implements ICharacter{
 		return position;
 	}
 
-	public CHARAKTER_NAME getName() {
+	public ICHARAKTER_NAME getName() {
 		return name;
 	}
 }

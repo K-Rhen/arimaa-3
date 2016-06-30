@@ -2,6 +2,7 @@ package de.htwg.se.arimaa.model.impl;
 
 import java.util.List;
 
+import de.htwg.se.arimaa.model.ICHARAKTER_NAME;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.character.Position;
@@ -17,7 +18,7 @@ public class Player implements IPlayer {
 
 
 
-	public CHARAKTER_NAME getFigur(Position pos) {
+	public ICHARAKTER_NAME getFigur(Position pos) {
 		for (ICharacter cr : figures) {
 			if (pos.equals(cr.getPosition()))
 				return cr.getName();
