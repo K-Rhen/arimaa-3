@@ -1,12 +1,8 @@
 package de.htwg.se.arimaa.controller;
 
-import static org.junit.Assert.*;
-import junit.framework.TestCase;
-
 import org.junit.Before;
-import org.junit.Test;
 
-import de.htwg.se.arimaa.controller.IArimaaController;
+import junit.framework.TestCase;
 
 
 public class ArimaaControllerTest extends TestCase{
@@ -15,7 +11,7 @@ public class ArimaaControllerTest extends TestCase{
 
 	@Before
 	public void setUp() throws Exception {
-		controller = new ArimaaController();
+		controller = IArimaaControllerFactory.getInstance();
 	}
 
 //	@Test
