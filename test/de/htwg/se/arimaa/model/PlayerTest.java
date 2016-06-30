@@ -45,7 +45,7 @@ public class PlayerTest {
 	
 	@Test
 	public void testsetFigureChangePositonFalse() {
-		Position start = new Position(0,5);
+		Position start = new Position(0,1);
 		Position end = new Position(0,1);
 		assertFalse(player.setFigureChangePositon(start, end));	
 	}
