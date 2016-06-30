@@ -19,12 +19,13 @@ public class PlayerTest {
 	String playerName;
 	Position pos;
 
+	ArrayList<ICharacter> figures;
 	@Before
 	public void setUp() throws Exception {
 		playerName = "Alias";
 		pos = new Position (0,0);
 		
-		ArrayList<ICharacter> figures = new ArrayList<>();
+		figures = new ArrayList<>();
 		figures.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
 		player = new Player(playerName, figures);
 	}
@@ -48,5 +49,20 @@ public class PlayerTest {
 		Position start = new Position(0,1);
 		Position end = new Position(0,1);
 		assertFalse(player.setFigureChangePositon(start, end));	
+	}
+	@Test
+	public void testgetFigures(){
+		assertEquals( figures, player.getFigures());
+	}
+	@Test
+	public void testgetFigure(){
+		assertEquals(CHARAKTER_NAME.R, player.getFigur(new Position(0, 0)) );
+		assertEquals(player.getFigur(new Position(3, 4)), null);
+	}
+	
+	@Test
+	public void testdeleteFigure(){
+		assertTrue(player.deleteFigure(new Position(0, 0)));
+		assertFalse(player.deleteFigure(new Position(0, 0)));
 	}
 }

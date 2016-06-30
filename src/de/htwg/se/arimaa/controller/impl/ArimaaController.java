@@ -200,18 +200,7 @@ public class ArimaaController  extends Observable implements IArimaaController{
 	}
 
 	public void pullFigureOwn(boolean firstPlayer, String ziehen) {
-//		if (firstPlayer) {
-//			checkEingabe(1, ziehen);
-//			char[] tmp = ziehen.toCharArray();
-//			Position to = new Position(readPosX(tmp[0]), readPosY(tmp[1]));
-//			moveFigur(2, toPull, to);
-//		} else {
-//			checkEingabe(2, ziehen, true);
-//			char[] tmp = ziehen.toCharArray();
-//			Position to = new Position(readPosX(tmp[0]), readPosY(tmp[1]));
-//			moveFigur(1, toPull, to);
-//		}
-//
+
 	}
 
 
