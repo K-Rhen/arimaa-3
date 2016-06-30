@@ -1,16 +1,10 @@
 package de.htwg.se.arimaa.view;
 
-import java.util.Scanner;
+import java.awt.Event;
 
-import de.htwg.arimaa.controller.impl.ArimaaController;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.util.observer.IObserver;
-
-import java.awt.Event;
-import java.lang.System;
-
-import com.oracle.xmlns.internal.webservices.jaxws_databinding.ExistingAnnotationsType;
 
 
 public class TextUI implements IObserver {
