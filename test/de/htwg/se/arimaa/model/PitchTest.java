@@ -98,9 +98,9 @@ public class PitchTest {
 		ArrayList<ICharacter> figures3 = new ArrayList<>();
 		figures3.add(ICharacterFactory.getInstance(new Position(0, 2), CHARAKTER_NAME.H));
 		b = IPitchFactory.getInstance("p1","p2",figures1,figures3);
-		assertFalse(a.pitchEquals(b));
-		b = IPitchFactory.getInstance("p1","p2",figures1,figures2);
-		assertTrue(a.pitchEquals(b));
+//		assertFalse(a.pitchEquals(b));
+//		b = IPitchFactory.getInstance("p1","p2",figures1,figures2);
+//		assertTrue(a.pitchEquals(b));
 	}
 	
 	

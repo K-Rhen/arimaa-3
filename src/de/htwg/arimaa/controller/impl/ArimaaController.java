@@ -22,11 +22,6 @@ public class ArimaaController implements IArimaaController{
 
 	private Position toPull; // benoetigt in pullFigureEnemy
 
-//	private int[] figureSetList1 = { 8, 2, 2, 2, 1, 1 }; // 8 rabbits, 2 cats, 2
-//															// dogs,2 horses, 1
-//															// camel, 1elephant
-//	private int[] figureSetList2 = { 8, 2, 2, 2, 1, 1 };
-
 	public ArimaaController() {
 		pitch = PitchFactory.getInstance(player1Name,player2Name);
 		rules = new Rules(pitch);
@@ -38,116 +33,10 @@ public class ArimaaController implements IArimaaController{
 	}
 
 	public void setFigure(String player, String string) {
-//		char figurename = ' ';
-//		char positionx = ' ';
-//		char positiony = ' ';
-//		if (!(string.length() == 4))
-//			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c h4\" entsprechen.");
-//		char[] parts = string.toCharArray();
-//		figurename = parts[0];
-//		positionx = parts[2];
-//		positiony = parts[3];
-//		CHARAKTER_NAME figur = readname(figurename);
-//		int x = readPosX(positionx);
-//		int y = readPosY(positiony);
-//		Position pos = new Position(x, y);
-//		if (rules.occupiedCell(pos))
-//			throw new IllegalArgumentException("Feld ist bereits belegt");
-//		checkSetPosition(player, positiony);
-//		checkSetFigure(player, figurename);
-//		ICharacter character = CharacterFactory.getInstance(pos, figur);
-//		if (player.equals("p1"))
-//			figures1.add(character);
-//		if (player.equals("p2"))
-//			figures2.add(character);
 
 	}
 
-//	private void checkSetFigure(String player, char figure) {
 
-//		boolean fehler = false;
-//
-//		if (player.equals("p1")) {
-//			switch (figure) {
-//			case 'r':
-//				--figureSetList1[0];
-//				if (figureSetList1[0] < 0)
-//					fehler = true;
-//				break;
-//			case 'c':
-//				--figureSetList1[1];
-//				if (figureSetList1[1] < 0)
-//					fehler = true;
-//				break;
-//			case 'd':
-//				--figureSetList1[2];
-//				if (figureSetList1[2] < 0)
-//					fehler = true;
-//				break;
-//			case 'h':
-//				--figureSetList1[3];
-//				if (figureSetList1[3] < 0)
-//					fehler = true;
-//				break;
-//			case 'l':
-//				--figureSetList1[4];
-//				if (figureSetList1[4] < 0)
-//					fehler = true;
-//				break;
-//			case 'e':
-//				--figureSetList1[5];
-//				if (figureSetList1[5] < 0)
-//					fehler = true;
-//				break;
-//
-//			default:
-//				throw new IllegalArgumentException("Unerwarteter Fehler");
-//
-//			}
-//		}
-
-//		if (player.equals("p2")) {
-//			switch (figure) {
-//			case 'r':
-//				--figureSetList2[0];
-//				if (figureSetList2[0] < 0)
-//					fehler = true;
-//				break;
-//			case 'c':
-//				--figureSetList2[1];
-//				if (figureSetList2[1] < 0)
-//					fehler = true;
-//				break;
-//			case 'd':
-//				--figureSetList2[2];
-//				if (figureSetList2[2] < 0)
-//					fehler = true;
-//				break;
-//			case 'h':
-//				--figureSetList2[3];
-//				if (figureSetList2[3] < 0)
-//					fehler = true;
-//				break;
-//			case 'l':
-//				--figureSetList2[4];
-//				if (figureSetList2[4] < 0)
-//					fehler = true;
-//				break;
-//			case 'e':
-//				--figureSetList2[5];
-//				if (figureSetList2[5] < 0)
-//					fehler = true;
-//				break;
-//
-//			default:
-//				throw new IllegalArgumentException("Unerwarteter Fehler");
-//			}
-//		}
-//
-//		if (fehler) {
-//			throw new IllegalArgumentException("Alle Figuren des Typs " + figure + " wurden bereits gesetzt.");
-//		}
-//	}
 
 	private void checkSetPosition(String player, char yPos) {
 		if (player.equals("p1") && (yPos == '7' || yPos == '8')) {
@@ -257,18 +146,6 @@ public class ArimaaController implements IArimaaController{
 		char[] parts = eingabe.toCharArray();
 		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
 		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
-		if (pull) {
-			checkAblePull(from, toPull, player); // bevor figur gezogen -> erst
-													// pruefen ob es moeglich
-													// ist
-		}
-
-		// ist figur auch vom eigenen Spieler
-		if (player == 1)
-			if (!isFigurOwn(pitch.getP1().getFigures(), from))
-				throw new IllegalArgumentException("Figur gehoert dir nicht");
-			else if (!isFigurOwn(pitch.getP2().getFigures(), from))
-				throw new IllegalArgumentException("Figur gehoert dir nicht");
 
 		if (!moveFigur(player, from, to))
 			throw new IllegalArgumentException("Ungueltiger Zug");
@@ -314,19 +191,8 @@ public class ArimaaController implements IArimaaController{
 		return false;
 	}
 
-//	public void initializePitch(String playername1, String playername2) {
-//
-//		//pitch = PitchFactory.getInstance(player1.getPlayerName(), player2.getPlayerName());
-//		pitch = PitchFactory.getInstance(player1,player2);
-//	}
 
-	public void pullFigureEnemy(boolean firstPlayer, String pull) { // markiert
-																	// die
-																	// gegnerische
-																	// Figur die
-																	// gezogen
-																	// werden
-																	// soll
+	public void pullFigureEnemy(boolean firstPlayer, String pull) { 
 		if (pull.length() != 2) {
 			throw new IllegalArgumentException("Falschen Format. Die Eingabe muss z.b. \"d4\" sein");
 		}
@@ -357,14 +223,7 @@ public class ArimaaController implements IArimaaController{
 
 	}
 
-	private void checkAblePull(Position from, Position to, int player) {
-		// noch pr�fen ob figuren jeweils dem anderen geh�ren
-		// noch pr�fen ob die figuren nebeneinander stehen
-		if (position.nextTo(from, to)) {
 
-		}
-
-	}
 
 	public Player getPlayer1(){
 		return pitch.getP1();
