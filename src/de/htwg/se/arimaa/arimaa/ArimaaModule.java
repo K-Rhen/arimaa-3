@@ -1,22 +1,17 @@
 package de.htwg.se.arimaa.arimaa;
+
 import com.google.inject.AbstractModule;
 
-//import src.de.htwg.sudoku.IGridFactory;
-//import src.de.htwg.sudoku.ISudokuController;
-//import src.de.htwg.sudoku.de;
+import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.controller.impl.ArimaaController;
 
-public class ArimaaModule extends AbstractModule{
+public class ArimaaModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		//TODO
-//	    bind(IGridFactory.class)
-//        .to(de.htwg.sudoku.model.impl.GridFactory.class);
-//	    
-//	    bind(ISudokuController.class).to(
-//        de.htwg.sudoku.controller.logwrapper.SudokuController.class);
-//	
-		
+
+		bind(IArimaaController.class).to(ArimaaController.class);
+
 	}
 
 }

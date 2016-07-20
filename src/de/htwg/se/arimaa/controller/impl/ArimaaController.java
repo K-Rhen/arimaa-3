@@ -3,6 +3,8 @@ package de.htwg.se.arimaa.controller.impl;
 
 import java.util.List;
 
+import com.google.inject.Inject;
+
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
@@ -24,6 +26,12 @@ public class ArimaaController  extends Observable implements IArimaaController{
 	private int lastPlayer = 1;
 	private GameStatus gamestatus;
 
+	@Inject
+	public ArimaaController() {
+		pitch = PitchFactory.getInstance(player1Name,player2Name);
+		rules = new Rules(pitch);
+	}
+
 	public int getMoveCounter(){
 		return movecounter;
 	}
@@ -34,10 +42,6 @@ public class ArimaaController  extends Observable implements IArimaaController{
 
 	private Position toPull; // benoetigt in pullFigureEnemy
 
-	public ArimaaController() {
-		pitch = PitchFactory.getInstance(player1Name,player2Name);
-		rules = new Rules(pitch);
-	}
 
 	// ---------------------Methods to set figures on Pitch-------------
 	public void ShowPitch() {
