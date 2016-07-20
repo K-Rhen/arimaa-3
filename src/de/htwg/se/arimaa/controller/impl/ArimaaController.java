@@ -10,7 +10,8 @@ import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.PitchFactory;
+import de.htwg.se.arimaa.model.impl.Pitch;
+
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.character.Position;
 import de.htwg.se.arimaa.util.observer.Observable;
@@ -28,8 +29,7 @@ public class ArimaaController  extends Observable implements IArimaaController{
 
 	@Inject
 	public ArimaaController() {
-		PitchFactory pf = new PitchFactory();
-		pitch = pf.getInstance(player1Name,player2Name);
+		pitch = new Pitch(player1Name,player2Name);
 		rules = new Rules(pitch);
 	}
 

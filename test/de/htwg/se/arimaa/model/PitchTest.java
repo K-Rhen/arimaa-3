@@ -9,7 +9,8 @@ import org.junit.Test;
 
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
 import de.htwg.se.arimaa.model.impl.Character;
-import de.htwg.se.arimaa.model.impl.PitchFactory;
+import de.htwg.se.arimaa.model.impl.Pitch;
+
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.IPitch;
 
@@ -20,7 +21,7 @@ public class PitchTest {
 	ArrayList<IPlayer> pl = new ArrayList<>();
 	IPitch pitch;
 	
-	PitchFactory pf = new PitchFactory();
+	
 
 	@Before
 	public void setUp() throws Exception {
@@ -33,7 +34,7 @@ public class PitchTest {
 		figures2.add(new Character(new Position(7, 1), CHARAKTER_NAME.E));
 		
 
-		pitch = pf.getInstance("T1", "T2");
+		pitch = new Pitch("T1", "T2");
 		pitch.setP1Figures(figures1);
 		pitch.setP2Figures(figures2);
 		
