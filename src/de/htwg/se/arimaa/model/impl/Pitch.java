@@ -117,7 +117,7 @@ public class Pitch implements IPitch {
 
 		boolean occupied = false;
 		for (Player p : pl) {
-			IFIGURE_NAME c = p.getFigur(pos);
+			IFIGURE_NAME c = p.getFigure(pos);
 			if (c != null) {
 				sb.append(c);
 				occupied = true;

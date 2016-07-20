@@ -41,14 +41,14 @@ public class PlayerTest {
 	public void testsetFigureChangePositonTrue() {
 		Position start = new Position(0,0);
 		Position end = new Position(0,1);
-		assertTrue(player.setFigureChangePositon(start, end));	
+		assertTrue(player.moveFigure(start, end));	
 	}
 	
 	@Test
 	public void testsetFigureChangePositonFalse() {
 		Position start = new Position(0,1);
 		Position end = new Position(0,1);
-		assertFalse(player.setFigureChangePositon(start, end));	
+		assertFalse(player.moveFigure(start, end));	
 	}
 	@Test
 	public void testgetFigures(){
@@ -56,8 +56,8 @@ public class PlayerTest {
 	}
 	@Test
 	public void testgetFigure(){
-		assertEquals(FIGURE_NAME.R, player.getFigur(new Position(0, 0)) );
-		assertEquals(player.getFigur(new Position(3, 4)), null);
+		assertEquals(FIGURE_NAME.R, player.getFigure(new Position(0, 0)) );
+		assertEquals(player.getFigure(new Position(3, 4)), null);
 	}
 	
 	@Test

@@ -16,22 +16,22 @@ public class Player implements IPlayer {
 		this.figures = figures;
 	}
 
+	@Override
+	public String getPlayerName() {
+		return playerName;
+	}
 
-
-	public IFIGURE_NAME getFigur(Position pos) {
+	@Override
+	public IFIGURE_NAME getFigure(Position pos) {
 		for (IFigure cr : figures) {
 			if (pos.equals(cr.getPosition()))
 				return cr.getName();
 		}
 		return null;
 	}
-
-
-	public String getPlayerName() {
-		return playerName;
-	}
-
-	public boolean setFigureChangePositon(Position start, Position end) {
+   
+	@Override
+	public boolean moveFigure(Position start, Position end) {
 		for (IFigure cr : figures) {
 			if (cr.getPosition().equals(start)) {
 				cr.setPosition(end);
@@ -41,14 +41,9 @@ public class Player implements IPlayer {
 		return false;
 	}
 	
-	
-	//vor GUI
-	public List<IFigure> getFigures(){
-		return figures;
-	}
-	
+	@Override
 	public boolean deleteFigure(Position pos){
-		if(getFigur(pos) == null)
+		if(getFigure(pos) == null)
 			return false;
 		for(int i = 0; i < figures.size(); i++){
 			if(figures.get(i).getPosition().equals(pos))
@@ -56,5 +51,10 @@ public class Player implements IPlayer {
 		}
 		return true;
 	}
-	
+
+    @Override
+	public List<IFigure> getFigures(){
+		return figures;
+	}
+
 }

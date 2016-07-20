@@ -27,7 +27,7 @@ public class Rules extends Observable {
 
 
 	public boolean occupiedCell(Position pos) {
-		if (p1.getFigur(pos) != null || p2.getFigur(pos) != null)
+		if (p1.getFigure(pos) != null || p2.getFigure(pos) != null)
 			return true;
 
 		return false;

@@ -1,15 +1,10 @@
 package de.htwg.se.arimaa.model.impl;
 
 
-import de.htwg.se.arimaa.model.IFIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class Figure implements IFigure{
-	static enum NAME {
-		R, C, D, H, L, E, r, c, d, h, l, e
-	}
-	
 	private Position position;
 	private FIGURE_NAME name;
 

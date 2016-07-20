@@ -70,7 +70,7 @@ public class PitchTest {
 					boolean occupied = false;
 					Position pos = new Position(x, y);
 					for (IPlayer p : pl) {
-						IFIGURE_NAME c = p.getFigur(pos);
+						IFIGURE_NAME c = p.getFigure(pos);
 						if (c != null) {
 							sb.append(c);
 							occupied = true;

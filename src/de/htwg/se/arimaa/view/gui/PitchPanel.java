@@ -193,9 +193,9 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	private IFIGURE_NAME getCharacter(Position cell) {
 		IFIGURE_NAME name = null;
-		name = controller.getPlayer1().getFigur(cell);
+		name = controller.getPlayer1().getFigure(cell);
 		if (name == null)
-			name = controller.getPlayer2().getFigur(cell);
+			name = controller.getPlayer2().getFigure(cell);
 		return name;
 	}
 

@@ -183,7 +183,7 @@ public class ArimaaController  extends Observable implements IArimaaController{
 
 	}
 	private boolean setFigureChangePosition(IPlayer p, Position from, Position to){
-		return p.setFigureChangePositon(from, to);
+		return p.moveFigure(from, to);
 
 	}
 
