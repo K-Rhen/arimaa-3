@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
+import de.htwg.se.arimaa.model.impl.Character;
 import de.htwg.se.arimaa.model.ICharacter;
 import de.htwg.se.arimaa.model.IPitch;
 
@@ -21,12 +22,12 @@ public class PitchTest {
 	@Before
 	public void setUp() throws Exception {
 		ArrayList<ICharacter> figures1 = new ArrayList<>();
-		figures1.add(ICharacterFactory.getInstance(new Position(0, 0), CHARAKTER_NAME.R));
-		figures1.add(ICharacterFactory.getInstance(new Position(0, 1), CHARAKTER_NAME.E));
+		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
+		figures1.add(new Character(new Position(0, 1), CHARAKTER_NAME.E));
 		
 		ArrayList<ICharacter> figures2 = new ArrayList<>();
-		figures2.add(ICharacterFactory.getInstance(new Position(7, 0), CHARAKTER_NAME.R));
-		figures2.add(ICharacterFactory.getInstance(new Position(7, 1), CHARAKTER_NAME.E));
+		figures2.add(new Character(new Position(7, 0), CHARAKTER_NAME.R));
+		figures2.add(new Character(new Position(7, 1), CHARAKTER_NAME.E));
 		
 		pitch = IPitchFactory.getInstance("T1", "T2", figures1, figures2);
 
@@ -89,14 +90,14 @@ public class PitchTest {
 	public void equalsCheck(){
 		
 		ArrayList<ICharacter> figures1 = new ArrayList<>();
-		figures1.add(ICharacterFactory.getInstance(new Position(0, 0), CHARAKTER_NAME.R));
+		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
 		ArrayList<ICharacter> figures2 = new ArrayList<>();
-		figures2.add(ICharacterFactory.getInstance(new Position(0, 1), CHARAKTER_NAME.r));
+		figures2.add(new Character(new Position(0, 1), CHARAKTER_NAME.r));
 		IPitch a = IPitchFactory.getInstance("p1","p2",figures1,figures2);
 		IPitch b = IPitchFactory.getInstance("p1","p2",figures1,figures2);
 		assertTrue(a.pitchEquals(b));
 		ArrayList<ICharacter> figures3 = new ArrayList<>();
-		figures3.add(ICharacterFactory.getInstance(new Position(0, 2), CHARAKTER_NAME.H));
+		figures3.add(new Character(new Position(0, 2), CHARAKTER_NAME.H));
 		b = IPitchFactory.getInstance("p1","p2",figures1,figures3);
 		assertTrue(a.pitchEquals(b));
 		

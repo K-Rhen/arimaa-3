@@ -28,8 +28,8 @@ import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.ICHARAKTER_NAME;
 import de.htwg.se.arimaa.model.ICharacter;
-import de.htwg.se.arimaa.model.ICharacterFactory;
 import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
+import de.htwg.se.arimaa.model.impl.Character;
 import de.htwg.se.arimaa.util.character.Position;
 import de.htwg.se.arimaa.util.observer.IObserver;
 
@@ -154,7 +154,7 @@ public class PitchPanel extends JPanel implements IObserver {
 
 		Position pos = new Position((int) cell.getX(), (int) cell.getY());
 		ICHARAKTER_NAME figureName = getCharacter(pos);
-		mouseFigureFrom = ICharacterFactory.getInstance(pos, figureName);
+		mouseFigureFrom = new Character(pos, figureName);
 	}
 
 	private void mouseReleasedHandler(Point mouse) {
