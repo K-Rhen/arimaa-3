@@ -15,10 +15,8 @@ public class ArimaaFrame extends JFrame implements IObserver {
 
 
 	private PitchPanel pitchpanel;
-	private IArimaaController controller; //TODO I
 	
 	public ArimaaFrame(final IArimaaController controller) {
-		this.controller = controller;
 		//controller.addObserver(this);
 
 		JPanel mainPanel = new JPanel();

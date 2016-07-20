@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import de.htwg.se.arimaa.controller.IArimaaController;
-import de.htwg.se.arimaa.controller.impl.ArimaaController;
 
 public class ArimaaMenuBar extends JMenuBar {
 

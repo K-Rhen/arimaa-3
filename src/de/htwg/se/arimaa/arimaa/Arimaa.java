@@ -39,10 +39,14 @@ public class Arimaa {
 		}
 		return instance;
 	}
+	public void showPitch(){
+		controller.ShowPitch();
+	}
+	
 	public static void main(final String[] args) {
 		Arimaa game = Arimaa.getInstance();
 
-		game.tui.showPitch();
+		game.showPitch();
 		boolean continu = true;
 		scanner = new Scanner(System.in);
 		while (continu) {
