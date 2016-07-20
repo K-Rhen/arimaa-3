@@ -8,14 +8,11 @@ import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
 
+//TOOD refactor
 public class Rules extends Observable {
 
 	private IPlayer p1;
 	private IPlayer p2;
-
-	
-
-	
 
 	private List<IPitch> pitchList = new ArrayList<>();
 
@@ -23,8 +20,6 @@ public class Rules extends Observable {
 		this.p1 = pitch.getPlayer1();
 		this.p2 = pitch.getPlayer2();
 	}
-	
-
 
 	public boolean occupiedCell(Position pos) {
 		if (p1.getFigure(pos) != null || p2.getFigure(pos) != null)
@@ -55,6 +50,5 @@ public class Rules extends Observable {
 		}
 		return !found;
 	}
-	
 
 }

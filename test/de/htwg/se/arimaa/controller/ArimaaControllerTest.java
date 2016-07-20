@@ -23,7 +23,7 @@ public class ArimaaControllerTest {
 
 	@Test
 	public void testgetActualPlayer() {
-		int ap = controller.getActualPlayer();
+		int ap = controller.getCurrentPlayer();
 		assertTrue(ap == 1);
 		assertTrue(controller.getNextPlayer() == 2);
 		controller.changePlayer();

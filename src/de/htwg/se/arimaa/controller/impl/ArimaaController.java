@@ -1,55 +1,131 @@
 package de.htwg.se.arimaa.controller.impl;
 
-
 import java.util.List;
 
 import com.google.inject.Inject;
 
-import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.IFigure;
+import de.htwg.se.arimaa.model.IPitch;
+import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
 import de.htwg.se.arimaa.model.impl.Pitch;
-
-import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
 
-
-public class ArimaaController  extends Observable implements IArimaaController{
+public class ArimaaController extends Observable implements IArimaaController {
 
 	private IPitch pitch;
 	private Rules rules;
-	private String player1Name ="Player1";
-	private String player2Name= "Player2";
+	private String player1Name = "Player1";
+	private String player2Name = "Player2";
 	private int movecounter = 4;
 	private int lastPlayer = 1;
 	private GameStatus gamestatus;
 
 	@Inject
 	public ArimaaController() {
-		pitch = new Pitch(player1Name,player2Name);
+		pitch = new Pitch(player1Name, player2Name);
 		rules = new Rules(pitch);
 	}
 
-	public int getMoveCounter(){
+	@Override
+	public IPlayer getPlayer1() {
+		return pitch.getPlayer1();
+	}
+
+	@Override
+	public IPlayer getPlayer2() {
+		return pitch.getPlayer2();
+	}
+
+	@Override
+	public int getMoveCounter() {
 		return movecounter;
 	}
-	
+
+	@Override
 	public GameStatus getGameStatus() {
 		return gamestatus;
 	}
 
-	private Position toPull; // benoetigt in pullFigureEnemy
+	@Override
+	public void arimaaExit() {
+		gamestatus = GameStatus.EXIT;
+		notifyObservers();
+	}
 
+	@Override
+	public void changePlayer() {
+		lastPlayer = getNextPlayer();
 
-	// ---------------------Methods to set figures on Pitch-------------
+		movecounter = 4;
+
+		gamestatus = GameStatus.CHANGEPLAYER;
+		notifyObservers();
+	}
+
+	@Override
+	public int getCurrentPlayer() {
+		return lastPlayer;
+	}
+
+	@Override
+	public int getNextPlayer() {
+		if (lastPlayer == 1)
+			return 2;
+		else
+			return 1;
+	}
+
+	@Override
 	public void ShowPitch() {
+		// TODO logger
 		System.out.println(pitch.toString());
 	}
 
-	
+	private boolean reduceMove(int player) {
+		if (player != lastPlayer)
+			return false;
+
+		if (movecounter == 0) {
+			return false;
+		}
+
+		movecounter--;
+		gamestatus = GameStatus.MOVECHANGE;
+		notifyObservers();
+		return true;
+	}
+
+	private boolean isfinish() {
+		// Player1
+		if (finishPlayer(FIGURE_NAME.R, 7)) {
+			gamestatus = GameStatus.WinPLAYER1;
+			notifyObservers();
+			return true;
+		}
+
+		// Player2
+		if (finishPlayer(FIGURE_NAME.r, 0)) {
+			gamestatus = GameStatus.WinPLAYER2;
+			notifyObservers();
+			return true;
+		}
+
+		return false;
+
+	}
+
+	private boolean finishPlayer(FIGURE_NAME figureName, int y) {
+		for (IFigure figure : pitch.getPlayer1().getFigures()) {
+			if (figure.getName() == figureName && figure.getPosition().getY() == y)
+				return true;
+		}
+		return false;
+
+	}
 
 	private int readPosX(char c) {
 
@@ -101,94 +177,90 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		}
 	}
 
-	private boolean reduceMove(int player){
-		if(player != lastPlayer)
-			return false;
-		
-		if(movecounter == 0){
-			return false;
-		}
-		
-		movecounter--;
-		gamestatus = GameStatus.MOVECHANGE;
-		notifyObservers();
-		return true;
-	}
-
-
-	// ---------------------Methods to play -------------------------
-
-	public boolean moveFigureByString(int player, String eingabe) {
-		if (eingabe.length() != 5) {
+	@Override
+	public boolean moveFigureByString(int player, String inputLine) {
+		if (inputLine.length() != 5) {
 			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
 		}
-		
-		char[] parts = eingabe.toCharArray();
+
+		char[] parts = inputLine.toCharArray();
 		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
 		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
 
-		return moveFigureByPosition(player,from, to);
+		return moveFigureByPosition(player, from, to);
 	}
-	
-	public boolean moveFigureByPosition(int player, Position from , Position to) {
-		if(movecounter == 0){
+
+	@Override
+	public boolean moveFigureByPosition(int player, Position from, Position to) {
+		if (movecounter == 0) {
 			gamestatus = GameStatus.MOVESDONE;
 			notifyObservers();
 			return false;
 		}
-		
+
 		boolean able = moveFigur(player, from, to);
 
-		if(!able){
+		if (!able) {
 			gamestatus = GameStatus.WRONGTURN;
 			notifyObservers();
 			return false;
 		}
-	
-		
-		// �berpr�fen ob gewonnen
+
+		// after calls
 		isfinish();
-		// Anzahl der Z�ge reduzieren
 		reduceMove(player);
-		
+
+		// TODO TRAPP
+		// trapp
 		if ((to.getX() == 2 || to.getX() == 5) && (to.getY() == 2 || to.getY() == 5))
 			pitch.getPlayer1().deleteFigure(to);
-		
+
 		gamestatus = GameStatus.MOVEFIGURE;
 		notifyObservers();
-		
+
 		return able;
 	}
 
-	private boolean isFigurOwn(List<IFigure> figures, Position from) {
-
-		for (IFigure usedchar : figures) {
-			if (usedchar.getPosition().equals(from))
-				return true;
-		}
-		return false; 
-	}
-
-	public boolean moveFigur(int player, Position from, Position to) {
+	private boolean moveFigur(int player, Position from, Position to) {
 		if (!rules.posDistance(from, to))
 			throw new IllegalArgumentException("Du kannst hoechstens 1 Feld weiter ziehen.");
 		if (rules.occupiedCell(to))
 			throw new IllegalArgumentException("Die Position auf welche du ziehen willst ist bereits belegt");
 
-		if (player == 1) 
-			return setFigureChangePosition(pitch.getPlayer1(), from , to);
-		if (player == 2) 
-			return setFigureChangePosition(pitch.getPlayer2(), from , to);
+		if (player == 1)
+			return moveFigure(pitch.getPlayer1(), from, to);
+		if (player == 2)
+			return moveFigure(pitch.getPlayer2(), from, to);
 		return false;
 
 	}
-	private boolean setFigureChangePosition(IPlayer p, Position from, Position to){
+
+	private boolean moveFigure(IPlayer p, Position from, Position to) {
 		return p.moveFigure(from, to);
 
 	}
 
+	// TODO refactor
+	@Override
+	public boolean pushFigurs(int firstPlayer, int secondPlayer, String inputLine) {
 
-	public void pullFigureEnemy(boolean firstPlayer, String pull) { 
+		String[] parts = inputLine.split("#");
+		String part1 = parts[0];
+		String part2 = parts[1];
+
+		// TODO test
+		boolean firstmove = moveFigureByString(firstPlayer, part1);
+		if (!firstmove)
+			return false;
+		boolean secondmove = moveFigureByString(secondPlayer, part2);
+
+		return secondmove;
+	}
+
+	// TODO refactor
+	private Position toPull;
+
+	public void pullFigureEnemy(boolean firstPlayer, String pull) {
 		if (pull.length() != 2) {
 			throw new IllegalArgumentException("Falschen Format. Die Eingabe muss z.b. \"d4\" sein");
 		}
@@ -204,95 +276,14 @@ public class ArimaaController  extends Observable implements IArimaaController{
 
 	}
 
-	public void pullFigureOwn(boolean firstPlayer, String ziehen) {
+	// TODO remove
+	private boolean isFigurOwn(List<IFigure> figures, Position from) {
 
-	}
-
-
-
-	public IPlayer getPlayer1(){
-		return pitch.getPlayer1();
-	}
-	public IPlayer getPlayer2(){
-		return pitch.getPlayer2();
-	}
-
-	public boolean pushFigurs(int player1, int player2, String line) {
-		
-		String[] parts = line.split("#");
-		String part1 = parts[0]; 
-		String part2 = parts[1];
-		
-		//TODO �BERPR�FUNG
-		boolean firstmove = moveFigureByString(player1, part1);
-		if(!firstmove)
-			return false;
-		boolean secondmove = moveFigureByString(player2, part2);
-		
-		return secondmove;
-	}
-
-	//RULES
-	public boolean isfinish(){
-		if(finishP1()){
-			gamestatus = GameStatus.WinPLAYER1;
-			notifyObservers();
-			return true;
-		}
-		
-		if(finishP2()){
-			gamestatus = GameStatus.WinPLAYER2;
-			notifyObservers();
-			return true;
-		}
-	
-		return false;
-		
-	}
-
-	private boolean finishP1() {
-		for (IFigure figure : pitch.getPlayer1().getFigures()) {
-			if (figure.getName() == FIGURE_NAME.R
-					&& figure.getPosition().getY() == 7)
-				return true;
-		}
-		return false;
-
-	}
-
-	private boolean finishP2() {
-		for (IFigure figure : pitch.getPlayer2().getFigures()) {
-			if (figure.getName() == FIGURE_NAME.r
-					&& figure.getPosition().getY() == 0)
+		for (IFigure usedchar : figures) {
+			if (usedchar.getPosition().equals(from))
 				return true;
 		}
 		return false;
 	}
-	
-	public void arimaaExit(){
-		gamestatus = GameStatus.EXIT;
-		notifyObservers();
-	}
-	
-	public void changePlayer(){
-		lastPlayer = getNextPlayer();
-		
-		movecounter = 4;
-		
-		gamestatus = GameStatus.CHANGEPLAYER;
-		notifyObservers();
-	}
-	public int getActualPlayer(){
-		return lastPlayer;
-	}
-	public int getNextPlayer(){
-		if(lastPlayer == 1)
-			return 2;
-		else
-			return 1;
-	}
 
-	
-	
-	
 }

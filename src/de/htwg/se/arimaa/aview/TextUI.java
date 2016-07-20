@@ -130,15 +130,15 @@ public class TextUI implements IObserver {
 		controller.changePlayer();
 		}else if (line.matches("[a-h][1-8]-[a-h][1-8]#[a-h][1-8]-[a-h][1-8]")) { // ziehen
 																			// schieben
-			controller.pushFigurs(controller.getActualPlayer(),controller.getNextPlayer(), line);  //TODO PLAYER
+			controller.pushFigurs(controller.getCurrentPlayer(),controller.getNextPlayer(), line);  //TODO PLAYER
 			
 		}else if (line.matches("[a-h][1-8]-[a-h][1-8]")) { // normaler Zug
-			controller.moveFigureByString(controller.getActualPlayer(), line); // TODO Player
+			controller.moveFigureByString(controller.getCurrentPlayer(), line); // TODO Player
 		
 		}
 		
 		controller.ShowPitch();  // spielfeld ausgeben
-		System.out.println("Spieler"+controller.getActualPlayer() +" hat noch " + controller.getMoveCounter() + " Zuege.");
+		System.out.println("Spieler"+controller.getCurrentPlayer() +" hat noch " + controller.getMoveCounter() + " Zuege.");
 		return gameRunning;
 
 	}

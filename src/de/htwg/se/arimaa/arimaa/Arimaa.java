@@ -22,7 +22,7 @@ public class Arimaa {
 		
 		controller = injector.getInstance(IArimaaController.class);
 		tui = new TextUI(controller);
-		gui = new ArimaaFrame(controller);
+		//gui = new ArimaaFrame(controller);
 	}
 
 	public TextUI getTui() {

@@ -1,7 +1,7 @@
 package de.htwg.se.arimaa.controller;
 
 /**
- * Stati for Controller and View
+ * Static for Controller and View
  */
 public enum  GameStatus {
     WELCOME,

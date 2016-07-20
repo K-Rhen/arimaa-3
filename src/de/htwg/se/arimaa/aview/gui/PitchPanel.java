@@ -83,7 +83,7 @@ public class PitchPanel extends JPanel implements IObserver {
 				if (figureSet) {
 					Position from = mouseFigureFrom.getPosition();
 					Position to = mouseFigureTo;
-					controller.moveFigureByPosition(controller.getActualPlayer(), from, to);
+					controller.moveFigureByPosition(controller.getCurrentPlayer(), from, to);
 
 					mouseFigureFrom = null;
 					figureSet = false;
@@ -313,7 +313,7 @@ public class PitchPanel extends JPanel implements IObserver {
 		} else if (gs.equals(GameStatus.MOVECHANGE)) {
 			moveRemainLabel.setText("Moves: " + controller.getMoveCounter());
 		} else if (gs.equals(GameStatus.CHANGEPLAYER)) {
-			actPlayerLabel.setText("Player: " + controller.getActualPlayer());
+			actPlayerLabel.setText("Player: " + controller.getCurrentPlayer());
 			moveRemainLabel.setText("Moves: " + controller.getMoveCounter());
 		}
 
