@@ -1,4 +1,4 @@
-package de.htwg.se.arimaa.util.character;
+package de.htwg.se.arimaa.util.position;
 
 public class Position {
 	private int x;
@@ -35,7 +35,7 @@ public class Position {
 	public static boolean positionOnPitch(Position pos) {
 		return positionOnPitchXY(pos.x, pos.y);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		Position po = null;
@@ -56,10 +56,10 @@ public class Position {
 		sb.append(this.getY());
 		return sb.toString().hashCode();
 	}
-	
-	public boolean nextTo(Position pos1, Position pos2){
-		if(pos1.getX() == (pos2.getX() + 1) && pos1.getX() > 0
-				|| pos1.getX() == (pos2.getX() - 1) && pos1.getX() < 7
+
+	// TODO not use !
+	public boolean nextTo(Position pos1, Position pos2) {
+		if (pos1.getX() == (pos2.getX() + 1) && pos1.getX() > 0 || pos1.getX() == (pos2.getX() - 1) && pos1.getX() < 7
 				|| pos1.getY() == (pos2.getY() + 1) && pos1.getY() > 0
 				|| pos1.getY() == (pos2.getY() - 1) && pos1.getY() < 7)
 			return true;

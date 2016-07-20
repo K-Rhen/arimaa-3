@@ -1,7 +1,5 @@
 package de.htwg.se.arimaa.util.observer;
 
-import java.awt.Event;
-
 public interface IObservable {
 
 	void addObserver(IObserver s);

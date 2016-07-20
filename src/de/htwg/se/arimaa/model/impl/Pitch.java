@@ -6,7 +6,7 @@ import java.util.List;
 import de.htwg.se.arimaa.model.IFIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
-import de.htwg.se.arimaa.util.character.Position;
+import de.htwg.se.arimaa.util.position.Position;
 
 public class Pitch implements IPitch {
 

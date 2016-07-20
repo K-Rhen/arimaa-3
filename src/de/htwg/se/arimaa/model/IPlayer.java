@@ -2,7 +2,7 @@ package de.htwg.se.arimaa.model;
 
 import java.util.List;
 
-import de.htwg.se.arimaa.util.character.Position;
+import de.htwg.se.arimaa.util.position.Position;
 
 public interface IPlayer {
 

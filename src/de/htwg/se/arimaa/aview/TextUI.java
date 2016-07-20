@@ -1,9 +1,9 @@
-package de.htwg.se.arimaa.view;
+package de.htwg.se.arimaa.aview;
 
-import java.awt.Event;
 
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
 
 

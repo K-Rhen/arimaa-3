@@ -3,8 +3,6 @@ package de.htwg.se.arimaa.util.observer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Event;
-
 import org.junit.Before;
 import org.junit.Test;
 

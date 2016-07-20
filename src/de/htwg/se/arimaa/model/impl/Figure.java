@@ -1,7 +1,7 @@
 package de.htwg.se.arimaa.model.impl;
 
 import de.htwg.se.arimaa.model.IFigure;
-import de.htwg.se.arimaa.util.character.Position;
+import de.htwg.se.arimaa.util.position.Position;
 
 public class Figure implements IFigure {
 	private Position position;

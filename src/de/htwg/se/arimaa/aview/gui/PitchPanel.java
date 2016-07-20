@@ -1,7 +1,6 @@
-package de.htwg.se.arimaa.view.gui;
+package de.htwg.se.arimaa.aview.gui;
 
 import java.awt.Color;
-import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -30,8 +29,9 @@ import de.htwg.se.arimaa.model.IFIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
 import de.htwg.se.arimaa.model.impl.Figure;
-import de.htwg.se.arimaa.util.character.Position;
+import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
+import de.htwg.se.arimaa.util.position.Position;
 
 public class PitchPanel extends JPanel implements IObserver {
 	IArimaaController controller;

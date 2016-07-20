@@ -5,9 +5,9 @@ import java.util.Scanner;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import de.htwg.se.arimaa.aview.TextUI;
+import de.htwg.se.arimaa.aview.gui.ArimaaFrame;
 import de.htwg.se.arimaa.controller.IArimaaController;
-import de.htwg.se.arimaa.view.TextUI;
-import de.htwg.se.arimaa.view.gui.ArimaaFrame;
 
 public class Arimaa {
 

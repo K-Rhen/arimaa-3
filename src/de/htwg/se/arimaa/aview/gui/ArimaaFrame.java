@@ -1,14 +1,14 @@
-package de.htwg.se.arimaa.view.gui;
+package de.htwg.se.arimaa.aview.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Event;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
 
 public class ArimaaFrame extends JFrame implements IObserver {
@@ -41,13 +41,11 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		this.pack();
 		this.setVisible(true);
 	}
-	
 
 	@Override
 	public void update(Event e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 	
 }

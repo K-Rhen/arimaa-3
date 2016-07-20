@@ -1,4 +1,4 @@
-package de.htwg.se.arimaa.view.gui;
+package de.htwg.se.arimaa.aview.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
