@@ -53,7 +53,6 @@ public class PitchTest {
 	@Test
 	public void testToString() {
 		String pitchString = pitch.toString();
-		System.out.println(pitchString);
 		String oughtPitchString = "+-------------------------------+\n"
 				+ "| R |   |   |   |   |   |   |   | 8\n"
 				+ "+---+---+---+---+---+---+---+---+\n"
@@ -72,9 +71,7 @@ public class PitchTest {
 				+ "| r |   |   |   |   |   |   |   | 1\n"
 				+ "+-------------------------------+\n"
 				+ "  a   b   c   d   e   f   g   h\n";
-		
-		System.out.println(oughtPitchString);
-		
+
 		assertTrue(oughtPitchString.equals(pitchString));
 	}
 		

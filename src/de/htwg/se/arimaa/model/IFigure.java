@@ -1,16 +1,27 @@
 package de.htwg.se.arimaa.model;
 
-import de.htwg.se.arimaa.model.IFIGURE_NAME;
+import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
 import de.htwg.se.arimaa.util.character.Position;
 
 public interface IFigure {
 
+	/**
+	 * set the position of the figure
+	 * @param newpos position
+	 */
+	void setPosition(Position pos);
+
+	/**
+	 * get the current position of the figure
+	 * 
+	 * @return position
+	 */
 	Position getPosition();
 
-	void setPosition(Position to);
-
-	IFIGURE_NAME getName();
-	
-	
+	/**
+	 * get the name of the figure
+	 * @return name
+	 */
+	FIGURE_NAME getName();
 
 }

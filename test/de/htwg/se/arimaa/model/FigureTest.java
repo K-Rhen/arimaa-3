@@ -23,7 +23,7 @@ public class FigureTest {
 
 	@Test
 	public void testsetPositon() {
-		character.setPosition(1, 1);
+		character.setPosition(new Position(1,1));
 		p = new Position(1, 1);
 
 		assertTrue(p.equals(character.getPosition()));

@@ -1,10 +1,9 @@
 package de.htwg.se.arimaa.model.impl;
 
-
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.util.character.Position;
 
-public class Figure implements IFigure{
+public class Figure implements IFigure {
 	private Position position;
 	private FIGURE_NAME name;
 
@@ -13,18 +12,17 @@ public class Figure implements IFigure{
 		this.name = name;
 	}
 
-	public void setPosition(int x, int y) {
-		setPosition(new Position(x, y));
+	@Override
+	public void setPosition(Position pos) {
+		position = pos;
 	}
 
-	public void setPosition(Position newpos) {
-		position = newpos;
-	}
-
+	@Override
 	public Position getPosition() {
 		return position;
 	}
 
+	@Override
 	public FIGURE_NAME getName() {
 		return name;
 	}
