@@ -3,8 +3,8 @@ package de.htwg.se.arimaa.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.htwg.se.arimaa.model.ICHARAKTER_NAME;
-import de.htwg.se.arimaa.model.ICharacter;
+import de.htwg.se.arimaa.model.IFIGURE_NAME;
+import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.util.character.Position;
 
@@ -15,47 +15,47 @@ public class Pitch implements IPitch {
 	private static final int PITCHSIZE = 8;
 
 	public Pitch(String player1Name, String player2Name) {
-		List<ICharacter> figures1 = new ArrayList<>(); 
-		List<ICharacter> figures2 = new ArrayList<>();
+		List<IFigure> figures1 = new ArrayList<>(); 
+		List<IFigure> figures2 = new ArrayList<>();
 		initializeDefaultPitch(figures1, figures2);
 		pl.add(new Player(player1Name, figures1));
 		pl.add(new Player(player2Name, figures2));
 	}
 	
-	private void initializeDefaultPitch(List<ICharacter> figures1, List<ICharacter> figures2){
-		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
-		figures1.add(new Character(new Position(1, 0), CHARAKTER_NAME.R));
-		figures1.add(new Character(new Position(2, 0), CHARAKTER_NAME.R));
-		figures1.add(new Character(new Position(3, 0), CHARAKTER_NAME.D));
-		figures1.add(new Character(new Position(4, 0), CHARAKTER_NAME.D));
-		figures1.add(new Character(new Position(5, 0), CHARAKTER_NAME.R));
-		figures1.add(new Character(new Position(6, 0), CHARAKTER_NAME.R));
-		figures1.add(new Character(new Position(7, 0), CHARAKTER_NAME.R));
-		figures1.add(new Character(new Position(0, 1), CHARAKTER_NAME.R));
-		figures1.add(new Character(new Position(1, 1), CHARAKTER_NAME.H));
-		figures1.add(new Character(new Position(2, 1), CHARAKTER_NAME.C));
-		figures1.add(new Character(new Position(3, 1), CHARAKTER_NAME.L));
-		figures1.add(new Character(new Position(4, 1), CHARAKTER_NAME.E));
-		figures1.add(new Character(new Position(5, 1), CHARAKTER_NAME.C));
-		figures1.add(new Character(new Position(6, 1), CHARAKTER_NAME.H));
-		figures1.add(new Character(new Position(7, 1), CHARAKTER_NAME.R));
+	private void initializeDefaultPitch(List<IFigure> figures1, List<IFigure> figures2){
+		figures1.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
+		figures1.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
+		figures1.add(new Figure(new Position(2, 0), FIGURE_NAME.R));
+		figures1.add(new Figure(new Position(3, 0), FIGURE_NAME.D));
+		figures1.add(new Figure(new Position(4, 0), FIGURE_NAME.D));
+		figures1.add(new Figure(new Position(5, 0), FIGURE_NAME.R));
+		figures1.add(new Figure(new Position(6, 0), FIGURE_NAME.R));
+		figures1.add(new Figure(new Position(7, 0), FIGURE_NAME.R));
+		figures1.add(new Figure(new Position(0, 1), FIGURE_NAME.R));
+		figures1.add(new Figure(new Position(1, 1), FIGURE_NAME.H));
+		figures1.add(new Figure(new Position(2, 1), FIGURE_NAME.C));
+		figures1.add(new Figure(new Position(3, 1), FIGURE_NAME.L));
+		figures1.add(new Figure(new Position(4, 1), FIGURE_NAME.E));
+		figures1.add(new Figure(new Position(5, 1), FIGURE_NAME.C));
+		figures1.add(new Figure(new Position(6, 1), FIGURE_NAME.H));
+		figures1.add(new Figure(new Position(7, 1), FIGURE_NAME.R));
 	
-		figures2.add(new Character(new Position(0, 7), CHARAKTER_NAME.r));
-		figures2.add(new Character(new Position(1, 7), CHARAKTER_NAME.r));
-		figures2.add(new Character(new Position(2, 7), CHARAKTER_NAME.r));
-		figures2.add(new Character(new Position(3, 7), CHARAKTER_NAME.d));
-		figures2.add(new Character(new Position(4, 7), CHARAKTER_NAME.d));
-		figures2.add(new Character(new Position(5, 7), CHARAKTER_NAME.r));
-		figures2.add(new Character(new Position(6, 7), CHARAKTER_NAME.r));
-		figures2.add(new Character(new Position(7, 7), CHARAKTER_NAME.r));
-		figures2.add(new Character(new Position(0, 6), CHARAKTER_NAME.r));
-		figures2.add(new Character(new Position(1, 6), CHARAKTER_NAME.h));
-		figures2.add(new Character(new Position(2, 6), CHARAKTER_NAME.c));
-		figures2.add(new Character(new Position(3, 6), CHARAKTER_NAME.l));
-		figures2.add(new Character(new Position(4, 6), CHARAKTER_NAME.e));
-		figures2.add(new Character(new Position(5, 6), CHARAKTER_NAME.c));
-		figures2.add(new Character(new Position(6, 6), CHARAKTER_NAME.h));
-		figures2.add(new Character(new Position(7, 6), CHARAKTER_NAME.r));
+		figures2.add(new Figure(new Position(0, 7), FIGURE_NAME.r));
+		figures2.add(new Figure(new Position(1, 7), FIGURE_NAME.r));
+		figures2.add(new Figure(new Position(2, 7), FIGURE_NAME.r));
+		figures2.add(new Figure(new Position(3, 7), FIGURE_NAME.d));
+		figures2.add(new Figure(new Position(4, 7), FIGURE_NAME.d));
+		figures2.add(new Figure(new Position(5, 7), FIGURE_NAME.r));
+		figures2.add(new Figure(new Position(6, 7), FIGURE_NAME.r));
+		figures2.add(new Figure(new Position(7, 7), FIGURE_NAME.r));
+		figures2.add(new Figure(new Position(0, 6), FIGURE_NAME.r));
+		figures2.add(new Figure(new Position(1, 6), FIGURE_NAME.h));
+		figures2.add(new Figure(new Position(2, 6), FIGURE_NAME.c));
+		figures2.add(new Figure(new Position(3, 6), FIGURE_NAME.l));
+		figures2.add(new Figure(new Position(4, 6), FIGURE_NAME.e));
+		figures2.add(new Figure(new Position(5, 6), FIGURE_NAME.c));
+		figures2.add(new Figure(new Position(6, 6), FIGURE_NAME.h));
+		figures2.add(new Figure(new Position(7, 6), FIGURE_NAME.r));
 	}
 
 	public Player getP1() {
@@ -66,12 +66,12 @@ public class Pitch implements IPitch {
 		return pl.get(1);
 	}
 	@Override
-	public void setP1Figures(ArrayList<ICharacter> figures1) {
+	public void setP1Figures(ArrayList<IFigure> figures1) {
 		//TODO
 	}
 
 	@Override
-	public void setP2Figures(ArrayList<ICharacter> figures2) {
+	public void setP2Figures(ArrayList<IFigure> figures2) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -117,7 +117,7 @@ public class Pitch implements IPitch {
 
 		boolean occupied = false;
 		for (Player p : pl) {
-			ICHARAKTER_NAME c = p.getFigur(pos);
+			IFIGURE_NAME c = p.getFigur(pos);
 			if (c != null) {
 				sb.append(c);
 				occupied = true;

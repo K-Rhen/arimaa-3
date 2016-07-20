@@ -7,7 +7,6 @@ import de.htwg.se.arimaa.util.observer.IObservable;
 
 
 public interface IArimaaController extends IObservable {
-
 	IPlayer getPlayer1();
 	IPlayer getPlayer2();
 	boolean moveFigureByString(int i, String line);

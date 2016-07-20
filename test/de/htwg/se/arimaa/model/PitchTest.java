@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.Character;
+import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
+import de.htwg.se.arimaa.model.impl.Figure;
 import de.htwg.se.arimaa.model.impl.Pitch;
 
-import de.htwg.se.arimaa.model.ICharacter;
+import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
 
 import de.htwg.se.arimaa.model.IPlayer;
@@ -25,13 +25,13 @@ public class PitchTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ArrayList<ICharacter> figures1 = new ArrayList<>();
-		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
-		figures1.add(new Character(new Position(0, 1), CHARAKTER_NAME.E));
+		ArrayList<IFigure> figures1 = new ArrayList<>();
+		figures1.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
+		figures1.add(new Figure(new Position(0, 1), FIGURE_NAME.E));
 		
-		ArrayList<ICharacter> figures2 = new ArrayList<>();
-		figures2.add(new Character(new Position(7, 0), CHARAKTER_NAME.R));
-		figures2.add(new Character(new Position(7, 1), CHARAKTER_NAME.E));
+		ArrayList<IFigure> figures2 = new ArrayList<>();
+		figures2.add(new Figure(new Position(7, 0), FIGURE_NAME.R));
+		figures2.add(new Figure(new Position(7, 1), FIGURE_NAME.E));
 		
 
 		pitch = new Pitch("T1", "T2");
@@ -70,7 +70,7 @@ public class PitchTest {
 					boolean occupied = false;
 					Position pos = new Position(x, y);
 					for (IPlayer p : pl) {
-						ICHARAKTER_NAME c = p.getFigur(pos);
+						IFIGURE_NAME c = p.getFigur(pos);
 						if (c != null) {
 							sb.append(c);
 							occupied = true;

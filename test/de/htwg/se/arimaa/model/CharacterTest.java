@@ -6,19 +6,19 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.Character;
+import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
+import de.htwg.se.arimaa.model.impl.Figure;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class CharacterTest {
 
-	Character character;
+	Figure character;
 	Position p;
 	
 	@Before
 	public void setUp() throws Exception {
 		p = new Position(0, 0);
-		character = new Character(p, CHARAKTER_NAME.R);
+		character = new Figure(p, FIGURE_NAME.R);
 	}
 
 	@Test
@@ -32,6 +32,6 @@ public class CharacterTest {
 	
 	@Test
 	public void testgetName(){
-		assertEquals(CHARAKTER_NAME.R, character.getName());
+		assertEquals(FIGURE_NAME.R, character.getName());
 	}
 }

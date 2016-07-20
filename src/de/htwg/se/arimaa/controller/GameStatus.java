@@ -14,6 +14,5 @@ public enum  GameStatus {
     MOVEFIGURE,
     MOVESDONE,
     MOVECHANGE,
-    CHANGEPLAYER,
-   
+    CHANGEPLAYER,  
 }

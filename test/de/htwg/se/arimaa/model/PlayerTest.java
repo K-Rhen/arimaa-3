@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.Character;
+import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
+import de.htwg.se.arimaa.model.impl.Figure;
 import de.htwg.se.arimaa.model.impl.Player;
 import de.htwg.se.arimaa.util.character.Position;
 
@@ -19,14 +19,14 @@ public class PlayerTest {
 	String playerName;
 	Position pos;
 
-	ArrayList<ICharacter> figures;
+	ArrayList<IFigure> figures;
 	@Before
 	public void setUp() throws Exception {
 		playerName = "Alias";
 		pos = new Position (0,0);
 		
 		figures = new ArrayList<>();
-		figures.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
+		figures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
 		player = new Player(playerName, figures);
 	}
 
@@ -56,7 +56,7 @@ public class PlayerTest {
 	}
 	@Test
 	public void testgetFigure(){
-		assertEquals(CHARAKTER_NAME.R, player.getFigur(new Position(0, 0)) );
+		assertEquals(FIGURE_NAME.R, player.getFigur(new Position(0, 0)) );
 		assertEquals(player.getFigur(new Position(3, 4)), null);
 	}
 	

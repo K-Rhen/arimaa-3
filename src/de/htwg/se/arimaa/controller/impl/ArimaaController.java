@@ -8,8 +8,8 @@ import com.google.inject.Inject;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
-import de.htwg.se.arimaa.model.ICharacter;
-import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
+import de.htwg.se.arimaa.model.IFigure;
+import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
 import de.htwg.se.arimaa.model.impl.Pitch;
 
 import de.htwg.se.arimaa.model.IPlayer;
@@ -160,9 +160,9 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		return able;
 	}
 
-	private boolean isFigurOwn(List<ICharacter> figures, Position from) {
+	private boolean isFigurOwn(List<IFigure> figures, Position from) {
 
-		for (ICharacter usedchar : figures) {
+		for (IFigure usedchar : figures) {
 			if (usedchar.getPosition().equals(from))
 				return true;
 		}
@@ -251,8 +251,8 @@ public class ArimaaController  extends Observable implements IArimaaController{
 	}
 
 	private boolean finishP1() {
-		for (ICharacter figure : pitch.getP1().getFigures()) {
-			if (figure.getName() == CHARAKTER_NAME.R
+		for (IFigure figure : pitch.getP1().getFigures()) {
+			if (figure.getName() == FIGURE_NAME.R
 					&& figure.getPosition().getY() == 7)
 				return true;
 		}
@@ -261,8 +261,8 @@ public class ArimaaController  extends Observable implements IArimaaController{
 	}
 
 	private boolean finishP2() {
-		for (ICharacter figure : pitch.getP2().getFigures()) {
-			if (figure.getName() == CHARAKTER_NAME.r
+		for (IFigure figure : pitch.getP2().getFigures()) {
+			if (figure.getName() == FIGURE_NAME.r
 					&& figure.getPosition().getY() == 0)
 				return true;
 		}

@@ -9,9 +9,7 @@ public class ArimaaModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-
 		bind(IArimaaController.class).to(ArimaaController.class);
-
 	}
 
 }

@@ -26,10 +26,10 @@ import javax.swing.event.MouseInputAdapter;
 
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
-import de.htwg.se.arimaa.model.ICHARAKTER_NAME;
-import de.htwg.se.arimaa.model.ICharacter;
-import de.htwg.se.arimaa.model.impl.CHARAKTER_NAME;
-import de.htwg.se.arimaa.model.impl.Character;
+import de.htwg.se.arimaa.model.IFIGURE_NAME;
+import de.htwg.se.arimaa.model.IFigure;
+import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
+import de.htwg.se.arimaa.model.impl.Figure;
 import de.htwg.se.arimaa.util.character.Position;
 import de.htwg.se.arimaa.util.observer.IObserver;
 
@@ -38,7 +38,7 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	BufferedImage pitchImage;
 	Point pitchSizePoint = new Point(400, 400);
-	EnumMap<CHARAKTER_NAME, BufferedImage> figuresImage;
+	EnumMap<FIGURE_NAME, BufferedImage> figuresImage;
 	Point figuresize = new Point(50, 50);
 	Point offset = new Point(20, 45);
 
@@ -56,7 +56,7 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	// Mouse
 	Point mousePoint = new Point(0, 0);
-	ICharacter mouseFigureFrom = null; // startposition
+	IFigure mouseFigureFrom = null; // startposition
 	Position mouseFigureTo = null; // endposition
 	boolean figureSet = false;
 
@@ -64,7 +64,7 @@ public class PitchPanel extends JPanel implements IObserver {
 		this.controller = controller;
 		controller.addObserver(this);
 
-		figuresImage = new EnumMap<>(CHARAKTER_NAME.class);
+		figuresImage = new EnumMap<>(FIGURE_NAME.class);
 
 		pitchImage = loadImage("BoardStoneSmall");
 		loadFiguresImage();
@@ -153,8 +153,8 @@ public class PitchPanel extends JPanel implements IObserver {
 			return;
 
 		Position pos = new Position((int) cell.getX(), (int) cell.getY());
-		ICHARAKTER_NAME figureName = getCharacter(pos);
-		mouseFigureFrom = new Character(pos, figureName);
+		FIGURE_NAME figureName = (FIGURE_NAME) getCharacter(pos);
+		mouseFigureFrom = new Figure(pos, figureName);
 	}
 
 	private void mouseReleasedHandler(Point mouse) {
@@ -191,8 +191,8 @@ public class PitchPanel extends JPanel implements IObserver {
 		repaintPanel();
 	}
 
-	private ICHARAKTER_NAME getCharacter(Position cell) {
-		ICHARAKTER_NAME name = null;
+	private IFIGURE_NAME getCharacter(Position cell) {
+		IFIGURE_NAME name = null;
 		name = controller.getPlayer1().getFigur(cell);
 		if (name == null)
 			name = controller.getPlayer2().getFigur(cell);
@@ -237,19 +237,19 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 	private void loadFiguresImage() {
-		figuresImage.put(CHARAKTER_NAME.R, loadImage("GoldRabbit"));
-		figuresImage.put(CHARAKTER_NAME.C, loadImage("GoldCat"));
-		figuresImage.put(CHARAKTER_NAME.D, loadImage("GoldDog"));
-		figuresImage.put(CHARAKTER_NAME.H, loadImage("GoldCat"));
-		figuresImage.put(CHARAKTER_NAME.L, loadImage("GoldCamel"));
-		figuresImage.put(CHARAKTER_NAME.E, loadImage("GoldElephant"));
+		figuresImage.put(FIGURE_NAME.R, loadImage("GoldRabbit"));
+		figuresImage.put(FIGURE_NAME.C, loadImage("GoldCat"));
+		figuresImage.put(FIGURE_NAME.D, loadImage("GoldDog"));
+		figuresImage.put(FIGURE_NAME.H, loadImage("GoldCat"));
+		figuresImage.put(FIGURE_NAME.L, loadImage("GoldCamel"));
+		figuresImage.put(FIGURE_NAME.E, loadImage("GoldElephant"));
 
-		figuresImage.put(CHARAKTER_NAME.r, loadImage("SilverRabbit"));
-		figuresImage.put(CHARAKTER_NAME.c, loadImage("SilverCat"));
-		figuresImage.put(CHARAKTER_NAME.d, loadImage("SilverDog"));
-		figuresImage.put(CHARAKTER_NAME.h, loadImage("SilverCat"));
-		figuresImage.put(CHARAKTER_NAME.l, loadImage("SilverCamel"));
-		figuresImage.put(CHARAKTER_NAME.e, loadImage("SilverElephant"));
+		figuresImage.put(FIGURE_NAME.r, loadImage("SilverRabbit"));
+		figuresImage.put(FIGURE_NAME.c, loadImage("SilverCat"));
+		figuresImage.put(FIGURE_NAME.d, loadImage("SilverDog"));
+		figuresImage.put(FIGURE_NAME.h, loadImage("SilverCat"));
+		figuresImage.put(FIGURE_NAME.l, loadImage("SilverCamel"));
+		figuresImage.put(FIGURE_NAME.e, loadImage("SilverElephant"));
 	}
 
 	@Override
@@ -266,26 +266,26 @@ public class PitchPanel extends JPanel implements IObserver {
 		g2d.drawImage(pitchImage, offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.x, null);
 
 		// Paint Player1
-		List<ICharacter> p1figure = controller.getPlayer1().getFigures();
+		List<IFigure> p1figure = controller.getPlayer1().getFigures();
 		printFigures(g2d, p1figure, offset, figuresize);
 
 		// Paint Player2
-		List<ICharacter> p2figure = controller.getPlayer2().getFigures();
+		List<IFigure> p2figure = controller.getPlayer2().getFigures();
 		printFigures(g2d, p2figure, offset, figuresize);
 
 		// Draw Mouse Figure
 		if (mouseFigureFrom != null) {
 			g2d.setColor(Color.green);
 			g2d.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
-			ICHARAKTER_NAME fname = mouseFigureFrom.getName();
+			IFIGURE_NAME fname = mouseFigureFrom.getName();
 			BufferedImage fimg = figuresImage.get(fname);
 			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
 		}
 	}
 
-	public void printFigures(Graphics2D g2d, List<ICharacter> figure, Point offset, Point figuresize) {
-		for (ICharacter f : figure) {
-			ICHARAKTER_NAME fname = f.getName();
+	public void printFigures(Graphics2D g2d, List<IFigure> figure, Point offset, Point figuresize) {
+		for (IFigure f : figure) {
+			IFIGURE_NAME fname = f.getName();
 			BufferedImage fimg = figuresImage.get(fname);
 
 			Position fpos = f.getPosition();

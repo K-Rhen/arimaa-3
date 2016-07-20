@@ -12,9 +12,9 @@ public interface IPitch {
 
 	boolean pitchEquals(IPitch b);
 
-	void setP1Figures(ArrayList<ICharacter> figures1);
+	void setP1Figures(ArrayList<IFigure> figures1);
 
-	void setP2Figures(ArrayList<ICharacter> figures2);
+	void setP2Figures(ArrayList<IFigure> figures2);
 	
 	
 

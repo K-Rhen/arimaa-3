@@ -21,7 +21,6 @@ public class Arimaa {
 		Injector injector = Guice.createInjector(new ArimaaModule());
 		
 		controller = injector.getInstance(IArimaaController.class);
-		//controller = IArimaaControllerFactory.getInstance(); // TODO remove line
 		tui = new TextUI(controller);
 		gui = new ArimaaFrame(controller);
 	}
@@ -47,7 +46,7 @@ public class Arimaa {
 		boolean continu = true;
 		scanner = new Scanner(System.in);
 		while (continu) {
-			System.out.println("Bitte um Eingabe: "); // TODO SCH�NER SCHREIBEN
+			System.out.println("Bitte um Eingabe: "); // TODO refactor
 			continu = game.tui.processInputLine(scanner.next());
 		}
 

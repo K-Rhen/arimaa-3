@@ -2,24 +2,24 @@ package de.htwg.se.arimaa.model.impl;
 
 import java.util.List;
 
-import de.htwg.se.arimaa.model.ICHARAKTER_NAME;
-import de.htwg.se.arimaa.model.ICharacter;
+import de.htwg.se.arimaa.model.IFIGURE_NAME;
+import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.character.Position;
 
 public class Player implements IPlayer {
-	private List<ICharacter> figures;
+	private List<IFigure> figures;
 	private String playerName;
 
-	public Player(String playerName, List<ICharacter> figures) {
+	public Player(String playerName, List<IFigure> figures) {
 		this.playerName = playerName;
 		this.figures = figures;
 	}
 
 
 
-	public ICHARAKTER_NAME getFigur(Position pos) {
-		for (ICharacter cr : figures) {
+	public IFIGURE_NAME getFigur(Position pos) {
+		for (IFigure cr : figures) {
 			if (pos.equals(cr.getPosition()))
 				return cr.getName();
 		}
@@ -32,7 +32,7 @@ public class Player implements IPlayer {
 	}
 
 	public boolean setFigureChangePositon(Position start, Position end) {
-		for (ICharacter cr : figures) {
+		for (IFigure cr : figures) {
 			if (cr.getPosition().equals(start)) {
 				cr.setPosition(end);
 				return true;
@@ -43,7 +43,7 @@ public class Player implements IPlayer {
 	
 	
 	//vor GUI
-	public List<ICharacter> getFigures(){
+	public List<IFigure> getFigures(){
 		return figures;
 	}
 	
