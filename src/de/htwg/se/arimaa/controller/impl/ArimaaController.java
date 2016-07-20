@@ -6,10 +6,10 @@ import com.google.inject.Inject;
 
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
-import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
 import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
@@ -178,12 +178,12 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	@Override
-	public boolean moveFigureByString(int player, String inputLine) {
-		if (inputLine.length() != 5) {
+	public boolean moveFigureByString(int player, String eingabe) {
+		if (eingabe.length() != 5) {
 			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
 		}
 
-		char[] parts = inputLine.toCharArray();
+		char[] parts = eingabe.toCharArray();
 		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
 		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
 
@@ -242,9 +242,9 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	// TODO refactor
 	@Override
-	public boolean pushFigurs(int firstPlayer, int secondPlayer, String inputLine) {
+	public boolean pushFigurs(int firstPlayer, int secondPlayer, String line) {
 
-		String[] parts = inputLine.split("#");
+		String[] parts = line.split("#");
 		String part1 = parts[0];
 		String part2 = parts[1];
 

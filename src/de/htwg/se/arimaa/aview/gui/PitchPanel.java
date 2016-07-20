@@ -25,9 +25,8 @@ import javax.swing.event.MouseInputAdapter;
 
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
-import de.htwg.se.arimaa.model.IFIGURE_NAME;
+import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
-import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
 import de.htwg.se.arimaa.model.impl.Figure;
 import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
@@ -191,8 +190,8 @@ public class PitchPanel extends JPanel implements IObserver {
 		repaintPanel();
 	}
 
-	private IFIGURE_NAME getCharacter(Position cell) {
-		IFIGURE_NAME name = null;
+	private FIGURE_NAME getCharacter(Position cell) {
+		FIGURE_NAME name = null;
 		name = controller.getPlayer1().getFigure(cell);
 		if (name == null)
 			name = controller.getPlayer2().getFigure(cell);
@@ -277,7 +276,7 @@ public class PitchPanel extends JPanel implements IObserver {
 		if (mouseFigureFrom != null) {
 			g2d.setColor(Color.green);
 			g2d.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
-			IFIGURE_NAME fname = mouseFigureFrom.getName();
+			FIGURE_NAME fname = mouseFigureFrom.getName();
 			BufferedImage fimg = figuresImage.get(fname);
 			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
 		}
@@ -285,7 +284,7 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	public void printFigures(Graphics2D g2d, List<IFigure> figure, Point offset, Point figuresize) {
 		for (IFigure f : figure) {
-			IFIGURE_NAME fname = f.getName();
+			FIGURE_NAME fname = f.getName();
 			BufferedImage fimg = figuresImage.get(fname);
 
 			Position fpos = f.getPosition();

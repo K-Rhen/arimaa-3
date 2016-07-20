@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
 import de.htwg.se.arimaa.model.impl.Figure;
 import de.htwg.se.arimaa.model.impl.Player;
 import de.htwg.se.arimaa.util.position.Position;

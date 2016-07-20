@@ -3,7 +3,8 @@ package de.htwg.se.arimaa.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.htwg.se.arimaa.model.IFIGURE_NAME;
+import de.htwg.se.arimaa.model.FIGURE_NAME;
+
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.util.position.Position;
@@ -24,6 +25,7 @@ public class Pitch implements IPitch {
 	}
 
 	private void initializeDefaultPitch(List<IFigure> figures1, List<IFigure> figures2) {
+		
 		figures1.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
 		figures1.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
 		figures1.add(new Figure(new Position(2, 0), FIGURE_NAME.R));
@@ -118,7 +120,7 @@ public class Pitch implements IPitch {
 	private String getCellFigure(Position pos) {
 		StringBuilder sb = new StringBuilder();
 
-		IFIGURE_NAME figureName = null;
+		FIGURE_NAME figureName = null;
 		figureName = player1.getFigure(pos);
 		if (figureName == null)
 			figureName = player2.getFigure(pos);

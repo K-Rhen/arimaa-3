@@ -27,7 +27,7 @@ public interface IPlayer {
 	 *            the position of the figure
 	 * @return the name of the figure, null if not exist
 	 */
-	IFIGURE_NAME getFigure(Position pos);
+	FIGURE_NAME getFigure(Position pos);
 
 	/**
 	 * Set the position from figure with end position
