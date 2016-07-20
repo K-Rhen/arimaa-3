@@ -10,11 +10,11 @@ import de.htwg.se.arimaa.model.impl.FIGURE_NAME;
 import de.htwg.se.arimaa.model.impl.Figure;
 import de.htwg.se.arimaa.util.character.Position;
 
-public class CharacterTest {
+public class FigureTest {
 
 	Figure character;
 	Position p;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		p = new Position(0, 0);
@@ -22,16 +22,15 @@ public class CharacterTest {
 	}
 
 	@Test
-	public void testsetPositon(){
+	public void testsetPositon() {
 		character.setPosition(1, 1);
 		p = new Position(1, 1);
 
 		assertTrue(p.equals(character.getPosition()));
 	}
-	
-	
+
 	@Test
-	public void testgetName(){
+	public void testgetName() {
 		assertEquals(FIGURE_NAME.R, character.getName());
 	}
 }

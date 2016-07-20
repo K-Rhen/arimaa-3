@@ -152,7 +152,7 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		reduceMove(player);
 		
 		if ((to.getX() == 2 || to.getX() == 5) && (to.getY() == 2 || to.getY() == 5))
-			pitch.getP1().deleteFigure(to);
+			pitch.getPlayer1().deleteFigure(to);
 		
 		gamestatus = GameStatus.MOVEFIGURE;
 		notifyObservers();
@@ -176,9 +176,9 @@ public class ArimaaController  extends Observable implements IArimaaController{
 			throw new IllegalArgumentException("Die Position auf welche du ziehen willst ist bereits belegt");
 
 		if (player == 1) 
-			return setFigureChangePosition(pitch.getP1(), from , to);
+			return setFigureChangePosition(pitch.getPlayer1(), from , to);
 		if (player == 2) 
-			return setFigureChangePosition(pitch.getP2(), from , to);
+			return setFigureChangePosition(pitch.getPlayer2(), from , to);
 		return false;
 
 	}
@@ -195,10 +195,10 @@ public class ArimaaController  extends Observable implements IArimaaController{
 		char[] pullPosition = pull.toCharArray();
 		toPull = new Position(readPosX(pullPosition[0]), readPosY(pullPosition[1]));
 		if (firstPlayer) {
-			if (isFigurOwn(pitch.getP1().getFigures(), toPull))
+			if (isFigurOwn(pitch.getPlayer1().getFigures(), toPull))
 				throw new IllegalArgumentException("Es muss eine gegnerische Figur sein.");
 		} else {
-			if (isFigurOwn(pitch.getP2().getFigures(), toPull))
+			if (isFigurOwn(pitch.getPlayer2().getFigures(), toPull))
 				throw new IllegalArgumentException("Es muss eine gegnerische Figur sein.");
 		}
 
@@ -211,10 +211,10 @@ public class ArimaaController  extends Observable implements IArimaaController{
 
 
 	public IPlayer getPlayer1(){
-		return pitch.getP1();
+		return pitch.getPlayer1();
 	}
 	public IPlayer getPlayer2(){
-		return pitch.getP2();
+		return pitch.getPlayer2();
 	}
 
 	public boolean pushFigurs(int player1, int player2, String line) {
@@ -251,7 +251,7 @@ public class ArimaaController  extends Observable implements IArimaaController{
 	}
 
 	private boolean finishP1() {
-		for (IFigure figure : pitch.getP1().getFigures()) {
+		for (IFigure figure : pitch.getPlayer1().getFigures()) {
 			if (figure.getName() == FIGURE_NAME.R
 					&& figure.getPosition().getY() == 7)
 				return true;
@@ -261,7 +261,7 @@ public class ArimaaController  extends Observable implements IArimaaController{
 	}
 
 	private boolean finishP2() {
-		for (IFigure figure : pitch.getP2().getFigures()) {
+		for (IFigure figure : pitch.getPlayer2().getFigures()) {
 			if (figure.getName() == FIGURE_NAME.r
 					&& figure.getPosition().getY() == 0)
 				return true;

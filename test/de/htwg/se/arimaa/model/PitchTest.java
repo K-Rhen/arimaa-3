@@ -21,8 +21,6 @@ public class PitchTest {
 	ArrayList<IPlayer> pl = new ArrayList<>();
 	IPitch pitch;
 	
-	
-
 	@Before
 	public void setUp() throws Exception {
 		ArrayList<IFigure> figures1 = new ArrayList<>();
@@ -30,87 +28,54 @@ public class PitchTest {
 		figures1.add(new Figure(new Position(0, 1), FIGURE_NAME.E));
 		
 		ArrayList<IFigure> figures2 = new ArrayList<>();
-		figures2.add(new Figure(new Position(7, 0), FIGURE_NAME.R));
-		figures2.add(new Figure(new Position(7, 1), FIGURE_NAME.E));
+		figures2.add(new Figure(new Position(0, 7), FIGURE_NAME.r));
+		figures2.add(new Figure(new Position(0, 6), FIGURE_NAME.e));
 		
 
 		pitch = new Pitch("T1", "T2");
-		pitch.setP1Figures(figures1);
-		pitch.setP2Figures(figures2);
+		pitch.setPlayer1Figures(figures1);
+		pitch.setPlayer2Figures(figures2);
 		
-		pl.add(pitch.getP1());
-		pl.add(pitch.getP2());
+		pl.add(pitch.getPlayer1());
+		pl.add(pitch.getPlayer2());
 	}
 
 	@Test
 	public void getP1test() {
-		assertEquals("T1", pitch.getP1().getPlayerName());
+		assertEquals("T1", pitch.getPlayer1().getPlayerName());
 	}
 
 	@Test
 	public void getP2test() {
-		assertEquals("T2", pitch.getP2().getPlayerName());
+		assertEquals("T2", pitch.getPlayer2().getPlayerName());
 	}
 
 	@Test
 	public void testToString() {
-		StringBuilder sb = new StringBuilder();
+		String pitchString = pitch.toString();
+		System.out.println(pitchString);
+		String oughtPitchString = "+-------------------------------+\n"
+				+ "| R |   |   |   |   |   |   |   | 8\n"
+				+ "+---+---+---+---+---+---+---+---+\n"
+				+ "| E |   |   |   |   |   |   |   | 7\n"
+				+ "+---+---+---+---+---+---+---+---+\n"
+				+ "|   |   | # |   |   | # |   |   | 6\n"
+				+ "+---+---+---+---+---+---+---+---+\n"
+				+ "|   |   |   |   |   |   |   |   | 5\n"
+				+ "+---+---+---+---+---+---+---+---+\n"
+				+ "|   |   |   |   |   |   |   |   | 4\n"
+				+ "+---+---+---+---+---+---+---+---+\n"
+				+ "|   |   | # |   |   | # |   |   | 3\n"
+				+ "+---+---+---+---+---+---+---+---+\n"
+				+ "| e |   |   |   |   |   |   |   | 2\n"
+				+ "+---+---+---+---+---+---+---+---+\n"
+				+ "| r |   |   |   |   |   |   |   | 1\n"
+				+ "+-------------------------------+\n"
+				+ "  a   b   c   d   e   f   g   h\n";
 		
-		int PITCHSIZE = 8;
-		sb.append("+-------------------------------+\n");
-		for (int y = 0; y < PITCHSIZE; y++) {
-			if (y > 0)
-				sb.append("+---+---+---+---+---+---+---+---+\n");
-			for (int x = 0; x < PITCHSIZE; x++) {
-				if ((x == 2 || x == 5) && (y == 2 || y == 5))
-					sb.append("| # ");
-				else {
-					sb.append("| ");
-
-					boolean occupied = false;
-					Position pos = new Position(x, y);
-					for (IPlayer p : pl) {
-						IFIGURE_NAME c = p.getFigure(pos);
-						if (c != null) {
-							sb.append(c);
-							occupied = true;
-						}
-					}
-					if (occupied == true)
-						sb.append(" ");
-					else
-						sb.append("  ");
-				}
-			}
-			sb.append("| ");
-			sb.append(PITCHSIZE - y);
-			sb.append("\n");
-		}
-		sb.append("+-------------------------------+\n");
-		sb.append("  a   b   c   d   e   f   g   h\n");
-
-		String testpitch = sb.toString();
-		assertEquals(testpitch, pitch.toString());
-	}
-	
-	@Test
-	public void equalsCheck(){
-		//TODO refactor
-//		ArrayList<ICharacter> figures1 = new ArrayList<>();
-//		figures1.add(new Character(new Position(0, 0), CHARAKTER_NAME.R));
-//		ArrayList<ICharacter> figures2 = new ArrayList<>();
-//		figures2.add(new Character(new Position(0, 1), CHARAKTER_NAME.r));
-//		IPitch a = pf.getInstance("p1","p2",figures1,figures2);
-//		IPitch b = pf.getInstance("p1","p2",figures1,figures2);
-//		assertTrue(a.pitchEquals(b));
-//		ArrayList<ICharacter> figures3 = new ArrayList<>();
-//		figures3.add(new Character(new Position(0, 2), CHARAKTER_NAME.H));
-//		b = pf.getInstance("p1","p2",figures1,figures3);
-//		assertTrue(a.pitchEquals(b));
-//		
+		System.out.println(oughtPitchString);
 		
+		assertTrue(oughtPitchString.equals(pitchString));
 	}
-	
-	
 		
 }

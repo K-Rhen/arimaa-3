@@ -20,8 +20,8 @@ public class Rules extends Observable {
 	private List<IPitch> pitchList = new ArrayList<>();
 
 	public Rules(IPitch pitch) {
-		this.p1 = pitch.getP1();
-		this.p2 = pitch.getP2();
+		this.p1 = pitch.getPlayer1();
+		this.p2 = pitch.getPlayer2();
 	}
 	
 

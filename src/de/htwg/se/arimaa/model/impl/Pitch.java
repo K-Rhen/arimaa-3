@@ -10,19 +10,20 @@ import de.htwg.se.arimaa.util.character.Position;
 
 public class Pitch implements IPitch {
 
-	private List<Player> pl = new ArrayList<>();
-	
+	private Player player1;
+	private Player player2;
+
 	private static final int PITCHSIZE = 8;
 
 	public Pitch(String player1Name, String player2Name) {
-		List<IFigure> figures1 = new ArrayList<>(); 
+		List<IFigure> figures1 = new ArrayList<>();
 		List<IFigure> figures2 = new ArrayList<>();
 		initializeDefaultPitch(figures1, figures2);
-		pl.add(new Player(player1Name, figures1));
-		pl.add(new Player(player2Name, figures2));
+		player1 = new Player(player1Name, figures1);
+		player2 = new Player(player2Name, figures2);
 	}
-	
-	private void initializeDefaultPitch(List<IFigure> figures1, List<IFigure> figures2){
+
+	private void initializeDefaultPitch(List<IFigure> figures1, List<IFigure> figures2) {
 		figures1.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
 		figures1.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
 		figures1.add(new Figure(new Position(2, 0), FIGURE_NAME.R));
@@ -39,7 +40,7 @@ public class Pitch implements IPitch {
 		figures1.add(new Figure(new Position(5, 1), FIGURE_NAME.C));
 		figures1.add(new Figure(new Position(6, 1), FIGURE_NAME.H));
 		figures1.add(new Figure(new Position(7, 1), FIGURE_NAME.R));
-	
+
 		figures2.add(new Figure(new Position(0, 7), FIGURE_NAME.r));
 		figures2.add(new Figure(new Position(1, 7), FIGURE_NAME.r));
 		figures2.add(new Figure(new Position(2, 7), FIGURE_NAME.r));
@@ -58,22 +59,24 @@ public class Pitch implements IPitch {
 		figures2.add(new Figure(new Position(7, 6), FIGURE_NAME.r));
 	}
 
-	public Player getP1() {
-		return pl.get(0);
-	}
-
-	public Player getP2() {
-		return pl.get(1);
-	}
 	@Override
-	public void setP1Figures(ArrayList<IFigure> figures1) {
-		//TODO
+	public Player getPlayer1() {
+		return player1;
 	}
 
 	@Override
-	public void setP2Figures(ArrayList<IFigure> figures2) {
-		// TODO Auto-generated method stub
-		
+	public Player getPlayer2() {
+		return player2;
+	}
+
+	@Override
+	public void setPlayer1Figures(List<IFigure> figures) {
+		player1.setFigures(figures);
+	}
+
+	@Override
+	public void setPlayer2Figures(List<IFigure> figures) {
+		player2.setFigures(figures);
 	}
 
 	@Override
@@ -115,34 +118,18 @@ public class Pitch implements IPitch {
 	private String getCellFigure(Position pos) {
 		StringBuilder sb = new StringBuilder();
 
-		boolean occupied = false;
-		for (Player p : pl) {
-			IFIGURE_NAME c = p.getFigure(pos);
-			if (c != null) {
-				sb.append(c);
-				occupied = true;
-				break;
-			}
-		}
+		IFIGURE_NAME figureName = null;
+		figureName = player1.getFigure(pos);
+		if (figureName == null)
+			figureName = player2.getFigure(pos);
 
-		if (occupied)
+		if (figureName != null) {
+			sb.append(figureName);
 			sb.append(" ");
-		else
+		} else
 			sb.append("  ");
 
 		return sb.toString();
 	}
-
-	public boolean pitchEquals(IPitch pitch) {
-		if (pitch.toString().equals(this.toString()))
-			return true;
-		return false;
-	}
-
-
-
-
-
-	
 
 }

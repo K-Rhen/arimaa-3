@@ -17,6 +17,11 @@ public class Player implements IPlayer {
 	}
 
 	@Override
+	public void setFigures(List<IFigure> figures) {
+		this.figures = figures;
+	}
+	
+	@Override
 	public String getPlayerName() {
 		return playerName;
 	}
