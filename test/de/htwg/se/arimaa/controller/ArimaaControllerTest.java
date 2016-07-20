@@ -1,9 +1,15 @@
 package de.htwg.se.arimaa.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import de.htwg.se.arimaa.arimaa.ArimaaModule;
 
 
 public class ArimaaControllerTest {
@@ -11,7 +17,8 @@ public class ArimaaControllerTest {
 	private IArimaaController controller;
 	@Before
 	public void setUp() throws Exception {
-		controller = IArimaaControllerFactory.getInstance();
+		Injector injector = Guice.createInjector(new ArimaaModule());
+		controller = injector.getInstance(IArimaaController.class);
 	}
 
 	@Test
