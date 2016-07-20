@@ -65,6 +65,16 @@ public class Pitch implements IPitch {
 	public Player getP2() {
 		return pl.get(1);
 	}
+	@Override
+	public void setP1Figures(ArrayList<ICharacter> figures1) {
+		//TODO
+	}
+
+	@Override
+	public void setP2Figures(ArrayList<ICharacter> figures2) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public String toString() {
@@ -128,6 +138,8 @@ public class Pitch implements IPitch {
 			return true;
 		return false;
 	}
+
+
 
 
 

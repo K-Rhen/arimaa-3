@@ -28,7 +28,8 @@ public class ArimaaController  extends Observable implements IArimaaController{
 
 	@Inject
 	public ArimaaController() {
-		pitch = PitchFactory.getInstance(player1Name,player2Name);
+		PitchFactory pf = new PitchFactory();
+		pitch = pf.getInstance(player1Name,player2Name);
 		rules = new Rules(pitch);
 	}
 
