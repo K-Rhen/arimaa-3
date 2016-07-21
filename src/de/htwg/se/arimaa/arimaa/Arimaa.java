@@ -28,6 +28,9 @@ public class Arimaa {
 		controller = injector.getInstance(IArimaaController.class);
 		tui = new TextUI(controller);
 		//gui = new ArimaaFrame(controller);
+		
+		//init new game
+		controller.create();
 	}
 
 	public TextUI getTui() {
@@ -44,16 +47,10 @@ public class Arimaa {
 		}
 		return instance;
 	}
-	public void showPitch(){
-		//TODO refactor
-		tui.ShowPitch();
-	}
-	
+
 	public static void main(final String[] args) {
 		Arimaa game = Arimaa.getInstance();
 
-		game.showPitch();
-		
 		boolean continu = true;
 		scanner = new Scanner(System.in);
 		while (continu) {

@@ -27,7 +27,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	private String player2Name = "Player2";
 	private int remainingMoves = 4;
 	private int lastPlayer = 1;
-	private GameStatus gamestatus;
+	private GameStatus gameStatus;
 
 	@Inject
 	public ArimaaController() {
@@ -52,12 +52,12 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public GameStatus getGameStatus() {
-		return gamestatus;
+		return gameStatus;
 	}
 
 	@Override
 	public void arimaaExit() {
-		gamestatus = GameStatus.EXIT;
+		gameStatus = GameStatus.EXIT;
 		notifyObservers();
 	}
 
@@ -67,7 +67,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 		remainingMoves = 4;
 
-		gamestatus = GameStatus.CHANGEPLAYER;
+		gameStatus = GameStatus.CHANGEPLAYER;
 		notifyObservers();
 	}
 
@@ -98,7 +98,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		}
 
 		remainingMoves--;
-		gamestatus = GameStatus.MOVECHANGE;
+		gameStatus = GameStatus.MOVECHANGE;
 		notifyObservers();
 		return true;
 	}
@@ -106,14 +106,14 @@ public class ArimaaController extends Observable implements IArimaaController {
 	private boolean isfinish() {
 		// Player1
 		if (finishPlayer(FIGURE_NAME.R, 7)) {
-			gamestatus = GameStatus.WinPLAYER1;
+			gameStatus = GameStatus.WinPLAYER1;
 			notifyObservers();
 			return true;
 		}
 
 		// Player2
 		if (finishPlayer(FIGURE_NAME.r, 0)) {
-			gamestatus = GameStatus.WinPLAYER2;
+			gameStatus = GameStatus.WinPLAYER2;
 			notifyObservers();
 			return true;
 		}
@@ -197,7 +197,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public boolean moveFigureByPosition(int player, Position from, Position to) {
 		if (remainingMoves == 0) {
-			gamestatus = GameStatus.MOVESDONE;
+			gameStatus = GameStatus.MOVESDONE;
 			notifyObservers();
 			return false;
 		}
@@ -205,7 +205,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		boolean able = moveFigur(player, from, to);
 
 		if (!able) {
-			gamestatus = GameStatus.WRONGTURN;
+			gameStatus = GameStatus.WRONGTURN;
 			notifyObservers();
 			return false;
 		}
@@ -219,7 +219,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		if ((to.getX() == 2 || to.getX() == 5) && (to.getY() == 2 || to.getY() == 5))
 			pitch.getPlayer1().deleteFigure(to);
 
-		gamestatus = GameStatus.MOVEFIGURE;
+		gameStatus = GameStatus.MOVEFIGURE;
 		notifyObservers();
 
 		return able;
@@ -288,6 +288,12 @@ public class ArimaaController extends Observable implements IArimaaController {
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void create() {
+		gameStatus = GameStatus.CREATE;
+		notifyObservers();
 	}
 
 }

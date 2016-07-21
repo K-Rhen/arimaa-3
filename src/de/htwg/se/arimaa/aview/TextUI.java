@@ -21,10 +21,6 @@ public class TextUI implements IObserver {
 		controller.addObserver(this);
 	}
 
-	public void ShowPitch() {
-		LOGGER.entry(toString());
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -63,6 +59,10 @@ public class TextUI implements IObserver {
 
 	@Override
 	public void update(Event e) {
+		// Show TUI
+		LOGGER.entry(toString());
+
+		//TODO refactor: gs in toString ? 
 		GameStatus gs = controller.getGameStatus();
 		if (gs.equals(GameStatus.WinPLAYER1)) {
 			LOGGER.entry("Player 1 gewonnen");

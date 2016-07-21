@@ -86,4 +86,9 @@ public interface IArimaaController extends IObservable {
 	 */
 	boolean pushFigurs(int firstPlayer, int secondPlayer, String inputLine);
 
+	/**
+	 * init a new game
+	 */
+	void create();
+
 }
