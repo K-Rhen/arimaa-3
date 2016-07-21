@@ -87,7 +87,7 @@ public class PitchPanel extends JPanel implements IObserver {
 				if (figureSet) {
 					Position from = mouseFigureFrom.getPosition();
 					Position to = mouseFigureTo;
-					controller.moveFigureByPosition(controller.getCurrentPlayer(), from, to);
+					controller.moveFigure(controller.getCurrentPlayer(), from, to);
 
 					mouseFigureFrom = null;
 					figureSet = false;
@@ -197,9 +197,10 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	private FIGURE_NAME getCharacter(Position cell) {
 		FIGURE_NAME name = null;
-		name = controller.getPlayer1().getFigure(cell);
-		if (name == null)
-			name = controller.getPlayer2().getFigure(cell);
+		//TODO refactor
+//		name = controller.getPlayer1().getFigure(cell);
+//		if (name == null)
+//			name = controller.getPlayer2().getFigure(cell);
 		return name;
 	}
 
@@ -269,12 +270,14 @@ public class PitchPanel extends JPanel implements IObserver {
 		g2d.drawImage(pitchImage, offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.x, null);
 
 		// Paint Player1
-		List<IFigure> p1figure = controller.getPlayer1().getFigures();
-		printFigures(g2d, p1figure, offset, figuresize);
+		//TODO refactro
+//		List<IFigure> p1figure = controller.getPlayer1().getFigures();
+//		printFigures(g2d, p1figure, offset, figuresize);
 
 		// Paint Player2
-		List<IFigure> p2figure = controller.getPlayer2().getFigures();
-		printFigures(g2d, p2figure, offset, figuresize);
+		//TODO refactor
+//		List<IFigure> p2figure = controller.getPlayer2().getFigures();
+//		printFigures(g2d, p2figure, offset, figuresize);
 
 		// Draw Mouse Figure
 		if (mouseFigureFrom != null) {
