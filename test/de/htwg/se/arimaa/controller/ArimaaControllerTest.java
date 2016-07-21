@@ -32,7 +32,7 @@ public class ArimaaControllerTest {
 	}
 	@Test
 	public void testgetMoves(){
-		assertEquals(controller.getMoveCounter(), 4);
+		assertEquals(controller.getRemainingMoves(), 4);
 	}
 	@Test
 	public void testgetgamestatus(){
@@ -41,7 +41,7 @@ public class ArimaaControllerTest {
 	@Test
 	public void testarimmaExit(){
 		controller.arimaaExit();
-		controller.ShowPitch();
+		controller.CurrentPitchView();
 	}
 	
 	@Test

@@ -22,6 +22,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import de.htwg.se.arimaa.arimaa.Arimaa;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
@@ -32,6 +36,8 @@ import de.htwg.se.arimaa.util.observer.IObserver;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class PitchPanel extends JPanel implements IObserver {
+	private static final Logger LOGGER = LogManager.getLogger(PitchPanel.class.getName());
+	
 	IArimaaController controller;
 
 	BufferedImage pitchImage;
@@ -156,7 +162,7 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 	private void mouseReleasedHandler(Point mouse) {
-		if (figureSet || mouseFigureFrom == null||controller.getMoveCounter() == 0)
+		if (figureSet || mouseFigureFrom == null||controller.getRemainingMoves() == 0)
 			return;
 
 		Point cell = getCell(mouse);
@@ -181,7 +187,7 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 	private void mouseDraggedHandler(Point mouse) {
-		if (figureSet||controller.getMoveCounter() == 0)
+		if (figureSet||controller.getRemainingMoves() == 0)
 			return;
 
 		updateMousePos(mouse);
@@ -228,8 +234,7 @@ public class PitchPanel extends JPanel implements IObserver {
 		try {
 			image = ImageIO.read(getClass().getResource("/" + name + ".png"));
 		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println(name + "not found");
+			LOGGER.info("Images: "+ name + "not found" + e.getMessage());
 		}
 		return image;
 	}
@@ -309,10 +314,10 @@ public class PitchPanel extends JPanel implements IObserver {
 		} else if (gs.equals(GameStatus.MOVEFIGURE)) {
 			repaintPanel();
 		} else if (gs.equals(GameStatus.MOVECHANGE)) {
-			moveRemainLabel.setText("Moves: " + controller.getMoveCounter());
+			moveRemainLabel.setText("Moves: " + controller.getRemainingMoves());
 		} else if (gs.equals(GameStatus.CHANGEPLAYER)) {
 			actPlayerLabel.setText("Player: " + controller.getCurrentPlayer());
-			moveRemainLabel.setText("Moves: " + controller.getMoveCounter());
+			moveRemainLabel.setText("Moves: " + controller.getRemainingMoves());
 		}
 
 	}

@@ -25,7 +25,7 @@ public interface IArimaaController extends IObservable {
 	 * get current remain moves
 	 * @return remain moves
 	 */
-	int getMoveCounter();
+	int getRemainingMoves();
 
 	/**
 	 * get game status
@@ -56,9 +56,9 @@ public interface IArimaaController extends IObservable {
 	int getNextPlayer();
 
 	/**
-	 * print the ptich on terminal
+	 * get the current pitch view
 	 */
-	void ShowPitch();
+	String CurrentPitchView();
 
 	/**
 	 * move a specific figure with given string notation

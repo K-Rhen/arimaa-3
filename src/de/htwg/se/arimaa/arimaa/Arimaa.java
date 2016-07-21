@@ -2,6 +2,9 @@ package de.htwg.se.arimaa.arimaa;
 
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -16,6 +19,8 @@ public class Arimaa {
 	private ArimaaFrame gui;
 	protected IArimaaController controller;
 	private static Arimaa instance = null;
+	
+	private static final Logger LOGGER = LogManager.getLogger(Arimaa.class.getName());
 	
 	private Arimaa() {
 		Injector injector = Guice.createInjector(new ArimaaModule());
@@ -40,17 +45,18 @@ public class Arimaa {
 		return instance;
 	}
 	public void showPitch(){
-		controller.ShowPitch();
+		//TODO refactor
+		tui.ShowPitch();
 	}
 	
 	public static void main(final String[] args) {
 		Arimaa game = Arimaa.getInstance();
 
 		game.showPitch();
+		
 		boolean continu = true;
 		scanner = new Scanner(System.in);
 		while (continu) {
-			System.out.println("Bitte um Eingabe: "); // TODO refactor
 			continu = game.tui.processInputLine(scanner.next());
 		}
 

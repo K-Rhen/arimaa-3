@@ -1,11 +1,17 @@
 package de.htwg.se.arimaa.aview;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import de.htwg.se.arimaa.arimaa.Arimaa;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
 
 public class TextUI implements IObserver {
+	private static final Logger LOGGER = LogManager.getLogger(TextUI.class.getName());
+
 	IArimaaController controller;
 
 	boolean gameRunning = true;
@@ -15,12 +21,28 @@ public class TextUI implements IObserver {
 		controller.addObserver(this);
 	}
 
+	public void ShowPitch() {
+		LOGGER.entry(toString());
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\nif you lost, type help\n");
+		sb.append("\nturn: Player1  remaining moves: " + controller.getRemainingMoves() + "\n");
+		sb.append(controller.CurrentPitchView());
+
+		sb.append("News: Your turn was illegal\n");
+		sb.append("READY: :-");
+		return sb.toString();
+	}
+
 	public boolean processInputLine(String line) {
 		if (line.matches("exit")) {
 			controller.arimaaExit();
 			return false;
 		} else if (line.matches("help")) {
-			System.out.println("TODO");
+			LOGGER.entry("TODO");
 		} else if (line.matches("done")) {
 			controller.changePlayer();
 		} else if (line.matches("[a-h][1-8]-[a-h][1-8]#[a-h][1-8]-[a-h][1-8]")) {
@@ -33,9 +55,9 @@ public class TextUI implements IObserver {
 
 		}
 
-		controller.ShowPitch();
-		System.out.println(
-				"Spieler" + controller.getCurrentPlayer() + " hat noch " + controller.getMoveCounter() + " Zuege.");
+		controller.CurrentPitchView();
+		LOGGER.entry(
+				"Spieler" + controller.getCurrentPlayer() + " hat noch " + controller.getRemainingMoves() + " Zuege.");
 		return gameRunning;
 	}
 
@@ -43,13 +65,13 @@ public class TextUI implements IObserver {
 	public void update(Event e) {
 		GameStatus gs = controller.getGameStatus();
 		if (gs.equals(GameStatus.WinPLAYER1)) {
-			System.out.println("Player 1 gewonnen");
+			LOGGER.entry("Player 1 gewonnen");
 
 		} else if (gs.equals(GameStatus.WinPLAYER2)) {
-			System.out.println("Player 2 gewonnen");
+			LOGGER.entry("Player 2 gewonnen");
 
 		} else if (gs.equals(GameStatus.EXIT)) {
-			System.out.println("Vielen Dank.");
+			LOGGER.entry("Vielen Dank.");
 			gameRunning = false;
 		}
 	}

@@ -2,8 +2,12 @@ package de.htwg.se.arimaa.controller.impl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.inject.Inject;
 
+import de.htwg.se.arimaa.aview.gui.PitchPanel;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
@@ -15,12 +19,13 @@ import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class ArimaaController extends Observable implements IArimaaController {
-
+	private static final Logger LOGGER = LogManager.getLogger(ArimaaController.class.getName());
+	
 	private IPitch pitch;
 	private Rules rules;
 	private String player1Name = "Player1";
 	private String player2Name = "Player2";
-	private int movecounter = 4;
+	private int remainingMoves = 4;
 	private int lastPlayer = 1;
 	private GameStatus gamestatus;
 
@@ -41,8 +46,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	@Override
-	public int getMoveCounter() {
-		return movecounter;
+	public int getRemainingMoves() {
+		return remainingMoves;
 	}
 
 	@Override
@@ -60,7 +65,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	public void changePlayer() {
 		lastPlayer = getNextPlayer();
 
-		movecounter = 4;
+		remainingMoves = 4;
 
 		gamestatus = GameStatus.CHANGEPLAYER;
 		notifyObservers();
@@ -80,20 +85,19 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	@Override
-	public void ShowPitch() {
-		// TODO logger
-		System.out.println(pitch.toString());
+	public String CurrentPitchView() {
+		return pitch.toString();
 	}
-
+	
 	private boolean reduceMove(int player) {
 		if (player != lastPlayer)
 			return false;
 
-		if (movecounter == 0) {
+		if (remainingMoves == 0) {
 			return false;
 		}
 
-		movecounter--;
+		remainingMoves--;
 		gamestatus = GameStatus.MOVECHANGE;
 		notifyObservers();
 		return true;
@@ -192,7 +196,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public boolean moveFigureByPosition(int player, Position from, Position to) {
-		if (movecounter == 0) {
+		if (remainingMoves == 0) {
 			gamestatus = GameStatus.MOVESDONE;
 			notifyObservers();
 			return false;
