@@ -7,10 +7,7 @@ import com.google.inject.Inject;
 
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
-import de.htwg.se.arimaa.model.FIGURE_NAME;
-import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
-import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
@@ -21,7 +18,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	private IPitch pitch;
 	private Rules rules;
 	private int remainingMoves = 4;
-	private int lastPlayer = 1;
+	private PLAYER_NAME currentPlayer = PLAYER_NAME.GOLD;
 	private GameStatus gameStatus;
 
 	@Inject
@@ -48,7 +45,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public void changePlayer() {
-		lastPlayer = getNextPlayer();
+		currentPlayer = getNextPlayer();
 
 		remainingMoves = 4;
 
@@ -63,16 +60,16 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	@Override
-	public int getCurrentPlayer() {
-		return lastPlayer;
+	public PLAYER_NAME getCurrentPlayer() {
+		return currentPlayer;
 	}
 
 	@Override
-	public int getNextPlayer() {
-		if (lastPlayer == 1)
-			return 2;
+	public PLAYER_NAME getNextPlayer() {
+		if (currentPlayer.equals(PLAYER_NAME.GOLD))
+			return PLAYER_NAME.SILVER;
 		else
-			return 1;
+			return PLAYER_NAME.GOLD;
 	}
 
 	@Override
@@ -80,7 +77,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return pitch.toString();
 	}
 
-	private boolean reduceMove(int player) {
+	private boolean reduceMove() {
 		if (remainingMoves == 0)
 			return false;
 
@@ -91,37 +88,25 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	@Override
-	public boolean moveFigure(int player, Position from, Position to) {
-		if (remainingMoves == 0) {
-			gameStatus = GameStatus.MOVESDONE;
-			notifyObservers();
-			return false;
-		}
-
+	public boolean moveFigure(PLAYER_NAME player, Position from, Position to) {
+		// TODO refactor
 		boolean able = moveFigur(player, from, to);
 
-		if (!able) {
-			gameStatus = GameStatus.WRONGTURN;
-			notifyObservers();
-			return false;
-		}
-
 		// after calls
-		//TODO is finish rule
-		reduceMove(player);
-
+		// TODO is finish rule
+		reduceMove();
 		// TODO TRAPP rule
-		
+
 		gameStatus = GameStatus.MOVEFIGURE;
 		notifyObservers();
-
 		return able;
 	}
 
-	private boolean moveFigur(int player, Position from, Position to) {
-return false;
-
+	private boolean moveFigur(PLAYER_NAME player, Position from, Position to) {
+		if (player.equals(PLAYER_NAME.GOLD))
+			return pitch.getGoldPlayer().moveFigure(from, to);
+		else
+			return pitch.getSilverPlayer().moveFigure(from, to);
 	}
-
 
 }

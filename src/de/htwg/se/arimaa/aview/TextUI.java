@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import de.htwg.se.arimaa.arimaa.Arimaa;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.controller.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
 import de.htwg.se.arimaa.util.position.Position;
@@ -26,7 +27,7 @@ public class TextUI implements IObserver {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nif you lost, type help\n");
-		sb.append("\nturn: GOLD  remaining moves: " + controller.getRemainingMoves() + "\n");
+		sb.append("\nturn: "+ controller.getCurrentPlayer().toString()+"  remaining moves: " + controller.getRemainingMoves() + "\n");
 		sb.append(controller.CurrentPitchView());
 
 		sb.append("News: Your turn was illegal\n");
@@ -35,6 +36,10 @@ public class TextUI implements IObserver {
 	}
 
 	public boolean processInputLine(String line) {
+		//TODO next 
+		//TEST
+		LOGGER.entry(controller.moveFigure(PLAYER_NAME.GOLD, new Position(0, 1), new Position(0, 2)));
+		
 		if (line.matches("exit")) {
 			controller.arimaaExit();
 			return false;
@@ -47,8 +52,6 @@ public class TextUI implements IObserver {
 		
 		} else if (line.matches("[a-h][1-8]-[a-h][1-8]")) {
 			// TODO normal move
-			moveFigureByString(controller.getCurrentPlayer(), line);
-
 		}
 
 		controller.CurrentPitchView();
@@ -130,7 +133,7 @@ public class TextUI implements IObserver {
 	}
 
 	//TODO refactor
-	public boolean moveFigureByString(int player, String eingabe) {
+	public boolean moveFigureByString(PLAYER_NAME player, String eingabe) {
 		if (eingabe.length() != 5) {
 			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
 		}

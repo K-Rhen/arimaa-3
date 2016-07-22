@@ -1,5 +1,6 @@
 package de.htwg.se.arimaa.controller;
 
+import de.htwg.se.arimaa.controller.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.observer.IObservable;
 import de.htwg.se.arimaa.util.position.Position;
@@ -31,16 +32,16 @@ public interface IArimaaController extends IObservable {
 	void changePlayer();
 
 	/**
-	 * get the number of the current player
-	 * @return number of current player
+	 * get the name of the current player
+	 * @return player name
 	 */
-	int getCurrentPlayer();
+	PLAYER_NAME getCurrentPlayer();
 
 	/**
-	 * number of the next player
-	 * @return next player number
+	 * get the name oft the next player
+	 * @return next player name
 	 */
-	int getNextPlayer();
+	PLAYER_NAME getNextPlayer();
 
 	/**
 	 * get the current pitch view
@@ -54,7 +55,7 @@ public interface IArimaaController extends IObservable {
 	 * @param to position
 	 * @return true on success
 	 */
-	boolean moveFigure(int player, Position from, Position to);
+	boolean moveFigure(PLAYER_NAME player, Position from, Position to);
 
 
 	/**

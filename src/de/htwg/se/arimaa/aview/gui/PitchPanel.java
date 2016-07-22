@@ -87,7 +87,8 @@ public class PitchPanel extends JPanel implements IObserver {
 				if (figureSet) {
 					Position from = mouseFigureFrom.getPosition();
 					Position to = mouseFigureTo;
-					controller.moveFigure(controller.getCurrentPlayer(), from, to);
+					//TODO move figure
+					//controller.moveFigure(controller.getCurrentPlayer(), from, to);
 
 					mouseFigureFrom = null;
 					figureSet = false;
