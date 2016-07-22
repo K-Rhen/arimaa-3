@@ -10,7 +10,7 @@ public class Position {
 
 	public void setPositon(int x, int y) {
 		if (!positionOnPitchXY(x, y))
-			throw new IllegalArgumentException("Position nicht auf dem Feld.");
+			throw new IllegalArgumentException("position not on pitch");
 
 		this.x = x;
 		this.y = y;
@@ -26,7 +26,6 @@ public class Position {
 
 	private static boolean positionOnPitchXY(int x, int y) {
 		if (x < 8 && y < 8 && x >= 0 && y >= 0)
-
 			return true;
 
 		return false;

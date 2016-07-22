@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import de.htwg.se.arimaa.arimaa.Arimaa;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
-import de.htwg.se.arimaa.controller.impl.PLAYER_NAME;
+import de.htwg.se.arimaa.model.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
 import de.htwg.se.arimaa.util.position.Position;
@@ -67,14 +67,14 @@ public class TextUI implements IObserver {
 
 		//TODO refactor: gs in toString ? 
 		GameStatus gs = controller.getGameStatus();
-		if (gs.equals(GameStatus.WinPLAYER1)) {
-			LOGGER.entry("Player 1 gewonnen");
+		if (gs.equals(GameStatus.WIN_GOLD)) {
+			LOGGER.entry("GOLD wins");
 
-		} else if (gs.equals(GameStatus.WinPLAYER2)) {
-			LOGGER.entry("Player 2 gewonnen");
+		} else if (gs.equals(GameStatus.WIN_SILVER)) {
+			LOGGER.entry("SILVER wins");
 
 		} else if (gs.equals(GameStatus.EXIT)) {
-			LOGGER.entry("Vielen Dank.");
+			LOGGER.entry("GOODBY");
 			gameRunning = false;
 		}
 	}

@@ -1,7 +1,7 @@
 package de.htwg.se.arimaa.controller;
 
-import de.htwg.se.arimaa.controller.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.model.IPlayer;
+import de.htwg.se.arimaa.model.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.IObservable;
 import de.htwg.se.arimaa.util.position.Position;
 
@@ -54,7 +54,7 @@ public interface IArimaaController extends IObservable {
 	String CurrentPitchView();
 
 	/**
-	 * move a specifig figure to a given position
+	 * move a specific figure to a given position
 	 * @param player number of the player
 	 * @param from position
 	 * @param to position
