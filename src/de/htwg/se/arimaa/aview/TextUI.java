@@ -63,12 +63,10 @@ public class TextUI implements IObserver {
 	private String helpText() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nUse:\n");
-		sb.append("\tdone -> change player\n");
-		sb.append("\texit -> exit the programm\n");
-		sb.append("Figure Controll:\n");
-		sb.append("\tfromPosition-toPostion \n\t  -> move figure [e.g. a2-a3]\n");
-		sb.append(
-				"\tGOLDfromPosition-GOLDtoPostion#SILVERfromPosition-SILVERtoPostion \n\t  -> push/pull figures [e.g. a2-b2#a4-a3]\n");
+		sb.append("  a2-a3        ->move figure       [fromPosition-toPostion]\n");
+		sb.append("  a2-b2#a4-a3  ->push/pull figures [GOLDmoveFigure#SILVERmoveFigure]\n");
+		sb.append("  done         ->change player\n");
+		sb.append("  exit         ->exit the programm\n");
 		return sb.toString();
 	}
 
