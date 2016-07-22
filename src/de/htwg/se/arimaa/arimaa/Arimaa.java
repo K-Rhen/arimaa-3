@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import de.htwg.se.arimaa.aview.TextUI;
 import de.htwg.se.arimaa.aview.gui.ArimaaFrame;
+import de.htwg.se.arimaa.aview.tui.TextUI;
 import de.htwg.se.arimaa.controller.IArimaaController;
 
 public class Arimaa {

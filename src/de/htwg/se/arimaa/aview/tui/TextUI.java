@@ -1,9 +1,10 @@
-package de.htwg.se.arimaa.aview;
+package de.htwg.se.arimaa.aview.tui;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.htwg.se.arimaa.arimaa.Arimaa;
+import de.htwg.se.arimaa.aview.StatusMessage;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
@@ -30,8 +31,8 @@ public class TextUI implements IObserver {
 		sb.append("\nturn: " + controller.getCurrentPlayer().toString() + "  remaining moves: "
 				+ controller.getRemainingMoves() + "\n");
 		sb.append(controller.CurrentPitchView());
-
-		sb.append("INFO: " + controller.getStatusText() + "\n");
+		sb.append("INFO: "+ StatusMessage.text.get(controller.getGameStatus()) +"\n");
+		sb.append("STATUSTEXT: " + controller.getStatusText() + "\n");
 		sb.append("READY: :-");
 		return sb.toString();
 	}
