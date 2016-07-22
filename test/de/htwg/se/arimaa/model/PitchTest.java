@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.se.arimaa.model.impl.Figure;
-import de.htwg.se.arimaa.model.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.position.Position;
 import de.htwg.se.arimaa.model.IFigure;

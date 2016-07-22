@@ -9,7 +9,7 @@ import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
-import de.htwg.se.arimaa.model.impl.PLAYER_NAME;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;

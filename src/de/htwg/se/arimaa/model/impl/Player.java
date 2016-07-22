@@ -5,6 +5,7 @@ import java.util.List;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPlayer;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class Player implements IPlayer {

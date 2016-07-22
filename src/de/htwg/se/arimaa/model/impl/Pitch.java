@@ -7,6 +7,7 @@ import de.htwg.se.arimaa.model.FIGURE_NAME;
 
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class Pitch implements IPitch {

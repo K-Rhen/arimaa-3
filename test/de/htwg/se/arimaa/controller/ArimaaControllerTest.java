@@ -10,7 +10,7 @@ import com.google.inject.Injector;
 
 import de.htwg.se.arimaa.arimaa.ArimaaModule;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
-import de.htwg.se.arimaa.model.impl.PLAYER_NAME;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class ArimaaControllerTest {

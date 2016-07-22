@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import de.htwg.se.arimaa.arimaa.Arimaa;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
-import de.htwg.se.arimaa.model.impl.PLAYER_NAME;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
 import de.htwg.se.arimaa.util.position.Position;

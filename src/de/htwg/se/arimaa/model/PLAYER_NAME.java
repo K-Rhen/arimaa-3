@@ -1,4 +1,4 @@
-package de.htwg.se.arimaa.model.impl;
+package de.htwg.se.arimaa.model;
 
 public enum PLAYER_NAME {
 	GOLD,SILVER

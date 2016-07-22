@@ -1,7 +1,7 @@
 package de.htwg.se.arimaa.controller;
 
 import de.htwg.se.arimaa.model.IPlayer;
-import de.htwg.se.arimaa.model.impl.PLAYER_NAME;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.IObservable;
 import de.htwg.se.arimaa.util.position.Position;
 
