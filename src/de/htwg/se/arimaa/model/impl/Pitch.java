@@ -19,46 +19,46 @@ public class Pitch implements IPitch {
 	public Pitch() {
 		List<IFigure> goldFigures = new ArrayList<>();
 		List<IFigure> silverFigures = new ArrayList<>();
-		initializeDefaultPitch(goldFigures, silverFigures);
+		initializeDefaultPitch(silverFigures,goldFigures);
 		goldPlayer = new Player("gold", goldFigures);
 		silverPlayer = new Player("silver", silverFigures);
 	}
 
-	private void initializeDefaultPitch(List<IFigure> goldFigures, List<IFigure> silverFigures) {
+	private void initializeDefaultPitch(List<IFigure> silverFigures,List<IFigure> goldFigures) {
 
-		goldFigures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
-		goldFigures.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
-		goldFigures.add(new Figure(new Position(2, 0), FIGURE_NAME.R));
-		goldFigures.add(new Figure(new Position(3, 0), FIGURE_NAME.D));
-		goldFigures.add(new Figure(new Position(4, 0), FIGURE_NAME.D));
-		goldFigures.add(new Figure(new Position(5, 0), FIGURE_NAME.R));
-		goldFigures.add(new Figure(new Position(6, 0), FIGURE_NAME.R));
-		goldFigures.add(new Figure(new Position(7, 0), FIGURE_NAME.R));
-		goldFigures.add(new Figure(new Position(0, 1), FIGURE_NAME.R));
-		goldFigures.add(new Figure(new Position(1, 1), FIGURE_NAME.H));
-		goldFigures.add(new Figure(new Position(2, 1), FIGURE_NAME.C));
-		goldFigures.add(new Figure(new Position(3, 1), FIGURE_NAME.L));
-		goldFigures.add(new Figure(new Position(4, 1), FIGURE_NAME.E));
-		goldFigures.add(new Figure(new Position(5, 1), FIGURE_NAME.C));
-		goldFigures.add(new Figure(new Position(6, 1), FIGURE_NAME.H));
-		goldFigures.add(new Figure(new Position(7, 1), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(2, 0), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(3, 0), FIGURE_NAME.D));
+		silverFigures.add(new Figure(new Position(4, 0), FIGURE_NAME.D));
+		silverFigures.add(new Figure(new Position(5, 0), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(6, 0), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(7, 0), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(0, 1), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(1, 1), FIGURE_NAME.H));
+		silverFigures.add(new Figure(new Position(2, 1), FIGURE_NAME.C));
+		silverFigures.add(new Figure(new Position(3, 1), FIGURE_NAME.L));
+		silverFigures.add(new Figure(new Position(4, 1), FIGURE_NAME.E));
+		silverFigures.add(new Figure(new Position(5, 1), FIGURE_NAME.C));
+		silverFigures.add(new Figure(new Position(6, 1), FIGURE_NAME.H));
+		silverFigures.add(new Figure(new Position(7, 1), FIGURE_NAME.R));
 
-		silverFigures.add(new Figure(new Position(0, 7), FIGURE_NAME.r));
-		silverFigures.add(new Figure(new Position(1, 7), FIGURE_NAME.r));
-		silverFigures.add(new Figure(new Position(2, 7), FIGURE_NAME.r));
-		silverFigures.add(new Figure(new Position(3, 7), FIGURE_NAME.d));
-		silverFigures.add(new Figure(new Position(4, 7), FIGURE_NAME.d));
-		silverFigures.add(new Figure(new Position(5, 7), FIGURE_NAME.r));
-		silverFigures.add(new Figure(new Position(6, 7), FIGURE_NAME.r));
-		silverFigures.add(new Figure(new Position(7, 7), FIGURE_NAME.r));
-		silverFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.r));
-		silverFigures.add(new Figure(new Position(1, 6), FIGURE_NAME.h));
-		silverFigures.add(new Figure(new Position(2, 6), FIGURE_NAME.c));
-		silverFigures.add(new Figure(new Position(3, 6), FIGURE_NAME.l));
-		silverFigures.add(new Figure(new Position(4, 6), FIGURE_NAME.e));
-		silverFigures.add(new Figure(new Position(5, 6), FIGURE_NAME.c));
-		silverFigures.add(new Figure(new Position(6, 6), FIGURE_NAME.h));
-		silverFigures.add(new Figure(new Position(7, 6), FIGURE_NAME.r));
+		goldFigures.add(new Figure(new Position(0, 7), FIGURE_NAME.r));
+		goldFigures.add(new Figure(new Position(1, 7), FIGURE_NAME.r));
+		goldFigures.add(new Figure(new Position(2, 7), FIGURE_NAME.r));
+		goldFigures.add(new Figure(new Position(3, 7), FIGURE_NAME.d));
+		goldFigures.add(new Figure(new Position(4, 7), FIGURE_NAME.d));
+		goldFigures.add(new Figure(new Position(5, 7), FIGURE_NAME.r));
+		goldFigures.add(new Figure(new Position(6, 7), FIGURE_NAME.r));
+		goldFigures.add(new Figure(new Position(7, 7), FIGURE_NAME.r));
+		goldFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.r));
+		goldFigures.add(new Figure(new Position(1, 6), FIGURE_NAME.h));
+		goldFigures.add(new Figure(new Position(2, 6), FIGURE_NAME.c));
+		goldFigures.add(new Figure(new Position(3, 6), FIGURE_NAME.l));
+		goldFigures.add(new Figure(new Position(4, 6), FIGURE_NAME.e));
+		goldFigures.add(new Figure(new Position(5, 6), FIGURE_NAME.c));
+		goldFigures.add(new Figure(new Position(6, 6), FIGURE_NAME.h));
+		goldFigures.add(new Figure(new Position(7, 6), FIGURE_NAME.r));
 	}
 
 	@Override

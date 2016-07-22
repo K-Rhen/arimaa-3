@@ -87,19 +87,32 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return true;
 	}
 
+	// TODO refactor
 	@Override
 	public boolean moveFigure(PLAYER_NAME player, Position from, Position to) {
-		// TODO refactor
+		// TODO precondition RULES
+		// TODO figure not trapped
+		
+		//no moves remain
+		if (remainingMoves == 0)
+			return false;
+	
+		
 		boolean able = moveFigur(player, from, to);
 
-		// after calls
-		// TODO is finish rule
+		//move not able
+		if(able == false)
+			return false;
+				
 		reduceMove();
+
+		// TODO postcondition RULELS
+		// TODO is finish rule
 		// TODO TRAPP rule
 
 		gameStatus = GameStatus.MOVEFIGURE;
 		notifyObservers();
-		return able;
+		return true;
 	}
 
 	private boolean moveFigur(PLAYER_NAME player, Position from, Position to) {
