@@ -11,74 +11,74 @@ import de.htwg.se.arimaa.util.position.Position;
 
 public class Pitch implements IPitch {
 
-	private Player player1;
-	private Player player2;
+	private Player goldPlayer;
+	private Player silverPlayer;
 
 	private static final int PITCHSIZE = 8;
 
 	public Pitch(String player1Name, String player2Name) {
-		List<IFigure> figures1 = new ArrayList<>();
-		List<IFigure> figures2 = new ArrayList<>();
-		initializeDefaultPitch(figures1, figures2);
-		player1 = new Player(player1Name, figures1);
-		player2 = new Player(player2Name, figures2);
+		List<IFigure> goldFigures = new ArrayList<>();
+		List<IFigure> silverFigures = new ArrayList<>();
+		initializeDefaultPitch(goldFigures, silverFigures);
+		goldPlayer = new Player(player1Name, goldFigures);
+		silverPlayer = new Player(player2Name, silverFigures);
 	}
 
-	private void initializeDefaultPitch(List<IFigure> figures1, List<IFigure> figures2) {
+	private void initializeDefaultPitch(List<IFigure> goldFigures, List<IFigure> silverFigures) {
 		
-		figures1.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
-		figures1.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
-		figures1.add(new Figure(new Position(2, 0), FIGURE_NAME.R));
-		figures1.add(new Figure(new Position(3, 0), FIGURE_NAME.D));
-		figures1.add(new Figure(new Position(4, 0), FIGURE_NAME.D));
-		figures1.add(new Figure(new Position(5, 0), FIGURE_NAME.R));
-		figures1.add(new Figure(new Position(6, 0), FIGURE_NAME.R));
-		figures1.add(new Figure(new Position(7, 0), FIGURE_NAME.R));
-		figures1.add(new Figure(new Position(0, 1), FIGURE_NAME.R));
-		figures1.add(new Figure(new Position(1, 1), FIGURE_NAME.H));
-		figures1.add(new Figure(new Position(2, 1), FIGURE_NAME.C));
-		figures1.add(new Figure(new Position(3, 1), FIGURE_NAME.L));
-		figures1.add(new Figure(new Position(4, 1), FIGURE_NAME.E));
-		figures1.add(new Figure(new Position(5, 1), FIGURE_NAME.C));
-		figures1.add(new Figure(new Position(6, 1), FIGURE_NAME.H));
-		figures1.add(new Figure(new Position(7, 1), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(2, 0), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(3, 0), FIGURE_NAME.D));
+		goldFigures.add(new Figure(new Position(4, 0), FIGURE_NAME.D));
+		goldFigures.add(new Figure(new Position(5, 0), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(6, 0), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(7, 0), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(0, 1), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(1, 1), FIGURE_NAME.H));
+		goldFigures.add(new Figure(new Position(2, 1), FIGURE_NAME.C));
+		goldFigures.add(new Figure(new Position(3, 1), FIGURE_NAME.L));
+		goldFigures.add(new Figure(new Position(4, 1), FIGURE_NAME.E));
+		goldFigures.add(new Figure(new Position(5, 1), FIGURE_NAME.C));
+		goldFigures.add(new Figure(new Position(6, 1), FIGURE_NAME.H));
+		goldFigures.add(new Figure(new Position(7, 1), FIGURE_NAME.R));
 
-		figures2.add(new Figure(new Position(0, 7), FIGURE_NAME.r));
-		figures2.add(new Figure(new Position(1, 7), FIGURE_NAME.r));
-		figures2.add(new Figure(new Position(2, 7), FIGURE_NAME.r));
-		figures2.add(new Figure(new Position(3, 7), FIGURE_NAME.d));
-		figures2.add(new Figure(new Position(4, 7), FIGURE_NAME.d));
-		figures2.add(new Figure(new Position(5, 7), FIGURE_NAME.r));
-		figures2.add(new Figure(new Position(6, 7), FIGURE_NAME.r));
-		figures2.add(new Figure(new Position(7, 7), FIGURE_NAME.r));
-		figures2.add(new Figure(new Position(0, 6), FIGURE_NAME.r));
-		figures2.add(new Figure(new Position(1, 6), FIGURE_NAME.h));
-		figures2.add(new Figure(new Position(2, 6), FIGURE_NAME.c));
-		figures2.add(new Figure(new Position(3, 6), FIGURE_NAME.l));
-		figures2.add(new Figure(new Position(4, 6), FIGURE_NAME.e));
-		figures2.add(new Figure(new Position(5, 6), FIGURE_NAME.c));
-		figures2.add(new Figure(new Position(6, 6), FIGURE_NAME.h));
-		figures2.add(new Figure(new Position(7, 6), FIGURE_NAME.r));
+		silverFigures.add(new Figure(new Position(0, 7), FIGURE_NAME.r));
+		silverFigures.add(new Figure(new Position(1, 7), FIGURE_NAME.r));
+		silverFigures.add(new Figure(new Position(2, 7), FIGURE_NAME.r));
+		silverFigures.add(new Figure(new Position(3, 7), FIGURE_NAME.d));
+		silverFigures.add(new Figure(new Position(4, 7), FIGURE_NAME.d));
+		silverFigures.add(new Figure(new Position(5, 7), FIGURE_NAME.r));
+		silverFigures.add(new Figure(new Position(6, 7), FIGURE_NAME.r));
+		silverFigures.add(new Figure(new Position(7, 7), FIGURE_NAME.r));
+		silverFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.r));
+		silverFigures.add(new Figure(new Position(1, 6), FIGURE_NAME.h));
+		silverFigures.add(new Figure(new Position(2, 6), FIGURE_NAME.c));
+		silverFigures.add(new Figure(new Position(3, 6), FIGURE_NAME.l));
+		silverFigures.add(new Figure(new Position(4, 6), FIGURE_NAME.e));
+		silverFigures.add(new Figure(new Position(5, 6), FIGURE_NAME.c));
+		silverFigures.add(new Figure(new Position(6, 6), FIGURE_NAME.h));
+		silverFigures.add(new Figure(new Position(7, 6), FIGURE_NAME.r));
 	}
 
 	@Override
-	public Player getPlayer1() {
-		return player1;
+	public Player getGoldPlayer() {
+		return goldPlayer;
 	}
 
 	@Override
-	public Player getPlayer2() {
-		return player2;
+	public Player getSilverPlayer() {
+		return silverPlayer;
 	}
 
 	@Override
-	public void setPlayer1Figures(List<IFigure> figures) {
-		player1.setFigures(figures);
+	public void setGoldPlayerFigures(List<IFigure> figures) {
+		goldPlayer.setFigures(figures);
 	}
 
 	@Override
-	public void setPlayer2Figures(List<IFigure> figures) {
-		player2.setFigures(figures);
+	public void setSilverPlayerFigures(List<IFigure> figures) {
+		silverPlayer.setFigures(figures);
 	}
 
 	@Override
@@ -121,9 +121,9 @@ public class Pitch implements IPitch {
 		StringBuilder sb = new StringBuilder();
 
 		FIGURE_NAME figureName = null;
-		figureName = player1.getFigure(pos);
+		figureName = goldPlayer.getFigure(pos);
 		if (figureName == null)
-			figureName = player2.getFigure(pos);
+			figureName = silverPlayer.getFigure(pos);
 
 		if (figureName != null) {
 			sb.append(figureName);

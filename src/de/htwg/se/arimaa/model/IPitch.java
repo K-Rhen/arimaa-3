@@ -4,33 +4,33 @@ import java.util.List;
 
 public interface IPitch {
 	/**
-	 * return the instance of player1
+	 * return the gold player
 	 * 
-	 * @return player1
+	 * @return gold player
 	 */
-	IPlayer getPlayer1();
+	IPlayer getGoldPlayer();
 
 	/**
-	 * return the instance of player2
+	 * return the silver player
 	 * 
-	 * @return player2
+	 * @return silver player
 	 */
-	IPlayer getPlayer2();
+	IPlayer getSilverPlayer();
 
 	/**
-	 * set the whole figure of player1
+	 * set the whole figure of gold player
 	 * 
 	 * @param figures
 	 *            list
 	 */
-	void setPlayer1Figures(List<IFigure> figures);
+	void setGoldPlayerFigures(List<IFigure> figures);
 
 	/**
-	 * set the whole figure of player2
+	 * set the whole figure of silver player
 	 * 
 	 * @param figures
 	 *            list
 	 */
-	void setPlayer2Figures(List<IFigure> figures);
+	void setSilverPlayerFigures(List<IFigure> figures);
 
 }

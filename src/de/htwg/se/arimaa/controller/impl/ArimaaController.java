@@ -1,7 +1,5 @@
 package de.htwg.se.arimaa.controller.impl;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,7 +29,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Inject
 	public ArimaaController() {
 		pitch = new Pitch(player1Name, player2Name);
-		rules = new Rules(pitch);
+		rules = new Rules(this);
 	}
 
 	@Override
@@ -94,36 +92,6 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return true;
 	}
 
-	// TODO refactor evt rules ?
-	private boolean isfinish() {
-		// Player1
-		if (finishPlayer(FIGURE_NAME.R, 7)) {
-			gameStatus = GameStatus.WinPLAYER1;
-			notifyObservers();
-			return true;
-		}
-
-		// Player2
-		if (finishPlayer(FIGURE_NAME.r, 0)) {
-			gameStatus = GameStatus.WinPLAYER2;
-			notifyObservers();
-			return true;
-		}
-
-		return false;
-
-	}
-
-	// TODO refactor evt rules ?
-	private boolean finishPlayer(FIGURE_NAME figureName, int y) {
-		for (IFigure figure : pitch.getPlayer1().getFigures()) {
-			if (figure.getName() == figureName && figure.getPosition().getY() == y)
-				return true;
-		}
-		return false;
-
-	}
-
 	@Override
 	public boolean moveFigure(int player, Position from, Position to) {
 		if (remainingMoves == 0) {
@@ -141,14 +109,11 @@ public class ArimaaController extends Observable implements IArimaaController {
 		}
 
 		// after calls
-		isfinish();
+		//TODO is finish rule
 		reduceMove(player);
 
-		// TODO TRAPP
-		// trapp
-		if ((to.getX() == 2 || to.getX() == 5) && (to.getY() == 2 || to.getY() == 5))
-			pitch.getPlayer1().deleteFigure(to);
-
+		// TODO TRAPP rule
+		
 		gameStatus = GameStatus.MOVEFIGURE;
 		notifyObservers();
 
@@ -156,21 +121,9 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	private boolean moveFigur(int player, Position from, Position to) {
-		if (!rules.posDistance(from, to))
-			throw new IllegalArgumentException("Du kannst hoechstens 1 Feld weiter ziehen.");
-		if (rules.occupiedCell(to))
-			throw new IllegalArgumentException("Die Position auf welche du ziehen willst ist bereits belegt");
-
-		if (player == 1)
-			return moveFigure(pitch.getPlayer1(), from, to);
-		if (player == 2)
-			return moveFigure(pitch.getPlayer2(), from, to);
-		return false;
+return false;
 
 	}
 
-	private boolean moveFigure(IPlayer p, Position from, Position to) {
-		return p.moveFigure(from, to);
-	}
 
 }
