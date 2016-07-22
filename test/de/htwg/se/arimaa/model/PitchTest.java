@@ -10,6 +10,7 @@ import org.junit.Test;
 import de.htwg.se.arimaa.model.impl.Figure;
 import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.position.Position;
+import de.htwg.se.arimaa.controller.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
 
@@ -36,12 +37,12 @@ public class PitchTest {
 
 	@Test
 	public void getGoldPlayertest() {
-		assertEquals("gold", pitch.getGoldPlayer().getPlayerName());
+		assertEquals(PLAYER_NAME.GOLD, pitch.getGoldPlayer().getPlayerName());
 	}
 
 	@Test
 	public void getSilverPlayertest() {
-		assertEquals("silver", pitch.getSilverPlayer().getPlayerName());
+		assertEquals(PLAYER_NAME.SILVER, pitch.getSilverPlayer().getPlayerName());
 	}
 
 	@Test
