@@ -8,6 +8,7 @@ import com.google.inject.Inject;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.IPitch;
+import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
@@ -84,8 +85,10 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	private boolean reduceMove() {
-		if (remainingMoves == 0)
+		if (remainingMoves == 0) {
+			LOGGER.error("reduceMove are 0");
 			return false;
+		}
 
 		remainingMoves--;
 		status = GameStatus.MOVECHANGE;
@@ -95,31 +98,32 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	// TODO refactor
 	@Override
-	public boolean moveFigure(PLAYER_NAME player, Position from, Position to) {
-		String preStatusText = rules.precondition(player, from, to);
-		if (preStatusText != null) {
-			statusText = preStatusText;
-			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+	public boolean moveFigure(PLAYER_NAME playerName, Position from, Position to) {
+		IPlayer player = getPlayer(playerName);
+
+		// Preconditions
+		if (rules.precondition(player, from, to) == false) {
+			statusText = rules.getStatusText();
+			status = rules.getStatus();
 			notifyObservers();
 			return false;
 		}
-		
-		
-		boolean able = moveFigur(player, from, to);
+
+		boolean able = player.moveFigure(from, to);
 		// move not able
-		if (able == false){
-			LOGGER.error("No Figure on "+ from.toString());
+		if (able == false) {
+			statusText = "No figure on" + from.toString();
+			status = GameStatus.EMPTYCELL;
+			notifyObservers();
 			return false;
 		}
-			
 
 		reduceMove();
 
-		
-		String postStatusText = rules.postcondition(player, from, to);
-		if (postStatusText != null) {
-			statusText = postStatusText;
-			status = GameStatus.POSTCONDITIONRULES_VIOLATED;
+		// Postconditions
+		if (rules.postcondition(player, from, to) == false) {
+			statusText = rules.getStatusText();
+			status = rules.getStatus();
 			notifyObservers();
 			return false;
 		}
@@ -130,11 +134,11 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return true;
 	}
 
-	private boolean moveFigur(PLAYER_NAME player, Position from, Position to) {
-		if (player.equals(PLAYER_NAME.GOLD))
-			return pitch.getGoldPlayer().moveFigure(from, to);
+	private IPlayer getPlayer(PLAYER_NAME playerName) {
+		if (playerName.equals(PLAYER_NAME.GOLD))
+			return pitch.getGoldPlayer();
 		else
-			return pitch.getSilverPlayer().moveFigure(from, to);
+			return pitch.getSilverPlayer();
 	}
 
 }

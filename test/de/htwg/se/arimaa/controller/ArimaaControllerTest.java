@@ -57,7 +57,6 @@ public class ArimaaControllerTest {
 	@Test
 	public void testReduceMove() {
 		assertTrue(controller.moveFigure(PLAYER_NAME.GOLD, new Position(0, 6), new Position(0, 5)));
-		
 		assertEquals(3, controller.getRemainingMoves());
 		assertTrue(controller.moveFigure(PLAYER_NAME.GOLD, new Position(0, 5), new Position(0, 4)));
 		assertEquals(2, controller.getRemainingMoves());
