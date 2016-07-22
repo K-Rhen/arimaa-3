@@ -27,62 +27,61 @@ public class TextUI implements IObserver {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nif you lost, type help\n");
-		sb.append("\nturn: "+ controller.getCurrentPlayer().toString()+"  remaining moves: " + controller.getRemainingMoves() + "\n");
+		sb.append("\nturn: " + controller.getCurrentPlayer().toString() + "  remaining moves: "
+				+ controller.getRemainingMoves() + "\n");
 		sb.append(controller.CurrentPitchView());
 
-		sb.append("News: Your turn was illegal\n");
+		sb.append("INFO: " + controller.getStatusText() + "\n");
 		sb.append("READY: :-");
 		return sb.toString();
 	}
 
-	public boolean processInputLine(String line) {
-		//TODO next 
-		//TEST
-		LOGGER.entry(controller.moveFigure(PLAYER_NAME.GOLD, new Position(0, 1), new Position(0, 2)));
-		
-		if (line.matches("exit")) {
+	public boolean processInputLine(String inputLine) {
+		// TODO next
+		// TEST
+	
+
+		if (inputLine.matches("exit")) {
 			controller.arimaaExit();
 			return false;
-		} else if (line.matches("help")) {
-			LOGGER.entry("TODO");
-		} else if (line.matches("done")) {
+		} else if (inputLine.matches("help")) {
+			LOGGER.entry(helpText());
+		} else if (inputLine.matches("done")) {
 			controller.changePlayer();
-		} else if (line.matches("[a-h][1-8]-[a-h][1-8]#[a-h][1-8]-[a-h][1-8]")) {
+		} else if (inputLine.matches("[a-h][1-8]-[a-h][1-8]#[a-h][1-8]-[a-h][1-8]")) {
 			// TODO pull
-		
-		} else if (line.matches("[a-h][1-8]-[a-h][1-8]")) {
-			// TODO normal move
+
+		} else if (inputLine.matches("[a-h][1-8]-[a-h][1-8]")) {
+				moveFigureByString(inputLine);
 		}
 
+		// Print pitch
 		controller.CurrentPitchView();
-		LOGGER.entry(
-				"Spieler" + controller.getCurrentPlayer() + " hat noch " + controller.getRemainingMoves() + " Zuege.");
 		return gameRunning;
 	}
 
-	@Override
-	public void update(Event e) {
-		// Show TUI
-		LOGGER.entry(toString());
-
-		//TODO refactor: gs in toString ? 
-		GameStatus gs = controller.getGameStatus();
-		if (gs.equals(GameStatus.WIN_GOLD)) {
-			LOGGER.entry("GOLD wins");
-
-		} else if (gs.equals(GameStatus.WIN_SILVER)) {
-			LOGGER.entry("SILVER wins");
-
-		} else if (gs.equals(GameStatus.EXIT)) {
-			LOGGER.entry("GOODBY");
-			gameRunning = false;
-		}
+	private String helpText() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\nUse:\n");
+		sb.append("\tdone -> change player\n");
+		sb.append("\texit -> exit the programm\n");
+		sb.append("Figure Controll:\n");
+		sb.append("\tfromPosition-toPostion \n\t  -> move figure [e.g. a2-a3]\n");
+		sb.append(
+				"\tGOLDfromPosition-GOLDtoPostion#SILVERfromPosition-SILVERtoPostion \n\t  -> push/pull figures [e.g. a2-b2#a4-a3]\n");
+		return sb.toString();
 	}
 
-	
-	//TODO refactor
-	private int readPosX(char c) {
+	public boolean moveFigureByString(String inputLine) {
+		char[] parts = inputLine.toCharArray();
+		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
+		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
 
+		PLAYER_NAME currentPlayer = controller.getCurrentPlayer();
+		return controller.moveFigure(currentPlayer, from, to);
+	}
+
+	private int readPosX(char c) {
 		switch (c) {
 		case 'a':
 			return 0;
@@ -101,14 +100,11 @@ public class TextUI implements IObserver {
 		case 'h':
 			return 7;
 		default:
-			throw new IllegalArgumentException(
-					c + " ist keine korrekte x-Koordinate. Sie muss zwischen a und h liegen");
+			throw new IllegalArgumentException(c + " wrong coordinate");
 		}
 	}
 
-	//TODO refactor
 	private int readPosY(char c) {
-
 		switch (c) {
 		case '1':
 			return 7;
@@ -127,22 +123,28 @@ public class TextUI implements IObserver {
 		case '8':
 			return 0;
 		default:
-			throw new IllegalArgumentException(
-					c + " ist keine korrekte y-Koordinate. Sie muss zwischen 1 und 8 liegen");
+			throw new IllegalArgumentException(c + " wrong coordinate");
 		}
 	}
 
-	//TODO refactor
-	public boolean moveFigureByString(PLAYER_NAME player, String eingabe) {
-		if (eingabe.length() != 5) {
-			throw new IllegalArgumentException("Die Eingabe muss dem Format \"c6-d6\" entsprechen.");
+
+	@Override
+	public void update(Event e) {
+		// Show TUI
+		LOGGER.entry(toString());
+
+		// TODO refactor: gs in toString ?
+		GameStatus gs = controller.getGameStatus();
+		if (gs.equals(GameStatus.WIN_GOLD)) {
+			LOGGER.entry("GOLD wins");
+
+		} else if (gs.equals(GameStatus.WIN_SILVER)) {
+			LOGGER.entry("SILVER wins");
+
+		} else if (gs.equals(GameStatus.EXIT)) {
+			LOGGER.entry("GOODBY");
+			gameRunning = false;
 		}
-
-		char[] parts = eingabe.toCharArray();
-		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
-		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
-
-		return controller.moveFigure(player, from, to);
 	}
-	
+
 }
