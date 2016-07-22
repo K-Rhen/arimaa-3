@@ -19,7 +19,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 	private Rules rules;
 	private int remainingMoves = 4;
 	private PLAYER_NAME currentPlayer = PLAYER_NAME.GOLD;
-	private GameStatus gameStatus;
+	private GameStatus status;
+	private String statusText = "";
 
 	@Inject
 	public ArimaaController() {
@@ -34,12 +35,17 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public GameStatus getGameStatus() {
-		return gameStatus;
+		return status;
+	}
+
+	@Override
+	public String getStatusText() {
+		return statusText;
 	}
 
 	@Override
 	public void arimaaExit() {
-		gameStatus = GameStatus.EXIT;
+		status = GameStatus.EXIT;
 		notifyObservers();
 	}
 
@@ -49,13 +55,13 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 		remainingMoves = 4;
 
-		gameStatus = GameStatus.CHANGEPLAYER;
+		status = GameStatus.CHANGEPLAYER;
 		notifyObservers();
 	}
 
 	@Override
 	public void create() {
-		gameStatus = GameStatus.CREATE;
+		status = GameStatus.CREATE;
 		notifyObservers();
 	}
 
@@ -82,7 +88,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 			return false;
 
 		remainingMoves--;
-		gameStatus = GameStatus.MOVECHANGE;
+		status = GameStatus.MOVECHANGE;
 		notifyObservers();
 		return true;
 	}
@@ -90,27 +96,36 @@ public class ArimaaController extends Observable implements IArimaaController {
 	// TODO refactor
 	@Override
 	public boolean moveFigure(PLAYER_NAME player, Position from, Position to) {
-		// TODO precondition RULES
-		// TODO figure not trapped
-		
-		//no moves remain
-		if (remainingMoves == 0)
+		String preStatusText = rules.precondition(player, from, to);
+		if (preStatusText != null) {
+			statusText = preStatusText;
+			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			notifyObservers();
 			return false;
-	
+		}
+		
 		
 		boolean able = moveFigur(player, from, to);
-
-		//move not able
-		if(able == false)
+		// move not able
+		if (able == false){
+			LOGGER.error("No Figure on "+ from.toString());
 			return false;
-				
+		}
+			
+
 		reduceMove();
 
-		// TODO postcondition RULELS
-		// TODO is finish rule
-		// TODO TRAPP rule
+		
+		String postStatusText = rules.postcondition(player, from, to);
+		if (postStatusText != null) {
+			statusText = postStatusText;
+			status = GameStatus.POSTCONDITIONRULES_VIOLATED;
+			notifyObservers();
+			return false;
+		}
 
-		gameStatus = GameStatus.MOVEFIGURE;
+		statusText = "";
+		status = GameStatus.MOVEFIGURE;
 		notifyObservers();
 		return true;
 	}

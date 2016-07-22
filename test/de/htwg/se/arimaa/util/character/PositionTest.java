@@ -78,65 +78,8 @@ public class PositionTest {
 	}
 	
 	@Test
-	public void testnextTo(){
-		Position pos1 = new Position(0, 0);
-		Position pos2 = new Position(0, 1);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(0, 0);
-		pos2 = new Position(1, 0);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(7, 0);
-		pos2 = new Position(6, 0);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(7, 0);
-		pos2 = new Position(7, 1);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(0, 7);
-		pos2 = new Position(0, 6);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(0, 7);
-		pos2 = new Position(1, 7);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(7, 7);
-		pos2 = new Position(6, 7);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(7, 7);
-		pos2 = new Position(7, 6);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(3, 0);
-		pos2 = new Position(3, 1);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(3, 7);
-		pos2 = new Position(3, 6);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(0, 3);
-		pos2 = new Position(1, 3);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(7, 3);
-		pos2 = new Position(6, 3);
-		assertTrue(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(1, 1);
-		pos2 = new Position(1, 3);
-		assertFalse(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(1, 3);
-		pos2 = new Position(3, 3);
-		assertFalse(position.nextTo(pos1, pos2));
-		
-		pos1 = new Position(1, 3);
-		pos2 = new Position(1, 3);
-		assertFalse(position.nextTo(pos1, pos2));
+	public void testToString(){
+		String target = "(0, 1)";
+		assertEquals(target, position.toString());
 	}
 }

@@ -57,13 +57,8 @@ public class Position {
 		return sb.toString().hashCode();
 	}
 
-	// TODO not use !
-	public boolean nextTo(Position pos1, Position pos2) {
-		if (pos1.getX() == (pos2.getX() + 1) && pos1.getX() > 0 || pos1.getX() == (pos2.getX() - 1) && pos1.getX() < 7
-				|| pos1.getY() == (pos2.getY() + 1) && pos1.getY() > 0
-				|| pos1.getY() == (pos2.getY() - 1) && pos1.getY() < 7)
-			return true;
-		return false;
+	@Override
+	public String toString() {
+		return "(" + x + ", " + y + ")";
 	}
-
 }

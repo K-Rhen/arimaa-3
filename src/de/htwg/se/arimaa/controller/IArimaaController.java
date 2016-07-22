@@ -21,6 +21,11 @@ public interface IArimaaController extends IObservable {
 	 */
 	GameStatus getGameStatus();
 
+    /**
+     * @return the textual representation of the extended status.
+     */
+    String getStatusText();
+	
 	/**
 	 * exit game handler
 	 */
