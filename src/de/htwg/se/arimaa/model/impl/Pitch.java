@@ -16,16 +16,16 @@ public class Pitch implements IPitch {
 
 	private static final int PITCHSIZE = 8;
 
-	public Pitch(String player1Name, String player2Name) {
+	public Pitch() {
 		List<IFigure> goldFigures = new ArrayList<>();
 		List<IFigure> silverFigures = new ArrayList<>();
 		initializeDefaultPitch(goldFigures, silverFigures);
-		goldPlayer = new Player(player1Name, goldFigures);
-		silverPlayer = new Player(player2Name, silverFigures);
+		goldPlayer = new Player("gold", goldFigures);
+		silverPlayer = new Player("silver", silverFigures);
 	}
 
 	private void initializeDefaultPitch(List<IFigure> goldFigures, List<IFigure> silverFigures) {
-		
+
 		goldFigures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
 		goldFigures.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
 		goldFigures.add(new Figure(new Position(2, 0), FIGURE_NAME.R));
@@ -85,7 +85,7 @@ public class Pitch implements IPitch {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append("+-------------------------------+\n");
+		sb.append("+-------------SILVER------------+\n");
 		for (int y = 0; y < PITCHSIZE; y++) {
 			if (y > 0)
 				sb.append("+---+---+---+---+---+---+---+---+\n");
@@ -96,7 +96,7 @@ public class Pitch implements IPitch {
 			sb.append(PITCHSIZE - y);
 			sb.append("\n");
 		}
-		sb.append("+-------------------------------+\n");
+		sb.append("+--------------GOLD-------------+\n");
 		sb.append("  a   b   c   d   e   f   g   h\n");
 		return sb.toString();
 	}

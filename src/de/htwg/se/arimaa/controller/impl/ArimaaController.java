@@ -20,15 +20,13 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	private IPitch pitch;
 	private Rules rules;
-	private String player1Name = "Player1";
-	private String player2Name = "Player2";
 	private int remainingMoves = 4;
 	private int lastPlayer = 1;
 	private GameStatus gameStatus;
 
 	@Inject
 	public ArimaaController() {
-		pitch = new Pitch(player1Name, player2Name);
+		pitch = new Pitch();
 		rules = new Rules(this);
 	}
 

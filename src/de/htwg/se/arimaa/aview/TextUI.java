@@ -26,7 +26,7 @@ public class TextUI implements IObserver {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nif you lost, type help\n");
-		sb.append("\nturn: Player1  remaining moves: " + controller.getRemainingMoves() + "\n");
+		sb.append("\nturn: GOLD  remaining moves: " + controller.getRemainingMoves() + "\n");
 		sb.append(controller.CurrentPitchView());
 
 		sb.append("News: Your turn was illegal\n");

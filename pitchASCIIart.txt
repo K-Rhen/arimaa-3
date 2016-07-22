@@ -1,4 +1,4 @@
-+-------------------------------+
++-------------SILVER------------+
 |   |   |   |   |   |   |   |   | 8
 +---+---+---+---+---+---+---+---+
 |   |   |   |   |   |   |   |   | 7
@@ -14,11 +14,12 @@
 |   |   |   |   |   |   |   |   | 2
 +---+---+---+---+---+---+---+---+
 |   |   |   |   |   |   |   |   | 1
-+-------------------------------+
++--------------GOLD-------------+
   a   b   c   d   e   f   g   h
 
-player1 => upper case characters
-player2 => lower case characters
+silver Player => lower case characters
+gold Player => upper case characters
+
 
 RABBIT = R r
 CAT    = C c

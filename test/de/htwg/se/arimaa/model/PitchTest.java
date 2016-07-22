@@ -29,19 +29,19 @@ public class PitchTest {
 		silverFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.e));
 		
 
-		pitch = new Pitch("T1", "T2");
+		pitch = new Pitch();
 		pitch.setGoldPlayerFigures(goldFigures);
 		pitch.setSilverPlayerFigures(silverFigures);
 	}
 
 	@Test
 	public void getGoldPlayertest() {
-		assertEquals("T1", pitch.getGoldPlayer().getPlayerName());
+		assertEquals("gold", pitch.getGoldPlayer().getPlayerName());
 	}
 
 	@Test
 	public void getSilverPlayertest() {
-		assertEquals("T2", pitch.getSilverPlayer().getPlayerName());
+		assertEquals("silver", pitch.getSilverPlayer().getPlayerName());
 	}
 
 	@Test
