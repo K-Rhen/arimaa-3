@@ -31,12 +31,12 @@ public class ArimaaControllerTest {
 	}
 
 	@Test
-	public void testgetCurrentPlayer() {
+	public void testGetCurrentPlayer() {
 		assertEquals(PLAYER_NAME.GOLD, controller.getCurrentPlayer());
 	}
 
 	@Test
-	public void testgetRemainingMoves() {
+	public void testGetRemainingMoves() {
 		assertEquals(controller.getRemainingMoves(), 4);
 	}
 

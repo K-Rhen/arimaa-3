@@ -47,7 +47,7 @@ public class PitchTest {
 	@Test
 	public void testToString() {
 		String pitchString = pitch.toString();
-		String oughtPitchString = "+-------------------------------+\n"
+		String oughtPitchString = "+-------------SILVER------------+\n"
 				+ "| R |   |   |   |   |   |   |   | 8\n"
 				+ "+---+---+---+---+---+---+---+---+\n"
 				+ "| E |   |   |   |   |   |   |   | 7\n"
@@ -63,7 +63,7 @@ public class PitchTest {
 				+ "| e |   |   |   |   |   |   |   | 2\n"
 				+ "+---+---+---+---+---+---+---+---+\n"
 				+ "| r |   |   |   |   |   |   |   | 1\n"
-				+ "+-------------------------------+\n"
+				+ "+--------------GOLD-------------+\n"
 				+ "  a   b   c   d   e   f   g   h\n";
 
 		assertTrue(oughtPitchString.equals(pitchString));

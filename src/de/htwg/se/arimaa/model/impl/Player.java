@@ -2,6 +2,7 @@ package de.htwg.se.arimaa.model.impl;
 
 import java.util.List;
 
+import de.htwg.se.arimaa.controller.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPlayer;
@@ -9,9 +10,9 @@ import de.htwg.se.arimaa.util.position.Position;
 
 public class Player implements IPlayer {
 	private List<IFigure> figures;
-	private String playerName;
+	private PLAYER_NAME playerName;
 
-	public Player(String playerName, List<IFigure> figures) {
+	public Player(PLAYER_NAME playerName, List<IFigure> figures) {
 		this.playerName = playerName;
 		this.figures = figures;
 	}
@@ -22,7 +23,7 @@ public class Player implements IPlayer {
 	}
 	
 	@Override
-	public String getPlayerName() {
+	public PLAYER_NAME getPlayerName() {
 		return playerName;
 	}
 

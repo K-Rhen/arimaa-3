@@ -17,7 +17,7 @@ public class PositionTest {
 	}
 
 	@Test
-	public void testgetPosition() {
+	public void testGetPosition() {
 		assertEquals(0, position.getX());
 		assertEquals(1, position.getY());
 		position.setPositon(1, 0);
@@ -26,7 +26,7 @@ public class PositionTest {
 	}
 
 	@Test
-	public void testpositionOnPitch() {
+	public void testPositionOnPitch() {
 		Position end = new Position(0, 0);
 		assertTrue(Position.positionOnPitch(end));
 
@@ -55,7 +55,7 @@ public class PositionTest {
 	}
 
 	@Test
-	public void testequal() {
+	public void testEqual() {
 		Position pos = new Position(0, 1);
 
 		assertTrue(position.equals(pos));
@@ -68,7 +68,7 @@ public class PositionTest {
 	}
 
 	@Test
-	public void testhashCode() {
+	public void testHashCode() {
 		Position pos1 = new Position(0, 0);
 		Position pos2 = new Position(0, 0);
 		assertEquals(pos1.hashCode(), pos2.hashCode());

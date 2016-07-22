@@ -2,6 +2,7 @@ package de.htwg.se.arimaa.model;
 
 import java.util.List;
 
+import de.htwg.se.arimaa.controller.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
 
 public interface IPlayer {
@@ -14,11 +15,11 @@ public interface IPlayer {
 	void setFigures(List<IFigure> figures);
 
 	/**
-	 * get the name of the player
+	 * get name of the player
 	 * 
 	 * @return the name of the player
 	 */
-	String getPlayerName();
+	PLAYER_NAME getPlayerName();
 
 	/**
 	 * get the figure name form a position

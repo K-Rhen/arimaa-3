@@ -21,7 +21,7 @@ public class FigureTest {
 	}
 
 	@Test
-	public void testsetPositon() {
+	public void testSetPositon() {
 		character.setPosition(new Position(1,1));
 		p = new Position(1, 1);
 
@@ -29,7 +29,7 @@ public class FigureTest {
 	}
 
 	@Test
-	public void testgetName() {
+	public void testGetName() {
 		assertEquals(FIGURE_NAME.R, character.getName());
 	}
 }

@@ -3,6 +3,7 @@ package de.htwg.se.arimaa.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.htwg.se.arimaa.controller.impl.PLAYER_NAME;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 
 import de.htwg.se.arimaa.model.IFigure;
@@ -20,8 +21,8 @@ public class Pitch implements IPitch {
 		List<IFigure> goldFigures = new ArrayList<>();
 		List<IFigure> silverFigures = new ArrayList<>();
 		initializeDefaultPitch(silverFigures,goldFigures);
-		goldPlayer = new Player("gold", goldFigures);
-		silverPlayer = new Player("silver", silverFigures);
+		goldPlayer = new Player(PLAYER_NAME.GOLD, goldFigures);
+		silverPlayer = new Player(PLAYER_NAME.SILVER, silverFigures);
 	}
 
 	private void initializeDefaultPitch(List<IFigure> silverFigures,List<IFigure> goldFigures) {
