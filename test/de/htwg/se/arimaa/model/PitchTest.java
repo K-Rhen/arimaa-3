@@ -21,12 +21,13 @@ public class PitchTest {
 	@Before
 	public void setUp() throws Exception {
 		ArrayList<IFigure> goldFigures = new ArrayList<>();
-		goldFigures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
-		goldFigures.add(new Figure(new Position(0, 1), FIGURE_NAME.E));
+		goldFigures.add(new Figure(new Position(0, 7), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.E));
 		
 		ArrayList<IFigure> silverFigures = new ArrayList<>();
-		silverFigures.add(new Figure(new Position(0, 7), FIGURE_NAME.R));
-		silverFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.E));
+		silverFigures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(0, 1), FIGURE_NAME.E));
+		
 		
 
 		pitch = new Pitch();
@@ -65,7 +66,6 @@ public class PitchTest {
 				+ "| r |   |   |   |   |   |   |   | 1\n"
 				+ "+--------------GOLD-------------+\n"
 				+ "  a   b   c   d   e   f   g   h\n";
-
 		assertTrue(oughtPitchString.equals(pitchString));
 	}
 		
