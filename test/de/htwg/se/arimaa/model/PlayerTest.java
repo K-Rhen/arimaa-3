@@ -20,7 +20,7 @@ public class PlayerTest {
 	@Before
 	public void setUp() throws Exception {
 		figures = new ArrayList<>();
-		figures.add(new Figure(new Position(0, 0), FIGURE_NAME.r));
+		figures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
 
 		player = new Player(PLAYER_NAME.GOLD, figures);
 	}
@@ -35,14 +35,14 @@ public class PlayerTest {
 		Position start = new Position(0, 0);
 		Position end = new Position(0, 1);
 		assertTrue(player.moveFigure(start, end));
-		assertEquals(FIGURE_NAME.r, player.getFigure(end));
+		assertEquals(FIGURE_NAME.R, player.getFigure(end));
 
 		assertFalse(player.moveFigure(start, end));
 	}
 
 	@Test
 	public void testGetFigure() {
-		assertEquals(FIGURE_NAME.r, player.getFigure(new Position(0, 0)));
+		assertEquals(FIGURE_NAME.R, player.getFigure(new Position(0, 0)));
 		assertEquals(player.getFigure(new Position(3, 4)), null);
 	}
 

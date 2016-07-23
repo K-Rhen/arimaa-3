@@ -20,12 +20,12 @@ public class Pitch implements IPitch {
 	public Pitch() {
 		List<IFigure> goldFigures = new ArrayList<>();
 		List<IFigure> silverFigures = new ArrayList<>();
-		initializeDefaultPitch(silverFigures,goldFigures);
+		initializeDefaultPitch(silverFigures, goldFigures);
 		goldPlayer = new Player(PLAYER_NAME.GOLD, goldFigures);
 		silverPlayer = new Player(PLAYER_NAME.SILVER, silverFigures);
 	}
 
-	private void initializeDefaultPitch(List<IFigure> silverFigures,List<IFigure> goldFigures) {
+	private void initializeDefaultPitch(List<IFigure> silverFigures, List<IFigure> goldFigures) {
 
 		silverFigures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
 		silverFigures.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
@@ -44,22 +44,22 @@ public class Pitch implements IPitch {
 		silverFigures.add(new Figure(new Position(6, 1), FIGURE_NAME.H));
 		silverFigures.add(new Figure(new Position(7, 1), FIGURE_NAME.R));
 
-		goldFigures.add(new Figure(new Position(0, 7), FIGURE_NAME.r));
-		goldFigures.add(new Figure(new Position(1, 7), FIGURE_NAME.r));
-		goldFigures.add(new Figure(new Position(2, 7), FIGURE_NAME.r));
-		goldFigures.add(new Figure(new Position(3, 7), FIGURE_NAME.d));
-		goldFigures.add(new Figure(new Position(4, 7), FIGURE_NAME.d));
-		goldFigures.add(new Figure(new Position(5, 7), FIGURE_NAME.r));
-		goldFigures.add(new Figure(new Position(6, 7), FIGURE_NAME.r));
-		goldFigures.add(new Figure(new Position(7, 7), FIGURE_NAME.r));
-		goldFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.r));
-		goldFigures.add(new Figure(new Position(1, 6), FIGURE_NAME.h));
-		goldFigures.add(new Figure(new Position(2, 6), FIGURE_NAME.c));
-		goldFigures.add(new Figure(new Position(3, 6), FIGURE_NAME.l));
-		goldFigures.add(new Figure(new Position(4, 6), FIGURE_NAME.e));
-		goldFigures.add(new Figure(new Position(5, 6), FIGURE_NAME.c));
-		goldFigures.add(new Figure(new Position(6, 6), FIGURE_NAME.h));
-		goldFigures.add(new Figure(new Position(7, 6), FIGURE_NAME.r));
+		goldFigures.add(new Figure(new Position(0, 7), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(1, 7), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(2, 7), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(3, 7), FIGURE_NAME.D));
+		goldFigures.add(new Figure(new Position(4, 7), FIGURE_NAME.D));
+		goldFigures.add(new Figure(new Position(5, 7), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(6, 7), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(7, 7), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.R));
+		goldFigures.add(new Figure(new Position(1, 6), FIGURE_NAME.H));
+		goldFigures.add(new Figure(new Position(2, 6), FIGURE_NAME.C));
+		goldFigures.add(new Figure(new Position(3, 6), FIGURE_NAME.L));
+		goldFigures.add(new Figure(new Position(4, 6), FIGURE_NAME.E));
+		goldFigures.add(new Figure(new Position(5, 6), FIGURE_NAME.C));
+		goldFigures.add(new Figure(new Position(6, 6), FIGURE_NAME.H));
+		goldFigures.add(new Figure(new Position(7, 6), FIGURE_NAME.R));
 	}
 
 	@Override
@@ -121,18 +121,34 @@ public class Pitch implements IPitch {
 	private String getCellFigure(Position pos) {
 		StringBuilder sb = new StringBuilder();
 
-		FIGURE_NAME figureName = null;
-		figureName = goldPlayer.getFigure(pos);
-		if (figureName == null)
-			figureName = silverPlayer.getFigure(pos);
-
-		if (figureName != null) {
-			sb.append(figureName);
+		String figureAsString = getStringFigureOnPitch(pos);
+		if (figureAsString != null) {
+			sb.append(figureAsString);
 			sb.append(" ");
 		} else
 			sb.append("  ");
 
 		return sb.toString();
 	}
+
+	private String getStringFigureOnPitch(Position pos) {
+		FIGURE_NAME figureName = null;
+		figureName = goldPlayer.getFigure(pos);
+		if (figureName != null)
+			return figureName.toString().toLowerCase();
+
+		figureName = silverPlayer.getFigure(pos);
+		if (figureName != null)
+			return figureName.toString();
+
+		return null;
+	}
+
+//	private List<IFigure> getAllFiguresOnPitch() {
+//		List<IFigure> figures = new ArrayList<>();
+//		figures.addAll(goldPlayer.getFigures());
+//		figures.addAll(silverPlayer.getFigures());
+//		return figures;
+//	}
 
 }
