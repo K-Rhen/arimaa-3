@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -31,17 +32,17 @@ public class ArimaaMenuBar extends JMenuBar {
 	}
 
 	private void createFileMenu(IArimaaController controller, JFrame frame) {
-		fileMenu = new JMenu("Datei");
+		fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 
-		newMenuItem = new JMenuItem("Neues Spiel");
+		newMenuItem = new JMenuItem("New game");
 		newMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				String[] yesNoOptions = { "Ja", "Nein" };
-				int n = JOptionPane.showOptionDialog(null, "Neus Spiel?", "Neus Spiel?", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, yesNoOptions, yesNoOptions[0]);
+				String[] yesNoOptions = { "Yes", "No" };
+				int n = JOptionPane.showOptionDialog(null, "Do you want to start a new game?", "New game?",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, yesNoOptions, yesNoOptions[0]);
 
 				if (n == JOptionPane.YES_OPTION) {
 					// TODO make a new game
@@ -51,8 +52,19 @@ public class ArimaaMenuBar extends JMenuBar {
 		});
 		newMenuItem.setMnemonic(KeyEvent.VK_N);
 		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
-
 		fileMenu.add(newMenuItem);
+
+		quitMenuItem = new JMenuItem("quit");
+		quitMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO quit game
+			}
+		});
+		quitMenuItem.setMnemonic(KeyEvent.VK_Q);
+		quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
+		fileMenu.add(quitMenuItem);
+
 		this.add(fileMenu);
 	}
 
@@ -60,21 +72,35 @@ public class ArimaaMenuBar extends JMenuBar {
 		infoMenu = new JMenu("Info");
 		infoMenu.setMnemonic(KeyEvent.VK_F);
 
-		helpMenuItem = new JMenuItem("Hilfe");
+		helpMenuItem = new JMenuItem("Help");
 		helpMenuItem.setMnemonic(KeyEvent.VK_H);
 		helpMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_DOWN_MASK));
 		helpMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
+				ImageIcon icon = createImageIcon("/GoldElephant.png");
+
 				JOptionPane.showMessageDialog(null,
-						"Entstanden im Rahmen der Vorlesung Softwareentwicklung an der HTWG Konstanz.\n"
-								+ "Fuer mehr Informationen ueber Arimaa,\n" + "siehe http://arimaa.com/arimaa/",
-						"Arimaa 2016", JOptionPane.INFORMATION_MESSAGE);
+						"This project is an implementation of the arimaa game.\n\n"
+								+ "It was created for the lecture Software Engineering\n"
+								+ "at the University of Applied Science Konstanz, Germany.\n\n"
+								+ "For more information about arimaa,\n" + "          go to http://arimaa.com",
+						"HTWG Arimaa, Germany 2016", JOptionPane.INFORMATION_MESSAGE, icon);
 			}
 		});
 
 		infoMenu.add(helpMenuItem);
 		this.add(infoMenu);
+	}
+
+	private ImageIcon createImageIcon(String path) {
+		java.net.URL imgURL = getClass().getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
 	}
 
 }

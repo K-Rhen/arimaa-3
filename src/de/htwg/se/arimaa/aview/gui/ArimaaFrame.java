@@ -1,11 +1,11 @@
 package de.htwg.se.arimaa.aview.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Container;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
+import com.google.inject.Inject;
 
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.util.observer.Event;
@@ -13,37 +13,69 @@ import de.htwg.se.arimaa.util.observer.IObserver;
 
 public class ArimaaFrame extends JFrame implements IObserver {
 
-
-	private PitchPanel pitchpanel;
+	private static final int DEFAULT_Y = 450;
+	private static final int DEFAULT_X = 580;
+	private PitchPanel pitchPanel;
+	private Container pane;
+	private IArimaaController controller;
 	
+	@Inject
 	public ArimaaFrame(final IArimaaController controller) {
-		//controller.addObserver(this);
-
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-		
-		
-		this.setJMenuBar(new ArimaaMenuBar(controller, this));
-				
-		pitchpanel = new PitchPanel(controller);
-		mainPanel.add(pitchpanel,BorderLayout.SOUTH);
-		
-
-		
-		this.setContentPane(mainPanel);
+		this.controller = controller;
+		controller.addObserver(this);
 		
 		this.setTitle("HTWG Arimaa");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setMinimumSize(new Dimension(450, 580));
-		this.setResizable(true);
-		this.pack();
-		this.setVisible(true);
+		this.setSize(DEFAULT_X, DEFAULT_Y);
+		this.setJMenuBar(new ArimaaMenuBar(controller, this));
+		pane = getContentPane();
+		pane.setLayout(new BorderLayout());	
+		constructArimaaPane(controller);
+
+//		JPanel mainPanel = new JPanel();
+//		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+//		
+//		
+//
+//		pitchpanel = new PitchPanel(controller);
+//		mainPanel.add(pitchpanel,BorderLayout.SOUTH);
+//		
+//
+//		
+//		this.setContentPane(mainPanel);
+//		this.pack();
+//		this.setVisible(true);
+	}
+
+	private void constructArimaaPane(IArimaaController controller2) {
+//		if (digitPanel != null) {
+//			pane.remove(digitPanel);
+//		}
+//		digitPanel = new HighlightButtonPanel(controller);
+//		pane.add(digitPanel, BorderLayout.NORTH);
+//
+//		if (gridPanel != null) {
+//			pane.remove(gridPanel);
+//		}
+		pitchPanel = new PitchPanel(controller);
+		pane.add(pitchPanel, BorderLayout.CENTER);
+
+//		if (statusPanel != null) {
+//			pane.remove(statusPanel);
+//		}
+//		statusPanel = new StatusPanel();
+//		pane.add(statusPanel, BorderLayout.SOUTH);
+		setVisible(true);
+		repaint();
 	}
 
 	@Override
 	public void update(Event e) {
-		// TODO Auto-generated method stub
-		
+//		statusPanel.setText(controller.getStatus());
+//		if (e instanceof SizeChangedEvent) {
+//			constructSudokuPane(controller);
+//		}
+		repaint();
 	}
 	
 }

@@ -14,4 +14,5 @@ It shows
 * components and interfaces
  
 The TUI is built in a way so that it continues to run in parallel with a GUI. 
- 
+
+For more information about arimaa, go to **http://arimaa.com**
