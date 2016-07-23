@@ -34,14 +34,10 @@ public class ArimaaFrame extends JFrame implements IObserver {
 
 //		JPanel mainPanel = new JPanel();
 //		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-//		
-//		
-//
+
 //		pitchpanel = new PitchPanel(controller);
 //		mainPanel.add(pitchpanel,BorderLayout.SOUTH);
-//		
-//
-//		
+
 //		this.setContentPane(mainPanel);
 //		this.pack();
 //		this.setVisible(true);

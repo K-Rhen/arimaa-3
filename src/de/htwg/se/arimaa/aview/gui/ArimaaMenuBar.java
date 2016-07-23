@@ -13,10 +13,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.htwg.se.arimaa.controller.IArimaaController;
 
 public class ArimaaMenuBar extends JMenuBar {
-
+	private static final Logger LOGGER = LogManager.getLogger(ArimaaMenuBar.class.getName());
+	
 	IArimaaController controller;
 
 	JMenu fileMenu;
@@ -98,7 +102,7 @@ public class ArimaaMenuBar extends JMenuBar {
 		if (imgURL != null) {
 			return new ImageIcon(imgURL);
 		} else {
-			System.err.println("Couldn't find file: " + path);
+			LOGGER.error("Images: "+ path + "not found");
 			return null;
 		}
 	}
