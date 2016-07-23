@@ -42,7 +42,8 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	BufferedImage pitchImage;
 	Point pitchSizePoint = new Point(400, 400);
-	EnumMap<FIGURE_NAME, BufferedImage> figuresImage;
+	EnumMap<FIGURE_NAME, BufferedImage> figuresImageGold;
+	EnumMap<FIGURE_NAME, BufferedImage> figuresImageSilver;
 	Point figuresize = new Point(50, 50);
 	Point offset = new Point(20, 45);
 
@@ -68,7 +69,8 @@ public class PitchPanel extends JPanel implements IObserver {
 		this.controller = controller;
 		controller.addObserver(this);
 
-		figuresImage = new EnumMap<>(FIGURE_NAME.class);
+		figuresImageGold = new EnumMap<>(FIGURE_NAME.class);
+		figuresImageSilver = new EnumMap<>(FIGURE_NAME.class);
 
 		pitchImage = loadImage("BoardStoneSmall");
 		loadFiguresImage();
@@ -242,19 +244,19 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 	private void loadFiguresImage() {
-		figuresImage.put(FIGURE_NAME.R, loadImage("GoldRabbit"));
-		figuresImage.put(FIGURE_NAME.C, loadImage("GoldCat"));
-		figuresImage.put(FIGURE_NAME.D, loadImage("GoldDog"));
-		figuresImage.put(FIGURE_NAME.H, loadImage("GoldCat"));
-		figuresImage.put(FIGURE_NAME.L, loadImage("GoldCamel"));
-		figuresImage.put(FIGURE_NAME.E, loadImage("GoldElephant"));
+		figuresImageGold.put(FIGURE_NAME.R, loadImage("GoldRabbit"));
+		figuresImageGold.put(FIGURE_NAME.C, loadImage("GoldCat"));
+		figuresImageGold.put(FIGURE_NAME.D, loadImage("GoldDog"));
+		figuresImageGold.put(FIGURE_NAME.H, loadImage("GoldCat"));
+		figuresImageGold.put(FIGURE_NAME.L, loadImage("GoldCamel"));
+		figuresImageGold.put(FIGURE_NAME.E, loadImage("GoldElephant"));
 
-		figuresImage.put(FIGURE_NAME.R, loadImage("SilverRabbit"));
-		figuresImage.put(FIGURE_NAME.C, loadImage("SilverCat"));
-		figuresImage.put(FIGURE_NAME.D, loadImage("SilverDog"));
-		figuresImage.put(FIGURE_NAME.H, loadImage("SilverCat"));
-		figuresImage.put(FIGURE_NAME.L, loadImage("SilverCamel"));
-		figuresImage.put(FIGURE_NAME.E, loadImage("SilverElephant"));
+		figuresImageSilver.put(FIGURE_NAME.R, loadImage("SilverRabbit"));
+		figuresImageSilver.put(FIGURE_NAME.C, loadImage("SilverCat"));
+		figuresImageSilver.put(FIGURE_NAME.D, loadImage("SilverDog"));
+		figuresImageSilver.put(FIGURE_NAME.H, loadImage("SilverCat"));
+		figuresImageSilver.put(FIGURE_NAME.L, loadImage("SilverCamel"));
+		figuresImageSilver.put(FIGURE_NAME.E, loadImage("SilverElephant"));
 	}
 
 	@Override
@@ -270,27 +272,26 @@ public class PitchPanel extends JPanel implements IObserver {
 		// Paint pitch
 		g2d.drawImage(pitchImage, offset.x, offset.y, pitchSizePoint.x, pitchSizePoint.x, null);
 
-		// Paint Player1
-		//TODO refactro
-//		List<IFigure> p1figure = controller.getPlayer1().getFigures();
-//		printFigures(g2d, p1figure, offset, figuresize);
 
-		// Paint Player2
-		//TODO refactor
-//		List<IFigure> p2figure = controller.getPlayer2().getFigures();
-//		printFigures(g2d, p2figure, offset, figuresize);
-
+		//paint gold figures
+		List<IFigure> figuresGold = controller.getGoldFigures();
+		printFigures(g2d, figuresImageGold,figuresGold, offset, figuresize);
+		//paint silver figures
+		List<IFigure> figuresSilver = controller.getSilverFigures();
+		printFigures(g2d, figuresImageSilver,figuresSilver, offset, figuresize);
+		
+		
 		// Draw Mouse Figure
 		if (mouseFigureFrom != null) {
 			g2d.setColor(Color.green);
 			g2d.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
 			FIGURE_NAME fname = mouseFigureFrom.getName();
-			BufferedImage fimg = figuresImage.get(fname);
+			BufferedImage fimg = figuresImageSilver.get(fname); //TODO
 			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
 		}
 	}
 
-	public void printFigures(Graphics2D g2d, List<IFigure> figure, Point offset, Point figuresize) {
+	private void printFigures(Graphics2D g2d,EnumMap<FIGURE_NAME, BufferedImage> figuresImage, List<IFigure> figure, Point offset, Point figuresize) {
 		for (IFigure f : figure) {
 			FIGURE_NAME fname = f.getName();
 			BufferedImage fimg = figuresImage.get(fname);

@@ -48,8 +48,10 @@ public class PlayerTest {
 
 	@Test
 	public void testDeleteFigure() {
-		assertTrue(player.deleteFigure(new Position(0, 0)));
-		assertFalse(player.deleteFigure(new Position(0, 0)));
+		figures.add(new Figure(new Position(1, 1), FIGURE_NAME.R));
+
+		assertTrue(player.deleteFigure(new Position(1, 1)));
+		assertFalse(player.deleteFigure(new Position(1, 1)));
 	}
 	
 	@Test

@@ -33,4 +33,9 @@ public interface IPitch {
 	 */
 	void setSilverPlayerFigures(List<IFigure> figures);
 
+	/**
+	 * Get all figures form both players
+	 * @return all figures on the Pitch
+	 */
+	List<IFigure> getAllFiguresOnPitch();
 }

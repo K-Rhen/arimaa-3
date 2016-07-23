@@ -1,5 +1,7 @@
 package de.htwg.se.arimaa.controller.impl;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -7,6 +9,7 @@ import com.google.inject.Inject;
 
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
@@ -140,6 +143,16 @@ public class ArimaaController extends Observable implements IArimaaController {
 			return pitch.getGoldPlayer();
 		else
 			return pitch.getSilverPlayer();
+	}
+
+	@Override
+	public List<IFigure> getGoldFigures() {
+		return pitch.getGoldPlayer().getFigures();
+	}
+
+	@Override
+	public List<IFigure> getSilverFigures() {
+		return pitch.getSilverPlayer().getFigures();
 	}
 
 }

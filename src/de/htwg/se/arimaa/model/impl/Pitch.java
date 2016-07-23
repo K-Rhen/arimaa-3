@@ -144,11 +144,12 @@ public class Pitch implements IPitch {
 		return null;
 	}
 
-//	private List<IFigure> getAllFiguresOnPitch() {
-//		List<IFigure> figures = new ArrayList<>();
-//		figures.addAll(goldPlayer.getFigures());
-//		figures.addAll(silverPlayer.getFigures());
-//		return figures;
-//	}
+	@Override
+	public List<IFigure> getAllFiguresOnPitch() {
+		List<IFigure> figures = new ArrayList<>();
+		figures.addAll(goldPlayer.getFigures());
+		figures.addAll(silverPlayer.getFigures());
+		return figures;
+	}
 
 }
