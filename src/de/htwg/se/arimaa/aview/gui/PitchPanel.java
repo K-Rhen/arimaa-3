@@ -46,17 +46,8 @@ public class PitchPanel extends JPanel implements IObserver {
 	Point figuresize = new Point(50, 50);
 	Point offset = new Point(20, 45);
 
-//	// Info
-//	JLabel actPlayerLabel;
-//	Point actPlayerPoint = new Point(25, 10);
-//	JLabel moveRemainLabel;
-//	Point moveRemainPoint = new Point(340, 10);
-
 	// Mouse
 	Point mousePoint = new Point(0, 0);
-	IFigure mouseFigureFrom = null; // startposition
-	Position mouseFigureTo = null; // endposition
-	boolean figureSet = false;
 
 	public PitchPanel(IArimaaController controller) {
 		this.controller = controller;
@@ -72,8 +63,7 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 	private void initGUI() {
-		this.setLayout(null);
-		
+	
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -92,77 +82,23 @@ public class PitchPanel extends JPanel implements IObserver {
 		});
 	}
 
-	private void repaintPanel() {
-		this.repaint();
-	}
 
-	private boolean updateMousePos(Point mouse) {
-		if (!isPosInPitch(mouse))
-			return false;
-
-		mousePoint.setLocation(mouse);
-
-		if (mouseFigureFrom == null)
-			initMoveFigure(mouse);
-
-		return true;
-	}
-
-	private void initMoveFigure(Point mouse) {
-		if (mouseFigureFrom != null)
-			return;
-
-		Point cell = getCell(mouse);
-		if (cell == null)
-			return;
-
-		Position pos = new Position((int) cell.getX(), (int) cell.getY());
-		FIGURE_NAME figureName = (FIGURE_NAME) getCharacter(pos);
-		mouseFigureFrom = new Figure(pos, figureName);
-	}
 
 	private void mouseReleasedHandler(Point mouse) {
-		if (figureSet || mouseFigureFrom == null||controller.getRemainingMoves() == 0)
-			return;
-
+	
 		Point cell = getCell(mouse);
-		if (cell == null) {
-			mouseFigureFrom = null;
-			figureSet = false;
-			repaintPanel();
-			return;
-		}
-		mouseFigureTo = new Position(cell.x, cell.y);
 
-		double mx = offset.getX() + cell.getX() * figuresize.x;
-		double my = offset.getY() + cell.getY() * figuresize.getY();
+		this.repaint();
 
-		Point mp = new Point();
-		mp.setLocation(mx, my);
-		updateMousePos(mp);
 
-		repaintPanel();
-
-		figureSet = true;
 	}
 
 	private void mouseDraggedHandler(Point mouse) {
-		if (figureSet||controller.getRemainingMoves() == 0)
-			return;
-
-		updateMousePos(mouse);
-
-		repaintPanel();
+		Point cell = getCell(mouse);
+		System.out.println(cell);
+		this.repaint();
 	}
 
-	private FIGURE_NAME getCharacter(Position cell) {
-		FIGURE_NAME name = null;
-		//TODO refactor
-//		name = controller.getPlayer1().getFigure(cell);
-//		if (name == null)
-//			name = controller.getPlayer2().getFigure(cell);
-		return name;
-	}
 
 	private boolean isPosInPitch(Point mouse) {
 		Rectangle inPitch = new Rectangle();
@@ -178,16 +114,15 @@ public class PitchPanel extends JPanel implements IObserver {
 		if (!isPosInPitch(mouse))
 			return null;
 
-		Rectangle cell = new Rectangle();
-		for (int y = 0; y < 8; y++) {
-			for (int x = 0; x < 8; x++) {
-				cell.setBounds(offset.x + figuresize.x * x, offset.y + figuresize.y * y, figuresize.x, figuresize.y);
-				if (cell.contains(mouse))
-					return new Point(x, y);
-			}
-		}
-
-		return null;
+		Point p = new Point();
+		double px = mouse.getX() -offset.getX();
+		double py = mouse.getY() -offset.getY();
+		
+		px = px / figuresize.getX();
+		py = py / figuresize.getY();
+		p.setLocation((int)px, (int)py);
+		
+		return p;
 	}
 
 	private BufferedImage loadImage(String name) {
@@ -239,13 +174,13 @@ public class PitchPanel extends JPanel implements IObserver {
 		
 		
 		// Draw Mouse Figure
-		if (mouseFigureFrom != null) {
-			g2d.setColor(Color.green);
-			g2d.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
-			FIGURE_NAME fname = mouseFigureFrom.getName();
-			BufferedImage fimg = figuresImageSilver.get(fname); //TODO
-			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
-		}
+//		if (mouseFigureFrom != null) {
+//			g2d.setColor(Color.green);
+//			g2d.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
+//			FIGURE_NAME fname = mouseFigureFrom.getName();
+//			BufferedImage fimg = figuresImageSilver.get(fname); //TODO
+//			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
+//		}
 	}
 
 	private void printFigures(Graphics2D g2d,EnumMap<FIGURE_NAME, BufferedImage> figuresImage, List<IFigure> figure, Point offset, Point figuresize) {
@@ -256,8 +191,8 @@ public class PitchPanel extends JPanel implements IObserver {
 			Position fpos = f.getPosition();
 
 			// If figure is the moving figure
-			if (mouseFigureFrom != null && fpos.equals(mouseFigureFrom.getPosition()))
-				continue;
+//			if (mouseFigureFrom != null && fpos.equals(mouseFigureFrom.getPosition()))
+//				continue;
 
 			g2d.drawImage(fimg, fpos.getX() * figuresize.x + offset.x, fpos.getY() * figuresize.y + offset.y,
 					figuresize.x, figuresize.y, null);
@@ -270,7 +205,7 @@ public class PitchPanel extends JPanel implements IObserver {
 		if (gs.equals(GameStatus.WIN_GOLD)|| gs.equals(GameStatus.WIN_SILVER)) {
 			JOptionPane.showMessageDialog(null,controller.getCurrentPlayer().toString() +" win the game",":D",JOptionPane.INFORMATION_MESSAGE);
 		} else if (gs.equals(GameStatus.MOVEFIGURE)) {
-			repaintPanel();
+			this.repaint();
 		} 
 
 	}

@@ -48,15 +48,6 @@ public class ArimaaFrame extends JFrame implements IObserver {
 	}
 
 	private void constructArimaaPane(IArimaaController controller) {
-		// if (digitPanel != null) {
-		// pane.remove(digitPanel);
-		// }
-		// digitPanel = new HighlightButtonPanel(controller);
-		// pane.add(digitPanel, BorderLayout.NORTH);
-		//
-		// if (gridPanel != null) {
-		// pane.remove(gridPanel);
-		// }
 		infoPanel = new InfoPanel(controller);
 		pane.add(infoPanel,BorderLayout.NORTH);
 		
@@ -65,11 +56,8 @@ public class ArimaaFrame extends JFrame implements IObserver {
 
 		buttonPanel = new ButtonPanel(controller);
 		pane.add(buttonPanel,BorderLayout.SOUTH);
-		// if (statusPanel != null) {
-		// pane.remove(statusPanel);
-		// }
-		// statusPanel = new StatusPanel();
-		// pane.add(statusPanel, BorderLayout.SOUTH);
+
+		
 		setVisible(true);
 		repaint();
 	}
