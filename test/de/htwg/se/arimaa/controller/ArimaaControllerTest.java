@@ -25,7 +25,7 @@ public class ArimaaControllerTest {
 
 	@Test
 	public void testCreate() {
-		controller.create();
+		controller.createNewGame();
 		assertEquals(GameStatus.CREATE, controller.getGameStatus());
 	}
 
@@ -49,7 +49,7 @@ public class ArimaaControllerTest {
 
 	@Test
 	public void testArimmaExit() {
-		controller.arimaaExit();
+		controller.quitGame();
 		controller.currentPitchView();
 	}
 	

@@ -31,7 +31,7 @@ public interface IArimaaController extends IObservable {
 	/**
 	 * exit game handler
 	 */
-	void arimaaExit();
+	void quitGame();
 
 	/**
 	 * change the player
@@ -73,7 +73,7 @@ public interface IArimaaController extends IObservable {
 	/**
 	 * init a new game
 	 */
-	void create();
+	void createNewGame();
 
 	/**
 	 * get all gold figures

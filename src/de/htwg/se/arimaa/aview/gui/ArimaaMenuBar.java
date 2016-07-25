@@ -39,7 +39,7 @@ public class ArimaaMenuBar extends JMenuBar {
 		fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 
-		newMenuItem = new JMenuItem("New game");
+		newMenuItem = new JMenuItem("new game");
 		newMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -49,7 +49,7 @@ public class ArimaaMenuBar extends JMenuBar {
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, yesNoOptions, yesNoOptions[0]);
 
 				if (n == JOptionPane.YES_OPTION) {
-					// TODO make a new game
+					controller.createNewGame();
 				}
 
 			}
@@ -62,7 +62,7 @@ public class ArimaaMenuBar extends JMenuBar {
 		quitMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO quit game
+				controller.quitGame();
 			}
 		});
 		quitMenuItem.setMnemonic(KeyEvent.VK_Q);

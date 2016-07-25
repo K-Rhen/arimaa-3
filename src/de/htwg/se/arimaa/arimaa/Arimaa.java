@@ -7,6 +7,7 @@ import com.google.inject.Injector;
 
 import de.htwg.se.arimaa.aview.gui.ArimaaFrame;
 import de.htwg.se.arimaa.aview.tui.TextUI;
+import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 
 public class Arimaa {
@@ -22,10 +23,10 @@ public class Arimaa {
 
 		controller = injector.getInstance(IArimaaController.class);
 		tui = new TextUI(controller);
-		gui = new ArimaaFrame(controller);
+		 gui = new ArimaaFrame(controller);
 
 		// init new game
-		controller.create();
+		controller.createNewGame();
 	}
 
 	public TextUI getTui() {
@@ -43,13 +44,16 @@ public class Arimaa {
 		return instance;
 	}
 
+	public boolean exit() {
+		return controller.getGameStatus().equals(GameStatus.EXIT);
+	}
+
 	public static void main(final String[] args) {
 		Arimaa game = Arimaa.getInstance();
 
-		boolean continu = true;
 		scanner = new Scanner(System.in);
-		while (continu) {
-			continu = game.tui.processInputLine(scanner.next());
+		while (!game.exit()) {
+			 game.tui.processInputLine(scanner.next());
 		}
 
 	}

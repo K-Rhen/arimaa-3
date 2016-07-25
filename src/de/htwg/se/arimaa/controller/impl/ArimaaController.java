@@ -22,15 +22,23 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	private IPitch pitch;
 	private Rules rules;
-	private int remainingMoves = 4;
-	private PLAYER_NAME currentPlayer = PLAYER_NAME.GOLD;
+	private int remainingMoves;
+	private PLAYER_NAME currentPlayer;
 	private GameStatus status;
-	private String statusText = "";
+	private String statusText;
 
 	@Inject
 	public ArimaaController() {
+		initArimaaController();
+	}
+
+	private void initArimaaController(){
 		pitch = new Pitch();
 		rules = new Rules(this);
+		remainingMoves = 4;
+		currentPlayer = PLAYER_NAME.GOLD;
+		status = GameStatus.IDEL;
+		statusText = "";
 	}
 
 	@Override
@@ -49,7 +57,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	@Override
-	public void arimaaExit() {
+	public void quitGame() {
 		status = GameStatus.EXIT;
 		notifyObservers();
 	}
@@ -65,10 +73,12 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	@Override
-	public void create() {
+	public void createNewGame() {
+		initArimaaController();
 		status = GameStatus.CREATE;
 		notifyObservers();
 	}
+	
 
 	@Override
 	public PLAYER_NAME getCurrentPlayer() {

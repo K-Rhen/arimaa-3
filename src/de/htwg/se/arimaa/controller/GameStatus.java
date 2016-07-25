@@ -1,6 +1,7 @@
 package de.htwg.se.arimaa.controller;
 
 public enum  GameStatus {
+	IDEL,
     CREATE,
     EXIT,
     MOVEFIGURE,

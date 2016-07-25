@@ -16,8 +16,6 @@ public class TextUI implements IObserver {
 
 	IArimaaController controller;
 
-	boolean gameRunning = true;
-
 	public TextUI(IArimaaController controller) {
 		this.controller = controller;
 		controller.addObserver(this);
@@ -26,38 +24,33 @@ public class TextUI implements IObserver {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nif you lost, type help\n");
+		sb.append("\nif you lost, type h\n");
 		sb.append("\nturn: " + controller.getCurrentPlayer().toString() + "  remaining moves: "
 				+ controller.getRemainingMoves() + "\n");
 		sb.append(controller.currentPitchView());
-		sb.append("INFO: "+ StatusMessage.text.get(controller.getGameStatus()) +"\n");
+		sb.append("INFO: " + StatusMessage.text.get(controller.getGameStatus()) + "\n");
 		sb.append("STATUSTEXT: " + controller.getStatusText() + "\n");
 		sb.append("READY: :-");
 		return sb.toString();
 	}
 
-	public boolean processInputLine(String inputLine) {
-		// TODO next
-		// TEST
-	
+	public void processInputLine(String inputLine) {
 
-		if (inputLine.matches("exit")) {
-			controller.arimaaExit();
-			return false;
-		} else if (inputLine.matches("help")) {
+		if (inputLine.matches("q")) {
+			controller.quitGame();
+		} else if (inputLine.matches("h")) {
 			LOGGER.entry(helpText());
-		} else if (inputLine.matches("done")) {
+		} else if (inputLine.matches("d")) {
 			controller.changePlayer();
 		} else if (inputLine.matches("[a-h][1-8]-[a-h][1-8]#[a-h][1-8]-[a-h][1-8]")) {
 			// TODO pull
 
 		} else if (inputLine.matches("[a-h][1-8]-[a-h][1-8]")) {
-				moveFigureByString(inputLine);
+			moveFigureByString(inputLine);
 		}
 
 		// Print pitch
 		controller.currentPitchView();
-		return gameRunning;
 	}
 
 	private String helpText() {
@@ -65,8 +58,8 @@ public class TextUI implements IObserver {
 		sb.append("\nUse:\n");
 		sb.append("  a2-a3        ->move figure       [fromPosition-toPostion]\n");
 		sb.append("  a2-b2#a4-a3  ->push/pull figures [GOLDmoveFigure#SILVERmoveFigure]\n");
-		sb.append("  done         ->change player\n");
-		sb.append("  exit         ->exit the programm\n");
+		sb.append("  d         ->change player\n");
+		sb.append("  q         ->exit the programm\n");
 		return sb.toString();
 	}
 
@@ -125,7 +118,6 @@ public class TextUI implements IObserver {
 		}
 	}
 
-
 	@Override
 	public void update(Event e) {
 		// Show TUI
@@ -133,15 +125,14 @@ public class TextUI implements IObserver {
 
 		// TODO refactor: gs in toString ?
 		GameStatus gs = controller.getGameStatus();
-		if (gs.equals(GameStatus.WIN_GOLD)) {
+		if (gs.equals(GameStatus.EXIT)) {
+			LOGGER.entry("GOODBY");
+		} else if (gs.equals(GameStatus.WIN_GOLD)) {
 			LOGGER.entry("GOLD wins");
 
 		} else if (gs.equals(GameStatus.WIN_SILVER)) {
 			LOGGER.entry("SILVER wins");
 
-		} else if (gs.equals(GameStatus.EXIT)) {
-			LOGGER.entry("GOODBY");
-			gameRunning = false;
 		}
 	}
 
