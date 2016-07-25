@@ -18,6 +18,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 
 	private static final int DEFAULT_Y = 600;
 	private static final int DEFAULT_X = 580;
+	private ButtonPanel buttonPanel;
 	private PitchPanel pitchPanel;
 	private Container pane;
 	private IArimaaController controller;
@@ -43,7 +44,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		});
 	}
 
-	private void constructArimaaPane(IArimaaController controller2) {
+	private void constructArimaaPane(IArimaaController controller) {
 		// if (digitPanel != null) {
 		// pane.remove(digitPanel);
 		// }
@@ -56,6 +57,8 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		pitchPanel = new PitchPanel(controller);
 		pane.add(pitchPanel, BorderLayout.CENTER);
 
+		buttonPanel = new ButtonPanel(controller);
+		pane.add(buttonPanel,BorderLayout.SOUTH);
 		// if (statusPanel != null) {
 		// pane.remove(statusPanel);
 		// }
