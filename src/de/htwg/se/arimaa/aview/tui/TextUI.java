@@ -68,8 +68,7 @@ public class TextUI implements IObserver {
 		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
 		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
 
-		PLAYER_NAME currentPlayer = controller.getCurrentPlayer();
-		return controller.moveFigure(currentPlayer, from, to);
+		return controller.moveFigure( from, to);
 	}
 
 	private int readPosX(char c) {

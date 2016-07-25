@@ -98,7 +98,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return pitch.toString();
 	}
 
-	private boolean reduceMove() {
+	@Override
+	public boolean reduceRemainingMoves(int count) {
 		if (remainingMoves == 0) {
 			LOGGER.error("reduceMove are 0");
 			return false;
@@ -111,8 +112,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	// TODO refactor
-	@Override
-	public boolean moveFigure(PLAYER_NAME playerName, Position from, Position to) {
+	private boolean moveFigure(PLAYER_NAME playerName, Position from, Position to) {
 		IPlayer player = getPlayer(playerName);
 
 		// Preconditions
@@ -132,8 +132,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 			return false;
 		}
 
-		reduceMove();
-
+		
 		// Postconditions
 		if (!rules.postcondition(player, from, to)) {
 			statusText = rules.getStatusText();
@@ -146,6 +145,11 @@ public class ArimaaController extends Observable implements IArimaaController {
 		status = GameStatus.MOVEFIGURE;
 		notifyObservers();
 		return true;
+	}
+	
+	@Override
+	public boolean moveFigure(Position from, Position to) {
+		return moveFigure(currentPlayer,from, to);
 	}
 
 	private IPlayer getPlayer(PLAYER_NAME playerName) {

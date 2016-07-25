@@ -41,6 +41,9 @@ public class Rules extends Observable {
 
 	// TODO postcondition RULELS
 	public boolean postcondition(IPlayer player, Position from, Position to) {
+		//TODO move steps
+		controller.reduceRemainingMoves(0);
+		
 		// TODO is finish rule
 		// TODO TRAPP rule
 		

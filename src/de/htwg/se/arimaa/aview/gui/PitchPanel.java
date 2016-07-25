@@ -83,19 +83,33 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 
-
+	private Position posFrom;
+	private Position posTo;
 	private void mouseReleasedHandler(Point mouse) {
-	
-		Point cell = getCell(mouse);
-
+	    Position temp = getCell(mouse);
+		if(posFrom != null && !posFrom.equals(temp)){
+	    	 posTo = temp;
+	    	System.out.println("From:"+ posFrom.toString()+ " To:" + posTo.toString());
+	    	controller.moveFigure(posFrom, posTo);
+	    	posFrom = null;
+	    	posTo = null;
+	    }else
+	    	posFrom = null;
+		
+		
+//		System.out.println("Release");
 		this.repaint();
 
 
 	}
 
+	
 	private void mouseDraggedHandler(Point mouse) {
-		Point cell = getCell(mouse);
-		System.out.println(cell);
+		if(posFrom == null){
+			posFrom = getCell(mouse);
+		}
+		
+//		System.out.println("Drag");
 		this.repaint();
 	}
 
@@ -110,17 +124,16 @@ public class PitchPanel extends JPanel implements IObserver {
 		return false;
 	}
 
-	private Point getCell(Point mouse) {
+	private Position getCell(Point mouse) {
 		if (!isPosInPitch(mouse))
 			return null;
-
-		Point p = new Point();
+		
 		double px = mouse.getX() -offset.getX();
 		double py = mouse.getY() -offset.getY();
 		
 		px = px / figuresize.getX();
 		py = py / figuresize.getY();
-		p.setLocation((int)px, (int)py);
+		Position p = new Position((int)px, (int)py);
 		
 		return p;
 	}

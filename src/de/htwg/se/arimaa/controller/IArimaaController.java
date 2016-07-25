@@ -60,15 +60,13 @@ public interface IArimaaController extends IObservable {
 	/**
 	 * move a specific figure to a given position
 	 * 
-	 * @param player
-	 *            number of the player
 	 * @param from
 	 *            position
 	 * @param to
 	 *            position
 	 * @return true on success
 	 */
-	boolean moveFigure(PLAYER_NAME player, Position from, Position to);
+	boolean moveFigure(Position from, Position to);
 
 	/**
 	 * init a new game
@@ -88,5 +86,13 @@ public interface IArimaaController extends IObservable {
 	 * @return silver figures
 	 */
 	List<IFigure> getSilverFigures();
+	
+	/**
+	 * reduce the remainingMoves 
+	 * @param count
+	 * @return false if count > remainingMoves
+	 */
+	boolean reduceRemainingMoves(int count);
+
 
 }
