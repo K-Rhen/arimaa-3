@@ -103,10 +103,12 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	}
 
-	
+	IFigure moveFigure = null;
 	private void mouseDraggedHandler(Point mouse) {
 		if(posFrom == null){
 			posFrom = getCell(mouse);
+			
+		
 		}
 		
 //		System.out.println("Drag");
@@ -216,7 +218,7 @@ public class PitchPanel extends JPanel implements IObserver {
 	public void update(Event e) {
 		GameStatus gs = controller.getGameStatus();
 		if (gs.equals(GameStatus.WIN_GOLD)|| gs.equals(GameStatus.WIN_SILVER)) {
-			JOptionPane.showMessageDialog(null,controller.getCurrentPlayer().toString() +" win the game",":D",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null,controller.getCurrentPlayerName().toString() +" win the game",":D",JOptionPane.INFORMATION_MESSAGE);
 		} else if (gs.equals(GameStatus.MOVEFIGURE)) {
 			this.repaint();
 		} 

@@ -42,7 +42,7 @@ public class InfoPanel extends JPanel implements IObserver {
 		if (gs.equals(GameStatus.REMAINMOVE_CHANGE)) {
 			moveRemainLabel.setText("Moves: " + controller.getRemainingMoves());
 		} else if (gs.equals(GameStatus.CHANGEPLAYER)) {
-			actPlayerLabel.setText("Player: " + controller.getCurrentPlayer());
+			actPlayerLabel.setText("Player: " + controller.getCurrentPlayerName());
 			moveRemainLabel.setText("Moves: " + controller.getRemainingMoves());
 		}
 

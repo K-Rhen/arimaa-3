@@ -31,7 +31,7 @@ public class ArimaaControllerTest {
 
 	@Test
 	public void testGetCurrentPlayer() {
-		assertEquals(PLAYER_NAME.GOLD, controller.getCurrentPlayer());
+		assertEquals(PLAYER_NAME.GOLD, controller.getCurrentPlayerName());
 	}
 
 	@Test
@@ -42,9 +42,9 @@ public class ArimaaControllerTest {
 	@Test
 	public void testChangePlayer() {
 		controller.changePlayer();
-		assertEquals(PLAYER_NAME.SILVER, controller.getCurrentPlayer());
+		assertEquals(PLAYER_NAME.SILVER, controller.getCurrentPlayerName());
 		controller.changePlayer();
-		assertEquals(PLAYER_NAME.GOLD, controller.getCurrentPlayer());
+		assertEquals(PLAYER_NAME.GOLD, controller.getCurrentPlayerName());
 	}
 
 	@Test

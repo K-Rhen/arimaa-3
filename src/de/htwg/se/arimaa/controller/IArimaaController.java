@@ -43,14 +43,9 @@ public interface IArimaaController extends IObservable {
 	 * 
 	 * @return player name
 	 */
-	PLAYER_NAME getCurrentPlayer();
+	PLAYER_NAME getCurrentPlayerName();
 
-	/**
-	 * get the name oft the next player
-	 * 
-	 * @return next player name
-	 */
-	PLAYER_NAME getNextPlayer();
+	
 
 	/**
 	 * get the current pitch view

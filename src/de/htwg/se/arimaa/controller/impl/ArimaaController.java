@@ -32,7 +32,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		initArimaaController();
 	}
 
-	private void initArimaaController(){
+	private void initArimaaController() {
 		pitch = new Pitch();
 		rules = new Rules(this);
 		remainingMoves = 4;
@@ -64,12 +64,19 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public void changePlayer() {
-		currentPlayer = getNextPlayer();
+		currentPlayer = getNextPlayerName();
 
 		remainingMoves = 4;
 
 		status = GameStatus.CHANGEPLAYER;
 		notifyObservers();
+	}
+
+	private PLAYER_NAME getNextPlayerName() {
+		if (currentPlayer.equals(PLAYER_NAME.GOLD))
+			return PLAYER_NAME.SILVER;
+		else
+			return PLAYER_NAME.GOLD;
 	}
 
 	@Override
@@ -78,19 +85,10 @@ public class ArimaaController extends Observable implements IArimaaController {
 		status = GameStatus.CREATE;
 		notifyObservers();
 	}
-	
 
 	@Override
-	public PLAYER_NAME getCurrentPlayer() {
+	public PLAYER_NAME getCurrentPlayerName() {
 		return currentPlayer;
-	}
-
-	@Override
-	public PLAYER_NAME getNextPlayer() {
-		if (currentPlayer.equals(PLAYER_NAME.GOLD))
-			return PLAYER_NAME.SILVER;
-		else
-			return PLAYER_NAME.GOLD;
 	}
 
 	@Override
@@ -132,7 +130,6 @@ public class ArimaaController extends Observable implements IArimaaController {
 			return false;
 		}
 
-		
 		// Postconditions
 		if (!rules.postcondition(player, from, to)) {
 			statusText = rules.getStatusText();
@@ -146,10 +143,10 @@ public class ArimaaController extends Observable implements IArimaaController {
 		notifyObservers();
 		return true;
 	}
-	
+
 	@Override
 	public boolean moveFigure(Position from, Position to) {
-		return moveFigure(currentPlayer,from, to);
+		return moveFigure(currentPlayer, from, to);
 	}
 
 	private IPlayer getPlayer(PLAYER_NAME playerName) {
