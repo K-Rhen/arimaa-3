@@ -46,17 +46,11 @@ public class PitchPanel extends JPanel implements IObserver {
 	Point figuresize = new Point(50, 50);
 	Point offset = new Point(20, 45);
 
-	// BUTTON
-//	JButton commitButton;
-//	Point commitPoint = new Point(20, 460);
-//	JButton playerChangeButton;
-//	Point playerChangePoint = new Point(270, 460);
-
-	// Info
-	JLabel actPlayerLabel;
-	Point actPlayerPoint = new Point(25, 10);
-	JLabel moveRemainLabel;
-	Point moveRemainPoint = new Point(340, 10);
+//	// Info
+//	JLabel actPlayerLabel;
+//	Point actPlayerPoint = new Point(25, 10);
+//	JLabel moveRemainLabel;
+//	Point moveRemainPoint = new Point(340, 10);
 
 	// Mouse
 	Point mousePoint = new Point(0, 0);
@@ -79,43 +73,7 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	private void initGUI() {
 		this.setLayout(null);
-
-//		commitButton = new JButton("bestaetigen");
-//		commitButton.setBounds(commitPoint.x, commitPoint.y, 130, 30);
-//		commitButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent event) {
-//				if (figureSet) {
-//					Position from = mouseFigureFrom.getPosition();
-//					Position to = mouseFigureTo;
-//					//TODO move figure
-//					//controller.moveFigure(controller.getCurrentPlayer(), from, to);
-//
-//					mouseFigureFrom = null;
-//					figureSet = false;
-//				}
-//				repaint();
-//			}
-//		});
-//		this.add(commitButton);
-//
-//		playerChangeButton = new JButton("Runde beenden");
-//		playerChangeButton.setBounds(playerChangePoint.x, playerChangePoint.y, 150, 30);
-//		playerChangeButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent event) {
-//				controller.changePlayer();
-//			}
-//		});
-//		this.add(playerChangeButton);
-
-		actPlayerLabel = new JLabel("Player: 1");
-		actPlayerLabel.setBounds(actPlayerPoint.x, actPlayerPoint.y, 100, 20);
-		this.add(actPlayerLabel);
-		moveRemainLabel = new JLabel("Moves: 4");
-		moveRemainLabel.setBounds(moveRemainPoint.x, moveRemainPoint.y, 100, 20);
-		this.add(moveRemainLabel);
-
+		
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -313,12 +271,7 @@ public class PitchPanel extends JPanel implements IObserver {
 			JOptionPane.showMessageDialog(null,controller.getCurrentPlayer().toString() +" win the game",":D",JOptionPane.INFORMATION_MESSAGE);
 		} else if (gs.equals(GameStatus.MOVEFIGURE)) {
 			repaintPanel();
-		} else if (gs.equals(GameStatus.REMAINMOVE_CHANGE)) {
-			moveRemainLabel.setText("Moves: " + controller.getRemainingMoves());
-		} else if (gs.equals(GameStatus.CHANGEPLAYER)) {
-			actPlayerLabel.setText("Player: " + controller.getCurrentPlayer());
-			moveRemainLabel.setText("Moves: " + controller.getRemainingMoves());
-		}
+		} 
 
 	}
 
