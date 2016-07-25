@@ -84,7 +84,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	@Override
-	public String CurrentPitchView() {
+	public String currentPitchView() {
 		return pitch.toString();
 	}
 
@@ -106,7 +106,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		IPlayer player = getPlayer(playerName);
 
 		// Preconditions
-		if (rules.precondition(player, from, to) == false) {
+		if (!rules.precondition(player, from, to)) {
 			statusText = rules.getStatusText();
 			status = rules.getStatus();
 			notifyObservers();
@@ -115,7 +115,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 		boolean able = player.moveFigure(from, to);
 		// move not able
-		if (able == false) {
+		if (!able) {
 			statusText = "No figure on" + from.toString();
 			status = GameStatus.EMPTYCELL;
 			notifyObservers();
@@ -125,7 +125,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		reduceMove();
 
 		// Postconditions
-		if (rules.postcondition(player, from, to) == false) {
+		if (!rules.postcondition(player, from, to)) {
 			statusText = rules.getStatusText();
 			status = rules.getStatus();
 			notifyObservers();

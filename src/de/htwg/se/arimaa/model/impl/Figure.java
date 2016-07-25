@@ -28,25 +28,8 @@ public class Figure implements IFigure {
 		return name;
 	}
 
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//
-//		Figure figure = (Figure) obj;
-//
-//		if (this.name != figure.getName())
-//			return false;
-//		if (this.position != figure.getPosition())
-//			return false;
-//
-//		return true;
-//	}
-	
 	@Override
 	public String toString() {
-		return "{"+ name + " " + position.toString()+ "}";
+		return "{" + name + " " + position.toString() + "}";
 	}
 }

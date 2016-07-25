@@ -25,7 +25,6 @@ import javax.swing.event.MouseInputAdapter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.htwg.se.arimaa.arimaa.Arimaa;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;

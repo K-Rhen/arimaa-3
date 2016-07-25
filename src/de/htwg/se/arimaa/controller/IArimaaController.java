@@ -55,7 +55,7 @@ public interface IArimaaController extends IObservable {
 	/**
 	 * get the current pitch view
 	 */
-	String CurrentPitchView();
+	String currentPitchView();
 
 	/**
 	 * move a specific figure to a given position

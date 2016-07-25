@@ -13,7 +13,7 @@ import de.htwg.se.arimaa.util.observer.IObserver;
 
 public class ArimaaFrame extends JFrame implements IObserver {
 
-	private static final int DEFAULT_Y = 450;
+	private static final int DEFAULT_Y = 600;
 	private static final int DEFAULT_X = 580;
 	private PitchPanel pitchPanel;
 	private Container pane;

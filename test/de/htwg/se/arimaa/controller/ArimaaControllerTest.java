@@ -50,7 +50,7 @@ public class ArimaaControllerTest {
 	@Test
 	public void testArimmaExit() {
 		controller.arimaaExit();
-		controller.CurrentPitchView();
+		controller.currentPitchView();
 	}
 	
 	@Test

@@ -2,9 +2,6 @@ package de.htwg.se.arimaa.arimaa;
 
 import java.util.Scanner;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -19,17 +16,15 @@ public class Arimaa {
 	private ArimaaFrame gui;
 	protected IArimaaController controller;
 	private static Arimaa instance = null;
-	
-	private static final Logger LOGGER = LogManager.getLogger(Arimaa.class.getName());
-	
+
 	private Arimaa() {
 		Injector injector = Guice.createInjector(new ArimaaModule());
-		
+
 		controller = injector.getInstance(IArimaaController.class);
 		tui = new TextUI(controller);
 		gui = new ArimaaFrame(controller);
-		
-		//init new game
+
+		// init new game
 		controller.create();
 	}
 
@@ -40,10 +35,10 @@ public class Arimaa {
 	public ArimaaFrame getGui() {
 		return gui;
 	}
-   
-	public static Arimaa getInstance(){
-		if(instance == null){
-			instance = new Arimaa();	
+
+	public static Arimaa getInstance() {
+		if (instance == null) {
+			instance = new Arimaa();
 		}
 		return instance;
 	}
