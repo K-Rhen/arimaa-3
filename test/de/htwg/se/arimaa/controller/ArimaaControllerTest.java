@@ -89,6 +89,17 @@ public class ArimaaControllerTest {
 		//System.out.println(controller.CurrentPitchView());
 	}
 	
+	@Test
+	public void testGetFigureNamebyPosition(){
+		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0,6)));
+		assertEquals(null, controller.getFigureNamebyPosition(new Position(0,0)));
+		
+		controller.changePlayer();
+		
+		assertEquals(null, controller.getFigureNamebyPosition(new Position(0,6)));
+		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0,0)));
+	}
+	
 
 
 

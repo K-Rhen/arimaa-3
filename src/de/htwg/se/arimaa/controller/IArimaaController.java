@@ -2,6 +2,7 @@ package de.htwg.se.arimaa.controller;
 
 import java.util.List;
 
+import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.IObservable;
@@ -89,5 +90,10 @@ public interface IArimaaController extends IObservable {
 	 */
 	boolean reduceRemainingMoves(int count);
 
-
+/**
+ * get the figure name from a Position of the pitch
+ * @param pos on the pitch
+ * @return figure name, else null 
+ */
+	FIGURE_NAME getFigureNamebyPosition(Position pos);
 }

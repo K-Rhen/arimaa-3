@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
@@ -164,6 +165,17 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public List<IFigure> getSilverFigures() {
 		return pitch.getSilverPlayer().getFigures();
+	}
+
+	@Override
+	public FIGURE_NAME getFigureNamebyPosition(Position pos) {
+		FIGURE_NAME figure = null;
+		if (currentPlayer.equals(PLAYER_NAME.GOLD))
+			figure = pitch.getGoldPlayer().getFigure(pos);
+		else
+			figure = pitch.getSilverPlayer().getFigure(pos);
+
+		return figure;
 	}
 
 }
