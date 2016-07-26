@@ -8,12 +8,10 @@ import de.htwg.se.arimaa.util.position.Position;
 public class Figure implements IFigure {
 	private Position position;
 	private FIGURE_NAME name;
-	private PLAYER_NAME player;
 
-	public Figure(Position positon, FIGURE_NAME name, PLAYER_NAME player) {
+	public Figure(Position positon, FIGURE_NAME name) {
 		this.position = positon;
 		this.name = name;
-		this.player = player;
 	}
 
 	@Override
@@ -31,14 +29,10 @@ public class Figure implements IFigure {
 		return name;
 	}
 	
-	@Override
-	public PLAYER_NAME getPlayer() {
-			return player;
-	}
 
 	@Override
 	public String toString() {
-		return "{" +player.name() +" "+ name + " " + position.toString() + "}";
+		return "{" + name + " " + position.toString() + "}";
 	}
 
 

@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -16,8 +14,6 @@ import java.util.EnumMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
@@ -29,7 +25,7 @@ import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
-import de.htwg.se.arimaa.model.impl.Figure;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
 import de.htwg.se.arimaa.util.position.Position;
@@ -82,22 +78,20 @@ public class PitchPanel extends JPanel implements IObserver {
 		});
 	}
 
-	private Position posFrom;
-	private Position posTo;
+	private Position toPosition;
 
 	private void mouseReleasedHandler(Point mouse) {
 		Position temp = getCell(mouse);
-		if (posFrom != null && !posFrom.equals(temp)) {
-			posTo = temp;
-			System.out.println("From:" + posFrom.toString() + " To:" + posTo.toString());
-			controller.moveFigure(posFrom, posTo);
+		if (mouseFigure.getFromPosition() != null && !mouseFigure.getFromPosition().equals(temp)) {
+			toPosition = temp;
+			System.out.println("From:" + mouseFigure.getFromPosition().toString() + " To:" + toPosition.toString());
+			controller.moveFigure(mouseFigure.getFromPosition(), toPosition);
 
 			mouseFigure = null;
 
-			posFrom = null;
-			posTo = null;
+			toPosition = null;
 		} else
-			posFrom = null;
+			fromPosition = null;
 
 		// System.out.println("Release");
 		this.repaint();
@@ -105,13 +99,15 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 	private void mouseDraggedHandler(Point mouse) {
-		if (posFrom == null) {
-			posFrom = getCell(mouse);
-			FIGURE_NAME figure = controller.getFigureNamebyPosition(posFrom);
-		//	mouseFigure = new MouseFigure(mouse, figure, player)
+		if (mouseFigure == null) {
+			mouseFigure.setFromPosition(getCell(mouse));
+
+			FIGURE_NAME figureName = controller.getFigureNamebyPosition(fromPosition);
+			PLAYER_NAME playerName = controller.getPlayerNamebyPosition(fromPosition);
+			mouseFigure = new MouseFigure(mouse, figureName, playerName, fromPosition);
 		}
-		
-		mousePoint = mouse;
+
+		mouseFigure.setPoint(mouse);
 
 		// System.out.println("Drag");
 		this.repaint();
@@ -190,9 +186,14 @@ public class PitchPanel extends JPanel implements IObserver {
 		// Draw Mouse Figure
 		if (mouseFigure != null) {
 			g2d.setColor(Color.green);
-			g2d.drawRect(mousePoint.x, mousePoint.y, figuresize.x, figuresize.y);
-			BufferedImage fimg = figuresImageSilver.get(mouseFigure);
-			g2d.drawImage(fimg, mousePoint.x, mousePoint.y, figuresize.x, figuresize.y, null);
+			g2d.drawRect((int) mouseFigure.getX(), (int) mouseFigure.getY(), figuresize.x, figuresize.y);
+			FIGURE_NAME fname = mouseFigure.getFigureName();
+			BufferedImage fimg = null;
+			if (mouseFigure.getPlayer().equals(PLAYER_NAME.GOLD))
+				fimg = figuresImageGold.get(fname);
+			else
+				fimg = figuresImageSilver.get(fname);
+			g2d.drawImage(fimg, (int) mouseFigure.getX(), (int) mouseFigure.getY(), figuresize.x, figuresize.y, null);
 		}
 	}
 
@@ -204,10 +205,9 @@ public class PitchPanel extends JPanel implements IObserver {
 
 			Position fpos = f.getPosition();
 
-			// If figure is the moving figure
-			// if (mouseFigureFrom != null &&
-			// fpos.equals(mouseFigureFrom.getPosition()))
-			// continue;
+			// skip if figure equals moving figure
+			if (mouseFigure != null && fpos.equals(mouseFigure.getFromPosition()))
+				continue;
 
 			g2d.drawImage(fimg, fpos.getX() * figuresize.x + offset.x, fpos.getY() * figuresize.y + offset.y,
 					figuresize.x, figuresize.y, null);

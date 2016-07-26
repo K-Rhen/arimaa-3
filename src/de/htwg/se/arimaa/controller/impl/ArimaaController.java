@@ -169,13 +169,26 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public FIGURE_NAME getFigureNamebyPosition(Position pos) {
-		FIGURE_NAME figure = null;
-		if (currentPlayer.equals(PLAYER_NAME.GOLD))
-			figure = pitch.getGoldPlayer().getFigure(pos);
-		else
-			figure = pitch.getSilverPlayer().getFigure(pos);
+		PLAYER_NAME player = getPlayerNamebyPosition(pos);
 
-		return figure;
+		if (player == null)
+			return null;
+		
+		if (player.equals(PLAYER_NAME.GOLD))
+			return pitch.getGoldPlayer().getFigure(pos);
+
+		return pitch.getSilverPlayer().getFigure(pos);
+
+	}
+
+	@Override
+	public PLAYER_NAME getPlayerNamebyPosition(Position pos) {
+		if (pitch.getGoldPlayer().getFigure(pos) != null)
+			return PLAYER_NAME.GOLD;
+		if (pitch.getSilverPlayer().getFigure(pos) != null)
+			return PLAYER_NAME.SILVER;
+
+		return null;
 	}
 
 }

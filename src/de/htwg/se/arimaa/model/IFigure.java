@@ -23,10 +23,6 @@ public interface IFigure {
 	 */
 	FIGURE_NAME getName();
 	
-	/**
-	 * get the player
-	 * @return player
-	 */
-	PLAYER_NAME getPlayer();
+	
 
 }

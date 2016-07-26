@@ -52,55 +52,57 @@ public class ArimaaControllerTest {
 		controller.quitGame();
 		controller.currentPitchView();
 	}
-	
+
 	@Test
 	public void testReduceMove() {
 		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
 		assertEquals(3, controller.getRemainingMoves());
-		assertTrue(controller.moveFigure( new Position(0, 5), new Position(0, 4)));
+		assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
 		assertEquals(2, controller.getRemainingMoves());
-		assertTrue(controller.moveFigure( new Position(0, 4), new Position(0, 3)));
+		assertTrue(controller.moveFigure(new Position(0, 4), new Position(0, 3)));
 		assertEquals(1, controller.getRemainingMoves());
-		assertTrue(controller.moveFigure( new Position(0, 3), new Position(0, 2)));
+		assertTrue(controller.moveFigure(new Position(0, 3), new Position(0, 2)));
 		assertEquals(0, controller.getRemainingMoves());
 
-		//false, because no moves remain
-		assertFalse(controller.moveFigure( new Position(0, 2), new Position(1, 2)));
+		// false, because no moves remain
+		assertFalse(controller.moveFigure(new Position(0, 2), new Position(1, 2)));
 		assertEquals(0, controller.getRemainingMoves());
 	}
 
 	@Test
-	public void testPRIVAEMoveFigure(){
-		//move gold figure
-		assertTrue(controller.moveFigure( new Position(0, 6), new Position(0, 5)));
-		assertFalse(controller.moveFigure( new Position(0, 6), new Position(0, 5)));
-		
+	public void testPRIVAEMoveFigure() {
+		// move gold figure
+		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
+		assertFalse(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
+
 		controller.changePlayer();
-		
-		//move silver figure
+
+		// move silver figure
 		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
-		assertFalse(controller.moveFigure( new Position(0, 1), new Position(0, 2)));
+		assertFalse(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
 	}
-	
+
 	@Test
 	public void testMoveFigure() {
 		// TODO test, if figure is on the given position
-		
-		//System.out.println(controller.CurrentPitchView());
+
+		// System.out.println(controller.CurrentPitchView());
 	}
-	
+
 	@Test
-	public void testGetFigureNamebyPosition(){
-		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0,6)));
-		assertEquals(null, controller.getFigureNamebyPosition(new Position(0,0)));
+	public void testGetFigureNamebyPosition() {
+		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 6)));
+		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 1)));
 		
-		controller.changePlayer();
-		
-		assertEquals(null, controller.getFigureNamebyPosition(new Position(0,6)));
-		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0,0)));
+		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 3)));
 	}
-	
 
+	@Test
+	public void testGetPlayerNamebyPosition() {
+		assertEquals(PLAYER_NAME.GOLD, controller.getPlayerNamebyPosition(new Position(0, 6)));
+		assertEquals(PLAYER_NAME.SILVER, controller.getPlayerNamebyPosition(new Position(0, 1)));
 
+		assertEquals(null, controller.getPlayerNamebyPosition(new Position(0, 2)));
+	}
 
 }

@@ -96,4 +96,11 @@ public interface IArimaaController extends IObservable {
  * @return figure name, else null 
  */
 	FIGURE_NAME getFigureNamebyPosition(Position pos);
+	
+	/**
+	 * get the player name of the figure
+	 * @param pos on the pitch
+	 * @return player name, else null
+	 */
+	PLAYER_NAME getPlayerNamebyPosition(Position pos);
 }
