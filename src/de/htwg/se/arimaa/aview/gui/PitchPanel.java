@@ -222,13 +222,15 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	@Override
 	public void update(Event e) {
-		GameStatus gs = controller.getGameStatus();
-		if (gs.equals(GameStatus.WIN_GOLD) || gs.equals(GameStatus.WIN_SILVER)) {
-			JOptionPane.showMessageDialog(null, controller.getCurrentPlayerName().toString() + " win the game", ":D",
-					JOptionPane.INFORMATION_MESSAGE);
-		} else if (gs.equals(GameStatus.MOVEFIGURE)) {
-			this.repaint();
-		}
+		this.repaint();
+		
+//		GameStatus gs = controller.getGameStatus();
+//		if (gs.equals(GameStatus.WIN_GOLD) || gs.equals(GameStatus.WIN_SILVER)) {
+//			JOptionPane.showMessageDialog(null, controller.getCurrentPlayerName().toString() + " win the game", ":D",
+//					JOptionPane.INFORMATION_MESSAGE);
+//		} else if (gs.equals(GameStatus.MOVEFIGURE)) {
+//			this.repaint();
+//		}
 
 	}
 

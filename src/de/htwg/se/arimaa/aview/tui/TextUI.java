@@ -68,7 +68,7 @@ public class TextUI implements IObserver {
 		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
 		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
 
-		return controller.moveFigure( from, to);
+		return controller.moveFigure(from, to);
 	}
 
 	private int readPosX(char c) {
@@ -121,18 +121,8 @@ public class TextUI implements IObserver {
 	public void update(Event e) {
 		// Show TUI
 		LOGGER.entry(toString());
+		//GameStatus gs = controller.getGameStatus();
 
-		// TODO refactor: gs in toString ?
-		GameStatus gs = controller.getGameStatus();
-		if (gs.equals(GameStatus.EXIT)) {
-			LOGGER.entry("GOODBY");
-		} else if (gs.equals(GameStatus.WIN_GOLD)) {
-			LOGGER.entry("GOLD wins");
-
-		} else if (gs.equals(GameStatus.WIN_SILVER)) {
-			LOGGER.entry("SILVER wins");
-
-		}
 	}
 
 }

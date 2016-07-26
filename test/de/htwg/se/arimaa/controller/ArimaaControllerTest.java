@@ -10,7 +10,9 @@ import com.google.inject.Injector;
 
 import de.htwg.se.arimaa.arimaa.ArimaaModule;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
+import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
+import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class ArimaaControllerTest {
@@ -45,6 +47,11 @@ public class ArimaaControllerTest {
 		assertEquals(PLAYER_NAME.SILVER, controller.getCurrentPlayerName());
 		controller.changePlayer();
 		assertEquals(PLAYER_NAME.GOLD, controller.getCurrentPlayerName());
+	}
+
+	@Test
+	public void testGetStatusText() {
+		assertEquals("", controller.getStatusText() );
 	}
 
 	@Test
@@ -88,12 +95,12 @@ public class ArimaaControllerTest {
 
 		// System.out.println(controller.CurrentPitchView());
 	}
-
+	
 	@Test
 	public void testGetFigureNamebyPosition() {
 		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 6)));
 		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 1)));
-		
+
 		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 3)));
 	}
 
