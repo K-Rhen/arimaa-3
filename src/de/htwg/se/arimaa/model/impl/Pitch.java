@@ -30,6 +30,7 @@ public class Pitch implements IPitch {
 		silverFigures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
 		silverFigures.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
 		silverFigures.add(new Figure(new Position(2, 0), FIGURE_NAME.R));
+		silverFigures.add(new Figure(new Position(3, 0), FIGURE_NAME.D));
 		silverFigures.add(new Figure(new Position(4, 0), FIGURE_NAME.D));
 		silverFigures.add(new Figure(new Position(5, 0), FIGURE_NAME.R));
 		silverFigures.add(new Figure(new Position(6, 0), FIGURE_NAME.R));

@@ -12,6 +12,9 @@ public class MouseFigure {
 	private FIGURE_NAME figureName;
 	private PLAYER_NAME playerName;
 	private Position fromPosition;
+	private Position toPosition;
+	
+
 
 	public MouseFigure(Point mousePoint, FIGURE_NAME figureName, PLAYER_NAME playerName, Position fromPosition) {
 		this.mousePoint = mousePoint;
@@ -51,6 +54,14 @@ public class MouseFigure {
 	public void setFromPosition(Position pos) {
 		fromPosition = pos;
 		
+	}
+	
+	public void setToPosition(Position toPosition) {
+		this.toPosition = toPosition;
+	}
+
+	public Position getToPosition() {
+		return toPosition;
 	}
 
 }

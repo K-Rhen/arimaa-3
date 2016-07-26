@@ -78,20 +78,23 @@ public class PitchPanel extends JPanel implements IObserver {
 		});
 	}
 
-	private Position toPosition;
+	//private Position toPosition;
 
 	private void mouseReleasedHandler(Point mouse) {
 		Position temp = getCell(mouse);
-		if (mouseFigure.getFromPosition() != null && !mouseFigure.getFromPosition().equals(temp)) {
-			toPosition = temp;
-			System.out.println("From:" + mouseFigure.getFromPosition().toString() + " To:" + toPosition.toString());
-			controller.moveFigure(mouseFigure.getFromPosition(), toPosition);
-
+		if (temp == null) {
 			mouseFigure = null;
+			return;
+		}
 
-			toPosition = null;
+		if (mouseFigure.getFromPosition() != null && !mouseFigure.getFromPosition().equals(temp)) {
+			mouseFigure.setToPosition(temp);
+			System.out.println("From:" + mouseFigure.getFromPosition().toString() + " To:" + mouseFigure.getToPosition());
+			controller.moveFigure(mouseFigure.getFromPosition(), mouseFigure.getToPosition());
+			
+			mouseFigure = null;
 		} else
-			fromPosition = null;
+			mouseFigure = null;
 
 		// System.out.println("Release");
 		this.repaint();
@@ -100,11 +103,10 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	private void mouseDraggedHandler(Point mouse) {
 		if (mouseFigure == null) {
-			mouseFigure.setFromPosition(getCell(mouse));
-
-			FIGURE_NAME figureName = controller.getFigureNamebyPosition(fromPosition);
-			PLAYER_NAME playerName = controller.getPlayerNamebyPosition(fromPosition);
-			mouseFigure = new MouseFigure(mouse, figureName, playerName, fromPosition);
+			Position fromPos = getCell(mouse);
+			FIGURE_NAME figureName = controller.getFigureNamebyPosition(fromPos);
+			PLAYER_NAME playerName = controller.getPlayerNamebyPosition(fromPos);
+			mouseFigure = new MouseFigure(mouse, figureName, playerName, fromPos);
 		}
 
 		mouseFigure.setPoint(mouse);
@@ -189,10 +191,10 @@ public class PitchPanel extends JPanel implements IObserver {
 			g2d.drawRect((int) mouseFigure.getX(), (int) mouseFigure.getY(), figuresize.x, figuresize.y);
 			FIGURE_NAME fname = mouseFigure.getFigureName();
 			BufferedImage fimg = null;
-			if (mouseFigure.getPlayer().equals(PLAYER_NAME.GOLD))
-				fimg = figuresImageGold.get(fname);
-			else
-				fimg = figuresImageSilver.get(fname);
+			// if (mouseFigure.getPlayer().equals(PLAYER_NAME.GOLD))
+			// fimg = figuresImageGold.get(fname);
+			// else
+			fimg = figuresImageSilver.get(fname);
 			g2d.drawImage(fimg, (int) mouseFigure.getX(), (int) mouseFigure.getY(), figuresize.x, figuresize.y, null);
 		}
 	}
