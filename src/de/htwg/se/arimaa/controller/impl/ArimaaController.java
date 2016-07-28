@@ -122,6 +122,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 			return false;
 		}
 
+		//TODO pull figure other player, must move figure from other player!
 		boolean able = player.moveFigure(from, to);
 		// move not able
 		if (!able) {
