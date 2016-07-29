@@ -9,6 +9,7 @@ import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
+import de.htwg.se.arimaa.util.position.Coordinate;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class TextUI implements IObserver {
@@ -35,18 +36,16 @@ public class TextUI implements IObserver {
 	}
 
 	public void processInputLine(String inputLine) {
-
 		if (inputLine.matches("q")) {
 			controller.quitGame();
 		} else if (inputLine.matches("h")) {
 			LOGGER.entry(helpText());
-		} else if (inputLine.matches("d")) {
+		} else if (inputLine.matches("c")) {
 			controller.changePlayer();
-		} else if (inputLine.matches("[a-h][1-8]-[a-h][1-8]#[a-h][1-8]-[a-h][1-8]")) {
-			// TODO pull
-
 		} else if (inputLine.matches("[a-h][1-8]-[a-h][1-8]")) {
 			moveFigureByString(inputLine);
+		}else{
+			LOGGER.entry("\'"+inputLine +"\' is a wrong input, type h for help");
 		}
 
 		// Print pitch
@@ -56,72 +55,25 @@ public class TextUI implements IObserver {
 	private String helpText() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nUse:\n");
-		sb.append("  a2-a3        ->move figure       [fromPosition-toPostion]\n");
-		sb.append("  a2-b2#a4-a3  ->push/pull figures [GOLDmoveFigure#SILVERmoveFigure]\n");
-		sb.append("  d         ->change player\n");
-		sb.append("  q         ->exit the programm\n");
+		sb.append("  a2-a3     -> move figure       [fromPosition-toPostion]\n");
+		sb.append("  c         -> change player\n");
+		sb.append("  q         -> exit the programm\n");
 		return sb.toString();
 	}
 
 	public boolean moveFigureByString(String inputLine) {
-		char[] parts = inputLine.toCharArray();
-		Position from = new Position(readPosX(parts[0]), readPosY(parts[1]));
-		Position to = new Position(readPosX(parts[3]), readPosY(parts[4]));
+		String[] parts = inputLine.split("-");
+		Position from = Coordinate.convert(parts[0]);
+		Position to = Coordinate.convert(parts[1]);
 
 		return controller.moveFigure(from, to);
-	}
-
-	private int readPosX(char c) {
-		switch (c) {
-		case 'a':
-			return 0;
-		case 'b':
-			return 1;
-		case 'c':
-			return 2;
-		case 'd':
-			return 3;
-		case 'e':
-			return 4;
-		case 'f':
-			return 5;
-		case 'g':
-			return 6;
-		case 'h':
-			return 7;
-		default:
-			throw new IllegalArgumentException(c + " wrong coordinate");
-		}
-	}
-
-	private int readPosY(char c) {
-		switch (c) {
-		case '1':
-			return 7;
-		case '2':
-			return 6;
-		case '3':
-			return 5;
-		case '4':
-			return 4;
-		case '5':
-			return 3;
-		case '6':
-			return 2;
-		case '7':
-			return 1;
-		case '8':
-			return 0;
-		default:
-			throw new IllegalArgumentException(c + " wrong coordinate");
-		}
 	}
 
 	@Override
 	public void update(Event e) {
 		// Show TUI
 		LOGGER.entry(toString());
-		//GameStatus gs = controller.getGameStatus();
+		// GameStatus gs = controller.getGameStatus();
 
 	}
 

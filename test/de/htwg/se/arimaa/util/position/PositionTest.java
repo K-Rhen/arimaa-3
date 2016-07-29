@@ -1,4 +1,4 @@
-package de.htwg.se.arimaa.util.character;
+package de.htwg.se.arimaa.util.position;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
