@@ -14,10 +14,8 @@ public class InfoPanel extends JPanel implements IObserver {
 	IArimaaController controller;
 
 	JLabel actPlayerLabel;
-	Point actPlayerPoint = new Point(25, 10);
 	JLabel moveRemainLabel;
-	Point moveRemainPoint = new Point(340, 10);
-
+	
 	public InfoPanel(IArimaaController controller) {
 		this.controller = controller;
 		controller.addObserver(this);
@@ -26,24 +24,32 @@ public class InfoPanel extends JPanel implements IObserver {
 	}
 
 	private void iniInfoPanel() {
-		actPlayerLabel = new JLabel("Player: 1");
-		actPlayerLabel.setBounds(actPlayerPoint.x, actPlayerPoint.y, 100, 20);
+		actPlayerLabel = new JLabel(getPlayerText());
 		this.add(actPlayerLabel);
-		moveRemainLabel = new JLabel("Moves: 4");
-		moveRemainLabel.setBounds(moveRemainPoint.x, moveRemainPoint.y, 100, 20);
+		
+		moveRemainLabel = new JLabel(getMoveRemainText());
 		this.add(moveRemainLabel);
 
 	}
 
+	private String getPlayerText(){
+		return "Player: " + controller.getCurrentPlayerName();
+	}
+	
+	private String getMoveRemainText(){
+		return "Moves: " + controller.getRemainingMoves();
+	}
+	
 	@Override
 	public void update(Event e) {
 		GameStatus gs = controller.getGameStatus();
 
+		//TODO reduce statuse
 		if (gs.equals(GameStatus.REMAINMOVE_CHANGE)) {
-			moveRemainLabel.setText("Moves: " + controller.getRemainingMoves());
+			moveRemainLabel.setText(getMoveRemainText());
 		} else if (gs.equals(GameStatus.CHANGEPLAYER)) {
-			actPlayerLabel.setText("Player: " + controller.getCurrentPlayerName());
-			moveRemainLabel.setText("Moves: " + controller.getRemainingMoves());
+			actPlayerLabel.setText(getPlayerText());
+			moveRemainLabel.setText(getMoveRemainText());
 		}
 
 	}

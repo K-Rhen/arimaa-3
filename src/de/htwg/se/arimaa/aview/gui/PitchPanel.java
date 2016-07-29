@@ -1,6 +1,7 @@
 package de.htwg.se.arimaa.aview.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -14,6 +15,7 @@ import java.util.EnumMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
@@ -40,7 +42,7 @@ public class PitchPanel extends JPanel implements IObserver {
 	EnumMap<FIGURE_NAME, BufferedImage> figuresImageGold;
 	EnumMap<FIGURE_NAME, BufferedImage> figuresImageSilver;
 	Point figureSize = new Point(50, 50);
-	Point offsetPitch = new Point(20, 45);
+	Point offsetPitch = new Point(20,20);//new Point(20, 45);
 
 	// Mouse
 	MouseFigure mouseFigure = null;
@@ -59,7 +61,9 @@ public class PitchPanel extends JPanel implements IObserver {
 	}
 
 	private void initGUI() {
-
+		this.setBorder(BorderFactory.createTitledBorder("Pitch"));
+		
+		
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

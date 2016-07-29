@@ -16,7 +16,8 @@ public class ButtonPanel extends JPanel implements IObserver {
 	IArimaaController controller;
 
 	JButton playerChangeButton;
-	Point playerChangePoint = new Point(270, 460);
+	JButton undoButton;
+	JButton redoButton;
 	
 	 public ButtonPanel(IArimaaController controller) {
 		this.controller = controller;
@@ -26,8 +27,7 @@ public class ButtonPanel extends JPanel implements IObserver {
 	}
 
 	private void initButtons() {
-		playerChangeButton = new JButton("Runde beenden");
-		playerChangeButton.setBounds(playerChangePoint.x, playerChangePoint.y, 150, 30);
+		playerChangeButton = new JButton("change player");
 		playerChangeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -35,6 +35,25 @@ public class ButtonPanel extends JPanel implements IObserver {
 			}
 		});
 		this.add(playerChangeButton);
+		
+		undoButton = new JButton("<-");
+		undoButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				//TODO
+			}
+		});
+		this.add(undoButton);
+		
+		
+		redoButton = new JButton("->");
+		redoButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				//TODO
+			}
+		});
+		this.add(redoButton);
 		
 	}
 
