@@ -110,12 +110,7 @@ public interface IArimaaController extends IObservable {
 	 */
 	PLAYER_NAME getPlayerNamebyPosition(Position pos);
 
-	/**
-	 * reduce the remainingMoves 
-	 * @param count
-	 * @return false if count > remainingMoves
-	 */
-	boolean reduceRemainingMoves(int count);
+
 
 	/**
 	 * get the History of moves as String

@@ -61,22 +61,6 @@ public class ArimaaControllerTest {
 	}
 
 	@Test
-	public void testReduceMove() {
-		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
-		assertEquals(3, controller.getRemainingMoves());
-		assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
-		assertEquals(2, controller.getRemainingMoves());
-		assertTrue(controller.moveFigure(new Position(0, 4), new Position(0, 3)));
-		assertEquals(1, controller.getRemainingMoves());
-		assertTrue(controller.moveFigure(new Position(0, 3), new Position(0, 2)));
-		assertEquals(0, controller.getRemainingMoves());
-
-		// false, because no moves remain
-		assertFalse(controller.moveFigure(new Position(0, 2), new Position(1, 2)));
-		assertEquals(0, controller.getRemainingMoves());
-	}
-
-	@Test
 	public void testMoveFigure() {
 		// move gold figure
 		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));

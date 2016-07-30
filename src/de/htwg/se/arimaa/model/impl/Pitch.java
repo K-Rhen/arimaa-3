@@ -103,8 +103,10 @@ public class Pitch implements IPitch {
 	public boolean reduceRemainingMoves(int count) {
 		if (remainingMoves == 0)
 			return false;
+		if(remainingMoves - count < 0)
+			return false;
 
-		remainingMoves--;
+		remainingMoves -= count;
 		return true;
 	}
 

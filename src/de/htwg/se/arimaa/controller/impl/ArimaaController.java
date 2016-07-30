@@ -147,15 +147,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return undoManager.toString();
 	}
 
-	// TODO refactor
-	@Override
-	public boolean reduceRemainingMoves(int count) {
-		pitch.reduceRemainingMoves(count);
+	
 
-		status = GameStatus.REMAINMOVE_CHANGE;
-		notifyObservers();
-		return false;
-	}
 
 	@Override
 	public PLAYER_NAME getPlayerNamebyPosition(Position pos) {

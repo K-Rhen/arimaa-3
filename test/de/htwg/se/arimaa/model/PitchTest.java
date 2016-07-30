@@ -31,14 +31,37 @@ public class PitchTest {
 	}
 
 	@Test
-	public void getGoldPlayertest() {
+	public void testGetGoldPlayertest() {
 		assertEquals(PLAYER_NAME.GOLD, pitch.getGoldPlayer().getPlayerName());
 	}
 
 	@Test
-	public void getSilverPlayertest() {
+	public void testGetSilverPlayertest() {
 		assertEquals(PLAYER_NAME.SILVER, pitch.getSilverPlayer().getPlayerName());
 	}
+
+	@Test
+	public void testGetPlayer() {
+		assertEquals(pitch.getGoldPlayer(), pitch.getPlayer(PLAYER_NAME.GOLD));
+		assertEquals(pitch.getSilverPlayer(), pitch.getPlayer(PLAYER_NAME.SILVER));
+	}
+
+	@Test
+	public void testReduceRemainingMoves() {
+		assertEquals(4,pitch.getRemainingMoves());
+		
+		pitch.reduceRemainingMoves(1);
+		assertEquals(3,pitch.getRemainingMoves());
+		
+		pitch.reduceRemainingMoves(4);
+		assertEquals(3,pitch.getRemainingMoves());
+		
+		pitch.reduceRemainingMoves(3);
+		pitch.reduceRemainingMoves(3);
+		assertEquals(0,pitch.getRemainingMoves());
+		
+	}
+	
 
 	@Test
 	public void testToString() {
