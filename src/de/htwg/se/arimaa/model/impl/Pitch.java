@@ -7,6 +7,7 @@ import de.htwg.se.arimaa.model.FIGURE_NAME;
 
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
+import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
 
@@ -70,6 +71,14 @@ public class Pitch implements IPitch {
 	@Override
 	public Player getSilverPlayer() {
 		return silverPlayer;
+	}
+	
+	@Override
+	public IPlayer getPlayer(PLAYER_NAME playerName) {
+		if (playerName.equals(PLAYER_NAME.GOLD))
+			return getGoldPlayer();
+		else
+			return getSilverPlayer();
 	}
 
 	@Override
@@ -144,6 +153,7 @@ public class Pitch implements IPitch {
 		return null;
 	}
 
+	//TODO need ?
 	@Override
 	public List<IFigure> getAllFiguresOnPitch() {
 		List<IFigure> figures = new ArrayList<>();

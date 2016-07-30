@@ -38,4 +38,11 @@ public interface IPitch {
 	 * @return all figures on the Pitch
 	 */
 	List<IFigure> getAllFiguresOnPitch();
+
+	/**
+	 * Get the player object from the player name
+	 * @param playerName of the player
+	 * @return the player 
+	 */
+	IPlayer getPlayer(PLAYER_NAME playerName);
 }

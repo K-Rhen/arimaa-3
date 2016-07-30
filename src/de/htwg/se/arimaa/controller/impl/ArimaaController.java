@@ -15,12 +15,17 @@ import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.model.impl.Pitch;
+import de.htwg.se.arimaa.util.command.UndoManager;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
+
+
 
 public class ArimaaController extends Observable implements IArimaaController {
 	private static final Logger LOGGER = LogManager.getLogger(ArimaaController.class.getName());
 
+	private UndoManager undoManager = new UndoManager();
+	
 	private IPitch pitch;
 	private Rules rules;
 	private int remainingMoves;
@@ -82,10 +87,24 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public void createNewGame() {
-		initArimaaController();
+		initArimaaController();		
 		status = GameStatus.CREATE;
 		notifyObservers();
 	}
+	
+	@Override
+	public void undo() {
+		undoManager.undoCommand();
+		notifyObservers();
+	}
+
+	@Override
+	public void redo() {
+		undoManager.redoCommand();
+		//status = GameStatus.REDO;
+		notifyObservers();
+	}
+	
 
 	@Override
 	public PLAYER_NAME getCurrentPlayerName() {
@@ -110,9 +129,11 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return true;
 	}
 
-	// TODO refactor
-	private boolean moveFigure(PLAYER_NAME playerName, Position from, Position to) {
-		IPlayer player = getPlayer(playerName);
+	// TODO refactro
+	@Override
+	public boolean moveFigure(Position from, Position to) {
+		PLAYER_NAME playerName = getPlayerNamebyPosition(from);
+		IPlayer player = pitch.getPlayer(playerName);
 
 		// Preconditions
 		if (!rules.precondition(player, from, to)) {
@@ -122,16 +143,9 @@ public class ArimaaController extends Observable implements IArimaaController {
 			return false;
 		}
 
-		//TODO pull figure other player, must move figure from other player!
-		boolean able = player.moveFigure(from, to);
-		// move not able
-		if (!able) {
-			statusText = "No figure on" + from.toString();
-			status = GameStatus.EMPTYCELL;
-			notifyObservers();
-			return false;
-		}
-
+		//Move the figure
+		undoManager.doCommand(new MoveFigureCommand(player,from, to));
+		
 		// Postconditions
 		if (!rules.postcondition(player, from, to)) {
 			statusText = rules.getStatusText();
@@ -146,17 +160,6 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return true;
 	}
 
-	@Override
-	public boolean moveFigure(Position from, Position to) {
-		return moveFigure(currentPlayer, from, to);
-	}
-
-	private IPlayer getPlayer(PLAYER_NAME playerName) {
-		if (playerName.equals(PLAYER_NAME.GOLD))
-			return pitch.getGoldPlayer();
-		else
-			return pitch.getSilverPlayer();
-	}
 
 	@Override
 	public List<IFigure> getGoldFigures() {
@@ -182,6 +185,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	}
 
+	//TODO need ?
 	@Override
 	public PLAYER_NAME getPlayerNamebyPosition(Position pos) {
 		if (pitch.getGoldPlayer().getFigure(pos) != null)

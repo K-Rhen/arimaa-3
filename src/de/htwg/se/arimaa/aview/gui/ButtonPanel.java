@@ -41,6 +41,7 @@ public class ButtonPanel extends JPanel implements IObserver {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				//TODO
+				controller.undo();
 			}
 		});
 		this.add(undoButton);
@@ -51,6 +52,7 @@ public class ButtonPanel extends JPanel implements IObserver {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				//TODO
+				controller.redo();
 			}
 		});
 		this.add(redoButton);

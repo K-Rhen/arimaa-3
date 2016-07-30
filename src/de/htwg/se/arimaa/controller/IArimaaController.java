@@ -68,6 +68,17 @@ public interface IArimaaController extends IObservable {
 	 * init a new game
 	 */
 	void createNewGame();
+	
+	/**
+	 * undo the last move
+	 */
+	void undo();
+
+	/**
+	 * redo the last move
+	 */
+	void redo();
+	
 
 	/**
 	 * get all gold figures
@@ -103,4 +114,6 @@ public interface IArimaaController extends IObservable {
 	 * @return player name, else null
 	 */
 	PLAYER_NAME getPlayerNamebyPosition(Position pos);
+
+	
 }
