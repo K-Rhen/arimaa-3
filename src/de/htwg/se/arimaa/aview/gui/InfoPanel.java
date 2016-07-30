@@ -42,16 +42,10 @@ public class InfoPanel extends JPanel implements IObserver {
 	
 	@Override
 	public void update(Event e) {
-		GameStatus gs = controller.getGameStatus();
+		//GameStatus gs = controller.getGameStatus();
 
-		//TODO reduce statuse
-		if (gs.equals(GameStatus.REMAINMOVE_CHANGE)) {
-			moveRemainLabel.setText(getMoveRemainText());
-		} else if (gs.equals(GameStatus.CHANGEPLAYER)) {
 			actPlayerLabel.setText(getPlayerText());
 			moveRemainLabel.setText(getMoveRemainText());
-		}
-
 	}
 
 }

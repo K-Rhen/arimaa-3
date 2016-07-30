@@ -51,7 +51,7 @@ public class ArimaaControllerTest {
 
 	@Test
 	public void testGetStatusText() {
-		assertEquals("", controller.getStatusText() );
+		assertEquals("", controller.getStatusText());
 	}
 
 	@Test
@@ -77,7 +77,7 @@ public class ArimaaControllerTest {
 	}
 
 	@Test
-	public void testPRIVAEMoveFigure() {
+	public void testMoveFigure() {
 		// move gold figure
 		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
 		assertFalse(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
@@ -90,13 +90,6 @@ public class ArimaaControllerTest {
 	}
 
 	@Test
-	public void testMoveFigure() {
-		// TODO test, if figure is on the given position
-
-		// System.out.println(controller.CurrentPitchView());
-	}
-	
-	@Test
 	public void testGetFigureNamebyPosition() {
 		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 6)));
 		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 1)));
@@ -108,7 +101,7 @@ public class ArimaaControllerTest {
 	public void testGetPlayerNamebyPosition() {
 		assertEquals(PLAYER_NAME.GOLD, controller.getPlayerNamebyPosition(new Position(0, 6)));
 		assertEquals(PLAYER_NAME.SILVER, controller.getPlayerNamebyPosition(new Position(0, 1)));
-
+		
 		assertEquals(null, controller.getPlayerNamebyPosition(new Position(0, 2)));
 	}
 

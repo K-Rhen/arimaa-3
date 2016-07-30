@@ -3,6 +3,7 @@ package de.htwg.se.arimaa.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 
 import de.htwg.se.arimaa.model.IFigure;
@@ -12,9 +13,11 @@ import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class Pitch implements IPitch {
-
 	private Player goldPlayer;
 	private Player silverPlayer;
+
+	private PLAYER_NAME currentPlayer;
+	private int remainingMoves;
 
 	private static final int PITCHSIZE = 8;
 
@@ -24,6 +27,9 @@ public class Pitch implements IPitch {
 		initializeDefaultPitch(silverFigures, goldFigures);
 		goldPlayer = new Player(PLAYER_NAME.GOLD, goldFigures);
 		silverPlayer = new Player(PLAYER_NAME.SILVER, silverFigures);
+
+		currentPlayer = PLAYER_NAME.GOLD;
+		remainingMoves = 4;
 	}
 
 	private void initializeDefaultPitch(List<IFigure> silverFigures, List<IFigure> goldFigures) {
@@ -72,13 +78,52 @@ public class Pitch implements IPitch {
 	public Player getSilverPlayer() {
 		return silverPlayer;
 	}
-	
+
+	@Override
+	public PLAYER_NAME getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	@Override
+	public void setCurrentPlayer(PLAYER_NAME currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	@Override
+	public int getRemainingMoves() {
+		return remainingMoves;
+	}
+
+	@Override
+	public void setRemainingMoves(int remainingMoves) {
+		this.remainingMoves = remainingMoves;
+	}
+
+	@Override
+	public boolean reduceRemainingMoves(int count) {
+		if (remainingMoves == 0)
+			return false;
+
+		remainingMoves--;
+		return true;
+	}
+
 	@Override
 	public IPlayer getPlayer(PLAYER_NAME playerName) {
 		if (playerName.equals(PLAYER_NAME.GOLD))
 			return getGoldPlayer();
 		else
 			return getSilverPlayer();
+	}
+
+	@Override
+	public IPlayer getPlayer(Position pos) {
+		if (getGoldPlayer().getFigure(pos) != null)
+			return getGoldPlayer();
+		if (getSilverPlayer().getFigure(pos) != null)
+			return getSilverPlayer();
+
+		return null;
 	}
 
 	@Override
@@ -153,13 +198,23 @@ public class Pitch implements IPitch {
 		return null;
 	}
 
-	//TODO need ?
+	// TODO need ?
 	@Override
 	public List<IFigure> getAllFiguresOnPitch() {
 		List<IFigure> figures = new ArrayList<>();
 		figures.addAll(goldPlayer.getFigures());
 		figures.addAll(silverPlayer.getFigures());
 		return figures;
+	}
+
+	@Override
+	public void changePlayer() {
+		remainingMoves = 4;
+
+		if (currentPlayer.equals(PLAYER_NAME.GOLD))
+			currentPlayer = PLAYER_NAME.SILVER;
+		else
+			currentPlayer = PLAYER_NAME.GOLD;
 	}
 
 }

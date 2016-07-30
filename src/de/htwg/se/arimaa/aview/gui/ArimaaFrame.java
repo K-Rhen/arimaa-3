@@ -82,7 +82,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		infoPanel = new InfoPanel(controller);
 		rightPanel.add(infoPanel);
 
-		moveStatusPanel = new MoveHistoryPanel();
+		moveStatusPanel = new MoveHistoryPanel(controller);
 		rightPanel.add(moveStatusPanel);
 		
 		buttonPanel = new ButtonPanel(controller);

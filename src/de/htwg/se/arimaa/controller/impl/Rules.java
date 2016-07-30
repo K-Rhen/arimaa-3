@@ -2,19 +2,21 @@ package de.htwg.se.arimaa.controller.impl;
 
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.observer.Observable;
+import de.htwg.se.arimaa.util.position.Coordinate;
 import de.htwg.se.arimaa.util.position.Position;
 
 //TOOD refactor
 public class Rules extends Observable {
 
-	private IArimaaController controller;
+	private IPitch pitch;
 	private GameStatus status;
 	private String statusText = "";
 
-	public Rules(IArimaaController controller) {
-		this.controller = controller;
+	public Rules(IPitch pitch) {
+		this.pitch = pitch;
 	}
 
 	public GameStatus getStatus() {
@@ -26,23 +28,37 @@ public class Rules extends Observable {
 	}
 
 	// TODO precondition RULES
-	public boolean precondition(IPlayer player, Position from, Position to) {
+	public boolean precondition( Position from, Position to) {
+		IPlayer player = pitch.getPlayer(from);
+		
+		// figure position is empty from given player
+		if(player == null){
+			statusText = "No figure on "+ Coordinate.convert(from);
+			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			return false;
+		}
+		
+		
 		// no moves remain
-		if (controller.getRemainingMoves() == 0) {
+		if (pitch.getRemainingMoves() == 0) {
 			statusText = "No remain moves";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
 		}
 
+	
+		
 		// TODO figure not trapped
 
+		//TODO move steps
+		pitch.reduceRemainingMoves(0);
+		
 		return true;
 	}
 
 	// TODO postcondition RULELS
-	public boolean postcondition(IPlayer player, Position from, Position to) {
-		//TODO move steps
-		controller.reduceRemainingMoves(0);
+	public boolean postcondition( Position from, Position to) {
+	
 		
 		// TODO is finish rule
 		// TODO TRAPP rule

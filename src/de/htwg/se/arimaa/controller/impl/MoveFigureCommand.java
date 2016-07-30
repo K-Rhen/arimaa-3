@@ -1,7 +1,10 @@
 package de.htwg.se.arimaa.controller.impl;
 
+import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.command.UndoableCommand;
+import de.htwg.se.arimaa.util.position.Coordinate;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class MoveFigureCommand implements UndoableCommand {
@@ -9,29 +12,48 @@ public class MoveFigureCommand implements UndoableCommand {
 	private Position from;
 	private Position to;
 	private IPlayer player;
-    
-    public MoveFigureCommand(IPlayer player,Position from, Position to) {
-    	this.player = player;
+	
+	private IPitch pitch;
+	private PLAYER_NAME currentPlayer;
+    private int remainingMoves;
+	
+    public MoveFigureCommand(IPitch pitch,Position from, Position to) {
+    	this.pitch = pitch;
+    	this.currentPlayer = pitch.getCurrentPlayer();
+    	this.remainingMoves = pitch.getRemainingMoves();
+    	
+    	this.player = pitch.getPlayer(from);
         this.from = from;
         this.to = to;
     }
 
     @Override
     public void doCommand() {
-    	boolean able = player.moveFigure(from, to);
-    	if(!able)
-    		throw new IllegalArgumentException("doCommand fail: " + to.toString()+ "-" + from.toString());
+    	move(from,to,"doCommand");
     }
 
     @Override
     public void undoCommand() {
-    	boolean able = player.moveFigure(to, from);
-    	if(!able)
-    		throw new IllegalArgumentException("undoCommand fail: " + to.toString()+ "-" + from.toString());
+    	move(to,from,"undoCommand");
     }
     
     @Override
     public void redoCommand() {
-    	doCommand();
+    	move(from,to,"redoCommand");
     }
+    
+    private void move(Position from, Position to, String failMethodeText){
+    	boolean able = player.moveFigure(from, to);
+    	if(!able)
+    		throw new IllegalArgumentException(failMethodeText+ " fail: " + to.toString()+ "-" + from.toString());
+    	
+    	pitch.setCurrentPlayer(currentPlayer);
+    	pitch.setRemainingMoves(remainingMoves);
+    }
+    
+    @Override
+    public String toString() {
+    	return currentPlayer + ": " + Coordinate.convert(from)+"-"+ Coordinate.convert(to);
+    }
+    
 }

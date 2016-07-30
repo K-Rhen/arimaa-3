@@ -14,17 +14,23 @@ import javax.swing.border.BevelBorder;
 
 import de.htwg.se.arimaa.aview.StatusMessage;
 import de.htwg.se.arimaa.controller.GameStatus;
+import de.htwg.se.arimaa.controller.IArimaaController;
+import de.htwg.se.arimaa.util.observer.Event;
+import de.htwg.se.arimaa.util.observer.IObserver;
 
-public class MoveHistoryPanel extends JPanel {
-
+public class MoveHistoryPanel extends JPanel implements IObserver {
+	IArimaaController controller;
+	
 	private JTextArea historyTextArea;
 	private final static String newline = "\n";
 
-	public MoveHistoryPanel() {
+	public MoveHistoryPanel(IArimaaController controller) {
+		this.controller = controller;
+		controller.addObserver(this);
+		
 		historyTextArea = new JTextArea(20, 20);
 		historyTextArea.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(historyTextArea);
-
 		add(scrollPane);
 
 	}
@@ -32,8 +38,17 @@ public class MoveHistoryPanel extends JPanel {
 	public final void append(String line) {
 		historyTextArea.append(line + newline);
 	}
+	
 
 	public void clear() {
 		historyTextArea.setText("");
+	}
+
+	@Override
+	public void update(Event e) {
+		
+     	String moveHistoryText = controller.getMoveHistoryText(); 
+		historyTextArea.setText(moveHistoryText);
+		
 	}
 }

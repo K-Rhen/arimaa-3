@@ -19,17 +19,14 @@ import de.htwg.se.arimaa.util.command.UndoManager;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
 
-
-
 public class ArimaaController extends Observable implements IArimaaController {
 	private static final Logger LOGGER = LogManager.getLogger(ArimaaController.class.getName());
 
 	private UndoManager undoManager = new UndoManager();
-	
+
 	private IPitch pitch;
 	private Rules rules;
-	private int remainingMoves;
-	private PLAYER_NAME currentPlayer;
+
 	private GameStatus status;
 	private String statusText;
 
@@ -40,16 +37,15 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	private void initArimaaController() {
 		pitch = new Pitch();
-		rules = new Rules(this);
-		remainingMoves = 4;
-		currentPlayer = PLAYER_NAME.GOLD;
+		rules = new Rules(pitch);
+
 		status = GameStatus.IDEL;
 		statusText = "";
 	}
 
 	@Override
 	public int getRemainingMoves() {
-		return remainingMoves;
+		return pitch.getRemainingMoves();
 	}
 
 	@Override
@@ -70,28 +66,19 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public void changePlayer() {
-		currentPlayer = getNextPlayerName();
-
-		remainingMoves = 4;
+		pitch.changePlayer();
 
 		status = GameStatus.CHANGEPLAYER;
 		notifyObservers();
 	}
 
-	private PLAYER_NAME getNextPlayerName() {
-		if (currentPlayer.equals(PLAYER_NAME.GOLD))
-			return PLAYER_NAME.SILVER;
-		else
-			return PLAYER_NAME.GOLD;
-	}
-
 	@Override
 	public void createNewGame() {
-		initArimaaController();		
+		initArimaaController();
 		status = GameStatus.CREATE;
 		notifyObservers();
 	}
-	
+
 	@Override
 	public void undo() {
 		undoManager.undoCommand();
@@ -101,14 +88,13 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public void redo() {
 		undoManager.redoCommand();
-		//status = GameStatus.REDO;
+		// status = GameStatus.REDO;
 		notifyObservers();
 	}
-	
 
 	@Override
 	public PLAYER_NAME getCurrentPlayerName() {
-		return currentPlayer;
+		return pitch.getCurrentPlayer();
 	}
 
 	@Override
@@ -116,38 +102,22 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return pitch.toString();
 	}
 
-	@Override
-	public boolean reduceRemainingMoves(int count) {
-		if (remainingMoves == 0) {
-			LOGGER.error("reduceMove are 0");
-			return false;
-		}
-
-		remainingMoves--;
-		status = GameStatus.REMAINMOVE_CHANGE;
-		notifyObservers();
-		return true;
-	}
-
 	// TODO refactro
 	@Override
 	public boolean moveFigure(Position from, Position to) {
-		PLAYER_NAME playerName = getPlayerNamebyPosition(from);
-		IPlayer player = pitch.getPlayer(playerName);
-
 		// Preconditions
-		if (!rules.precondition(player, from, to)) {
+		if (!rules.precondition(from, to)) {
 			statusText = rules.getStatusText();
 			status = rules.getStatus();
 			notifyObservers();
 			return false;
 		}
 
-		//Move the figure
-		undoManager.doCommand(new MoveFigureCommand(player,from, to));
-		
+		// Move the figure
+		undoManager.doCommand(new MoveFigureCommand(pitch, from, to));
+
 		// Postconditions
-		if (!rules.postcondition(player, from, to)) {
+		if (!rules.postcondition(from, to)) {
 			statusText = rules.getStatusText();
 			status = rules.getStatus();
 			notifyObservers();
@@ -160,7 +130,6 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return true;
 	}
 
-
 	@Override
 	public List<IFigure> getGoldFigures() {
 		return pitch.getGoldPlayer().getFigures();
@@ -171,29 +140,40 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return pitch.getSilverPlayer().getFigures();
 	}
 
-	@Override
-	public FIGURE_NAME getFigureNamebyPosition(Position pos) {
-		PLAYER_NAME player = getPlayerNamebyPosition(pos);
 
+
+	@Override
+	public String getMoveHistoryText() {
+		return undoManager.toString();
+	}
+
+	// TODO refactor
+	@Override
+	public boolean reduceRemainingMoves(int count) {
+		pitch.reduceRemainingMoves(count);
+
+		status = GameStatus.REMAINMOVE_CHANGE;
+		notifyObservers();
+		return false;
+	}
+
+	@Override
+	public PLAYER_NAME getPlayerNamebyPosition(Position pos) {
+		IPlayer player = pitch.getPlayer(pos);
+		
 		if (player == null)
 			return null;
 		
-		if (player.equals(PLAYER_NAME.GOLD))
-			return pitch.getGoldPlayer().getFigure(pos);
-
-		return pitch.getSilverPlayer().getFigure(pos);
-
+		return player.getPlayerName();
 	}
-
-	//TODO need ?
+	
 	@Override
-	public PLAYER_NAME getPlayerNamebyPosition(Position pos) {
-		if (pitch.getGoldPlayer().getFigure(pos) != null)
-			return PLAYER_NAME.GOLD;
-		if (pitch.getSilverPlayer().getFigure(pos) != null)
-			return PLAYER_NAME.SILVER;
+	public FIGURE_NAME getFigureNamebyPosition(Position pos) {
+		IPlayer player = pitch.getPlayer(pos);
+			
+		if (player == null)
+			return null;
 
-		return null;
+		return player.getFigure(pos);
 	}
-
 }

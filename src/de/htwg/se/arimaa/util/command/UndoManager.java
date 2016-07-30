@@ -29,10 +29,27 @@ public class UndoManager {
 		if (!redoStack.isEmpty()) {
 			topCommand = redoStack.pop();
 			topCommand.redoCommand();
+			undoStack.push(topCommand); //switch forth
 		}
 	}
 
 	public void reset() {
 		undoStack.clear();
 	}
+	
+	@Override
+	public String toString() {
+        StringBuilder sb = new StringBuilder();
+		
+        Deque<UndoableCommand> tmpStack = undoStack;
+        
+        int i = tmpStack.size();
+        for (UndoableCommand uC : tmpStack) {
+        	sb.append(i-- + " ");
+        	sb.append(uC.toString() + "\n");
+		}
+		
+		return sb.toString();
+	}
+	
 }
