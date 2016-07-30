@@ -11,5 +11,7 @@ public enum  GameStatus {
     WIN_SILVER,
     PRECONDITIONRULES_VIOLATED, 
     POSTCONDITIONRULES_VIOLATED, 
-    EMPTYCELL,  
+    EMPTYCELL, 
+    REDO, 
+    UNDO,  
 }

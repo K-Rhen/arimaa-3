@@ -24,6 +24,8 @@ public class StatusMessage {
         text.put(GameStatus.PRECONDITIONRULES_VIOLATED, "PRECONDITIONRULES_VIOLATED");
         text.put(GameStatus.POSTCONDITIONRULES_VIOLATED, "POSTCONDITIONRULES_VIOLATED");
         text.put(GameStatus.EMPTYCELL, "EMPTYCELL");
-          
+        text.put(GameStatus.REDO, "REDO");
+        text.put(GameStatus.UNDO, "UNDO");
+        
     }
 }

@@ -42,6 +42,10 @@ public class TextUI implements IObserver {
 			LOGGER.entry(helpText());
 		} else if (inputLine.matches("c")) {
 			controller.changePlayer();
+		} else if (inputLine.matches("u")) {
+			controller.undo();
+		} else if (inputLine.matches("r")) {
+			controller.redo();
 		} else if (inputLine.matches("[a-h][1-8]-[a-h][1-8]")) {
 			moveFigureByString(inputLine);
 		}else{
@@ -57,6 +61,8 @@ public class TextUI implements IObserver {
 		sb.append("\nUse:\n");
 		sb.append("  a2-a3     -> move figure       [fromPosition-toPostion]\n");
 		sb.append("  c         -> change player\n");
+		sb.append("  u         -> undo last move\n");
+		sb.append("  r         -> redo last move\n");
 		sb.append("  q         -> exit the programm\n");
 		return sb.toString();
 	}

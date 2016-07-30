@@ -82,13 +82,16 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public void undo() {
 		undoManager.undoCommand();
+		
+		status = GameStatus.UNDO;
 		notifyObservers();
 	}
 
 	@Override
 	public void redo() {
 		undoManager.redoCommand();
-		// status = GameStatus.REDO;
+		
+	    status = GameStatus.REDO;
 		notifyObservers();
 	}
 

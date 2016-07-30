@@ -15,6 +15,7 @@ public class UndoManager {
 	public void doCommand(UndoableCommand newCommand) {
 		newCommand.doCommand();
 		undoStack.push(newCommand);
+		redoStack = new LinkedList<UndoableCommand>(); //delete old branch
 	}
 
 	public void undoCommand() {
@@ -48,7 +49,7 @@ public class UndoManager {
         	sb.append(i-- + " ");
         	sb.append(uC.toString() + "\n");
 		}
-		
+
 		return sb.toString();
 	}
 	
