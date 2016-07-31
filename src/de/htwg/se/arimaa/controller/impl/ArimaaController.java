@@ -41,7 +41,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		
 		undoManager = new UndoManager();
 
-		status = GameStatus.IDEL;
+		status = GameStatus.CREATE;
 		statusText = "";
 	}
 
