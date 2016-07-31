@@ -57,4 +57,12 @@ public class UndoManager {
 		return sb.toString();
 	}
 
+	public boolean isUndoListEmpty() {
+		return undoStack.isEmpty();
+	}
+
+	public boolean isRedoListEmpty() {
+		return redoStack.isEmpty();
+	}
+
 }

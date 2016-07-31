@@ -59,7 +59,8 @@ public class ButtonPanel extends JPanel implements IObserver {
 
 	@Override
 	public void update(Event e) {
-		// TODO Auto-generated method stub
+			undoButton.setEnabled(!controller.isUndoListEmpty());
+			redoButton.setEnabled(!controller.isRedoListEmpty());
 	}
 
 }

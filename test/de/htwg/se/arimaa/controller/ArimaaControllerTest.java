@@ -114,4 +114,21 @@ public class ArimaaControllerTest {
 		String isText = controller.getMoveHistoryText();
 		assertEquals(ougthText, isText);
 	}
+
+	@Test
+	public void testIsUndoRedoListEmpty(){
+		assertTrue(controller.isUndoListEmpty());
+		assertTrue(controller.isRedoListEmpty());
+	
+		controller.moveFigure(new Position(0, 6), new Position(0, 5));
+	
+		assertFalse(controller.isUndoListEmpty());
+		assertTrue(controller.isRedoListEmpty());
+		
+		controller.undo();
+		
+		assertTrue(controller.isUndoListEmpty());
+		assertFalse(controller.isRedoListEmpty());
+
+	}
 }

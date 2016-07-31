@@ -112,8 +112,20 @@ public interface IArimaaController extends IObservable {
 	/**
 	 * get the History of moves as String
 	 * 
-	 * @return hitory of moves
+	 * @return history of moves
 	 */
 	String getMoveHistoryText();
+	
+	/**
+	 * tells if the undo list is empty
+	 * @return true if empty, else false
+	 */
+	boolean isUndoListEmpty();
+	
+	/**
+	 * tells if the redo list is empty
+	 * @return true if empty, else false
+	 */
+	boolean isRedoListEmpty();
 
 }

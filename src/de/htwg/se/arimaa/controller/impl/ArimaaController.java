@@ -163,4 +163,14 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 		return player.getFigure(pos);
 	}
+
+	@Override
+	public boolean isUndoListEmpty() {
+		return undoManager.isUndoListEmpty();
+	}
+
+	@Override
+	public boolean isRedoListEmpty() {
+		return undoManager.isRedoListEmpty();
+	}
 }
