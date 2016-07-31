@@ -85,8 +85,33 @@ public class ArimaaControllerTest {
 	public void testGetPlayerNamebyPosition() {
 		assertEquals(PLAYER_NAME.GOLD, controller.getPlayerNamebyPosition(new Position(0, 6)));
 		assertEquals(PLAYER_NAME.SILVER, controller.getPlayerNamebyPosition(new Position(0, 1)));
-		
+
 		assertEquals(null, controller.getPlayerNamebyPosition(new Position(0, 2)));
 	}
 
+	@Test
+	public void testUndoRedo() {
+		controller.moveFigure(new Position(0, 6), new Position(0, 5));
+		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 6)));
+		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 5)));
+		
+		controller.undo();
+		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 6)));
+		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 5)));
+		
+		controller.redo();
+		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 6)));
+		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 5)));
+	}
+
+	@Test
+	public void testGetMoveHistoryText(){
+		assertEquals("", controller.getMoveHistoryText());
+		
+		controller.moveFigure(new Position(0, 6), new Position(0, 5));
+		
+		String ougthText = "1 GOLD: a2-a3\n";
+		String isText = controller.getMoveHistoryText();
+		assertEquals(ougthText, isText);
+	}
 }

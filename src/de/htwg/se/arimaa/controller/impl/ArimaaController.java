@@ -22,7 +22,7 @@ import de.htwg.se.arimaa.util.position.Position;
 public class ArimaaController extends Observable implements IArimaaController {
 	private static final Logger LOGGER = LogManager.getLogger(ArimaaController.class.getName());
 
-	private UndoManager undoManager = new UndoManager();
+	private UndoManager undoManager;
 
 	private IPitch pitch;
 	private Rules rules;
@@ -38,6 +38,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 	private void initArimaaController() {
 		pitch = new Pitch();
 		rules = new Rules(pitch);
+		
+		undoManager = new UndoManager();
 
 		status = GameStatus.IDEL;
 		statusText = "";

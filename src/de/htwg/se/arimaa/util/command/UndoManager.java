@@ -6,11 +6,17 @@ import java.util.LinkedList;
 
 public class UndoManager {
 	
-	private static Deque<UndoableCommand> undoStack = new LinkedList<UndoableCommand>();
-	private static Deque<UndoableCommand> redoStack = new LinkedList<UndoableCommand>();
+	private Deque<UndoableCommand> undoStack;
+	private Deque<UndoableCommand> redoStack;
 
-	private static UndoableCommand topCommand;
+	private UndoableCommand topCommand;
 
+	public UndoManager() {
+		 undoStack = new LinkedList<UndoableCommand>();
+		 redoStack = new LinkedList<UndoableCommand>();
+		 topCommand = null;
+	}
+	
 
 	public void doCommand(UndoableCommand newCommand) {
 		newCommand.doCommand();
