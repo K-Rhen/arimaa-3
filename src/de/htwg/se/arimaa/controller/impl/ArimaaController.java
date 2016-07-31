@@ -20,8 +20,6 @@ import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class ArimaaController extends Observable implements IArimaaController {
-	private static final Logger LOGGER = LogManager.getLogger(ArimaaController.class.getName());
-
 	private UndoManager undoManager;
 
 	private IPitch pitch;
@@ -107,7 +105,6 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return pitch.toString();
 	}
 
-	// TODO refactro
 	@Override
 	public boolean moveFigure(Position from, Position to) {
 		// Preconditions

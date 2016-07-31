@@ -1,7 +1,6 @@
 package de.htwg.se.arimaa.aview.gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -13,17 +12,16 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
@@ -39,10 +37,10 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	BufferedImage pitchImage;
 	Point pitchSizePoint = new Point(400, 400);
-	EnumMap<FIGURE_NAME, BufferedImage> figuresImageGold;
-	EnumMap<FIGURE_NAME, BufferedImage> figuresImageSilver;
+	Map<FIGURE_NAME, BufferedImage> figuresImageGold;
+	Map<FIGURE_NAME, BufferedImage> figuresImageSilver;
 	Point figureSize = new Point(50, 50);
-	Point offsetPitch = new Point(20,20);//new Point(20, 45);
+	Point offsetPitch = new Point(20, 20);
 
 	// Mouse
 	MouseFigure mouseFigure = null;
@@ -62,8 +60,7 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	private void initGUI() {
 		this.setBorder(BorderFactory.createTitledBorder("Pitch"));
-		
-		
+
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -87,9 +84,6 @@ public class PitchPanel extends JPanel implements IObserver {
 
 		if (temp != null && mouseFigure != null && !mouseFigure.getFromPosition().equals(temp)) {
 			mouseFigure.setToPosition(temp);
-			System.out
-					.println("From:" + mouseFigure.getFromPosition().toString() + " To:" + mouseFigure.getToPosition());
-
 			controller.moveFigure(mouseFigure.getFromPosition(), mouseFigure.getToPosition());
 		}
 
@@ -126,9 +120,7 @@ public class PitchPanel extends JPanel implements IObserver {
 
 		px = px / figureSize.getX();
 		py = py / figureSize.getY();
-		Position p = new Position((int) px, (int) py);
-
-		return p;
+		return new Position((int) px, (int) py);
 	}
 
 	private boolean isPosInPitch(Point mouse) {
@@ -210,7 +202,7 @@ public class PitchPanel extends JPanel implements IObserver {
 			return figuresImageSilver.get(figureName);
 	}
 
-	private void drawFigures(Graphics2D g2d, EnumMap<FIGURE_NAME, BufferedImage> figuresImage, List<IFigure> figure,
+	private void drawFigures(Graphics2D g2d, Map<FIGURE_NAME, BufferedImage> figuresImage, List<IFigure> figure,
 			Point offset, Point figuresize) {
 		for (IFigure f : figure) {
 			FIGURE_NAME fname = f.getName();
@@ -231,17 +223,6 @@ public class PitchPanel extends JPanel implements IObserver {
 	@Override
 	public void update(Event e) {
 		this.repaint();
-
-		// GameStatus gs = controller.getGameStatus();
-		// if (gs.equals(GameStatus.WIN_GOLD) ||
-		// gs.equals(GameStatus.WIN_SILVER)) {
-		// JOptionPane.showMessageDialog(null,
-		// controller.getCurrentPlayerName().toString() + " win the game", ":D",
-		// JOptionPane.INFORMATION_MESSAGE);
-		// } else if (gs.equals(GameStatus.MOVEFIGURE)) {
-		// this.repaint();
-		// }
-
 	}
 
 }

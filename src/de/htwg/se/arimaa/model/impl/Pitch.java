@@ -3,9 +3,7 @@ package de.htwg.se.arimaa.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
-
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;

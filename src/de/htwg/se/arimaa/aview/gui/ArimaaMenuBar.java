@@ -31,11 +31,11 @@ public class ArimaaMenuBar extends JMenuBar {
 
 	public ArimaaMenuBar(IArimaaController controller, JFrame frame) {
 		this.controller = controller;
-		createFileMenu(controller, frame);
-		createInfoMenu(controller, frame);
+		createFileMenu(controller);
+		createInfoMenu();
 	}
 
-	private void createFileMenu(IArimaaController controller, JFrame frame) {
+	private void createFileMenu(IArimaaController controller) {
 		fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 
@@ -72,7 +72,7 @@ public class ArimaaMenuBar extends JMenuBar {
 		this.add(fileMenu);
 	}
 
-	private void createInfoMenu(IArimaaController controller, JFrame frame) {
+	private void createInfoMenu() {
 		infoMenu = new JMenu("Info");
 		infoMenu.setMnemonic(KeyEvent.VK_F);
 

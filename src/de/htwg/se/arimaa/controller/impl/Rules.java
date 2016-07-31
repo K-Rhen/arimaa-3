@@ -1,7 +1,6 @@
 package de.htwg.se.arimaa.controller.impl;
 
 import de.htwg.se.arimaa.controller.GameStatus;
-import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.util.observer.Observable;

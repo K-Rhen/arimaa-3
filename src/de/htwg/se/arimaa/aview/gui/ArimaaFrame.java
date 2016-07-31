@@ -1,12 +1,8 @@
 package de.htwg.se.arimaa.aview.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -56,6 +52,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 
 		// Closing window handler
 		this.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent we) {
 				controller.quitGame();
 			}

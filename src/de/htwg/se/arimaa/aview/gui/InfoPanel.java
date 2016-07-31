@@ -1,11 +1,8 @@
 package de.htwg.se.arimaa.aview.gui;
 
-import java.awt.Point;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;

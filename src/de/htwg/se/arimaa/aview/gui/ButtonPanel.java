@@ -1,6 +1,5 @@
 package de.htwg.se.arimaa.aview.gui;
 
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,7 +39,7 @@ public class ButtonPanel extends JPanel implements IObserver {
 		undoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				//TODO
+				//TODO set Button disable
 				controller.undo();
 			}
 		});
@@ -51,7 +50,7 @@ public class ButtonPanel extends JPanel implements IObserver {
 		redoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				//TODO
+				//TODO set Button disable
 				controller.redo();
 			}
 		});
@@ -62,7 +61,6 @@ public class ButtonPanel extends JPanel implements IObserver {
 	@Override
 	public void update(Event e) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

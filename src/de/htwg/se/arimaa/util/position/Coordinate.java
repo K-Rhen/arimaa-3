@@ -2,6 +2,9 @@ package de.htwg.se.arimaa.util.position;
 
 public final class Coordinate {
 
+	private Coordinate() {
+	}
+
 	public static Position convert(String input) {
 		if (!input.matches("[a-h][1-8]"))
 			throw new IllegalArgumentException(input + " wrong coordinate formate");

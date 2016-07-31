@@ -4,9 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.htwg.se.arimaa.aview.StatusMessage;
-import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
-import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Event;
 import de.htwg.se.arimaa.util.observer.IObserver;
 import de.htwg.se.arimaa.util.position.Coordinate;
@@ -79,8 +77,6 @@ public class TextUI implements IObserver {
 	public void update(Event e) {
 		// Show TUI
 		LOGGER.entry(toString());
-		// GameStatus gs = controller.getGameStatus();
-
 	}
 
 }
