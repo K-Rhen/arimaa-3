@@ -38,12 +38,12 @@ public class PlayerTest {
 		assertEquals(null, player.getFigure(start));
 		assertEquals(FIGURE_NAME.R, player.getFigure(end));
 	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testMoveFigureException(){
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testMoveFigureException() {
 		Position start = new Position(0, 1);
 		Position end = new Position(0, 0);
-		
+
 		player.moveFigure(start, end);
 	}
 
@@ -60,9 +60,9 @@ public class PlayerTest {
 		assertTrue(player.deleteFigure(new Position(1, 1)));
 		assertFalse(player.deleteFigure(new Position(1, 1)));
 	}
-	
+
 	@Test
-	public void testGetFigures(){
+	public void testGetFigures() {
 		assertEquals(figures, player.getFigures());
 	}
 }

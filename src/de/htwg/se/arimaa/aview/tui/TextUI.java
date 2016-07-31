@@ -46,8 +46,8 @@ public class TextUI implements IObserver {
 			controller.redo();
 		} else if (inputLine.matches("[a-h][1-8]-[a-h][1-8]")) {
 			moveFigureByString(inputLine);
-		}else{
-			LOGGER.entry("\'"+inputLine +"\' is a wrong input, type h for help");
+		} else {
+			LOGGER.entry("\'" + inputLine + "\' is a wrong input, type h for help");
 		}
 
 		// Print pitch

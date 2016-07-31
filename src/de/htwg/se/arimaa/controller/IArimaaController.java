@@ -46,8 +46,6 @@ public interface IArimaaController extends IObservable {
 	 */
 	PLAYER_NAME getCurrentPlayerName();
 
-	
-
 	/**
 	 * get the current pitch view
 	 */
@@ -68,7 +66,7 @@ public interface IArimaaController extends IObservable {
 	 * init a new game
 	 */
 	void createNewGame();
-	
+
 	/**
 	 * undo the last move
 	 */
@@ -78,7 +76,6 @@ public interface IArimaaController extends IObservable {
 	 * redo the last move
 	 */
 	void redo();
-	
 
 	/**
 	 * get all gold figures
@@ -93,29 +90,30 @@ public interface IArimaaController extends IObservable {
 	 * @return silver figures
 	 */
 	List<IFigure> getSilverFigures();
-	
 
-
-/**
- * get the figure name from a Position of the pitch
- * @param pos on the pitch
- * @return figure name, else null 
- */
+	/**
+	 * get the figure name from a Position of the pitch
+	 * 
+	 * @param pos
+	 *            on the pitch
+	 * @return figure name, else null
+	 */
 	FIGURE_NAME getFigureNamebyPosition(Position pos);
-	
+
 	/**
 	 * get the player name of the figure
-	 * @param pos on the pitch
+	 * 
+	 * @param pos
+	 *            on the pitch
 	 * @return player name, else null
 	 */
 	PLAYER_NAME getPlayerNamebyPosition(Position pos);
 
-
-
 	/**
 	 * get the History of moves as String
+	 * 
 	 * @return hitory of moves
 	 */
 	String getMoveHistoryText();
-	
+
 }

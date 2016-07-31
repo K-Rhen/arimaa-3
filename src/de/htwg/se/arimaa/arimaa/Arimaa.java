@@ -23,7 +23,7 @@ public class Arimaa {
 
 		controller = injector.getInstance(IArimaaController.class);
 		tui = new TextUI(controller);
-		 gui = new ArimaaFrame(controller);
+		gui = new ArimaaFrame(controller);
 
 		// init new game
 		controller.createNewGame();
@@ -53,7 +53,7 @@ public class Arimaa {
 
 		scanner = new Scanner(System.in);
 		while (!game.exit()) {
-			 game.tui.processInputLine(scanner.next());
+			game.tui.processInputLine(scanner.next());
 		}
 
 	}

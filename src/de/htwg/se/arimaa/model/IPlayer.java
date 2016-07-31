@@ -29,7 +29,8 @@ public interface IPlayer {
 	 *            position
 	 * @param end
 	 *            position
-	 * @throws IllegalArgumentException if figure on start position not there
+	 * @throws IllegalArgumentException
+	 *             if figure on start position not there
 	 */
 	void moveFigure(Position start, Position end);
 

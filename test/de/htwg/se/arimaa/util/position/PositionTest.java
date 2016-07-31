@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import de.htwg.se.arimaa.util.position.Position;
 
-
 public class PositionTest {
 
 	Position position;
@@ -72,13 +71,13 @@ public class PositionTest {
 		Position pos1 = new Position(0, 0);
 		Position pos2 = new Position(0, 0);
 		assertEquals(pos1.hashCode(), pos2.hashCode());
-		
+
 		Position pos3 = new Position(1, 1);
 		assertNotEquals(pos1.hashCode(), pos3.hashCode());
 	}
-	
+
 	@Test
-	public void testToString(){
+	public void testToString() {
 		String target = "(0, 1)";
 		assertEquals(target, position.toString());
 	}

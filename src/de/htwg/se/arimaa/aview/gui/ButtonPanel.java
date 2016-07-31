@@ -17,11 +17,11 @@ public class ButtonPanel extends JPanel implements IObserver {
 	JButton playerChangeButton;
 	JButton undoButton;
 	JButton redoButton;
-	
-	 public ButtonPanel(IArimaaController controller) {
+
+	public ButtonPanel(IArimaaController controller) {
 		this.controller = controller;
 		controller.addObserver(this);
-		
+
 		initButtons();
 	}
 
@@ -34,28 +34,27 @@ public class ButtonPanel extends JPanel implements IObserver {
 			}
 		});
 		this.add(playerChangeButton);
-		
+
 		undoButton = new JButton("<-");
 		undoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				//TODO set Button disable
+				// TODO set Button disable
 				controller.undo();
 			}
 		});
 		this.add(undoButton);
-		
-		
+
 		redoButton = new JButton("->");
 		redoButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				//TODO set Button disable
+				// TODO set Button disable
 				controller.redo();
 			}
 		});
 		this.add(redoButton);
-		
+
 	}
 
 	@Override

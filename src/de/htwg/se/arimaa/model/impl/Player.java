@@ -30,12 +30,12 @@ public class Player implements IPlayer {
 		}
 		return null;
 	}
-   
+
 	@Override
 	public void moveFigure(Position start, Position end) {
-		if(getFigure(start) == null)
-			throw new IllegalArgumentException("No figure on "+ start.toString());
-		
+		if (getFigure(start) == null)
+			throw new IllegalArgumentException("No figure on " + start.toString());
+
 		for (IFigure cr : figures) {
 			if (cr.getPosition().equals(start)) {
 				cr.setPosition(end);
@@ -43,20 +43,20 @@ public class Player implements IPlayer {
 			}
 		}
 	}
-	
+
 	@Override
-	public boolean deleteFigure(Position pos){
-		if(getFigure(pos) == null)
+	public boolean deleteFigure(Position pos) {
+		if (getFigure(pos) == null)
 			return false;
-		for(int i = 0; i < figures.size(); i++){
-			if(figures.get(i).getPosition().equals(pos))
+		for (int i = 0; i < figures.size(); i++) {
+			if (figures.get(i).getPosition().equals(pos))
 				figures.remove(i);
 		}
 		return true;
 	}
 
-    @Override
-	public List<IFigure> getFigures(){
+	@Override
+	public List<IFigure> getFigures() {
 		return figures;
 	}
 

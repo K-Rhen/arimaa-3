@@ -12,7 +12,7 @@ public class InfoPanel extends JPanel implements IObserver {
 
 	JLabel actPlayerLabel;
 	JLabel moveRemainLabel;
-	
+
 	public InfoPanel(IArimaaController controller) {
 		this.controller = controller;
 		controller.addObserver(this);
@@ -23,26 +23,24 @@ public class InfoPanel extends JPanel implements IObserver {
 	private void iniInfoPanel() {
 		actPlayerLabel = new JLabel(getPlayerText());
 		this.add(actPlayerLabel);
-		
+
 		moveRemainLabel = new JLabel(getMoveRemainText());
 		this.add(moveRemainLabel);
 
 	}
 
-	private String getPlayerText(){
+	private String getPlayerText() {
 		return "Player: " + controller.getCurrentPlayerName();
 	}
-	
-	private String getMoveRemainText(){
+
+	private String getMoveRemainText() {
 		return "Moves: " + controller.getRemainingMoves();
 	}
-	
+
 	@Override
 	public void update(Event e) {
-		//GameStatus gs = controller.getGameStatus();
-
-			actPlayerLabel.setText(getPlayerText());
-			moveRemainLabel.setText(getMoveRemainText());
+		actPlayerLabel.setText(getPlayerText());
+		moveRemainLabel.setText(getMoveRemainText());
 	}
 
 }

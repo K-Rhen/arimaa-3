@@ -2,9 +2,6 @@ package de.htwg.se.arimaa.controller.impl;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.inject.Inject;
 
 import de.htwg.se.arimaa.controller.GameStatus;
@@ -36,7 +33,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	private void initArimaaController() {
 		pitch = new Pitch();
 		rules = new Rules(pitch);
-		
+
 		undoManager = new UndoManager();
 
 		status = GameStatus.CREATE;
@@ -82,7 +79,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public void undo() {
 		undoManager.undoCommand();
-		
+
 		status = GameStatus.UNDO;
 		notifyObservers();
 	}
@@ -90,8 +87,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public void redo() {
 		undoManager.redoCommand();
-		
-	    status = GameStatus.REDO;
+
+		status = GameStatus.REDO;
 		notifyObservers();
 	}
 
@@ -142,30 +139,25 @@ public class ArimaaController extends Observable implements IArimaaController {
 		return pitch.getSilverPlayer().getFigures();
 	}
 
-
-
 	@Override
 	public String getMoveHistoryText() {
 		return undoManager.toString();
 	}
 
-	
-
-
 	@Override
 	public PLAYER_NAME getPlayerNamebyPosition(Position pos) {
 		IPlayer player = pitch.getPlayer(pos);
-		
+
 		if (player == null)
 			return null;
-		
+
 		return player.getPlayerName();
 	}
-	
+
 	@Override
 	public FIGURE_NAME getFigureNamebyPosition(Position pos) {
 		IPlayer player = pitch.getPlayer(pos);
-			
+
 		if (player == null)
 			return null;
 

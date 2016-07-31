@@ -21,7 +21,7 @@ public class FigureTest {
 
 	@Test
 	public void testSetPositon() {
-		figure.setPosition(new Position(1,1));
+		figure.setPosition(new Position(1, 1));
 		pos = new Position(1, 1);
 
 		assertTrue(pos.equals(figure.getPosition()));
@@ -31,25 +31,10 @@ public class FigureTest {
 	public void testGetName() {
 		assertEquals(FIGURE_NAME.R, figure.getName());
 	}
-	
+
 	@Test
-	public void testToString(){
+	public void testToString() {
 		String ougthText = "{R (0, 0)}";
 		assertEquals(ougthText, figure.toString());
 	}
-	
-//	@Test
-//	public void testEquals(){
-//		IFigure testFigure = new Figure(new Position(0,0), FIGURE_NAME.R);
-//		
-//		assertTrue(figure.equals(testFigure));
-//		
-//		testFigure.setPosition(new Position(1, 1));
-//		assertFalse(figure.equals(testFigure));
-//		
-//		
-//		assertFalse(figure.equals(null));
-//		assertFalse(figure.equals(this));
-//		
-//	}
 }

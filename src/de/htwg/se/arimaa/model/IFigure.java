@@ -6,7 +6,9 @@ public interface IFigure {
 
 	/**
 	 * set the position of the figure
-	 * @param newpos position
+	 * 
+	 * @param newpos
+	 *            position
 	 */
 	void setPosition(Position pos);
 
@@ -19,10 +21,9 @@ public interface IFigure {
 
 	/**
 	 * get the name of the figure
+	 * 
 	 * @return name
 	 */
 	FIGURE_NAME getName();
-	
-	
 
 }

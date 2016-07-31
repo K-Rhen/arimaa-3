@@ -27,12 +27,10 @@ public class Figure implements IFigure {
 	public FIGURE_NAME getName() {
 		return name;
 	}
-	
 
 	@Override
 	public String toString() {
 		return "{" + name + " " + position.toString() + "}";
 	}
-
 
 }

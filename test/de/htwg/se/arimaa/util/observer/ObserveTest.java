@@ -7,16 +7,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ObserveTest {
-	private boolean ping=false;
+	private boolean ping = false;
 	private ObserverTest testObserver;
 	private Observable testObservable;
-	
+
 	class ObserverTest implements IObserver {
-		//@Override
+		// @Override
 		public void update(Event e) {
-			ping=true;
+			ping = true;
 		}
-		
+
 	}
 
 	@Before
@@ -32,7 +32,7 @@ public class ObserveTest {
 		testObservable.notifyObservers();
 		assertTrue(ping);
 	}
-	
+
 	@Test
 	public void testRemove() {
 		assertFalse(ping);
@@ -40,7 +40,7 @@ public class ObserveTest {
 		testObservable.notifyObservers();
 		assertFalse(ping);
 	}
-	
+
 	@Test
 	public void testRemoveAll() {
 		assertFalse(ping);

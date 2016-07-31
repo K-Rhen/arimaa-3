@@ -27,17 +27,16 @@ public class Rules extends Observable {
 	}
 
 	// TODO precondition RULES
-	public boolean precondition( Position from, Position to) {
+	public boolean precondition(Position from, Position to) {
 		IPlayer player = pitch.getPlayer(from);
-		
+
 		// figure position is empty from given player
-		if(player == null){
-			statusText = "No figure on "+ Coordinate.convert(from);
+		if (player == null) {
+			statusText = "No figure on " + Coordinate.convert(from);
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
 		}
-		
-		
+
 		// no moves remain
 		if (pitch.getRemainingMoves() == 0) {
 			statusText = "No remain moves";
@@ -45,23 +44,20 @@ public class Rules extends Observable {
 			return false;
 		}
 
-	
-		
 		// TODO figure not trapped
 
-		//TODO move steps
+		// TODO move steps
 		pitch.reduceRemainingMoves(0);
-		
+
 		return true;
 	}
 
 	// TODO postcondition RULELS
-	public boolean postcondition( Position from, Position to) {
-	
-		
+	public boolean postcondition(Position from, Position to) {
+
 		// TODO is finish rule
 		// TODO TRAPP rule
-		
+
 		return true;
 	}
 }

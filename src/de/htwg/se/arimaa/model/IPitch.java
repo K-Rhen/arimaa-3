@@ -41,7 +41,8 @@ public interface IPitch {
 	/**
 	 * return the player of the figure on the position
 	 * 
-	 * @param pos postiton on ptich
+	 * @param pos
+	 *            postiton on ptich
 	 * @return null, if no player have on this position a figure
 	 */
 	IPlayer getPlayer(Position pos);

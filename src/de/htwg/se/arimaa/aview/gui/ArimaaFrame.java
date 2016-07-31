@@ -26,7 +26,6 @@ public class ArimaaFrame extends JFrame implements IObserver {
 	private InfoPanel infoPanel;
 	private PitchPanel pitchPanel;
 
-	
 	private ButtonPanel buttonPanel;
 	private StatusPanel statusPanel;
 
@@ -46,9 +45,8 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		this.setJMenuBar(new ArimaaMenuBar(controller, this));
 		pane = getContentPane();
 		pane.setLayout(new BorderLayout());
-		
+
 		constructArimaaPane(controller);
-		
 
 		// Closing window handler
 		this.addWindowListener(new WindowAdapter() {
@@ -59,40 +57,37 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		});
 	}
 
-	private void constructArimaaPane(IArimaaController controller) {	
+	private void constructArimaaPane(IArimaaController controller) {
 		JPanel centerPanel = new JPanel();
-		pane.add(centerPanel,BorderLayout.CENTER);
-		
-		JPanel leftPanel =new JPanel(new GridLayout(1,0));
-		
-		leftPanel.setPreferredSize(new Dimension(440, 440));	
+		pane.add(centerPanel, BorderLayout.CENTER);
+
+		JPanel leftPanel = new JPanel(new GridLayout(1, 0));
+
+		leftPanel.setPreferredSize(new Dimension(440, 440));
 		centerPanel.add(leftPanel);
-		
+
 		pitchPanel = new PitchPanel(controller);
 		leftPanel.add(pitchPanel);
-			
-		JPanel rightPanel =new JPanel();
+
+		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
 		centerPanel.add(rightPanel);
-		
-		
+
 		infoPanel = new InfoPanel(controller);
 		rightPanel.add(infoPanel);
 
 		moveStatusPanel = new MoveHistoryPanel(controller);
 		rightPanel.add(moveStatusPanel);
-		
+
 		buttonPanel = new ButtonPanel(controller);
 		rightPanel.add(buttonPanel);
 
-
 		statusPanel = new StatusPanel();
-		pane.add(statusPanel,BorderLayout.SOUTH);
+		pane.add(statusPanel, BorderLayout.SOUTH);
 
-			
 		setVisible(true);
 		repaint();
-		
+
 	}
 
 	@Override
