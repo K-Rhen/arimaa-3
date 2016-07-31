@@ -92,8 +92,10 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		statusPanel = new StatusPanel();
 		pane.add(statusPanel,BorderLayout.SOUTH);
 
+			
 		setVisible(true);
 		repaint();
+		
 	}
 
 	@Override

@@ -3,7 +3,9 @@ package de.htwg.se.arimaa.util.position;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class CoordinateTest {
 
@@ -33,10 +35,8 @@ public class CoordinateTest {
 		assertEquals("f1", Coordinate.convert(new Position(5, 7)));
 		assertEquals("g1", Coordinate.convert(new Position(6, 7)));
 		assertEquals("h1", Coordinate.convert(new Position(7, 7)));
-
 	}
 
-	
 	@Test
 	public void testConvertString() {
 		// first row
@@ -48,7 +48,7 @@ public class CoordinateTest {
 		assertTrue(Coordinate.convert("f8").equals(new Position(5, 0)));
 		assertTrue(Coordinate.convert("g8").equals(new Position(6, 0)));
 		assertTrue(Coordinate.convert("h8").equals(new Position(7, 0)));
-	
+
 		// last row
 		assertTrue(Coordinate.convert("a1").equals(new Position(0, 7)));
 		assertTrue(Coordinate.convert("b1").equals(new Position(1, 7)));
@@ -58,7 +58,11 @@ public class CoordinateTest {
 		assertTrue(Coordinate.convert("f1").equals(new Position(5, 7)));
 		assertTrue(Coordinate.convert("g1").equals(new Position(6, 7)));
 		assertTrue(Coordinate.convert("h1").equals(new Position(7, 7)));
-	
 	}
-	
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCovertWrongFormat() {
+		Coordinate.convert("a9");
+	}
+
 }

@@ -8,8 +8,8 @@ public final class Coordinate {
 
 		char[] parts = input.toCharArray();
 
-		int xPos = readPosX(parts[0]);
-		int yPos = readPosY(parts[1]);
+		int xPos = readCharX(parts[0]);
+		int yPos = readCharY(parts[1]);
 		return new Position(xPos, yPos);
 	}
 
@@ -25,31 +25,19 @@ public final class Coordinate {
 	}
 
 	private static char readPosX(int i) {
-		if (i < 0 || i > 7)
-			throw new IllegalArgumentException(i + " wrong coordinate");
-
 		return (char) (i + 97);
 	}
 
 	private static char readPosY(int i) {
-		if (i < 0 || i > 7)
-			throw new IllegalArgumentException(i + " wrong coordinate");
-
 		return (char) (56 - i);
 	}
 
-	private static int readPosX(char c) {
-		if (c < 'a' || c > 'h')
-			throw new IllegalArgumentException(c + " wrong coordinate");
-
+	private static int readCharX(char c) {
 		return c - 97;
 	}
 
-	private static int readPosY(char c) {
-		if (c < '1' || c > '8')
-			throw new IllegalArgumentException(c + " wrong coordinate");
-
-		return  56 - c;
+	private static int readCharY(char c) {
+		return 56 - c;
 	}
 
 }

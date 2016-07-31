@@ -1,4 +1,4 @@
-package de.htwg.util.command;
+package de.htwg.se.arimaa.util.command;
 
 public class TestReceiver {
 	
