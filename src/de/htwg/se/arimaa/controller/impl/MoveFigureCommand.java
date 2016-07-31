@@ -29,23 +29,21 @@ public class MoveFigureCommand implements UndoableCommand {
 
     @Override
     public void doCommand() {
-    	move(from,to,"doCommand");
+    	move(from,to);
     }
 
     @Override
     public void undoCommand() {
-    	move(to,from,"undoCommand");
+    	move(to,from);
     }
     
     @Override
     public void redoCommand() {
-    	move(from,to,"redoCommand");
+    	move(from,to);
     }
     
-    private void move(Position from, Position to, String failMethodeText){
-    	boolean able = player.moveFigure(from, to);
-    	if(!able)
-    		throw new IllegalArgumentException(failMethodeText+ " fail: " + to.toString()+ "-" + from.toString());
+    private void move(Position from, Position to){
+    	player.moveFigure(from, to);
     	
     	pitch.setCurrentPlayer(currentPlayer);
     	pitch.setRemainingMoves(remainingMoves);

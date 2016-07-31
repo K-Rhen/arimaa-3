@@ -14,20 +14,11 @@ import de.htwg.se.arimaa.util.position.Position;
 
 public class PitchTest {
 	IPitch pitch;
-	ArrayList<IFigure> goldFigures = new ArrayList<>();
-	ArrayList<IFigure> silverFigures = new ArrayList<>();
+
 
 	@Before
 	public void setUp() throws Exception {
-		goldFigures.add(new Figure(new Position(0, 7), FIGURE_NAME.R));
-		goldFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.E));
-
-		silverFigures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
-		silverFigures.add(new Figure(new Position(0, 1), FIGURE_NAME.E));
-
 		pitch = new Pitch();
-		pitch.setGoldPlayerFigures(goldFigures);
-		pitch.setSilverPlayerFigures(silverFigures);
 	}
 
 	@Test
@@ -66,28 +57,26 @@ public class PitchTest {
 	@Test
 	public void testToString() {
 		String pitchString = pitch.toString();
-		String oughtPitchString = "+-------------SILVER------------+\n" + "| R |   |   |   |   |   |   |   | 8\n"
-				+ "+---+---+---+---+---+---+---+---+\n" + "| E |   |   |   |   |   |   |   | 7\n"
-				+ "+---+---+---+---+---+---+---+---+\n" + "|   |   | # |   |   | # |   |   | 6\n"
-				+ "+---+---+---+---+---+---+---+---+\n" + "|   |   |   |   |   |   |   |   | 5\n"
-				+ "+---+---+---+---+---+---+---+---+\n" + "|   |   |   |   |   |   |   |   | 4\n"
-				+ "+---+---+---+---+---+---+---+---+\n" + "|   |   | # |   |   | # |   |   | 3\n"
-				+ "+---+---+---+---+---+---+---+---+\n" + "| e |   |   |   |   |   |   |   | 2\n"
-				+ "+---+---+---+---+---+---+---+---+\n" + "| r |   |   |   |   |   |   |   | 1\n"
-				+ "+--------------GOLD-------------+\n" + "  a   b   c   d   e   f   g   h\n";
+		String oughtPitchString = "+-------------SILVER------------+\n"
+				+ "| R | R | R | D | D | R | R | R | 8\n"
+				+ "+---+---+---+---+---+---+---+---+\n"
++ "| R | H | C | L | E | C | H | R | 7\n"
++ "+---+---+---+---+---+---+---+---+\n"
++ "|   |   | # |   |   | # |   |   | 6\n"
++ "+---+---+---+---+---+---+---+---+\n"
++ "|   |   |   |   |   |   |   |   | 5\n"
++ "+---+---+---+---+---+---+---+---+\n"
++ "|   |   |   |   |   |   |   |   | 4\n"
++ "+---+---+---+---+---+---+---+---+\n"
++ "|   |   | # |   |   | # |   |   | 3\n"
++ "+---+---+---+---+---+---+---+---+\n"
++ "| r | h | c | l | e | c | h | r | 2\n"
++ "+---+---+---+---+---+---+---+---+\n"
++ "| r | r | r | d | d | r | r | r | 1\n"
++ "+--------------GOLD-------------+\n"
++ "  a   b   c   d   e   f   g   h\n";
+		
 		assertTrue(oughtPitchString.equals(pitchString));
-	}
-
-	@Test
-	public void testGetAllFiguresOnPitch() {
-		List<IFigure> oughtfigures = new ArrayList<>();
-		oughtfigures.addAll(goldFigures);
-		oughtfigures.addAll(silverFigures);
-		List<IFigure> figures = pitch.getAllFiguresOnPitch();
-
-		assertTrue(oughtfigures.equals(figures));
-		oughtfigures.remove(0);
-		assertFalse(oughtfigures.equals(figures));
 	}
 
 }

@@ -18,11 +18,6 @@ public class Player implements IPlayer {
 	}
 
 	@Override
-	public void setFigures(List<IFigure> figures) {
-		this.figures = figures;
-	}
-	
-	@Override
 	public PLAYER_NAME getPlayerName() {
 		return playerName;
 	}
@@ -37,14 +32,16 @@ public class Player implements IPlayer {
 	}
    
 	@Override
-	public boolean moveFigure(Position start, Position end) {
+	public void moveFigure(Position start, Position end) {
+		if(getFigure(start) == null)
+			throw new IllegalArgumentException("No figure on "+ start.toString());
+		
 		for (IFigure cr : figures) {
 			if (cr.getPosition().equals(start)) {
 				cr.setPosition(end);
-				return true;
+				break;
 			}
 		}
-		return false;
 	}
 	
 	@Override

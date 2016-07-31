@@ -128,15 +128,6 @@ public class Pitch implements IPitch {
 		return null;
 	}
 
-	@Override
-	public void setGoldPlayerFigures(List<IFigure> figures) {
-		goldPlayer.setFigures(figures);
-	}
-
-	@Override
-	public void setSilverPlayerFigures(List<IFigure> figures) {
-		silverPlayer.setFigures(figures);
-	}
 
 	@Override
 	public String toString() {
@@ -198,15 +189,6 @@ public class Pitch implements IPitch {
 			return figureName.toString();
 
 		return null;
-	}
-
-	// TODO need ?
-	@Override
-	public List<IFigure> getAllFiguresOnPitch() {
-		List<IFigure> figures = new ArrayList<>();
-		figures.addAll(goldPlayer.getFigures());
-		figures.addAll(silverPlayer.getFigures());
-		return figures;
 	}
 
 	@Override

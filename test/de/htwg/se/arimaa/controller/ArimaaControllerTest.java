@@ -1,6 +1,8 @@
 package de.htwg.se.arimaa.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,9 +12,7 @@ import com.google.inject.Injector;
 
 import de.htwg.se.arimaa.arimaa.ArimaaModule;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
-import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
-import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class ArimaaControllerTest {
@@ -94,22 +94,22 @@ public class ArimaaControllerTest {
 		controller.moveFigure(new Position(0, 6), new Position(0, 5));
 		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 6)));
 		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 5)));
-		
+
 		controller.undo();
 		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 6)));
 		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 5)));
-		
+
 		controller.redo();
 		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 6)));
 		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 5)));
 	}
 
 	@Test
-	public void testGetMoveHistoryText(){
+	public void testGetMoveHistoryText() {
 		assertEquals("", controller.getMoveHistoryText());
-		
+
 		controller.moveFigure(new Position(0, 6), new Position(0, 5));
-		
+
 		String ougthText = "1 GOLD: a2-a3\n";
 		String isText = controller.getMoveHistoryText();
 		assertEquals(ougthText, isText);

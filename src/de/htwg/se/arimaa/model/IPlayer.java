@@ -7,13 +7,6 @@ import de.htwg.se.arimaa.util.position.Position;
 public interface IPlayer {
 
 	/**
-	 * set the whole figures
-	 * 
-	 * @param figure
-	 */
-	void setFigures(List<IFigure> figures);
-
-	/**
 	 * get name of the player
 	 * 
 	 * @return the name of the player
@@ -36,9 +29,9 @@ public interface IPlayer {
 	 *            position
 	 * @param end
 	 *            position
-	 * @return false if figure on start position not there, else true
+	 * @throws IllegalArgumentException if figure on start position not there
 	 */
-	boolean moveFigure(Position start, Position end);
+	void moveFigure(Position start, Position end);
 
 	/**
 	 * remove figure from player figures list

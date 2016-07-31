@@ -31,13 +31,20 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void testSetFigureChangePositon() {
+	public void testMoveFigure() {
 		Position start = new Position(0, 0);
 		Position end = new Position(0, 1);
-		assertTrue(player.moveFigure(start, end));
+		player.moveFigure(start, end);
+		assertEquals(null, player.getFigure(start));
 		assertEquals(FIGURE_NAME.R, player.getFigure(end));
-
-		assertFalse(player.moveFigure(start, end));
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testMoveFigureException(){
+		Position start = new Position(0, 1);
+		Position end = new Position(0, 0);
+		
+		player.moveFigure(start, end);
 	}
 
 	@Test
