@@ -82,4 +82,21 @@ public class Position {
 
 		return surroundPosition;
 	}
+
+	public static String getDirection(Position from, Position to) {
+		int dx = to.getX() - from.getX();
+		int dy = to.getY() - from.getY();
+		
+		if(dx == 1)
+			return "e";
+		if(dx == -1)
+			return "w";
+		if(dy == 1)
+			return "n";
+		if(dy == -1)
+			return "s";
+		
+		return null;
+	}
+	
 }

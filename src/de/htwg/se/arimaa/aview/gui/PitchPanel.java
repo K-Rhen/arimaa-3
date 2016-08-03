@@ -150,14 +150,14 @@ public class PitchPanel extends JPanel implements IObserver {
 		figuresImageGold.put(FIGURE_NAME.R, loadImage("GoldRabbit"));
 		figuresImageGold.put(FIGURE_NAME.C, loadImage("GoldCat"));
 		figuresImageGold.put(FIGURE_NAME.D, loadImage("GoldDog"));
-		figuresImageGold.put(FIGURE_NAME.H, loadImage("GoldCat"));
+		figuresImageGold.put(FIGURE_NAME.H, loadImage("GoldHorse"));
 		figuresImageGold.put(FIGURE_NAME.M, loadImage("GoldCamel"));
 		figuresImageGold.put(FIGURE_NAME.E, loadImage("GoldElephant"));
 
 		figuresImageSilver.put(FIGURE_NAME.R, loadImage("SilverRabbit"));
 		figuresImageSilver.put(FIGURE_NAME.C, loadImage("SilverCat"));
 		figuresImageSilver.put(FIGURE_NAME.D, loadImage("SilverDog"));
-		figuresImageSilver.put(FIGURE_NAME.H, loadImage("SilverCat"));
+		figuresImageSilver.put(FIGURE_NAME.H, loadImage("SilverHorse"));
 		figuresImageSilver.put(FIGURE_NAME.M, loadImage("SilverCamel"));
 		figuresImageSilver.put(FIGURE_NAME.E, loadImage("SilverElephant"));
 	}

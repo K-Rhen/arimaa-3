@@ -17,6 +17,8 @@ public class MoveFigureCommand implements UndoableCommand {
 	private PLAYER_NAME currentPlayer;
 	private int remainingMoves;
 
+	private String moveNotation;
+
 	public MoveFigureCommand(IPitch pitch, Position from, Position to) {
 		this.pitch = pitch;
 		this.currentPlayer = pitch.getCurrentPlayer();
@@ -43,15 +45,20 @@ public class MoveFigureCommand implements UndoableCommand {
 	}
 
 	private void move(Position from, Position to) {
+		genMoveNotation();
 		player.moveFigure(from, to);
 
 		pitch.setCurrentPlayer(currentPlayer);
 		pitch.setRemainingMoves(remainingMoves);
 	}
 
-	@Override
-	public String toString() {
-		return currentPlayer + ": " + Coordinate.convert(from) + "-" + Coordinate.convert(to);
+	private void genMoveNotation() {
+		moveNotation = pitch.getFigureNameForPitch(from) + "" + Coordinate.convert(from) + ""
+				+ Position.getDirection(from, to);
 	}
 
+	@Override
+	public String toString() {
+		return moveNotation;
+	}
 }

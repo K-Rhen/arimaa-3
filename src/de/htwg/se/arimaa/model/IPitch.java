@@ -75,4 +75,10 @@ public interface IPitch {
 	 */
 	boolean reduceRemainingMoves(int count);
 
+	/**
+	 * Give the figure name as pitch notation 
+	 * @param pos position on pitch
+	 * @return name of the figure for pitch
+	 */
+	String getFigureNameForPitch(Position pos);
 }

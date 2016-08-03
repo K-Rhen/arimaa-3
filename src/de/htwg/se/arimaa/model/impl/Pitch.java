@@ -166,7 +166,7 @@ public class Pitch implements IPitch {
 	private String getCellFigure(Position pos) {
 		StringBuilder sb = new StringBuilder();
 
-		String figureAsString = getStringFigureOnPitch(pos);
+		String figureAsString = getFigureNameForPitch(pos);
 		if (figureAsString != null) {
 			sb.append(figureAsString);
 			sb.append(" ");
@@ -176,7 +176,7 @@ public class Pitch implements IPitch {
 		return sb.toString();
 	}
 
-	private String getStringFigureOnPitch(Position pos) {
+	public String getFigureNameForPitch(Position pos) {
 		FIGURE_NAME figureName = null;
 		figureName = goldPlayer.getFigure(pos);
 		if (figureName != null)
