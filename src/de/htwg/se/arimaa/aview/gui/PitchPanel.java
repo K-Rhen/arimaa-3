@@ -1,6 +1,8 @@
 package de.htwg.se.arimaa.aview.gui;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -8,6 +10,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.EnumMap;
@@ -181,7 +184,9 @@ public class PitchPanel extends JPanel implements IObserver {
 
 		// Draw Mouse Figure
 		if (mouseFigure != null) {
-			drawMouseFigure(g2d);
+		   drawPossiblePosition(g2d);
+
+		   drawMouseFigure(g2d);
 		}
 	}
 
@@ -193,6 +198,18 @@ public class PitchPanel extends JPanel implements IObserver {
 		FIGURE_NAME figureName = mouseFigure.getFigureName();
 		BufferedImage figureImg = getFigureBufferedImage(figureName);
 		g2d.drawImage(figureImg, mouseX, mouseY, figureSize.x, figureSize.y, null);
+	}
+
+	private void drawPossiblePosition(Graphics2D g2d) {
+		List<Position> possibleMoves = controller.getPossibleMoves(mouseFigure.getFromPosition());
+
+		for (Position position : possibleMoves) {
+			Color transparentGreenColour = new Color(0, 200, 0, 100);
+			g2d.setColor(transparentGreenColour);
+			int posX = (int) (position.getX() * figureSize.x + offsetPitch.getX());
+			int posY = (int) (position.getY() * figureSize.y + offsetPitch.getX());
+			g2d.fill(new Rectangle2D.Double(posX, posY, figureSize.x, figureSize.y));
+		}
 	}
 
 	private BufferedImage getFigureBufferedImage(FIGURE_NAME figureName) {

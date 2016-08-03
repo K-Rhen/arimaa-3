@@ -173,4 +173,9 @@ public class ArimaaController extends Observable implements IArimaaController {
 	public boolean isRedoListEmpty() {
 		return undoManager.isRedoListEmpty();
 	}
+
+	@Override
+	public List<Position> getPossibleMoves(Position from) {
+		return rules.getPossibleMoves(from);
+	}
 }

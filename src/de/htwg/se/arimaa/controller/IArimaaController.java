@@ -127,5 +127,12 @@ public interface IArimaaController extends IObservable {
 	 * @return true if empty, else false
 	 */
 	boolean isRedoListEmpty();
+	
+	/**
+	 * get all possible moves from given position an move remains
+	 * @param from the given position
+	 * @return list of possible positions
+	 */
+	List<Position> getPossibleMoves(Position from);
 
 }

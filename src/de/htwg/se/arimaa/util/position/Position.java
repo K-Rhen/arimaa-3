@@ -1,5 +1,8 @@
 package de.htwg.se.arimaa.util.position;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Position {
 	private int x;
 	private int y;
@@ -59,5 +62,24 @@ public class Position {
 	@Override
 	public String toString() {
 		return "(" + x + ", " + y + ")";
+	}
+	
+	public static List<Position> getSurroundPosition(Position pos) {
+		List<Position> surroundPosition = new ArrayList<>();
+
+		// up
+		if (pos.getY() > 0)
+			surroundPosition.add(new Position(pos.getX(), pos.getY() - 1));
+		// down
+		if (pos.getY() < 7)
+			surroundPosition.add(new Position(pos.getX(), pos.getY() + 1));
+		// left
+		if (pos.getX() > 0)
+			surroundPosition.add(new Position(pos.getX() - 1, pos.getY()));
+		// right
+		if (pos.getX() < 7)
+			surroundPosition.add(new Position(pos.getX() + 1, pos.getY()));
+
+		return surroundPosition;
 	}
 }
