@@ -43,7 +43,7 @@ public class Pitch implements IPitch {
 		silverFigures.add(new Figure(new Position(0, 1), FIGURE_NAME.R));
 		silverFigures.add(new Figure(new Position(1, 1), FIGURE_NAME.H));
 		silverFigures.add(new Figure(new Position(2, 1), FIGURE_NAME.C));
-		silverFigures.add(new Figure(new Position(3, 1), FIGURE_NAME.L));
+		silverFigures.add(new Figure(new Position(3, 1), FIGURE_NAME.M));
 		silverFigures.add(new Figure(new Position(4, 1), FIGURE_NAME.E));
 		silverFigures.add(new Figure(new Position(5, 1), FIGURE_NAME.C));
 		silverFigures.add(new Figure(new Position(6, 1), FIGURE_NAME.H));
@@ -60,7 +60,7 @@ public class Pitch implements IPitch {
 		goldFigures.add(new Figure(new Position(0, 6), FIGURE_NAME.R));
 		goldFigures.add(new Figure(new Position(1, 6), FIGURE_NAME.H));
 		goldFigures.add(new Figure(new Position(2, 6), FIGURE_NAME.C));
-		goldFigures.add(new Figure(new Position(3, 6), FIGURE_NAME.L));
+		goldFigures.add(new Figure(new Position(3, 6), FIGURE_NAME.M));
 		goldFigures.add(new Figure(new Position(4, 6), FIGURE_NAME.E));
 		goldFigures.add(new Figure(new Position(5, 6), FIGURE_NAME.C));
 		goldFigures.add(new Figure(new Position(6, 6), FIGURE_NAME.H));
@@ -180,11 +180,11 @@ public class Pitch implements IPitch {
 		FIGURE_NAME figureName = null;
 		figureName = goldPlayer.getFigure(pos);
 		if (figureName != null)
-			return figureName.toString().toLowerCase();
+			return figureName.toString();
 
 		figureName = silverPlayer.getFigure(pos);
 		if (figureName != null)
-			return figureName.toString();
+			return figureName.toString().toLowerCase();
 
 		return null;
 	}

@@ -17,13 +17,13 @@
 +--------------GOLD-------------+
   a   b   c   d   e   f   g   h
 
-silver Player => lower case characters
-gold Player => upper case characters
+silver Player => upper case characters
+gold Player => lower case characters
 
 
 RABBIT = R r
 CAT    = C c
 DOG    = D d
 HORSE  = H h
-CAMEL  = L l
+CAMEL  = M m
 ELEPHANT = E e
