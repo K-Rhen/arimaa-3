@@ -1,7 +1,13 @@
 package de.htwg.se.arimaa.util.command;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
+import de.htwg.se.arimaa.controller.impl.MoveFigureCommand;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 
 public class UndoManager {
 
@@ -46,15 +52,36 @@ public class UndoManager {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
-		Deque<UndoableCommand> tmpStack = undoStack;
+		ArrayList<UndoableCommand> undoList = new ArrayList<>(undoStack);
+		undoList = reverse(undoList);
 
-		int i = tmpStack.size();
-		for (UndoableCommand uC : tmpStack) {
-			sb.append(i-- + " ");
-			sb.append(uC.toString() + "\n");
+		String currentPlayerName = "Silver";
+		int row = 0;
+		for (UndoableCommand uc : undoList) {
+			String line[] = uc.toString().split("#");
+			if (!currentPlayerName.equals(line[0])) {
+				currentPlayerName = line[0];
+
+				if (currentPlayerName.equals(PLAYER_NAME.GOLD.toString()))
+					row++;
+
+				sb.append("\n");
+
+				String playerNameNotation = currentPlayerName.substring(0, 1).toLowerCase();
+				sb.append(row + playerNameNotation + " ");
+			}
+
+			sb.append(line[1] + " ");
 		}
 
 		return sb.toString();
+	}
+
+	private ArrayList<UndoableCommand> reverse(ArrayList<UndoableCommand> undoList) {
+		for (int i = 0, j = undoList.size() - 1; i < j; i++) {
+			undoList.add(i, undoList.remove(j));
+		}
+		return undoList;
 	}
 
 	public boolean isUndoListEmpty() {

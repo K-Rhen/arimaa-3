@@ -30,11 +30,11 @@ public class InfoPanel extends JPanel implements IObserver {
 	}
 
 	private String getPlayerText() {
-		return "Player: " + controller.getCurrentPlayerName();
+		return "player: " + controller.getCurrentPlayerName();
 	}
 
 	private String getMoveRemainText() {
-		return "Moves: " + controller.getRemainingMoves();
+		return "moves: " + controller.getRemainingMoves();
 	}
 
 	@Override

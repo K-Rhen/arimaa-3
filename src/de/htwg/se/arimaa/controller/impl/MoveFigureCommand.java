@@ -53,7 +53,7 @@ public class MoveFigureCommand implements UndoableCommand {
 	}
 
 	private void genMoveNotation() {
-		moveNotation = pitch.getFigureNameForPitch(from) + "" + Coordinate.convert(from) + ""
+		moveNotation = currentPlayer + "#"+pitch.getFigureNameForPitch(from) + "" + Coordinate.convert(from) + ""
 				+ Position.getDirection(from, to);
 	}
 

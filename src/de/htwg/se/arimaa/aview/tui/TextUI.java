@@ -24,7 +24,7 @@ public class TextUI implements IObserver {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nif you lost, type h\n");
-		sb.append("\nturn: " + controller.getCurrentPlayerName().toString() + "  remaining moves: "
+		sb.append("\nplayer: " + controller.getCurrentPlayerName().toString() + "  moves: "
 				+ controller.getRemainingMoves() + "\n");
 		sb.append(controller.currentPitchView());
 		sb.append("INFO: " + StatusMessage.text.get(controller.getGameStatus()) + "\n");
