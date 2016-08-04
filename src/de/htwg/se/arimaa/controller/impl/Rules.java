@@ -47,17 +47,26 @@ public class Rules extends Observable {
 			return false;
 		}
 
+		//
+		List<Position> possibleMoves = getPossibleMoves(from);
+		if(!possibleMoves.contains(to)){
+			statusText = Coordinate.convert(to) + " is not a permitted position";
+			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			return false;
+		}
+		
 		// TODO figure not trapped
 
-		// TODO move steps
-		pitch.reduceRemainingMoves(0);
-
+	
 		return true;
 	}
 
 	// TODO postcondition RULELS
 	public boolean postcondition(Position from, Position to) {
+		// TODO move steps
+		pitch.reduceRemainingMoves(1);
 
+		
 		// TODO is finish rule
 		// TODO TRAPP rule
 
@@ -65,49 +74,10 @@ public class Rules extends Observable {
 	}
 
 	public List<Position> getPossibleMoves(Position pos) {
-		List<Position> possibleList = new ArrayList<>();
-
 		List<Position> canditates = new ArrayList<>();
-
-		canditates = Position.getSurroundPosition(pos);
-
 		canditates = Position.getSurroundPosition(pos);
 		removeOccupiedPositons(canditates);
-
-		System.out.println("Start");
-		possibleList = r(canditates, 4);
-		System.out.println("ENDE");
-		return possibleList;
-	}
-
-	private  List<Position> r ( List<Position> p, int deep){
-		deep--;
-		
-		if(deep == 0)
-			return p;
-		
-			
-		List<Position> l = new ArrayList<>();
-		for (Position position : p) {
-			List<Position> k = Position.getSurroundPosition(position);
-			removeOccupiedPositons(k);
-			
-			List<Position> round = r(k,deep);
-						
-			//Add new deep posibilities
-			for (Position q : round) {
-				if(!l.contains(q))
-					l.add(q);
-			}
-		}
-		
-		//Add new possibilities
-		for (Position position : l) {
-			if(!p.contains(position))
-				p.add(position);
-		}
-		
-		return p ;
+		return canditates;
 	}
 
 	private void removeOccupiedPositons(List<Position> positions) {

@@ -110,7 +110,7 @@ public class ArimaaControllerTest {
 
 		controller.moveFigure(new Position(0, 6), new Position(0, 5));
 
-		String ougthText = "1 GOLD: a2-a3\n";
+		String ougthText = "\n1g Ra2n ";
 		String isText = controller.getMoveHistoryText();
 		assertEquals(ougthText, isText);
 	}
