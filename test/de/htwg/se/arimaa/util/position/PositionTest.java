@@ -116,4 +116,13 @@ public class PositionTest {
 		assertTrue(middel.contains(new Position(2, 3)));
 		assertTrue(middel.contains(new Position(4, 3)));
 	}
+	
+	@Test
+	public void testGetDirection(){
+	 assertEquals("n", Position.getDirection(new Position(3, 3), new Position(3, 2)));
+	 assertEquals("e", Position.getDirection(new Position(3, 3), new Position(4, 3)));
+	 assertEquals("s", Position.getDirection(new Position(3, 3), new Position(3, 4)));
+	 assertEquals("w", Position.getDirection(new Position(3, 3), new Position(2, 3)));
+	 assertEquals(null, Position.getDirection(new Position(3, 3), new Position(0, 0)));
+	}
 }

@@ -63,7 +63,7 @@ public class Position {
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}
-	
+
 	public static List<Position> getSurroundPosition(Position pos) {
 		List<Position> surroundPosition = new ArrayList<>();
 
@@ -86,17 +86,17 @@ public class Position {
 	public static String getDirection(Position from, Position to) {
 		int dx = to.getX() - from.getX();
 		int dy = to.getY() - from.getY();
-		
-		if(dx == 1)
-			return "e";
-		if(dx == -1)
-			return "w";
-		if(dy == 1)
+
+		if (dx == 0 && dy == -1)
 			return "n";
-		if(dy == -1)
+		else if (dx == 1 && dy == 0)
+			return "e";
+		else if (dx == 0 && dy == 1)
 			return "s";
-		
+		else if (dx == -1 && dy == 0)
+			return "w";
+
 		return null;
 	}
-	
+
 }
