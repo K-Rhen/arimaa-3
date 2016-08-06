@@ -1,5 +1,6 @@
 package de.htwg.se.arimaa.controller.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.inject.Inject;
@@ -174,6 +175,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public List<Position> getPossibleMoves(Position from) {
+		
 		return rules.getPossibleMoves(from);
 	}
 

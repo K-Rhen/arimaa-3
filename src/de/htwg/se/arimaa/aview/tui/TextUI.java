@@ -76,7 +76,7 @@ public class TextUI implements IObserver {
 	@Override
 	public void update(Event e) {
 		// Show TUI
-		LOGGER.entry(toString());
+		//LOGGER.entry(toString());
 	}
 
 }

@@ -74,6 +74,33 @@ public class ArimaaControllerTest {
 	}
 
 	@Test
+	public void RuelsIsHold(){
+		//Gold Camel
+		assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
+		assertTrue(controller.moveFigure(new Position(3, 5), new Position(3, 4)));
+		controller.changePlayer();
+		//Silver Camel
+		assertTrue(controller.moveFigure(new Position(3, 1), new Position(3, 2)));
+		assertTrue(controller.moveFigure(new Position(3, 2), new Position(3, 3)));
+		//Silver Elephant
+		assertTrue(controller.moveFigure(new Position(4, 1), new Position(4, 2)));
+		assertTrue(controller.moveFigure(new Position(4, 2), new Position(4, 3)));
+		controller.changePlayer();
+		//Gold Camel go right to Elephant
+		assertTrue(controller.moveFigure(new Position(3, 4), new Position(4, 4)));
+		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+		//Gold Camel want go away from Elephant
+		assertFalse(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+		
+		//Gold Elephant help
+		assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
+		//Gold Camel can now go right
+		assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
+		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+	}
+	
+	@Test
 	public void RuelsNoMoveRemain() {
 		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
 		assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
@@ -82,6 +109,15 @@ public class ArimaaControllerTest {
 		assertFalse(controller.moveFigure(new Position(0, 2), new Position(1, 2)));
 		
 		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());		
+	}
+	
+	@Test
+	public void RuelsToPositionPossibleMove(){
+		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
+		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+		
+		assertFalse(controller.moveFigure(new Position(0, 5), new Position(0, 2)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());	
 	}
 
 	@Test

@@ -64,7 +64,7 @@ public class Position {
 		return "(" + x + ", " + y + ")";
 	}
 
-	public static List<Position> getSurroundPosition(Position pos) {
+	public static List<Position> getSurroundPositionForPitch(Position pos) {
 		List<Position> surroundPosition = new ArrayList<>();
 
 		// up
@@ -82,6 +82,7 @@ public class Position {
 
 		return surroundPosition;
 	}
+	
 
 	public static String getDirection(Position from, Position to) {
 		int dx = to.getX() - from.getX();

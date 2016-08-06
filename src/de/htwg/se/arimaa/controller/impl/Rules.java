@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.htwg.se.arimaa.controller.GameStatus;
+import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
@@ -32,15 +33,23 @@ public class Rules extends Observable {
 
 	// TODO precondition RULES
 	public boolean precondition(Position from, Position to) {
-		
-		// figure position is empty from given player
+
+		// from position is not empty
 		PLAYER_NAME playerName = pitch.getPlayerName(from);
 		if (playerName == null) {
 			statusText = "No figure on " + Coordinate.convert(from);
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
 		}
-
+		
+		// to position is not occupied
+		playerName = pitch.getPlayerName(to);
+		if (playerName != null) {
+			statusText = Coordinate.convert(from) + " is not empty";
+			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			return false;
+		}
+		
 		// no moves remain
 		if (pitch.getRemainingMoves() == 0) {
 			statusText = "No remain moves";
@@ -48,17 +57,59 @@ public class Rules extends Observable {
 			return false;
 		}
 
+		// is hold 
+		if (isHold(from)) {
+			statusText = "Figure is hold";
+			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			return false;
+		}
+
 		// is to position a possible move
 		List<Position> possibleMoves = getPossibleMoves(from);
-		if(!possibleMoves.contains(to)){
+		if (!possibleMoves.contains(to)) {
 			statusText = Coordinate.convert(to) + " is not a permitted position";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
 		}
-		
-		// TODO figure not trapped
 
-	
+		return true;
+	}
+
+	private boolean isHold(Position pos) {
+		List<Position> canditates = new ArrayList<>();
+		canditates = Position.getSurroundPositionForPitch(pos);
+		canditates = getOccupiedPositions(canditates);
+		
+		if(canditates.isEmpty()){
+			System.out.println("CANIDATES EMPTY");
+			return false;
+		}
+			
+		
+		
+		
+		List<Position> ownFigures = new ArrayList<>();
+		PLAYER_NAME playerName = pitch.getPlayerName(pos);
+		ownFigures = getFigursPositionsFromPlayer(playerName, canditates);
+		
+		if(!ownFigures.isEmpty()){
+		System.out.println("OWN FIGURES");
+			return false;
+		}
+		
+		
+		List<Position> otherFigures = new ArrayList<>();
+		otherFigures = getFigursPositionsFromPlayer(PLAYER_NAME.invers(playerName), canditates);
+		
+		FIGURE_NAME own = pitch.getFigureName(pos);
+		FIGURE_NAME otherStrongestFigure = getStrongestFigure(otherFigures);
+		
+		System.out.println(own.compareTo(otherStrongestFigure));
+		if(own.compareTo(otherStrongestFigure) >= 0){
+			System.out.println("STRONGER THAN ANIMY");
+			return false;
+		}
+				
 		return true;
 	}
 
@@ -67,7 +118,6 @@ public class Rules extends Observable {
 		// TODO move steps
 		pitch.reduceRemainingMoves(1);
 
-		
 		// TODO is finish rule
 		// TODO TRAPP rule
 
@@ -76,15 +126,39 @@ public class Rules extends Observable {
 
 	public List<Position> getPossibleMoves(Position pos) {
 		List<Position> canditates = new ArrayList<>();
-		canditates = Position.getSurroundPosition(pos);
-		removeOccupiedPositons(canditates);
+		canditates = Position.getSurroundPositionForPitch(pos);
+
+		canditates.removeAll(getOccupiedPositions(canditates));
+
 		return canditates;
 	}
 
-	private void removeOccupiedPositons(List<Position> positions) {
-		for (int i = positions.size() - 1; i >= 0; i--) {
-			if (pitch.getPlayerName(positions.get(i)) != null)
-				positions.remove(positions.get(i));
+	private FIGURE_NAME getStrongestFigure(List<Position> surroundPosList){
+		FIGURE_NAME figureName = pitch.getFigureName(surroundPosList.get(0));
+		for (Position pos : surroundPosList) {
+			FIGURE_NAME actFigureName = pitch.getFigureName(pos);
+			if (actFigureName.compareTo(figureName) > 1)
+				figureName = actFigureName;
 		}
+		return figureName;
+		
 	}
+	private List<Position> getFigursPositionsFromPlayer(PLAYER_NAME playerName,List<Position> surroundPosList) {
+		List<Position> posList = new ArrayList<>();
+		for (Position pos : surroundPosList) {
+			if (pitch.getPlayerName(pos).equals(playerName))
+				posList.add(pos);
+		}
+		return posList;
+	}
+	
+	private List<Position> getOccupiedPositions(List<Position> surroundPosList) {
+		List<Position> occupied = new ArrayList<>();
+		for (Position pos : surroundPosList) {
+			if (pitch.getPlayerName(pos) != null)
+				occupied.add(pos);
+		}
+		return occupied;
+	}
+
 }
