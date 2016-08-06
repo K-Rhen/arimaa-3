@@ -135,4 +135,10 @@ public interface IArimaaController extends IObservable {
 	 */
 	List<Position> getPossibleMoves(Position from);
 
+	/**
+	 * get state if change player is able
+	 * @return true if able, else false
+	 */
+	boolean isChangePlayerEnable();
+
 }

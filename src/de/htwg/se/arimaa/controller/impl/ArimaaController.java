@@ -121,6 +121,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 		// Move the figure
 		undoManager.doCommand(new MoveFigureCommand(pitch, from, to));
 
+		// change player enable
+
 		// Postconditions
 		if (!rules.postcondition(from, to)) {
 			status = rules.getStatus();
@@ -129,9 +131,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 			return false;
 		}
 
-		
 		status = GameStatus.MOVEFIGURE;
-		statusText = "from "+ Coordinate.convert(from) +"  to " + Coordinate.convert(to);
+		statusText = "from " + Coordinate.convert(from) + "  to " + Coordinate.convert(to);
 		notifyObservers();
 		return true;
 	}
@@ -153,22 +154,12 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public PLAYER_NAME getPlayerNamebyPosition(Position pos) {
-		IPlayer player = pitch.getPlayer(pos);
-
-		if (player == null)
-			return null;
-
-		return player.getPlayerName();
+		return pitch.getPlayerName(pos);
 	}
 
 	@Override
 	public FIGURE_NAME getFigureNamebyPosition(Position pos) {
-		IPlayer player = pitch.getPlayer(pos);
-
-		if (player == null)
-			return null;
-
-		return player.getFigure(pos);
+		return pitch.getFigureName(pos);
 	}
 
 	@Override
@@ -184,5 +175,10 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public List<Position> getPossibleMoves(Position from) {
 		return rules.getPossibleMoves(from);
+	}
+
+	@Override
+	public boolean isChangePlayerEnable() {
+		return pitch.isChangePlayerEable();
 	}
 }

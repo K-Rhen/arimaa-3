@@ -42,6 +42,7 @@ public class Player implements IPlayer {
 				break;
 			}
 		}
+		
 	}
 
 	@Override

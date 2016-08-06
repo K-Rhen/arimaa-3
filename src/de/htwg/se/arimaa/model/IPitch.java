@@ -30,22 +30,13 @@ public interface IPitch {
 	IPlayer getSilverPlayer();
 
 	/**
-	 * Get the player object from the player name
-	 * 
-	 * @param playerName
-	 *            of the player
-	 * @return the player
-	 */
-	IPlayer getPlayer(PLAYER_NAME playerName);
-
-	/**
-	 * return the player of the figure on the position
+	 * return the player name of the figure on the position
 	 * 
 	 * @param pos
-	 *            postiton on ptich
+	 *            position on pitch
 	 * @return null, if no player have on this position a figure
 	 */
-	IPlayer getPlayer(Position pos);
+	PLAYER_NAME getPlayerName(Position pos);
 
 	/**
 	 * change the current player
@@ -81,4 +72,24 @@ public interface IPitch {
 	 * @return name of the figure for pitch
 	 */
 	String getFigureNameForPitch(Position pos);
+
+	/**
+	 * move a figure from a position to a another with no check of correctness
+	 * @param from a position on the pitch, must be a figure on cell
+	 * @param to position on the pitch, must be a free cell
+	 */
+	void moveFigure(Position from, Position to);
+
+	/**
+	 * get the name of the figure
+	 * @param pos a position on the pitch
+	 * @return figure name, else null 
+	 */
+	FIGURE_NAME getFigureName(Position pos);
+
+	/**
+	 * get the state if changing player is able
+	 * @return true if change player is able, else false
+	 */
+	boolean isChangePlayerEable();
 }

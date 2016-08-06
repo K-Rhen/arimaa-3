@@ -11,7 +11,7 @@ public class MoveFigureCommand implements UndoableCommand {
 
 	private Position from;
 	private Position to;
-	private IPlayer player;
+	//private IPlayer player;
 
 	private IPitch pitch;
 	private PLAYER_NAME currentPlayer;
@@ -24,7 +24,6 @@ public class MoveFigureCommand implements UndoableCommand {
 		this.currentPlayer = pitch.getCurrentPlayer();
 		this.remainingMoves = pitch.getRemainingMoves();
 
-		this.player = pitch.getPlayer(from);
 		this.from = from;
 		this.to = to;
 	}
@@ -46,8 +45,8 @@ public class MoveFigureCommand implements UndoableCommand {
 
 	private void move(Position from, Position to) {
 		genMoveNotation();
-		player.moveFigure(from, to);
-
+		pitch.moveFigure(from,to);
+		
 		pitch.setCurrentPlayer(currentPlayer);
 		pitch.setRemainingMoves(remainingMoves);
 	}

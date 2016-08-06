@@ -17,6 +17,8 @@ public class Pitch implements IPitch {
 	private PLAYER_NAME currentPlayer;
 	private int remainingMoves;
 
+	private boolean changePlayerEable;
+
 	private static final int PITCHSIZE = 8;
 
 	public Pitch() {
@@ -28,6 +30,8 @@ public class Pitch implements IPitch {
 
 		currentPlayer = PLAYER_NAME.GOLD;
 		remainingMoves = 4;
+
+		changePlayerEable = false;
 	}
 
 	private void initializeDefaultPitch(List<IFigure> silverFigures, List<IFigure> goldFigures) {
@@ -101,7 +105,7 @@ public class Pitch implements IPitch {
 	public boolean reduceRemainingMoves(int count) {
 		if (remainingMoves == 0)
 			return false;
-		if(remainingMoves - count < 0)
+		if (remainingMoves - count < 0)
 			return false;
 
 		remainingMoves -= count;
@@ -109,7 +113,11 @@ public class Pitch implements IPitch {
 	}
 
 	@Override
-	public IPlayer getPlayer(PLAYER_NAME playerName) {
+	public boolean isChangePlayerEable() {
+		return changePlayerEable;
+	}
+
+	private IPlayer getPlayer(PLAYER_NAME playerName) {
 		if (playerName.equals(PLAYER_NAME.GOLD))
 			return getGoldPlayer();
 		else
@@ -117,15 +125,14 @@ public class Pitch implements IPitch {
 	}
 
 	@Override
-	public IPlayer getPlayer(Position pos) {
+	public PLAYER_NAME getPlayerName(Position pos) {
 		if (getGoldPlayer().getFigure(pos) != null)
-			return getGoldPlayer();
+			return PLAYER_NAME.GOLD;
 		if (getSilverPlayer().getFigure(pos) != null)
-			return getSilverPlayer();
+			return PLAYER_NAME.SILVER;
 
 		return null;
 	}
-
 
 	@Override
 	public String toString() {
@@ -176,6 +183,7 @@ public class Pitch implements IPitch {
 		return sb.toString();
 	}
 
+	@Override
 	public String getFigureNameForPitch(Position pos) {
 		FIGURE_NAME figureName = null;
 		figureName = goldPlayer.getFigure(pos);
@@ -190,13 +198,40 @@ public class Pitch implements IPitch {
 	}
 
 	@Override
+	public FIGURE_NAME getFigureName(Position pos) {
+		FIGURE_NAME figureName = null;
+		figureName = goldPlayer.getFigure(pos);
+		if (figureName != null)
+			return figureName;
+
+		figureName = silverPlayer.getFigure(pos);
+		if (figureName != null)
+			return figureName;
+
+		return null;
+	}
+
+	@Override
 	public void changePlayer() {
+		if (!changePlayerEable)
+			return;
+
 		remainingMoves = 4;
+		changePlayerEable = false;
 
 		if (currentPlayer.equals(PLAYER_NAME.GOLD))
 			currentPlayer = PLAYER_NAME.SILVER;
 		else
 			currentPlayer = PLAYER_NAME.GOLD;
+	}
+
+	@Override
+	public void moveFigure(Position from, Position to) {
+		PLAYER_NAME playerName = getPlayerName(from);
+		IPlayer player = getPlayer(playerName);
+		player.moveFigure(from, to);
+		
+		changePlayerEable = true;
 	}
 
 }

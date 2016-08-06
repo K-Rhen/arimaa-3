@@ -6,6 +6,7 @@ import java.util.List;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Coordinate;
 import de.htwg.se.arimaa.util.position.Position;
@@ -31,10 +32,10 @@ public class Rules extends Observable {
 
 	// TODO precondition RULES
 	public boolean precondition(Position from, Position to) {
-		IPlayer player = pitch.getPlayer(from);
-
+		
 		// figure position is empty from given player
-		if (player == null) {
+		PLAYER_NAME playerName = pitch.getPlayerName(from);
+		if (playerName == null) {
 			statusText = "No figure on " + Coordinate.convert(from);
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
@@ -47,7 +48,7 @@ public class Rules extends Observable {
 			return false;
 		}
 
-		//
+		// is to position a possible move
 		List<Position> possibleMoves = getPossibleMoves(from);
 		if(!possibleMoves.contains(to)){
 			statusText = Coordinate.convert(to) + " is not a permitted position";
@@ -82,7 +83,7 @@ public class Rules extends Observable {
 
 	private void removeOccupiedPositons(List<Position> positions) {
 		for (int i = positions.size() - 1; i >= 0; i--) {
-			if (pitch.getPlayer(positions.get(i)) != null)
+			if (pitch.getPlayerName(positions.get(i)) != null)
 				positions.remove(positions.get(i));
 		}
 	}

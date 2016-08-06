@@ -57,6 +57,7 @@ public class UndoManager {
 
 		String currentPlayerName = "Silver";
 		int row = 0;
+		int collumn = 0;
 		for(int i = 0; i< undoList.size();i++){
 			String line[] = undoList.get(i).toString().split("#");
 			if (!currentPlayerName.equals(line[0])) {
@@ -65,6 +66,11 @@ public class UndoManager {
 				if (currentPlayerName.equals(PLAYER_NAME.GOLD.toString()))
 					row++;
 
+				if(i> 0 && collumn < 4){
+					collumn = 0;
+					sb.append("pass ");
+				}
+				
 				if(i>0)
 				sb.append("\n");
 
@@ -73,6 +79,7 @@ public class UndoManager {
 			}
 
 			sb.append(line[1] + " ");
+			collumn ++;
 		}
 
 		return sb.toString();

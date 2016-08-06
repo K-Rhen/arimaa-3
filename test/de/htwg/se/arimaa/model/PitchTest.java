@@ -31,11 +31,12 @@ public class PitchTest {
 	}
 
 	@Test
-	public void testGetPlayer() {
-		assertEquals(pitch.getGoldPlayer(), pitch.getPlayer(PLAYER_NAME.GOLD));
-		assertEquals(pitch.getSilverPlayer(), pitch.getPlayer(PLAYER_NAME.SILVER));
+	public void testGetPlayerName(){
+		assertEquals(PLAYER_NAME.GOLD, pitch.getPlayerName(new Position(0,6)));
+		assertEquals(PLAYER_NAME.SILVER, pitch.getPlayerName(new Position(0,1)));
+		assertEquals(null, pitch.getPlayerName(new Position(3,3)));
 	}
-
+	
 	@Test
 	public void testReduceRemainingMoves() {
 		assertEquals(4, pitch.getRemainingMoves());
@@ -50,6 +51,26 @@ public class PitchTest {
 		pitch.reduceRemainingMoves(3);
 		assertEquals(0, pitch.getRemainingMoves());
 
+	}
+	
+	@Test
+	public void testChangePlayer(){
+		assertFalse(pitch.isChangePlayerEable());
+		assertEquals(PLAYER_NAME.GOLD, pitch.getCurrentPlayer());
+		pitch.changePlayer();
+		assertEquals(PLAYER_NAME.GOLD, pitch.getCurrentPlayer());
+		
+		
+		pitch.moveFigure(new Position(0, 6), new Position(0, 5));
+		assertTrue(pitch.isChangePlayerEable());
+		pitch.changePlayer();
+		assertEquals(PLAYER_NAME.SILVER, pitch.getCurrentPlayer());
+		assertFalse(pitch.isChangePlayerEable());
+		
+		pitch.moveFigure(new Position(0, 1), new Position(0, 2));
+		assertTrue(pitch.isChangePlayerEable());
+		pitch.changePlayer();
+		assertFalse(pitch.isChangePlayerEable());
 	}
 
 	@Test
