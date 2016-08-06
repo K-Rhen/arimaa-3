@@ -71,6 +71,19 @@ public class ArimaaControllerTest {
 		// move silver figure
 		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
 		assertFalse(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
+		
+		
+	}
+
+	@Test
+	public void RuelsNoMoveRemain() {
+		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
+		assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
+		assertTrue(controller.moveFigure(new Position(0, 4), new Position(0, 3)));
+		assertTrue(controller.moveFigure(new Position(0, 3), new Position(0, 2)));
+		assertFalse(controller.moveFigure(new Position(0, 2), new Position(1, 2)));
+		
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());		
 	}
 
 	@Test

@@ -57,14 +57,15 @@ public class UndoManager {
 
 		String currentPlayerName = "Silver";
 		int row = 0;
-		for (UndoableCommand uc : undoList) {
-			String line[] = uc.toString().split("#");
+		for(int i = 0; i< undoList.size();i++){
+			String line[] = undoList.get(i).toString().split("#");
 			if (!currentPlayerName.equals(line[0])) {
 				currentPlayerName = line[0];
 
 				if (currentPlayerName.equals(PLAYER_NAME.GOLD.toString()))
 					row++;
 
+				if(i>1)
 				sb.append("\n");
 
 				String playerNameNotation = currentPlayerName.substring(0, 1).toLowerCase();
