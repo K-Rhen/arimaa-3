@@ -51,7 +51,7 @@ public class ArimaaControllerTest {
 
 	@Test
 	public void testGetStatusText() {
-		assertEquals("", controller.getStatusText());
+		assertEquals("New game started", controller.getStatusText());
 	}
 
 	@Test
@@ -123,7 +123,7 @@ public class ArimaaControllerTest {
 
 		controller.moveFigure(new Position(0, 6), new Position(0, 5));
 
-		String ougthText = "\n1g Ra2n ";
+		String ougthText = "1g Ra2n ";
 		String isText = controller.getMoveHistoryText();
 		assertEquals(ougthText, isText);
 	}

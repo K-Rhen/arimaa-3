@@ -65,7 +65,7 @@ public class UndoManager {
 				if (currentPlayerName.equals(PLAYER_NAME.GOLD.toString()))
 					row++;
 
-				if(i>1)
+				if(i>0)
 				sb.append("\n");
 
 				String playerNameNotation = currentPlayerName.substring(0, 1).toLowerCase();

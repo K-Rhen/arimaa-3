@@ -61,10 +61,11 @@ public class UndoManagerTest {
 	public void testToString() {
 		undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
 		pitch.changePlayer();
-		undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 5), new Position(0, 6)));
+		undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 1), new Position(0, 2)));
 
-		String ougthText = "\n1g Ra2n \n1s Ra3s ";
+		String ougthText = "1g Ra2n \n1s ra7s ";
 		String isText = undoManager.toString();
+		System.out.println(isText);
 		assertEquals(ougthText, isText);
 	}
 
