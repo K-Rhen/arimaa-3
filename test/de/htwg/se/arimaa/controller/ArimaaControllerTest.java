@@ -44,9 +44,7 @@ public class ArimaaControllerTest {
 	@Test
 	public void testChangePlayer() {
 		controller.changePlayer();
-		assertEquals(PLAYER_NAME.SILVER, controller.getCurrentPlayerName());
-		controller.changePlayer();
-		assertEquals(PLAYER_NAME.GOLD, controller.getCurrentPlayerName());
+		assertEquals(GameStatus.CHANGEPLAYER, controller.getGameStatus());
 	}
 
 	@Test
