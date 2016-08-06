@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
-import de.htwg.se.arimaa.controller.impl.MoveFigureCommand;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 
 public class UndoManager {
