@@ -13,8 +13,8 @@ public class StatusMessage {
 	}
 
 	static {
-		text.put(GameStatus.CREATE, "A new Arimaa pitch was created successfully");
-		text.put(GameStatus.EXIT, "Have a nice day :)");
+		text.put(GameStatus.CREATE, "CREATE");
+		text.put(GameStatus.EXIT, "EXIT");
 		text.put(GameStatus.MOVEFIGURE, "MOVEFIGURE");
 		text.put(GameStatus.CHANGEPLAYER, "CHANGEPLAYER");
 

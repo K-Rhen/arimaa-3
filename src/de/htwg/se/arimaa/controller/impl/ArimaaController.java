@@ -14,6 +14,7 @@ import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.command.UndoManager;
 import de.htwg.se.arimaa.util.observer.Observable;
+import de.htwg.se.arimaa.util.position.Coordinate;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class ArimaaController extends Observable implements IArimaaController {
@@ -37,7 +38,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		undoManager = new UndoManager();
 
 		status = GameStatus.CREATE;
-		statusText = "";
+		statusText = "New game started";
 	}
 
 	@Override
@@ -58,6 +59,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public void quitGame() {
 		status = GameStatus.EXIT;
+		statusText = "Have a nice day ;)";
 		notifyObservers();
 	}
 
@@ -66,6 +68,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		pitch.changePlayer();
 
 		status = GameStatus.CHANGEPLAYER;
+		statusText = pitch.getCurrentPlayer().toString() + " it’s your turn";
 		notifyObservers();
 	}
 
@@ -73,6 +76,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	public void createNewGame() {
 		initArimaaController();
 		status = GameStatus.CREATE;
+		statusText = "New game started";
 		notifyObservers();
 	}
 
@@ -81,6 +85,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		undoManager.undoCommand();
 
 		status = GameStatus.UNDO;
+		statusText = "-";
 		notifyObservers();
 	}
 
@@ -89,6 +94,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		undoManager.redoCommand();
 
 		status = GameStatus.REDO;
+		statusText = "-";
 		notifyObservers();
 	}
 
@@ -106,8 +112,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 	public boolean moveFigure(Position from, Position to) {
 		// Preconditions
 		if (!rules.precondition(from, to)) {
-			statusText = rules.getStatusText();
 			status = rules.getStatus();
+			statusText = rules.getStatusText();
 			notifyObservers();
 			return false;
 		}
@@ -117,14 +123,15 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 		// Postconditions
 		if (!rules.postcondition(from, to)) {
-			statusText = rules.getStatusText();
 			status = rules.getStatus();
+			statusText = rules.getStatusText();
 			notifyObservers();
 			return false;
 		}
 
-		statusText = "";
+		
 		status = GameStatus.MOVEFIGURE;
+		statusText = "from "+ Coordinate.convert(from) +"  to " + Coordinate.convert(to);
 		notifyObservers();
 		return true;
 	}
