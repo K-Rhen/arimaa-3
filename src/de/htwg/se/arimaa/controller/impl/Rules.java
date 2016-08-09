@@ -41,7 +41,7 @@ public class Rules extends Observable {
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
 		}
-		
+
 		// to position is not occupied
 		playerName = pitch.getPlayerName(to);
 		if (playerName != null) {
@@ -49,7 +49,7 @@ public class Rules extends Observable {
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
 		}
-		
+
 		// no moves remain
 		if (pitch.getRemainingMoves() == 0) {
 			statusText = "No remain moves";
@@ -57,18 +57,17 @@ public class Rules extends Observable {
 			return false;
 		}
 
-		// is hold 
+		// is hold
 		if (isHold(from)) {
 			statusText = "Figure is hold";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
 		}
 
-		//-PULL
-		
-		//-PUSH
-		
-		
+		// -PULL
+
+		// -PUSH
+
 		// is to position a possible move
 		List<Position> possibleMoves = getPossibleMoves(from);
 		if (possibleMoves == null || !possibleMoves.contains(to)) {
@@ -84,37 +83,26 @@ public class Rules extends Observable {
 		List<Position> canditates = new ArrayList<>();
 		canditates = Position.getSurroundPositionForPitch(pos);
 		canditates = getOccupiedPositions(canditates);
-		
-		if(canditates.isEmpty()){
-			System.out.println("CANIDATES EMPTY");
+
+		if (canditates.isEmpty())
 			return false;
-		}
-			
-		
-		
-		
+
 		List<Position> ownFigures = new ArrayList<>();
 		PLAYER_NAME playerName = pitch.getPlayerName(pos);
 		ownFigures = getFigursPositionsFromPlayer(playerName, canditates);
-		
-		if(!ownFigures.isEmpty()){
-		System.out.println("OWN FIGURES");
+
+		if (!ownFigures.isEmpty())
 			return false;
-		}
-		
-		
+
 		List<Position> otherFigures = new ArrayList<>();
 		otherFigures = getFigursPositionsFromPlayer(PLAYER_NAME.invers(playerName), canditates);
-		
+
 		FIGURE_NAME own = pitch.getFigureName(pos);
 		FIGURE_NAME otherStrongestFigure = getStrongestFigure(otherFigures);
-		
-		System.out.println(own.compareTo(otherStrongestFigure));
-		if(own.compareTo(otherStrongestFigure) >= 0){
-			System.out.println("STRONGER THAN ANIMY");
+
+		if (own.compareTo(otherStrongestFigure) >= 0)
 			return false;
-		}
-				
+		
 		return true;
 	}
 
@@ -130,10 +118,9 @@ public class Rules extends Observable {
 	}
 
 	public List<Position> getPossibleMoves(Position pos) {
-		if( pitch.getPlayerName(pos) != pitch.getCurrentPlayer())
+		if (pitch.getPlayerName(pos) != pitch.getCurrentPlayer())
 			return null;
-		
-		
+
 		List<Position> canditates = new ArrayList<>();
 		canditates = Position.getSurroundPositionForPitch(pos);
 
@@ -142,20 +129,21 @@ public class Rules extends Observable {
 		return canditates;
 	}
 
-	private FIGURE_NAME getStrongestFigure(List<Position> surroundPosList){
+	private FIGURE_NAME getStrongestFigure(List<Position> surroundPosList) {
 		FIGURE_NAME figureName = null;
 		for (Position pos : surroundPosList) {
-			if(figureName == null)
+			if (figureName == null)
 				figureName = pitch.getFigureName(pos);
-			
+
 			FIGURE_NAME actFigureName = pitch.getFigureName(pos);
 			if (actFigureName.compareTo(figureName) > 0)
 				figureName = actFigureName;
 		}
 		return figureName;
-		
+
 	}
-	private List<Position> getFigursPositionsFromPlayer(PLAYER_NAME playerName,List<Position> surroundPosList) {
+
+	private List<Position> getFigursPositionsFromPlayer(PLAYER_NAME playerName, List<Position> surroundPosList) {
 		List<Position> posList = new ArrayList<>();
 		for (Position pos : surroundPosList) {
 			if (pitch.getPlayerName(pos).equals(playerName))
@@ -163,7 +151,7 @@ public class Rules extends Observable {
 		}
 		return posList;
 	}
-	
+
 	private List<Position> getOccupiedPositions(List<Position> surroundPosList) {
 		List<Position> occupied = new ArrayList<>();
 		for (Position pos : surroundPosList) {
