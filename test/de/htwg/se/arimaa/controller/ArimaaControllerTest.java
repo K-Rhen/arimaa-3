@@ -69,75 +69,6 @@ public class ArimaaControllerTest {
 		// move silver figure
 		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
 		assertFalse(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
-		
-		
-	}
-
-	@Test
-	public void RuelsIsHold(){
-		//Gold Camel
-		assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
-		assertTrue(controller.moveFigure(new Position(3, 5), new Position(3, 4)));
-		controller.changePlayer();
-		//Silver Camel
-		assertTrue(controller.moveFigure(new Position(3, 1), new Position(3, 2)));
-		assertTrue(controller.moveFigure(new Position(3, 2), new Position(3, 3)));
-		//Silver Elephant
-		assertTrue(controller.moveFigure(new Position(4, 1), new Position(4, 2)));
-		assertTrue(controller.moveFigure(new Position(4, 2), new Position(4, 3)));
-		controller.changePlayer();
-		//Gold Camel go right to Elephant
-		assertTrue(controller.moveFigure(new Position(3, 4), new Position(4, 4)));
-		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
-		//Gold Camel want go away from Elephant
-		assertFalse(controller.moveFigure(new Position(4, 4), new Position(3, 4)));
-		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
-		
-		//Gold Elephant help
-		assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
-		//Gold Camel can now go left
-		assertTrue(controller.moveFigure(new Position(4, 4), new Position(3, 4)));
-		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
-		
-		
-		controller.changePlayer();
-		//Silver Elephant surround Gold Camel
-		assertTrue(controller.moveFigure(new Position(4, 3), new Position(4, 4)));
-		controller.changePlayer();
-		//Gold Camel wants to go left but cant
-		assertFalse(controller.moveFigure(new Position(3, 4), new Position(2, 4)));
-		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
-		
-		//Gold Elephant helps
-		assertTrue(controller.moveFigure(new Position(4, 5), new Position(3, 5)));
-		//Gold Camel now can go left
-		assertTrue(controller.moveFigure(new Position(3, 4), new Position(2, 4)));
-		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
-	}
-	
-	@Test
-	public void RuelsNoMoveRemain() {
-		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
-		assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
-		assertTrue(controller.moveFigure(new Position(0, 4), new Position(0, 3)));
-		assertTrue(controller.moveFigure(new Position(0, 3), new Position(0, 2)));
-		assertFalse(controller.moveFigure(new Position(0, 2), new Position(1, 2)));
-		
-		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());		
-	}
-	
-	@Test
-	public void RuelsToPositionPossibleMove(){
-		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
-		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
-		
-		// move a figure a grater distance than 1
-		assertFalse(controller.moveFigure(new Position(0, 5), new Position(0, 2)));
-		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
-		
-		//other player figure wants move and Figure is not pulled or pushed
-		assertFalse(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
-		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 	}
 
 	@Test
@@ -183,17 +114,17 @@ public class ArimaaControllerTest {
 	}
 
 	@Test
-	public void testIsUndoRedoListEmpty(){
+	public void testIsUndoRedoListEmpty() {
 		assertTrue(controller.isUndoListEmpty());
 		assertTrue(controller.isRedoListEmpty());
-	
+
 		controller.moveFigure(new Position(0, 6), new Position(0, 5));
-	
+
 		assertFalse(controller.isUndoListEmpty());
 		assertTrue(controller.isRedoListEmpty());
-		
+
 		controller.undo();
-		
+
 		assertTrue(controller.isUndoListEmpty());
 		assertFalse(controller.isRedoListEmpty());
 

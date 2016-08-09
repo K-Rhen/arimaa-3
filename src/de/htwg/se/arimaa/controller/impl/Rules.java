@@ -34,7 +34,7 @@ public class Rules extends Observable {
 	// TODO precondition RULES
 	public boolean precondition(Position from, Position to) {
 
-		// from position is not empty
+		// from position is empty
 		PLAYER_NAME playerName = pitch.getPlayerName(from);
 		if (playerName == null) {
 			statusText = "No figure on " + Coordinate.convert(from);
@@ -42,7 +42,7 @@ public class Rules extends Observable {
 			return false;
 		}
 
-		// to position is not occupied
+		// to position is occupied
 		playerName = pitch.getPlayerName(to);
 		if (playerName != null) {
 			statusText = Coordinate.convert(from) + " is not empty";
