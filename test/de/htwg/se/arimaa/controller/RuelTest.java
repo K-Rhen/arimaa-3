@@ -52,40 +52,52 @@ public class RuelTest {
 		assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
 		assertTrue(controller.moveFigure(new Position(3, 5), new Position(3, 4)));
 		controller.changePlayer();
-		//Silver Camel
+		//Silver Elephant
 		assertTrue(controller.moveFigure(new Position(3, 1), new Position(3, 2)));
 		assertTrue(controller.moveFigure(new Position(3, 2), new Position(3, 3)));
-		//Silver Elephant
-		assertTrue(controller.moveFigure(new Position(4, 1), new Position(4, 2)));
-		assertTrue(controller.moveFigure(new Position(4, 2), new Position(4, 3)));
+		
 		controller.changePlayer();
-		//Gold Camel go right to Elephant
+		//Gold camel wants to go right
+		assertFalse(controller.moveFigure(new Position(3, 4), new Position(4, 4)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+		//Gold Cat came to help
+		assertTrue(controller.moveFigure(new Position(2, 6), new Position(3, 6)));
+		assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
+		
+		//Gold Camel can no go right
 		assertTrue(controller.moveFigure(new Position(3, 4), new Position(4, 4)));
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
-		//Gold Camel want go away from Elephant
-		assertFalse(controller.moveFigure(new Position(4, 4), new Position(3, 4)));
-		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 		
-		//Gold Elephant help
+		controller.changePlayer();
+		//Silver Camel go down 
+		assertTrue(controller.moveFigure(new Position(4, 1), new Position(4, 2)));
+		assertTrue(controller.moveFigure(new Position(4, 2), new Position(4, 3)));
+		
+		controller.changePlayer();
+		//Gold Camel go left
+		assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
+		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+		
+		controller.changePlayer();
+		//Silver Elephant go down
+		assertTrue(controller.moveFigure(new Position(3, 3), new Position(3, 4)));
+		
+		controller.changePlayer();
+		//Gold Camel go left
+		assertTrue(controller.moveFigure(new Position(5, 4), new Position(4, 4)));
+		//Gold Camel cant go right
+		assertFalse(controller.moveFigure(new Position(4, 4), new Position(4, 5)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+		//Gold Elephants come help
 		assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
-		//Gold Camel can now go left
-		assertTrue(controller.moveFigure(new Position(4, 4), new Position(3, 4)));
+		//Gold Camel no can go right
+		assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+	}
+	
+	@Test
+	public void testIsPulled(){
 		
-		
-		controller.changePlayer();
-		//Silver Elephant surround Gold Camel
-		assertTrue(controller.moveFigure(new Position(4, 3), new Position(4, 4)));
-		controller.changePlayer();
-		//Gold Camel wants to go left but cant
-		assertFalse(controller.moveFigure(new Position(3, 4), new Position(2, 4)));
-		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
-		
-		//Gold Elephant helps
-		assertTrue(controller.moveFigure(new Position(4, 5), new Position(3, 5)));
-		//Gold Camel now can go left
-		assertTrue(controller.moveFigure(new Position(3, 4), new Position(2, 4)));
-		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
 	}
 	
 	@Test

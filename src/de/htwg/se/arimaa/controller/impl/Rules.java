@@ -65,7 +65,12 @@ public class Rules extends Observable {
 		}
 
 		// -PULL
-
+		if (isPulled(from)) {
+			statusText = "Figure is pulled";
+			status = GameStatus.MOVEFIGURE;
+			return true;
+		}
+		
 		// -PUSH
 
 		// is to position a possible move
@@ -77,6 +82,11 @@ public class Rules extends Observable {
 		}
 
 		return true;
+	}
+
+	private boolean isPulled(Position from) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	private boolean isHold(Position pos) {
