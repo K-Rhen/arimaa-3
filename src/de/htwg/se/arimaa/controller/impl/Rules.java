@@ -134,10 +134,13 @@ public class Rules extends Observable {
 	}
 
 	private FIGURE_NAME getStrongestFigure(List<Position> surroundPosList){
-		FIGURE_NAME figureName = pitch.getFigureName(surroundPosList.get(0));
+		FIGURE_NAME figureName = null;
 		for (Position pos : surroundPosList) {
+			if(figureName == null)
+				figureName = pitch.getFigureName(pos);
+			
 			FIGURE_NAME actFigureName = pitch.getFigureName(pos);
-			if (actFigureName.compareTo(figureName) > 1)
+			if (actFigureName.compareTo(figureName) > 0)
 				figureName = actFigureName;
 		}
 		return figureName;

@@ -90,13 +90,28 @@ public class ArimaaControllerTest {
 		assertTrue(controller.moveFigure(new Position(3, 4), new Position(4, 4)));
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
 		//Gold Camel want go away from Elephant
-		assertFalse(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
+		assertFalse(controller.moveFigure(new Position(4, 4), new Position(3, 4)));
 		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 		
 		//Gold Elephant help
 		assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
-		//Gold Camel can now go right
-		assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
+		//Gold Camel can now go left
+		assertTrue(controller.moveFigure(new Position(4, 4), new Position(3, 4)));
+		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+		
+		
+		controller.changePlayer();
+		//Silver Elephant surround Gold Camel
+		assertTrue(controller.moveFigure(new Position(4, 3), new Position(4, 4)));
+		controller.changePlayer();
+		//Gold Camel wants to go left but cant
+		assertFalse(controller.moveFigure(new Position(3, 4), new Position(2, 4)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+		
+		//Gold Elephant helps
+		assertTrue(controller.moveFigure(new Position(4, 5), new Position(3, 5)));
+		//Gold Camel now can go left
+		assertTrue(controller.moveFigure(new Position(3, 4), new Position(2, 4)));
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
 	}
 	
