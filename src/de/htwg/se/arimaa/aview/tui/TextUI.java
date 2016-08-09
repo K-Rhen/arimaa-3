@@ -26,7 +26,7 @@ public class TextUI implements IObserver {
 		sb.append("\nif you lost, type h\n");
 		sb.append("\nplayer: " + controller.getCurrentPlayerName().toString() + "  moves: "
 				+ controller.getRemainingMoves() + "\n");
-		sb.append(controller.currentPitchView());
+		sb.append(controller.getPitchView());
 		sb.append("INFO: " + StatusMessage.text.get(controller.getGameStatus()) + "\n");
 		sb.append("STATUSTEXT: " + controller.getStatusText() + "\n");
 		sb.append("READY: :-");
@@ -51,7 +51,7 @@ public class TextUI implements IObserver {
 		}
 
 		// Print pitch
-		controller.currentPitchView();
+		controller.getPitchView();
 	}
 
 	private String helpText() {

@@ -6,7 +6,7 @@ public interface IPitch {
 	/**
 	 * return current player
 	 */
-	PLAYER_NAME getCurrentPlayer();
+	PLAYER_NAME getCurrentPlayerName();
 
 	/**
 	 * set current player

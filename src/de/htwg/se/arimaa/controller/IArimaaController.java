@@ -49,7 +49,7 @@ public interface IArimaaController extends IObservable {
 	/**
 	 * get the current pitch view
 	 */
-	String currentPitchView();
+	String getPitchView();
 
 	/**
 	 * move a specific figure to a given position
@@ -92,13 +92,13 @@ public interface IArimaaController extends IObservable {
 	List<IFigure> getSilverFigures();
 
 	/**
-	 * get the figure name from a Position of the pitch
+	 * get the figure name from a position of the pitch
 	 * 
 	 * @param pos
 	 *            on the pitch
 	 * @return figure name, else null
 	 */
-	FIGURE_NAME getFigureNamebyPosition(Position pos);
+	FIGURE_NAME getFigureName(Position pos);
 
 	/**
 	 * get the player name of the figure
@@ -107,7 +107,7 @@ public interface IArimaaController extends IObservable {
 	 *            on the pitch
 	 * @return player name, else null
 	 */
-	PLAYER_NAME getPlayerNamebyPosition(Position pos);
+	PLAYER_NAME getPlayerName(Position pos);
 
 	/**
 	 * get the History of moves as String

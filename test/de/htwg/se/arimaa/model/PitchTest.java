@@ -56,15 +56,15 @@ public class PitchTest {
 	@Test
 	public void testChangePlayer(){
 		assertFalse(pitch.isChangePlayerEable());
-		assertEquals(PLAYER_NAME.GOLD, pitch.getCurrentPlayer());
+		assertEquals(PLAYER_NAME.GOLD, pitch.getCurrentPlayerName());
 		pitch.changePlayer();
-		assertEquals(PLAYER_NAME.GOLD, pitch.getCurrentPlayer());
+		assertEquals(PLAYER_NAME.GOLD, pitch.getCurrentPlayerName());
 		
 		
 		pitch.moveFigure(new Position(0, 6), new Position(0, 5));
 		assertTrue(pitch.isChangePlayerEable());
 		pitch.changePlayer();
-		assertEquals(PLAYER_NAME.SILVER, pitch.getCurrentPlayer());
+		assertEquals(PLAYER_NAME.SILVER, pitch.getCurrentPlayerName());
 		assertFalse(pitch.isChangePlayerEable());
 		
 		pitch.moveFigure(new Position(0, 1), new Position(0, 2));

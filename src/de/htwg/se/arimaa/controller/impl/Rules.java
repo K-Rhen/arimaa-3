@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.htwg.se.arimaa.controller.GameStatus;
+import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
@@ -15,12 +16,13 @@ import de.htwg.se.arimaa.util.position.Position;
 //TOOD refactor
 public class Rules extends Observable {
 
-	private IPitch pitch;
+	private IArimaaController controller;
+	//private IPitch pitch;
 	private GameStatus status;
 	private String statusText = "";
 
-	public Rules(IPitch pitch) {
-		this.pitch = pitch;
+	public Rules(IArimaaController controller) {
+		this.controller = controller;
 	}
 
 	public GameStatus getStatus() {
@@ -35,7 +37,7 @@ public class Rules extends Observable {
 	public boolean precondition(Position from, Position to) {
 
 		// from position is empty
-		PLAYER_NAME playerName = pitch.getPlayerName(from);
+		PLAYER_NAME playerName = controller.getPlayerName(from);//pitch.getPlayerName(from);
 		if (playerName == null) {
 			statusText = "No figure on " + Coordinate.convert(from);
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
@@ -43,7 +45,7 @@ public class Rules extends Observable {
 		}
 
 		// to position is occupied
-		playerName = pitch.getPlayerName(to);
+		playerName = controller.getPlayerName(to);//pitch.getPlayerName(to);
 		if (playerName != null) {
 			statusText = Coordinate.convert(from) + " is not empty";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
@@ -51,7 +53,7 @@ public class Rules extends Observable {
 		}
 
 		// no moves remain
-		if (pitch.getRemainingMoves() == 0) {
+		if (controller.getRemainingMoves() == 0) {
 			statusText = "No remain moves";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
@@ -65,12 +67,12 @@ public class Rules extends Observable {
 		}
 
 		// -PULL
-		if (isPulled(from)) {
-			statusText = "Figure is pulled";
-			status = GameStatus.MOVEFIGURE;
-			return true;
-		}
-		
+//		if (isPulled(from, to)) {
+//			statusText = "Figure is pulled";
+//			status = GameStatus.MOVEFIGURE;
+//			return true;
+//		}
+
 		// -PUSH
 
 		// is to position a possible move
@@ -84,10 +86,50 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	private boolean isPulled(Position from) {
-		// TODO Auto-generated method stub
+	private boolean isPulled(Position from, Position to) {
+//		PLAYER_NAME actPlayerName = pitch.getPlayerName(from);
+//		// actual move figure is from other player
+//		if (actPlayerName == null || actPlayerName.equals(pitch.getCurrentPlayer())) {
+//			return false;
+//		}
+//
+//		// last move from position dose contains act. from position
+//		List<Position> lastPossibleMoves = getLastPossibleMoves();
+//		if (lastPossibleMoves == null || !lastPossibleMoves.contains(from)) {
+//			return false;
+//		}
+//
+//		// last move figure stronger than pulled figure
+//		FIGURE_NAME lastFigureName = getLastFigureName();
+//		FIGURE_NAME actFigureName = pitch.getFigureName(from);
+//		if (lastFigureName == null || lastFigureName.compareTo(actFigureName) <= 0) {
+//			return false;
+//		}
+//
+//		// last from position must be act to position
+//		Position lastFromPosition = getLastFromPosition();
+//		if (lastFromPosition == null || !lastFigureName.equals(to)) {
+//			return false;
+//		}
+//
+//		return true;
 		return false;
 	}
+
+//	private Position getLastFromPosition() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	private FIGURE_NAME getLastFigureName() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	private List<Position> getLastPossibleMoves() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	private boolean isHold(Position pos) {
 		List<Position> canditates = new ArrayList<>();
@@ -98,7 +140,7 @@ public class Rules extends Observable {
 			return false;
 
 		List<Position> ownFigures = new ArrayList<>();
-		PLAYER_NAME playerName = pitch.getPlayerName(pos);
+		PLAYER_NAME playerName = controller.getPlayerName(pos);//pitch.getPlayerName(pos);
 		ownFigures = getFigursPositionsFromPlayer(playerName, canditates);
 
 		if (!ownFigures.isEmpty())
@@ -107,28 +149,27 @@ public class Rules extends Observable {
 		List<Position> otherFigures = new ArrayList<>();
 		otherFigures = getFigursPositionsFromPlayer(PLAYER_NAME.invers(playerName), canditates);
 
-		FIGURE_NAME own = pitch.getFigureName(pos);
+		FIGURE_NAME own = controller.getFigureName(pos);//pitch.getFigureName(pos);
 		FIGURE_NAME otherStrongestFigure = getStrongestFigure(otherFigures);
 
 		if (own.compareTo(otherStrongestFigure) >= 0)
 			return false;
-		
+
 		return true;
 	}
 
 	// TODO postcondition RULELS
 	public boolean postcondition(Position from, Position to) {
-		// TODO move steps
-		pitch.reduceRemainingMoves(1);
+		
 
-		// TODO is finish rule
 		// TODO TRAPP rule
 
+		// TODO is finish rule
 		return true;
 	}
 
 	public List<Position> getPossibleMoves(Position pos) {
-		if (pitch.getPlayerName(pos) != pitch.getCurrentPlayer())
+		if (controller.getPlayerName(pos) != controller.getCurrentPlayerName())
 			return null;
 
 		List<Position> canditates = new ArrayList<>();
@@ -143,9 +184,9 @@ public class Rules extends Observable {
 		FIGURE_NAME figureName = null;
 		for (Position pos : surroundPosList) {
 			if (figureName == null)
-				figureName = pitch.getFigureName(pos);
+				figureName = controller.getFigureName(pos);// pitch.getFigureName(pos);
 
-			FIGURE_NAME actFigureName = pitch.getFigureName(pos);
+			FIGURE_NAME actFigureName = controller.getFigureName(pos);//pitch.getFigureName(pos);
 			if (actFigureName.compareTo(figureName) > 0)
 				figureName = actFigureName;
 		}
@@ -156,7 +197,7 @@ public class Rules extends Observable {
 	private List<Position> getFigursPositionsFromPlayer(PLAYER_NAME playerName, List<Position> surroundPosList) {
 		List<Position> posList = new ArrayList<>();
 		for (Position pos : surroundPosList) {
-			if (pitch.getPlayerName(pos).equals(playerName))
+			if (controller.getPlayerName(pos).equals(playerName))
 				posList.add(pos);
 		}
 		return posList;
@@ -165,7 +206,7 @@ public class Rules extends Observable {
 	private List<Position> getOccupiedPositions(List<Position> surroundPosList) {
 		List<Position> occupied = new ArrayList<>();
 		for (Position pos : surroundPosList) {
-			if (pitch.getPlayerName(pos) != null)
+			if (controller.getPlayerName(pos) != null)
 				occupied.add(pos);
 		}
 		return occupied;

@@ -21,7 +21,7 @@ public class MoveFigureCommand implements UndoableCommand {
 
 	public MoveFigureCommand(IPitch pitch, Position from, Position to) {
 		this.pitch = pitch;
-		this.currentPlayer = pitch.getCurrentPlayer();
+		this.currentPlayer = pitch.getCurrentPlayerName();
 		this.remainingMoves = pitch.getRemainingMoves();
 
 		this.from = from;

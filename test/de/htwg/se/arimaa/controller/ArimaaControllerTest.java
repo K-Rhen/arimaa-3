@@ -55,7 +55,7 @@ public class ArimaaControllerTest {
 	@Test
 	public void testArimmaExit() {
 		controller.quitGame();
-		controller.currentPitchView();
+		controller.getPitchView();
 	}
 
 	@Test
@@ -73,33 +73,33 @@ public class ArimaaControllerTest {
 
 	@Test
 	public void testGetFigureNamebyPosition() {
-		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 6)));
-		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 1)));
+		assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 6)));
+		assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 1)));
 
-		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 3)));
+		assertEquals(null, controller.getFigureName(new Position(0, 3)));
 	}
 
 	@Test
 	public void testGetPlayerNamebyPosition() {
-		assertEquals(PLAYER_NAME.GOLD, controller.getPlayerNamebyPosition(new Position(0, 6)));
-		assertEquals(PLAYER_NAME.SILVER, controller.getPlayerNamebyPosition(new Position(0, 1)));
+		assertEquals(PLAYER_NAME.GOLD, controller.getPlayerName(new Position(0, 6)));
+		assertEquals(PLAYER_NAME.SILVER, controller.getPlayerName(new Position(0, 1)));
 
-		assertEquals(null, controller.getPlayerNamebyPosition(new Position(0, 2)));
+		assertEquals(null, controller.getPlayerName(new Position(0, 2)));
 	}
 
 	@Test
 	public void testUndoRedo() {
 		controller.moveFigure(new Position(0, 6), new Position(0, 5));
-		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 6)));
-		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 5)));
+		assertEquals(null, controller.getFigureName(new Position(0, 6)));
+		assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 5)));
 
 		controller.undo();
-		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 6)));
-		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 5)));
+		assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 6)));
+		assertEquals(null, controller.getFigureName(new Position(0, 5)));
 
 		controller.redo();
-		assertEquals(null, controller.getFigureNamebyPosition(new Position(0, 6)));
-		assertEquals(FIGURE_NAME.R, controller.getFigureNamebyPosition(new Position(0, 5)));
+		assertEquals(null, controller.getFigureName(new Position(0, 6)));
+		assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 5)));
 	}
 
 	@Test

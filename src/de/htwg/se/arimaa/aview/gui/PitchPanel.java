@@ -100,11 +100,11 @@ public class PitchPanel extends JPanel implements IObserver {
 			if (fromPos == null)
 				return;
 
-			FIGURE_NAME figureName = controller.getFigureNamebyPosition(fromPos);
+			FIGURE_NAME figureName = controller.getFigureName(fromPos);
 			if (figureName == null)
 				return;
 
-			PLAYER_NAME playerName = controller.getPlayerNamebyPosition(fromPos);
+			PLAYER_NAME playerName = controller.getPlayerName(fromPos);
 			mouseFigure = new MouseFigure(mouse, figureName, playerName, fromPos);
 		}
 

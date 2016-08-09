@@ -82,7 +82,7 @@ public class Pitch implements IPitch {
 	}
 
 	@Override
-	public PLAYER_NAME getCurrentPlayer() {
+	public PLAYER_NAME getCurrentPlayerName() {
 		return currentPlayer;
 	}
 

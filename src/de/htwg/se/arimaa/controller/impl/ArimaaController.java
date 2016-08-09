@@ -34,7 +34,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	private void initArimaaController() {
 		pitch = new Pitch();
-		rules = new Rules(pitch);
+		rules = new Rules(this);
 
 		undoManager = new UndoManager();
 
@@ -69,7 +69,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		pitch.changePlayer();
 
 		status = GameStatus.CHANGEPLAYER;
-		statusText = pitch.getCurrentPlayer().toString() + " it’s your turn";
+		statusText = pitch.getCurrentPlayerName().toString() + " it’s your turn";
 		notifyObservers();
 	}
 
@@ -101,11 +101,11 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public PLAYER_NAME getCurrentPlayerName() {
-		return pitch.getCurrentPlayer();
+		return pitch.getCurrentPlayerName();
 	}
 
 	@Override
-	public String currentPitchView() {
+	public String getPitchView() {
 		return pitch.toString();
 	}
 
@@ -121,7 +121,10 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 		// Move the figure
 		undoManager.doCommand(new MoveFigureCommand(pitch, from, to));
-
+		
+		//reduce remaining moves
+		pitch.reduceRemainingMoves(1);
+		
 		// change player enable
 
 		// Postconditions
@@ -154,12 +157,12 @@ public class ArimaaController extends Observable implements IArimaaController {
 	}
 
 	@Override
-	public PLAYER_NAME getPlayerNamebyPosition(Position pos) {
+	public PLAYER_NAME getPlayerName(Position pos) {
 		return pitch.getPlayerName(pos);
 	}
 
 	@Override
-	public FIGURE_NAME getFigureNamebyPosition(Position pos) {
+	public FIGURE_NAME getFigureName(Position pos) {
 		return pitch.getFigureName(pos);
 	}
 
