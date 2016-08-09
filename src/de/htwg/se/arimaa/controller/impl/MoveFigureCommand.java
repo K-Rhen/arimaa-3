@@ -4,11 +4,11 @@ import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
-import de.htwg.se.arimaa.util.command.UndoableCommand;
+import de.htwg.se.arimaa.util.command.UndoableMoveFigureCommand;
 import de.htwg.se.arimaa.util.position.Coordinate;
 import de.htwg.se.arimaa.util.position.Position;
 
-public class MoveFigureCommand implements UndoableCommand {
+public class MoveFigureCommand implements UndoableMoveFigureCommand {
 
 	private Position from;
 	private Position to;

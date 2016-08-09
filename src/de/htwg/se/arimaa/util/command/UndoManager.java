@@ -11,21 +11,21 @@ import de.htwg.se.arimaa.util.position.Position;
 
 public class UndoManager {
 
-	private Deque<UndoableCommand> undoStack;
-	private Deque<UndoableCommand> redoStack;
+	private Deque<UndoableMoveFigureCommand> undoStack;
+	private Deque<UndoableMoveFigureCommand> redoStack;
 
-	private UndoableCommand topCommand;
+	private UndoableMoveFigureCommand topCommand;
 
 	public UndoManager() {
-		undoStack = new LinkedList<UndoableCommand>();
-		redoStack = new LinkedList<UndoableCommand>();
+		undoStack = new LinkedList<UndoableMoveFigureCommand>();
+		redoStack = new LinkedList<UndoableMoveFigureCommand>();
 		topCommand = null;
 	}
 
-	public void doCommand(UndoableCommand newCommand) {
+	public void doCommand(UndoableMoveFigureCommand newCommand) {
 		newCommand.doCommand();
 		undoStack.push(newCommand);
-		redoStack = new LinkedList<UndoableCommand>(); // delete old branch
+		redoStack = new LinkedList<UndoableMoveFigureCommand>(); // delete old branch
 	}
 
 	public void undoCommand() {
@@ -52,7 +52,7 @@ public class UndoManager {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
-		ArrayList<UndoableCommand> undoList = new ArrayList<>(undoStack);
+		ArrayList<UndoableMoveFigureCommand> undoList = new ArrayList<>(undoStack);
 		undoList = reverse(undoList);
 
 		String currentPlayerName = "Silver";
@@ -85,7 +85,7 @@ public class UndoManager {
 		return sb.toString();
 	}
 
-	private ArrayList<UndoableCommand> reverse(ArrayList<UndoableCommand> undoList) {
+	private ArrayList<UndoableMoveFigureCommand> reverse(ArrayList<UndoableMoveFigureCommand> undoList) {
 		for (int i = 0, j = undoList.size() - 1; i < j; i++) {
 			undoList.add(i, undoList.remove(j));
 		}
@@ -103,15 +103,15 @@ public class UndoManager {
 	public FIGURE_NAME getLastMoveFigureName() {
 		if (undoStack.isEmpty())
 			return null;
-		MoveFigureCommand mC = (MoveFigureCommand) undoStack.peek();
-		return mC.getFigureName();
+
+		return undoStack.peek().getFigureName();
 	}
 
 	public Position getLastMoveFromPosition() {
 		if (undoStack.isEmpty())
 			return null;
-		MoveFigureCommand mC = (MoveFigureCommand) undoStack.peek();
-		return mC.getFromPosition();
+		
+		return undoStack.peek().getFromPosition();
 	}
 
 }
