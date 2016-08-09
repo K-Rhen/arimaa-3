@@ -186,4 +186,14 @@ public class ArimaaController extends Observable implements IArimaaController {
 	public boolean isChangePlayerEnable() {
 		return pitch.isChangePlayerEable();
 	}
+
+	@Override
+	public FIGURE_NAME getLastMoveFigureName() {
+		return undoManager.getLastMoveFigureName();
+	}
+
+	@Override
+	public Position getLastMoveFromPosition() {
+		return undoManager.getLastMoveFromPosition();
+	}
 }

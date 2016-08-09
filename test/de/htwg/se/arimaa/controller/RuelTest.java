@@ -108,6 +108,9 @@ public class RuelTest {
 
 		// Gold Elephant go right
 		assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
+		//Gold Elephant would pull Silver camel left
+		assertFalse(controller.moveFigure(new Position(4, 3), new Position(3, 3)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 		// Gold Elephant pull Silver camel down
 		assertTrue(controller.moveFigure(new Position(4, 3), new Position(4, 4)));
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());

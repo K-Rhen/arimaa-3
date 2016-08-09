@@ -141,4 +141,16 @@ public interface IArimaaController extends IObservable {
 	 */
 	boolean isChangePlayerEnable();
 
+	/**
+	 * get the last figure name if a figure was moved before
+	 * @return last figure name, else null
+	 */
+	FIGURE_NAME getLastMoveFigureName();
+
+	/**
+	 * get the last moved figure position 
+	 * @return position if exist, else null
+	 */
+	Position getLastMoveFromPosition();
+
 }

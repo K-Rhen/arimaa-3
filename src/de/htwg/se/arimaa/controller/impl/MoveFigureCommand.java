@@ -1,5 +1,6 @@
 package de.htwg.se.arimaa.controller.impl;
 
+import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IPitch;
 import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
@@ -11,8 +12,7 @@ public class MoveFigureCommand implements UndoableCommand {
 
 	private Position from;
 	private Position to;
-	//private IPlayer player;
-
+	
 	private IPitch pitch;
 	private PLAYER_NAME currentPlayer;
 	private int remainingMoves;
@@ -54,6 +54,14 @@ public class MoveFigureCommand implements UndoableCommand {
 	private void genMoveNotation() {
 		moveNotation = currentPlayer + "#"+pitch.getFigureNameForPitch(from) + "" + Coordinate.convert(from) + ""
 				+ Position.getDirection(from, to);
+	}
+	
+	public FIGURE_NAME getFigureName(){
+		return pitch.getFigureName(to);
+	}
+	
+	public Position getFromPosition(){
+		return from;
 	}
 
 	@Override

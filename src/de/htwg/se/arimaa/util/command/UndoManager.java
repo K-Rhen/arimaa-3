@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import de.htwg.se.arimaa.controller.impl.MoveFigureCommand;
+import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
+import de.htwg.se.arimaa.util.position.Position;
 
 public class UndoManager {
 
@@ -55,7 +58,7 @@ public class UndoManager {
 		String currentPlayerName = "Silver";
 		int row = 0;
 		int collumn = 0;
-		for(int i = 0; i< undoList.size();i++){
+		for (int i = 0; i < undoList.size(); i++) {
 			String line[] = undoList.get(i).toString().split("#");
 			if (!currentPlayerName.equals(line[0])) {
 				currentPlayerName = line[0];
@@ -63,20 +66,20 @@ public class UndoManager {
 				if (currentPlayerName.equals(PLAYER_NAME.GOLD.toString()))
 					row++;
 
-				if(i> 0 && collumn < 4){
+				if (i > 0 && collumn < 4) {
 					collumn = 0;
 					sb.append("pass ");
 				}
-				
-				if(i>0)
-				sb.append("\n");
+
+				if (i > 0)
+					sb.append("\n");
 
 				String playerNameNotation = currentPlayerName.substring(0, 1).toLowerCase();
 				sb.append(row + playerNameNotation + " ");
 			}
 
 			sb.append(line[1] + " ");
-			collumn ++;
+			collumn++;
 		}
 
 		return sb.toString();
@@ -95,6 +98,20 @@ public class UndoManager {
 
 	public boolean isRedoListEmpty() {
 		return redoStack.isEmpty();
+	}
+
+	public FIGURE_NAME getLastMoveFigureName() {
+		if (undoStack.isEmpty())
+			return null;
+		MoveFigureCommand mC = (MoveFigureCommand) undoStack.peek();
+		return mC.getFigureName();
+	}
+
+	public Position getLastMoveFromPosition() {
+		if (undoStack.isEmpty())
+			return null;
+		MoveFigureCommand mC = (MoveFigureCommand) undoStack.peek();
+		return mC.getFromPosition();
 	}
 
 }
