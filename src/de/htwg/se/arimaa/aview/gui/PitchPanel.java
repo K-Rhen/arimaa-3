@@ -184,9 +184,9 @@ public class PitchPanel extends JPanel implements IObserver {
 
 		// Draw Mouse Figure
 		if (mouseFigure != null) {
-		   drawPossiblePosition(g2d);
+			drawPossiblePosition(g2d);
 
-		   drawMouseFigure(g2d);
+			drawMouseFigure(g2d);
 		}
 	}
 
@@ -202,6 +202,9 @@ public class PitchPanel extends JPanel implements IObserver {
 
 	private void drawPossiblePosition(Graphics2D g2d) {
 		List<Position> possibleMoves = controller.getPossibleMoves(mouseFigure.getFromPosition());
+
+		if (possibleMoves == null)
+			return;
 
 		for (Position position : possibleMoves) {
 			Color transparentGreenColour = new Color(0, 200, 0, 100);

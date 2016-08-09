@@ -64,9 +64,14 @@ public class Rules extends Observable {
 			return false;
 		}
 
+		//-PULL
+		
+		//-PUSH
+		
+		
 		// is to position a possible move
 		List<Position> possibleMoves = getPossibleMoves(from);
-		if (!possibleMoves.contains(to)) {
+		if (possibleMoves == null || !possibleMoves.contains(to)) {
 			statusText = Coordinate.convert(to) + " is not a permitted position";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
@@ -125,6 +130,10 @@ public class Rules extends Observable {
 	}
 
 	public List<Position> getPossibleMoves(Position pos) {
+		if( pitch.getPlayerName(pos) != pitch.getCurrentPlayer())
+			return null;
+		
+		
 		List<Position> canditates = new ArrayList<>();
 		canditates = Position.getSurroundPositionForPitch(pos);
 

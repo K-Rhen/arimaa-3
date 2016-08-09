@@ -131,8 +131,13 @@ public class ArimaaControllerTest {
 		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
 		
+		// move a figure a grater distance than 1
 		assertFalse(controller.moveFigure(new Position(0, 5), new Position(0, 2)));
-		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());	
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+		
+		//other player figure wants move and Figure is not pulled or pushed
+		assertFalse(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 	}
 
 	@Test
