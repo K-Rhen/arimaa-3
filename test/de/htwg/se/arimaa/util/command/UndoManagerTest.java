@@ -58,6 +58,22 @@ public class UndoManagerTest {
 	}
 
 	@Test
+	public void testGetLastMoveFigureName(){
+		assertEquals(null, undoManager.getLastMoveFigureName());
+		
+		undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
+		assertEquals(FIGURE_NAME.R, undoManager.getLastMoveFigureName());		
+	}
+	
+	@Test
+	public void testGetLastMoveFromPosition(){
+		assertEquals(null, undoManager.getLastMoveFromPosition());
+		
+		undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
+		assertEquals(new Position(0, 6), undoManager.getLastMoveFromPosition());		
+	}
+	
+	@Test
 	public void testToString() {
 		undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
 		pitch.changePlayer();
