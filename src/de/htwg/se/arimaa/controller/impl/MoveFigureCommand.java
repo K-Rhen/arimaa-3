@@ -12,20 +12,22 @@ public class MoveFigureCommand implements UndoableMoveFigureCommand {
 
 	private Position from;
 	private Position to;
-	
+	private FIGURE_NAME figureName;
+
 	private IPitch pitch;
-	private PLAYER_NAME currentPlayer;
+	private PLAYER_NAME currentPlayerName;
 	private int remainingMoves;
 
 	private String moveNotation;
 
 	public MoveFigureCommand(IPitch pitch, Position from, Position to) {
 		this.pitch = pitch;
-		this.currentPlayer = pitch.getCurrentPlayerName();
+		this.currentPlayerName = pitch.getCurrentPlayerName();
 		this.remainingMoves = pitch.getRemainingMoves();
 
 		this.from = from;
 		this.to = to;
+		this.figureName = pitch.getFigureName(from);
 	}
 
 	@Override
@@ -45,22 +47,30 @@ public class MoveFigureCommand implements UndoableMoveFigureCommand {
 
 	private void move(Position from, Position to) {
 		genMoveNotation();
-		pitch.moveFigure(from,to);
-		
-		pitch.setCurrentPlayer(currentPlayer);
+		pitch.moveFigure(from, to);
+
+		pitch.setCurrentPlayer(currentPlayerName);
 		pitch.setRemainingMoves(remainingMoves);
 	}
 
+	// TODO remove split operation
 	private void genMoveNotation() {
-		moveNotation = currentPlayer + "#"+pitch.getFigureNameForPitch(from) + "" + Coordinate.convert(from) + ""
+		moveNotation = pitch.getFigureNameForPitch(from) + "" + Coordinate.convert(from) + ""
 				+ Position.getDirection(from, to);
 	}
-	
-	public FIGURE_NAME getFigureName(){
-		return pitch.getFigureName(to);
+
+	@Override
+	public PLAYER_NAME getPlayerName() {
+		return currentPlayerName;
 	}
-	
-	public Position getFromPosition(){
+
+	@Override
+	public FIGURE_NAME getFigureName() {
+		return figureName;
+	}
+
+	@Override
+	public Position getFromPosition() {
 		return from;
 	}
 

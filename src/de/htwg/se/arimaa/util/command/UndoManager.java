@@ -55,15 +55,15 @@ public class UndoManager {
 		ArrayList<UndoableMoveFigureCommand> undoList = new ArrayList<>(undoStack);
 		undoList = reverse(undoList);
 
-		String currentPlayerName = "Silver";
+		PLAYER_NAME currentPlayerName = PLAYER_NAME.SILVER;
 		int row = 0;
 		int collumn = 0;
 		for (int i = 0; i < undoList.size(); i++) {
-			String line[] = undoList.get(i).toString().split("#");
-			if (!currentPlayerName.equals(line[0])) {
-				currentPlayerName = line[0];
+			PLAYER_NAME ulPlayerName = undoList.get(i).getPlayerName();
+			if (!currentPlayerName.equals(ulPlayerName)) {
+				currentPlayerName = ulPlayerName;
 
-				if (currentPlayerName.equals(PLAYER_NAME.GOLD.toString()))
+				if (currentPlayerName.equals(PLAYER_NAME.GOLD))
 					row++;
 
 				if (i > 0 && collumn < 4) {
@@ -74,11 +74,11 @@ public class UndoManager {
 				if (i > 0)
 					sb.append("\n");
 
-				String playerNameNotation = currentPlayerName.substring(0, 1).toLowerCase();
+				String playerNameNotation = currentPlayerName.toString().substring(0, 1).toLowerCase();
 				sb.append(row + playerNameNotation + " ");
 			}
 
-			sb.append(line[1] + " ");
+			sb.append(undoList.get(i).toString() + " ");
 			collumn++;
 		}
 
