@@ -65,9 +65,10 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public void changePlayer() {
-		if (status.equals(GameStatus.PUSHFIGURE))
+		if(status.equals(GameStatus.PUSHFIGURE))
 			return;
-
+		
+		
 		pitch.changePlayer();
 
 		status = GameStatus.CHANGEPLAYER;
@@ -114,7 +115,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public boolean moveFigure(Position from, Position to) {
 		boolean moved = false;
-
+		
 		// Preconditions
 		if (moved = rules.precondition(from, to)) {
 

@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -132,6 +135,10 @@ public class RuelTest {
 		// Silver Rabbit goes up, other moves now possible
 		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+
+		// -Test weaker figure Silver Camel will push Gold Elephant
+		assertFalse(controller.moveFigure(new Position(4, 3), new Position(3, 3)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 	}
 
 	@Test
@@ -177,4 +184,20 @@ public class RuelTest {
 		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 	}
 
+	@Test
+	public void testGetPossibleMoves() {
+		// Gold Rabbit surround Position
+		List<Position> oughtGoldRabbitSuroundList = new ArrayList<>();
+		oughtGoldRabbitSuroundList.add(new Position(0, 5));
+		List<Position> isGoldRabbitSuroundList = new ArrayList<>();
+		isGoldRabbitSuroundList = controller.getPossibleMoves(new Position(0, 6));
+		assertEquals(oughtGoldRabbitSuroundList, isGoldRabbitSuroundList);
+
+		// Silver Rabbit surround Position
+		List<Position> oughtSilverRabbitSuroundList = new ArrayList<>();
+		List<Position> isSilverRabbitSuroundList = new ArrayList<>();
+		isSilverRabbitSuroundList = controller.getPossibleMoves(new Position(0, 1));
+		assertEquals(oughtSilverRabbitSuroundList, isSilverRabbitSuroundList);
+
+	}
 }

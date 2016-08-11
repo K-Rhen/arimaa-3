@@ -93,7 +93,7 @@ public class Rules extends Observable {
 		}
 
 		// is to position a possible move
-		List<Position> possibleMoves = getPossibleMoves(from);
+		List<Position> possibleMoves = getFreeOwnSurroundPositions(from);
 		if (possibleMoves == null || !possibleMoves.contains(to)) {
 			statusText = Coordinate.convert(to) + " is not a permitted position";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
@@ -186,7 +186,7 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	public List<Position> getPossibleMoves(Position pos) {
+	public List<Position> getFreeOwnSurroundPositions(Position pos) {
 		if (controller.getPlayerName(pos) != controller.getCurrentPlayerName())
 			return null;
 
@@ -197,6 +197,20 @@ public class Rules extends Observable {
 
 		return canditates;
 	}
+
+	public List<Position> getPossibleMoves(Position pos) {
+		List<Position> canditates = new ArrayList<>();
+		canditates = Position.getSurroundPositionForPitch(pos);
+		canditates.removeAll(getOccupiedPositions(canditates));
+		
+		for(int i = canditates.size() -1; i >=0 ; i--){
+			if(!precondition(pos,canditates.get(i)))
+				canditates.remove(i);
+		}
+		
+		return canditates;
+	}
+	
 
 	private FIGURE_NAME getStrongestFigure(List<Position> surroundPosList) {
 		FIGURE_NAME figureName = null;
