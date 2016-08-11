@@ -3,8 +3,8 @@ package de.htwg.se.arimaa.util.command;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
-import de.htwg.se.arimaa.controller.impl.MoveFigureCommand;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
@@ -52,7 +52,7 @@ public class UndoManager {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
-		ArrayList<UndoableMoveFigureCommand> undoList = new ArrayList<>(undoStack);
+		List<UndoableMoveFigureCommand> undoList = new ArrayList<>(undoStack);
 		undoList = reverse(undoList);
 
 		PLAYER_NAME currentPlayerName = PLAYER_NAME.SILVER;
@@ -85,7 +85,7 @@ public class UndoManager {
 		return sb.toString();
 	}
 
-	private ArrayList<UndoableMoveFigureCommand> reverse(ArrayList<UndoableMoveFigureCommand> undoList) {
+	private List<UndoableMoveFigureCommand> reverse(List<UndoableMoveFigureCommand> undoList) {
 		for (int i = 0, j = undoList.size() - 1; i < j; i++) {
 			undoList.add(i, undoList.remove(j));
 		}

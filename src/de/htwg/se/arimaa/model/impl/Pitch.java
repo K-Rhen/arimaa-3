@@ -219,10 +219,7 @@ public class Pitch implements IPitch {
 		remainingMoves = 4;
 		changePlayerEable = false;
 
-		if (currentPlayer.equals(PLAYER_NAME.GOLD))
-			currentPlayer = PLAYER_NAME.SILVER;
-		else
-			currentPlayer = PLAYER_NAME.GOLD;
+		currentPlayer = PLAYER_NAME.invers(currentPlayer);
 	}
 
 	@Override

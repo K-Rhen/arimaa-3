@@ -42,7 +42,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		this.setTitle("HTWG Arimaa");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(DEFAULT_X, DEFAULT_Y);
-		this.setJMenuBar(new ArimaaMenuBar(controller, this));
+		this.setJMenuBar(new ArimaaMenuBar(controller));
 		pane = getContentPane();
 		pane.setLayout(new BorderLayout());
 

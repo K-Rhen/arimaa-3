@@ -6,8 +6,6 @@ import java.util.List;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
-import de.htwg.se.arimaa.model.IPitch;
-import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Coordinate;
@@ -72,7 +70,7 @@ public class Rules extends Observable {
 		}
 
 		// is Pushed Start
-		if (isPushedStart(from, to)) {
+		if (isPushedStart(from)) {
 			statusText = "Figure is pushed";
 			status = GameStatus.PUSHFIGURE;
 			return true;
@@ -94,7 +92,7 @@ public class Rules extends Observable {
 
 		// is to position a possible move
 		List<Position> possibleMoves = getFreeOwnSurroundPositions(from);
-		if (possibleMoves == null || !possibleMoves.contains(to)) {
+		if (possibleMoves.isEmpty() || !possibleMoves.contains(to)) {
 			statusText = Coordinate.convert(to) + " is not a permitted position";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
@@ -132,7 +130,7 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	private boolean isPushedStart(Position from, Position to) {
+	private boolean isPushedStart(Position from) {
 		PLAYER_NAME actPlayerName = controller.getPlayerName(from);
 		// actual move figure is from other player
 		if (actPlayerName == null || actPlayerName.equals(controller.getCurrentPlayerName()))
@@ -187,10 +185,12 @@ public class Rules extends Observable {
 	}
 
 	public List<Position> getFreeOwnSurroundPositions(Position pos) {
-		if (controller.getPlayerName(pos) != controller.getCurrentPlayerName())
-			return null;
-
 		List<Position> canditates = new ArrayList<>();
+		
+		if (controller.getPlayerName(pos) != controller.getCurrentPlayerName())
+			return canditates;
+
+		
 		canditates = Position.getSurroundPositionForPitch(pos);
 
 		canditates.removeAll(getOccupiedPositions(canditates));

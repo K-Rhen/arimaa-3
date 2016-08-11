@@ -2,7 +2,6 @@ package de.htwg.se.arimaa.controller.impl;
 
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IPitch;
-import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.command.UndoableMoveFigureCommand;
 import de.htwg.se.arimaa.util.position.Coordinate;
@@ -53,7 +52,6 @@ public class MoveFigureCommand implements UndoableMoveFigureCommand {
 		pitch.setRemainingMoves(remainingMoves);
 	}
 
-	// TODO remove split operation
 	private void genMoveNotation() {
 		moveNotation = pitch.getFigureNameForPitch(from) + "" + Coordinate.convert(from) + ""
 				+ Position.getDirection(from, to);

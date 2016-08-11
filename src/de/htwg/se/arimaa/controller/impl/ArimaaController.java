@@ -1,6 +1,5 @@
 package de.htwg.se.arimaa.controller.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.inject.Inject;
@@ -10,12 +9,10 @@ import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.IPitch;
-import de.htwg.se.arimaa.model.IPlayer;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.command.UndoManager;
 import de.htwg.se.arimaa.util.observer.Observable;
-import de.htwg.se.arimaa.util.position.Coordinate;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class ArimaaController extends Observable implements IArimaaController {
@@ -65,10 +62,9 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public void changePlayer() {
-		if(status.equals(GameStatus.PUSHFIGURE))
+		if (status.equals(GameStatus.PUSHFIGURE))
 			return;
-		
-		
+
 		pitch.changePlayer();
 
 		status = GameStatus.CHANGEPLAYER;
@@ -115,9 +111,10 @@ public class ArimaaController extends Observable implements IArimaaController {
 	@Override
 	public boolean moveFigure(Position from, Position to) {
 		boolean moved = false;
-		
+
 		// Preconditions
-		if (moved = rules.precondition(from, to)) {
+		moved = rules.precondition(from, to);
+		if (moved) {
 
 			// Move the figure
 			undoManager.doCommand(new MoveFigureCommand(pitch, from, to));

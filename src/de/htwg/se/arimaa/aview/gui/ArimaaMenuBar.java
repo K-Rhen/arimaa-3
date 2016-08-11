@@ -29,7 +29,7 @@ public class ArimaaMenuBar extends JMenuBar {
 	JMenu infoMenu;
 	JMenuItem helpMenuItem;
 
-	public ArimaaMenuBar(IArimaaController controller, JFrame frame) {
+	public ArimaaMenuBar(IArimaaController controller) {
 		this.controller = controller;
 		createFileMenu(controller);
 		createInfoMenu();

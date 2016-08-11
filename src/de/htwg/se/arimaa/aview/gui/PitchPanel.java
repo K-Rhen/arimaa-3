@@ -1,8 +1,6 @@
 package de.htwg.se.arimaa.aview.gui;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Composite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -12,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -140,7 +137,7 @@ public class PitchPanel extends JPanel implements IObserver {
 		BufferedImage image = null;
 		try {
 			image = ImageIO.read(getClass().getResource("/" + name + ".png"));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			LOGGER.error("Images: " + name + "not found" + e.getMessage());
 		}
 		return image;
