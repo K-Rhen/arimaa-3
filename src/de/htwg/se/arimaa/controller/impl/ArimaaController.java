@@ -35,7 +35,6 @@ public class ArimaaController extends Observable implements IArimaaController {
 	private void initArimaaController() {
 		pitch = new Pitch();
 		rules = new Rules(this);
-
 		undoManager = new UndoManager();
 
 		status = GameStatus.CREATE;
@@ -66,6 +65,9 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public void changePlayer() {
+		if (status.equals(GameStatus.PUSHFIGURE))
+			return;
+
 		pitch.changePlayer();
 
 		status = GameStatus.CHANGEPLAYER;
@@ -111,34 +113,26 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public boolean moveFigure(Position from, Position to) {
-		// Preconditions
-		if (!rules.precondition(from, to)) {
-			status = rules.getStatus();
-			statusText = rules.getStatusText();
-			notifyObservers();
-			return false;
-		}
+		boolean moved = false;
 
-		// Move the figure
-		undoManager.doCommand(new MoveFigureCommand(pitch, from, to));
-		
-		//reduce remaining moves
-		pitch.reduceRemainingMoves(1);
-		
-		// change player enable
+		// Preconditions
+		if (moved = rules.precondition(from, to)) {
+
+			// Move the figure
+			undoManager.doCommand(new MoveFigureCommand(pitch, from, to));
+
+			// reduce remaining moves
+			pitch.reduceRemainingMoves(1);
+		}
 
 		// Postconditions
-		if (!rules.postcondition(from, to)) {
-			status = rules.getStatus();
-			statusText = rules.getStatusText();
-			notifyObservers();
-			return false;
-		}
+		rules.postcondition(from, to);
 
-		status = GameStatus.MOVEFIGURE;
-		statusText = "from " + Coordinate.convert(from) + "  to " + Coordinate.convert(to);
+		status = rules.getStatus();
+		statusText = rules.getStatusText();
+
 		notifyObservers();
-		return true;
+		return moved;
 	}
 
 	@Override
@@ -178,7 +172,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public List<Position> getPossibleMoves(Position from) {
-		
+
 		return rules.getPossibleMoves(from);
 	}
 

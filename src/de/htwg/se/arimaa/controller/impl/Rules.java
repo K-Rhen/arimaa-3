@@ -18,10 +18,13 @@ public class Rules extends Observable {
 
 	private IArimaaController controller;
 	private GameStatus status;
-	private String statusText = "";
+	private String statusText;
 
 	public Rules(IArimaaController controller) {
 		this.controller = controller;
+		status = GameStatus.CREATE;
+
+		statusText = "";
 	}
 
 	public GameStatus getStatus() {
@@ -34,7 +37,6 @@ public class Rules extends Observable {
 
 	// TODO precondition RULES
 	public boolean precondition(Position from, Position to) {
-
 		// from position is empty
 		PLAYER_NAME playerName = controller.getPlayerName(from);
 		if (playerName == null) {
@@ -58,6 +60,24 @@ public class Rules extends Observable {
 			return false;
 		}
 
+		// -PUSH
+		// pushed must be finished
+		if (controller.getGameStatus().equals(GameStatus.PUSHFIGURE)) {
+			Position lastFromPosition = controller.getLastMoveFromPosition();
+			if (!lastFromPosition.equals(to)) {
+				statusText = "First finish your push to " + Coordinate.convert(lastFromPosition);
+				status = GameStatus.PUSHFIGURE;
+				return false;
+			}
+		}
+
+		// is Pushed Start
+		if (isPushedStart(from, to)) {
+			statusText = "Figure is pushed";
+			status = GameStatus.PUSHFIGURE;
+			return true;
+		}
+
 		// is hold
 		if (isHold(from)) {
 			statusText = "Figure is hold";
@@ -65,14 +85,12 @@ public class Rules extends Observable {
 			return false;
 		}
 
-		// -PULL
+		// is pulled
 		if (isPulled(from, to)) {
 			statusText = "Figure is pulled";
 			status = GameStatus.MOVEFIGURE;
 			return true;
 		}
-
-		// -PUSH
 
 		// is to position a possible move
 		List<Position> possibleMoves = getPossibleMoves(from);
@@ -82,26 +100,8 @@ public class Rules extends Observable {
 			return false;
 		}
 
-		return true;
-	}
-
-	private boolean isPulled(Position from, Position to) {
-		PLAYER_NAME actPlayerName = controller.getPlayerName(from);
-		// actual move figure is from other player
-		if (actPlayerName == null || actPlayerName.equals(controller.getCurrentPlayerName()))
-			return false;
-
-		// last move figure stronger than pulled figure
-		FIGURE_NAME lastFigureName = controller.getLastMoveFigureName();
-		FIGURE_NAME actFigureName = controller.getFigureName(from);
-		if (lastFigureName == null || lastFigureName.compareTo(actFigureName) <= 0)
-			return false;
-
-		// last from position must be act to position
-		Position lastFromPosition = controller.getLastMoveFromPosition();
-		if (lastFromPosition == null || !lastFromPosition.equals(to))
-			return false;
-
+		status = GameStatus.MOVEFIGURE;
+		statusText = "from " + Coordinate.convert(from) + "  to " + Coordinate.convert(to);
 		return true;
 	}
 
@@ -127,6 +127,51 @@ public class Rules extends Observable {
 		FIGURE_NAME otherStrongestFigure = getStrongestFigure(otherFigures);
 
 		if (own.compareTo(otherStrongestFigure) >= 0)
+			return false;
+
+		return true;
+	}
+
+	private boolean isPushedStart(Position from, Position to) {
+		PLAYER_NAME actPlayerName = controller.getPlayerName(from);
+		// actual move figure is from other player
+		if (actPlayerName == null || actPlayerName.equals(controller.getCurrentPlayerName()))
+			return false;
+
+		// actual move figure surround by a other player figure
+		List<Position> actSurroundPositions = new ArrayList<>();
+		actSurroundPositions = Position.getSurroundPositionForPitch(from);
+
+		List<Position> otherPlayerPositons = new ArrayList<>();
+		otherPlayerPositons = getFigursPositionsFromPlayer(controller.getCurrentPlayerName(), actSurroundPositions);
+
+		if (otherPlayerPositons.isEmpty())
+			return false;
+
+		// other player figure stronger than actual move figure
+		FIGURE_NAME strongestOtherFigure = getStrongestFigure(otherPlayerPositons);
+		FIGURE_NAME actFigureName = controller.getFigureName(from);
+		if (strongestOtherFigure == null || strongestOtherFigure.compareTo(actFigureName) <= 0)
+			return false;
+
+		return true;
+	}
+
+	private boolean isPulled(Position from, Position to) {
+		PLAYER_NAME actPlayerName = controller.getPlayerName(from);
+		// actual move figure is from other player
+		if (actPlayerName == null || actPlayerName.equals(controller.getCurrentPlayerName()))
+			return false;
+
+		// last move figure stronger than pulled figure
+		FIGURE_NAME lastFigureName = controller.getLastMoveFigureName();
+		FIGURE_NAME actFigureName = controller.getFigureName(from);
+		if (lastFigureName == null || lastFigureName.compareTo(actFigureName) <= 0)
+			return false;
+
+		// last from position must be act to position
+		Position lastFromPosition = controller.getLastMoveFromPosition();
+		if (lastFromPosition == null || !lastFromPosition.equals(to))
 			return false;
 
 		return true;
@@ -170,7 +215,8 @@ public class Rules extends Observable {
 	private List<Position> getFigursPositionsFromPlayer(PLAYER_NAME playerName, List<Position> surroundPosList) {
 		List<Position> posList = new ArrayList<>();
 		for (Position pos : surroundPosList) {
-			if (controller.getPlayerName(pos).equals(playerName))
+			PLAYER_NAME actPlayerName = controller.getPlayerName(pos);
+			if (actPlayerName != null && actPlayerName.equals(playerName))
 				posList.add(pos);
 		}
 		return posList;

@@ -11,6 +11,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import de.htwg.se.arimaa.arimaa.ArimaaModule;
+import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class RuelTest {
@@ -85,13 +86,51 @@ public class RuelTest {
 		controller.changePlayer();
 		// Gold Camel go left
 		assertTrue(controller.moveFigure(new Position(5, 4), new Position(4, 4)));
-		// Gold Camel cant go right
+		// Gold Camel can't go right
 		assertFalse(controller.moveFigure(new Position(4, 4), new Position(4, 5)));
 		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 		// Gold Elephants come help
 		assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
 		// Gold Camel no can go right
 		assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
+		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+	}
+
+	@Test
+	public void testIsPushed() {
+		// Gold Elephant go up
+		assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
+		assertTrue(controller.moveFigure(new Position(4, 5), new Position(4, 4)));
+		controller.changePlayer();
+		// Silver Camel go down
+		assertTrue(controller.moveFigure(new Position(4, 1), new Position(4, 2)));
+		assertTrue(controller.moveFigure(new Position(4, 2), new Position(4, 3)));
+		controller.changePlayer();
+
+		// Silver Camel get pushed right
+		assertTrue(controller.moveFigure(new Position(4, 3), new Position(5, 3)));
+		assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());
+		assertEquals(3, controller.getRemainingMoves());
+
+		// no other figure can be moved, test on Gold Rabbit
+		assertFalse(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
+		assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());
+
+		// no player change possible
+		controller.changePlayer();
+		assertEquals(PLAYER_NAME.GOLD, controller.getCurrentPlayerName());
+
+		// Gold Elephant goes up and finish push
+		assertTrue(controller.moveFigure(new Position(4, 4), new Position(4, 3)));
+		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+		assertEquals(2, controller.getRemainingMoves());
+
+		// change player now possible
+		controller.changePlayer();
+		assertEquals(PLAYER_NAME.SILVER, controller.getCurrentPlayerName());
+
+		// Silver Rabbit goes up, other moves now possible
+		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
 	}
 
@@ -108,7 +147,7 @@ public class RuelTest {
 
 		// Gold Elephant go right
 		assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
-		//Gold Elephant would pull Silver camel left
+		// Gold Elephant would pull Silver camel left
 		assertFalse(controller.moveFigure(new Position(4, 3), new Position(3, 3)));
 		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 		// Gold Elephant pull Silver camel down
