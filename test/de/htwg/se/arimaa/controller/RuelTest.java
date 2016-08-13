@@ -110,6 +110,10 @@ public class RuelTest {
 		assertTrue(controller.moveFigure(new Position(4, 2), new Position(4, 3)));
 		controller.changePlayer();
 
+		// Silver Camel would get pushed two right
+		assertFalse(controller.moveFigure(new Position(4, 3), new Position(6, 3)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+		
 		// Silver Camel get pushed right
 		assertTrue(controller.moveFigure(new Position(4, 3), new Position(5, 3)));
 		assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());

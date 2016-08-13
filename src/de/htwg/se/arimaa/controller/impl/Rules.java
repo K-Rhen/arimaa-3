@@ -70,7 +70,7 @@ public class Rules extends Observable {
 		}
 
 		// is Pushed Start
-		if (isPushedStart(from)) {
+		if (isPushedStart(from, to)) {
 			statusText = "Figure is pushed";
 			status = GameStatus.PUSHFIGURE;
 			return true;
@@ -130,16 +130,19 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	private boolean isPushedStart(Position from) {
+	private boolean isPushedStart(Position from, Position to) {
 		PLAYER_NAME actPlayerName = controller.getPlayerName(from);
 		// actual move figure is from other player
 		if (actPlayerName == null || actPlayerName.equals(controller.getCurrentPlayerName()))
 			return false;
 
-		// actual move figure surround by a other player figure
+		// actual move figure to position equals surround position
 		List<Position> actSurroundPositions = new ArrayList<>();
 		actSurroundPositions = Position.getSurroundPositionForPitch(from);
+		if (!actSurroundPositions.contains(to))
+			return false;
 
+		// actual move figure surround by a other player figure
 		List<Position> otherPlayerPositons = new ArrayList<>();
 		otherPlayerPositons = getFigursPositionsFromPlayer(controller.getCurrentPlayerName(), actSurroundPositions);
 
@@ -186,11 +189,10 @@ public class Rules extends Observable {
 
 	public List<Position> getFreeOwnSurroundPositions(Position pos) {
 		List<Position> canditates = new ArrayList<>();
-		
+
 		if (controller.getPlayerName(pos) != controller.getCurrentPlayerName())
 			return canditates;
 
-		
 		canditates = Position.getSurroundPositionForPitch(pos);
 
 		canditates.removeAll(getOccupiedPositions(canditates));
@@ -202,15 +204,14 @@ public class Rules extends Observable {
 		List<Position> canditates = new ArrayList<>();
 		canditates = Position.getSurroundPositionForPitch(pos);
 		canditates.removeAll(getOccupiedPositions(canditates));
-		
-		for(int i = canditates.size() -1; i >=0 ; i--){
-			if(!precondition(pos,canditates.get(i)))
+
+		for (int i = canditates.size() - 1; i >= 0; i--) {
+			if (!precondition(pos, canditates.get(i)))
 				canditates.remove(i);
 		}
-		
+
 		return canditates;
 	}
-	
 
 	private FIGURE_NAME getStrongestFigure(List<Position> surroundPosList) {
 		FIGURE_NAME figureName = null;
