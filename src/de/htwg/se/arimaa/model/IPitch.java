@@ -101,4 +101,11 @@ public interface IPitch {
 	 * @return false if no figure on the position
 	 */
 	boolean disableFigure(Position pos);
+
+	/**
+	 * tell if the given player has no rabbit figures on pitch
+	 * @param playerName
+	 * @return true if player has no rabbits left, else false
+	 */
+	boolean noRabbits(PLAYER_NAME playerName);
 }

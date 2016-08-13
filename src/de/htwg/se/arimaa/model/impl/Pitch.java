@@ -239,4 +239,14 @@ public class Pitch implements IPitch {
 		return true;
 	}
 
+	@Override
+	public boolean noRabbits(PLAYER_NAME playerName) {
+		IPlayer player = getPlayer(playerName);
+		for( IFigure figure : player.getFigures()){
+			if (figure.getName().equals(FIGURE_NAME.R))
+				return false;
+		}
+		return true;
+	}
+
 }

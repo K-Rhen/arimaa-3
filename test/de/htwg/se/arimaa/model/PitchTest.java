@@ -104,6 +104,23 @@ public class PitchTest {
 		assertEquals(null,pitch.getFigureName(new Position(0, 0)));
 		assertEquals(null,pitch.getPlayerName(new Position(0, 0)));
 	}
+	
+	@Test
+	public void testNoRabbits(){
+		assertFalse(pitch.noRabbits(PLAYER_NAME.GOLD));
+		
+		//Disable all Gold Rabbits
+		pitch.disableFigure(new Position(0,6));
+		pitch.disableFigure(new Position(0,7));
+		pitch.disableFigure(new Position(1,7));
+		pitch.disableFigure(new Position(2,7));
+		pitch.disableFigure(new Position(5,7));
+		pitch.disableFigure(new Position(6,7));
+		pitch.disableFigure(new Position(7,7));
+		pitch.disableFigure(new Position(7,6));
+		
+		assertTrue(pitch.noRabbits(PLAYER_NAME.GOLD));
+	}
 	@Test
 	public void testToString() {
 		String isString = pitch.toString();

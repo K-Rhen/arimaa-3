@@ -159,4 +159,11 @@ public interface IArimaaController extends IObservable {
 	 */
 	void disableFigure(Position pos);
 
+	/**
+	 * tell if the given player has no rabbit figures on pitch
+	 * @param playerName
+	 * @return true if player has no rabbits left, else false
+	 */
+	boolean noRabbits(PLAYER_NAME playerName);
+
 }

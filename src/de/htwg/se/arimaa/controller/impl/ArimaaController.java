@@ -193,4 +193,9 @@ public class ArimaaController extends Observable implements IArimaaController {
 	public void disableFigure(Position pos) {
 		pitch.disableFigure(pos);
 	}
+
+	@Override
+	public boolean noRabbits(PLAYER_NAME playerName) {
+		return pitch.noRabbits(playerName);
+	}
 }

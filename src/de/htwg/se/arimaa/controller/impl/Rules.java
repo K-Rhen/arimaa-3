@@ -107,7 +107,7 @@ public class Rules extends Observable {
 		List<Position> ownFigures = new ArrayList<>();
 		PLAYER_NAME ownPlayerName = controller.getPlayerName(pos);
 		ownFigures = getSurroundFigures(ownPlayerName, pos);
-		
+
 		// is surround by a own figure
 		if (!ownFigures.isEmpty())
 			return false;
@@ -117,20 +117,20 @@ public class Rules extends Observable {
 		otherFigures = getSurroundFigures(otherPlayerName, pos);
 
 		// own figure is not surrounded by a enemy
-		if(otherFigures.isEmpty())
+		if (otherFigures.isEmpty())
 			return false;
-		
+
 		FIGURE_NAME ownFigureName = controller.getFigureName(pos);
 		FIGURE_NAME otherStrongestFigureName = getStrongestFigure(otherFigures);
-		
+
 		// other surround figure is stronger than own figure
 		if (ownFigureName.compareTo(otherStrongestFigureName) >= 0)
 			return false;
 
 		return true;
 	}
-	
-	private List<Position> getSurroundFigures(PLAYER_NAME playerName, Position pos){
+
+	private List<Position> getSurroundFigures(PLAYER_NAME playerName, Position pos) {
 		List<Position> canditates = new ArrayList<>();
 		canditates = Position.getSurroundPositionForPitch(pos);
 		canditates = getOccupiedPositions(canditates);
@@ -188,41 +188,68 @@ public class Rules extends Observable {
 
 	// TODO postcondition RULELS
 	public boolean postcondition(Position from, Position to) {
-
-		// TODO TRAPP rule
-		if(isCaptured(from,to)){
+		// trap rule
+		if (isCaptured(from, to)) {
 			statusText = "Figure captured";
 			status = GameStatus.CAPTURED;
 		}
-		
+
 		// TODO is finish rule
+//		PLAYER_NAME winner = getWinner(from,to);
+//		if(winner != null){
+//			statusText = winner.toString()+" won the game";
+//			status = GameStatus.FINISH;
+//		}
+		
+		
+		// TODO circular move
+		
 		return true;
 	}
-	
 
+	private PLAYER_NAME getWinner(Position from, Position to) {
+		FIGURE_NAME figureName = controller.getFigureName(to);
+		if(!figureName.equals(FIGURE_NAME.R))
+			return null;
+		
+		// gold Rabbit 
+		if(to.getY() == 0 || controller.noRabbits(PLAYER_NAME.SILVER))
+			return PLAYER_NAME.GOLD;
+		
+		// silver Rabbit
+//		if(to.getY() == 7 || controller.noRabbits(PLAYER_NAME.GOLD))
+//			return PLAYER_NAME.SILVER;
+		// one side no rabbits
+		
+		return null;
+	}
+
+	
 	private boolean isCaptured(Position from, Position to) {
 		List<Position> traps = new ArrayList<>();
 		traps.add(new Position(2, 2));
 		traps.add(new Position(5, 2));
 		traps.add(new Position(2, 5));
 		traps.add(new Position(5, 5));
-		
+
 		boolean result = false;
-		
-		for (Position actTrap : traps) {
-			if(controller.getFigureName(actTrap) != null){
-				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa! "+isHold(actTrap));
-				if(!isHold(actTrap))
-					controller.disableFigure(actTrap);
-				result = true;
-			}				
+
+		for (Position actTrapPos : traps) {
+			if (controller.getFigureName(actTrapPos) != null) {
+
+				List<Position> ownFigures = new ArrayList<>();
+				PLAYER_NAME ownPlayerName = controller.getPlayerName(actTrapPos);
+				ownFigures = getSurroundFigures(ownPlayerName, actTrapPos);
+
+				// is surround by a own figure
+				if (ownFigures.isEmpty()) {
+					controller.disableFigure(actTrapPos);
+					result = true;
+				}
+			}
 		}
-		
-		
 		return result;
 	}
-	
-	
 
 	public List<Position> getFreeOwnSurroundPositions(Position pos) {
 		List<Position> canditates = new ArrayList<>();
