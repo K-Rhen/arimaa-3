@@ -104,30 +104,38 @@ public class Rules extends Observable {
 	}
 
 	private boolean isHold(Position pos) {
-		List<Position> canditates = new ArrayList<>();
-		canditates = Position.getSurroundPositionForPitch(pos);
-		canditates = getOccupiedPositions(canditates);
-
-		if (canditates.isEmpty())
-			return false;
-
 		List<Position> ownFigures = new ArrayList<>();
-		PLAYER_NAME playerName = controller.getPlayerName(pos);
-		ownFigures = getFigursPositionsFromPlayer(playerName, canditates);
-
+		PLAYER_NAME ownPlayerName = controller.getPlayerName(pos);
+		ownFigures = getSurroundFigures(ownPlayerName, pos);
+		
+		// is surround by a own figure
 		if (!ownFigures.isEmpty())
 			return false;
 
 		List<Position> otherFigures = new ArrayList<>();
-		otherFigures = getFigursPositionsFromPlayer(PLAYER_NAME.invers(playerName), canditates);
+		PLAYER_NAME otherPlayerName = PLAYER_NAME.invers(ownPlayerName);
+		otherFigures = getSurroundFigures(otherPlayerName, pos);
 
-		FIGURE_NAME own = controller.getFigureName(pos);
-		FIGURE_NAME otherStrongestFigure = getStrongestFigure(otherFigures);
-
-		if (own.compareTo(otherStrongestFigure) >= 0)
+		// own figure is not surrounded by a enemy
+		if(otherFigures.isEmpty())
+			return false;
+		
+		FIGURE_NAME ownFigureName = controller.getFigureName(pos);
+		FIGURE_NAME otherStrongestFigureName = getStrongestFigure(otherFigures);
+		
+		// other surround figure is stronger than own figure
+		if (ownFigureName.compareTo(otherStrongestFigureName) >= 0)
 			return false;
 
 		return true;
+	}
+	
+	private List<Position> getSurroundFigures(PLAYER_NAME playerName, Position pos){
+		List<Position> canditates = new ArrayList<>();
+		canditates = Position.getSurroundPositionForPitch(pos);
+		canditates = getOccupiedPositions(canditates);
+
+		return getFigursPositionsFromPlayer(playerName, canditates);
 	}
 
 	private boolean isPushedStart(Position from, Position to) {
@@ -203,6 +211,7 @@ public class Rules extends Observable {
 		
 		for (Position actTrap : traps) {
 			if(controller.getFigureName(actTrap) != null){
+				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa! "+isHold(actTrap));
 				if(!isHold(actTrap))
 					controller.disableFigure(actTrap);
 				result = true;
