@@ -54,6 +54,30 @@ public class PitchTest {
 	}
 	
 	@Test
+	public void testSetCurrentPlayer(){
+		assertEquals(PLAYER_NAME.GOLD, pitch.getCurrentPlayerName());
+		pitch.setCurrentPlayer(PLAYER_NAME.SILVER);
+		assertEquals(PLAYER_NAME.SILVER, pitch.getCurrentPlayerName());
+	}
+	@Test
+	public void testSetRemainingMoves(){
+		assertEquals(4, pitch.getRemainingMoves());
+		pitch.setRemainingMoves(-5);
+		assertEquals(4, pitch.getRemainingMoves());
+		pitch.setRemainingMoves(5);
+		assertEquals(4, pitch.getRemainingMoves());
+		
+		pitch.setRemainingMoves(2);
+		assertEquals(2, pitch.getRemainingMoves());
+	}
+	@Test
+	public void testGetFigureName(){
+		assertEquals(null, pitch.getFigureName(new Position(0,2)));
+		assertEquals(FIGURE_NAME.R, pitch.getFigureName(new Position(0,0)));
+		assertEquals(FIGURE_NAME.R, pitch.getFigureName(new Position(0,7)));
+	}
+	
+	@Test
 	public void testChangePlayer(){
 		assertFalse(pitch.isChangePlayerEable());
 		assertEquals(PLAYER_NAME.GOLD, pitch.getCurrentPlayerName());
@@ -73,6 +97,13 @@ public class PitchTest {
 		assertFalse(pitch.isChangePlayerEable());
 	}
 
+	@Test
+	public void testDisableFigure(){
+		assertFalse(pitch.disableFigure(new Position(0,2)));
+		assertTrue(pitch.disableFigure(new Position(0,0)));
+		assertEquals(null,pitch.getFigureName(new Position(0, 0)));
+		assertEquals(null,pitch.getPlayerName(new Position(0, 0)));
+	}
 	@Test
 	public void testToString() {
 		String isString = pitch.toString();

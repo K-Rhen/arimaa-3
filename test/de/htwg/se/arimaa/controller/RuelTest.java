@@ -14,6 +14,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import de.htwg.se.arimaa.arimaa.ArimaaModule;
+import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
 
@@ -113,7 +114,7 @@ public class RuelTest {
 		// Silver Camel would get pushed two right
 		assertFalse(controller.moveFigure(new Position(4, 3), new Position(6, 3)));
 		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
-		
+
 		// Silver Camel get pushed right
 		assertTrue(controller.moveFigure(new Position(4, 3), new Position(5, 3)));
 		assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());
@@ -172,6 +173,47 @@ public class RuelTest {
 		assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
 		assertEquals(0, controller.getRemainingMoves());
+	}
+
+	@Test
+	public void testIsCaptured() {
+		// -TRAP bottom left
+		// move Gold Camel up
+		assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
+		// move Gold Cat into trap
+		assertTrue(controller.moveFigure(new Position(2, 6), new Position(2, 5)));
+		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+		// figure is in this trap
+		assertEquals(FIGURE_NAME.C, controller.getFigureName(new Position(2, 5)));
+		// move Gold Camel down
+		assertTrue(controller.moveFigure(new Position(3, 5), new Position(3, 6)));
+		assertEquals(GameStatus.CAPTURED, controller.getGameStatus());
+		// no figure on this trap
+		assertEquals(null, controller.getFigureName(new Position(2, 5)));
+
+		// -TRAP bottom right
+		// move Gold Cat into trap
+		assertTrue(controller.moveFigure(new Position(5, 6), new Position(5, 5)));
+		assertEquals(GameStatus.CAPTURED, controller.getGameStatus());
+		// no figure on this trap
+		assertEquals(null, controller.getFigureName(new Position(5, 5)));
+
+		controller.changePlayer();
+
+		// -TRAP top left
+		// move Silver Cat into trap
+		assertTrue(controller.moveFigure(new Position(2, 1), new Position(2, 1)));
+		assertEquals(GameStatus.CAPTURED, controller.getGameStatus());
+		// no figure on this trap
+		assertEquals(null, controller.getFigureName(new Position(2, 2)));
+
+		// -TRAP top right
+		// move Silver Cat into trap
+		assertTrue(controller.moveFigure(new Position(5, 1), new Position(5, 1)));
+		assertEquals(GameStatus.CAPTURED, controller.getGameStatus());
+		// no figure on this trap
+		assertEquals(null, controller.getFigureName(new Position(5, 2)));
+
 	}
 
 	@Test

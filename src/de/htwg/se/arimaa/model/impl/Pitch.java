@@ -98,7 +98,8 @@ public class Pitch implements IPitch {
 
 	@Override
 	public void setRemainingMoves(int remainingMoves) {
-		this.remainingMoves = remainingMoves;
+		if (remainingMoves > 0 && remainingMoves < 5)
+			this.remainingMoves = remainingMoves;
 	}
 
 	@Override
@@ -185,30 +186,25 @@ public class Pitch implements IPitch {
 
 	@Override
 	public String getFigureNameForPitch(Position pos) {
-		FIGURE_NAME figureName = null;
-		figureName = goldPlayer.getFigure(pos);
-		if (figureName != null)
+		FIGURE_NAME figureName = getFigureName(pos);
+		if (figureName == null)
+			return null;
+
+		PLAYER_NAME playerName = getPlayerName(pos);
+		if (playerName.equals(PLAYER_NAME.GOLD))
 			return figureName.toString();
-
-		figureName = silverPlayer.getFigure(pos);
-		if (figureName != null)
+		else
 			return figureName.toString().toLowerCase();
-
-		return null;
 	}
 
 	@Override
 	public FIGURE_NAME getFigureName(Position pos) {
-		FIGURE_NAME figureName = null;
-		figureName = goldPlayer.getFigure(pos);
-		if (figureName != null)
-			return figureName;
+		PLAYER_NAME playerName = getPlayerName(pos);
+		if (playerName == null)
+			return null;
 
-		figureName = silverPlayer.getFigure(pos);
-		if (figureName != null)
-			return figureName;
-
-		return null;
+		IPlayer player = getPlayer(playerName);
+		return player.getFigure(pos);
 	}
 
 	@Override
@@ -227,8 +223,20 @@ public class Pitch implements IPitch {
 		PLAYER_NAME playerName = getPlayerName(from);
 		IPlayer player = getPlayer(playerName);
 		player.moveFigure(from, to);
-		
+
 		changePlayerEable = true;
+	}
+
+	@Override
+	public boolean disableFigure(Position pos) {
+		PLAYER_NAME playerName = getPlayerName(pos);
+		if (playerName == null)
+			return false;
+
+		IPlayer player = getPlayer(playerName);
+		player.disableFigure(pos);
+
+		return true;
 	}
 
 }

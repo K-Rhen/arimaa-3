@@ -35,13 +35,13 @@ public interface IPlayer {
 	void moveFigure(Position start, Position end);
 
 	/**
-	 * remove figure from player figures list
+	 * disbale figure 
 	 * 
 	 * @param pos
 	 *            position of the figure
 	 * @return true if done, else no figure from player on this position
 	 */
-	boolean deleteFigure(Position pos);
+	boolean disableFigure(Position pos);
 
 	/**
 	 * gives the list of all figures from player
@@ -49,5 +49,7 @@ public interface IPlayer {
 	 * @return list of figures
 	 */
 	List<IFigure> getFigures();
+
+	
 
 }

@@ -24,9 +24,10 @@ public class Player implements IPlayer {
 
 	@Override
 	public FIGURE_NAME getFigure(Position pos) {
-		for (IFigure cr : figures) {
-			if (pos.equals(cr.getPosition()))
-				return cr.getName();
+		for (IFigure figure : figures) {
+			Position actFigurePos = figure.getPosition();
+			if (actFigurePos.equals(pos) && figure.isDisbale() == false)
+				return figure.getName();
 		}
 		return null;
 	}
@@ -36,29 +37,36 @@ public class Player implements IPlayer {
 		if (getFigure(start) == null)
 			throw new IllegalArgumentException("No figure on " + start.toString());
 
-		for (IFigure cr : figures) {
-			if (cr.getPosition().equals(start)) {
-				cr.setPosition(end);
+		for (IFigure figure : figures) {
+			if (figure.getPosition().equals(start)) {
+				figure.setPosition(end);
 				break;
 			}
 		}
-		
-	}
-
-	@Override
-	public boolean deleteFigure(Position pos) {
-		if (getFigure(pos) == null)
-			return false;
-		for (int i = 0; i < figures.size(); i++) {
-			if (figures.get(i).getPosition().equals(pos))
-				figures.remove(i);
-		}
-		return true;
 	}
 
 	@Override
 	public List<IFigure> getFigures() {
-		return figures;
+		List<IFigure> tmpFigures  = figures;
+		
+		for(int i = tmpFigures.size()-1; i>=0; i--){
+			if(tmpFigures.get(i).isDisbale())
+				tmpFigures.remove(i);
+		}
+		
+		return tmpFigures;
+	}
+
+	@Override
+	public boolean disableFigure(Position pos) {
+		if (getFigure(pos) == null)
+			return false;
+		for (int i = 0; i < figures.size(); i++) {
+			IFigure figur = figures.get(i);
+			if (figur.getPosition().equals(pos))
+				figur.setDisable(true);
+		}
+		return true;
 	}
 
 }

@@ -153,4 +153,10 @@ public interface IArimaaController extends IObservable {
 	 */
 	Position getLastMoveFromPosition();
 
+	/**
+	 * disable this figure
+	 * @param pos
+	 */
+	void disableFigure(Position pos);
+
 }

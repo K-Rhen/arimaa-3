@@ -7,10 +7,12 @@ import de.htwg.se.arimaa.util.position.Position;
 public class Figure implements IFigure {
 	private Position position;
 	private FIGURE_NAME name;
+	private boolean disable;
 
 	public Figure(Position positon, FIGURE_NAME name) {
 		this.position = positon;
 		this.name = name;
+		this.disable = false;
 	}
 
 	@Override
@@ -29,8 +31,20 @@ public class Figure implements IFigure {
 	}
 
 	@Override
+	public void setDisable(boolean state) {
+		disable = state;
+	}
+	
+	@Override
+	public boolean isDisbale() {
+		return disable;
+	}
+
+	@Override
 	public String toString() {
 		return "{" + name + " " + position.toString() + "}";
 	}
+
+
 
 }

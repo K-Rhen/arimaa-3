@@ -188,4 +188,9 @@ public class ArimaaController extends Observable implements IArimaaController {
 	public Position getLastMoveFromPosition() {
 		return undoManager.getLastMoveFromPosition();
 	}
+
+	@Override
+	public void disableFigure(Position pos) {
+		pitch.disableFigure(pos);
+	}
 }

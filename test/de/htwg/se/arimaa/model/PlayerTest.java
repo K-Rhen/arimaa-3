@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,15 +13,17 @@ import org.junit.Test;
 import de.htwg.se.arimaa.model.impl.Figure;
 import de.htwg.se.arimaa.model.impl.Player;
 import de.htwg.se.arimaa.util.position.Position;
+import jdk.net.NetworkPermission;
 
 public class PlayerTest {
 	IPlayer player;
-	ArrayList<IFigure> figures;
+	List<IFigure> figures;
 
 	@Before
 	public void setUp() throws Exception {
 		figures = new ArrayList<>();
 		figures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
+		figures.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
 
 		player = new Player(PLAYER_NAME.GOLD, figures);
 	}
@@ -32,37 +35,39 @@ public class PlayerTest {
 
 	@Test
 	public void testMoveFigure() {
-		Position start = new Position(0, 0);
-		Position end = new Position(0, 1);
-		player.moveFigure(start, end);
-		assertEquals(null, player.getFigure(start));
-		assertEquals(FIGURE_NAME.R, player.getFigure(end));
+		player.moveFigure(new Position(1, 0), new Position(1,1));
+
+		assertEquals(null, player.getFigure(new Position(1, 0)));
+		assertEquals(FIGURE_NAME.R, player.getFigure(new Position(1,1)));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testMoveFigureException() {
-		Position start = new Position(0, 1);
-		Position end = new Position(0, 0);
-
-		player.moveFigure(start, end);
+		player.moveFigure(new Position(1,1), new Position(1, 0));
 	}
 
 	@Test
 	public void testGetFigure() {
 		assertEquals(FIGURE_NAME.R, player.getFigure(new Position(0, 0)));
-		assertEquals(player.getFigure(new Position(3, 4)), null);
+		assertEquals(null, player.getFigure(new Position(3, 4)));
+
+		player.disableFigure(new Position(0, 0));
+		assertEquals(null, player.getFigure(new Position(0, 0)));
 	}
 
 	@Test
-	public void testDeleteFigure() {
-		figures.add(new Figure(new Position(1, 1), FIGURE_NAME.R));
-
-		assertTrue(player.deleteFigure(new Position(1, 1)));
-		assertFalse(player.deleteFigure(new Position(1, 1)));
+	public void testDisableFigure() {
+		assertFalse(player.disableFigure(new Position(0, 1)));
+		assertTrue(player.disableFigure(new Position(0, 0)));
+		assertEquals(null, player.getFigure(new Position(0, 0)));
 	}
 
 	@Test
 	public void testGetFigures() {
-		assertEquals(figures, player.getFigures());
+		player.disableFigure(new Position(0,0));
+		List<IFigure> figuresList  = player.getFigures();
+		IFigure figure = new Figure(new Position(0, 0), FIGURE_NAME.R);
+		
+		assertFalse(figuresList.contains(figure));
 	}
 }

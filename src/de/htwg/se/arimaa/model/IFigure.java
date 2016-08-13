@@ -26,4 +26,16 @@ public interface IFigure {
 	 */
 	FIGURE_NAME getName();
 
+	/**
+	 * set disable
+	 * @param state
+	 */
+	void setDisable(boolean state);
+	
+	/**
+	 * is disable
+	 * @return
+	 */
+	boolean isDisbale();
+
 }

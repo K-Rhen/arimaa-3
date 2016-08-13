@@ -182,10 +182,38 @@ public class Rules extends Observable {
 	public boolean postcondition(Position from, Position to) {
 
 		// TODO TRAPP rule
-
+		if(isCaptured(from,to)){
+			statusText = "Figure captured";
+			status = GameStatus.CAPTURED;
+		}
+		
 		// TODO is finish rule
 		return true;
 	}
+	
+
+	private boolean isCaptured(Position from, Position to) {
+		List<Position> traps = new ArrayList<>();
+		traps.add(new Position(2, 2));
+		traps.add(new Position(5, 2));
+		traps.add(new Position(2, 5));
+		traps.add(new Position(5, 5));
+		
+		boolean result = false;
+		
+		for (Position actTrap : traps) {
+			if(controller.getFigureName(actTrap) != null){
+				if(!isHold(actTrap))
+					controller.disableFigure(actTrap);
+				result = true;
+			}				
+		}
+		
+		
+		return result;
+	}
+	
+	
 
 	public List<Position> getFreeOwnSurroundPositions(Position pos) {
 		List<Position> canditates = new ArrayList<>();
