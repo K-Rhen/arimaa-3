@@ -120,7 +120,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 			undoManager.doCommand(new MoveFigureCommand(pitch, from, to));
 
 			// reduce remaining moves
-			pitch.reduceRemainingMoves(1);
+			pitch.reduceRemainingMoves();
 		}
 
 		// Postconditions
@@ -176,7 +176,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public boolean isChangePlayerEnable() {
-		return pitch.isChangePlayerEable();
+		return pitch.isChangePlayerEable() && !status.equals(GameStatus.PUSHFIGURE);
 	}
 
 	@Override

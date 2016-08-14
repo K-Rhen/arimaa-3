@@ -58,6 +58,13 @@ public class Rules extends Observable {
 			return false;
 		}
 
+		// is figure a rabbit move backwards
+		if(isRabbitMoveBackward(from,to)){
+			statusText = "Rabbits can't go backwards";
+			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			return false;
+		}
+		
 		// -PUSH
 		// pushed must be finished
 		if (controller.getGameStatus().equals(GameStatus.PUSHFIGURE)) {
@@ -100,6 +107,26 @@ public class Rules extends Observable {
 
 		status = GameStatus.MOVEFIGURE;
 		statusText = "from " + Coordinate.convert(from) + "  to " + Coordinate.convert(to);
+		return true;
+	}
+
+	private boolean isRabbitMoveBackward(Position from, Position to) {
+		//is Figure a Rabbit
+		FIGURE_NAME figureName = controller.getFigureName(from);
+		if(!figureName.equals(FIGURE_NAME.R))
+			return false;
+		
+		PLAYER_NAME playerName = controller.getPlayerName(from);
+		String direction = Position.getDirection(from, to);
+		if(direction == null)
+			return false;
+		
+		if(playerName.equals(PLAYER_NAME.GOLD) && !direction.equals("s"))
+			return false;
+		
+		if(playerName.equals(PLAYER_NAME.SILVER) && !direction.equals("n"))
+			return false;
+		
 		return true;
 	}
 
@@ -198,7 +225,7 @@ public class Rules extends Observable {
 //		PLAYER_NAME winner = getWinner(from,to);
 //		if(winner != null){
 //			statusText = winner.toString()+" won the game";
-//			status = GameStatus.FINISH;
+//		//	status = GameStatus.FINISH;
 //		}
 		
 		
@@ -207,22 +234,22 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	private PLAYER_NAME getWinner(Position from, Position to) {
-		FIGURE_NAME figureName = controller.getFigureName(to);
-		if(!figureName.equals(FIGURE_NAME.R))
-			return null;
-		
-		// gold Rabbit 
-		if(to.getY() == 0 || controller.noRabbits(PLAYER_NAME.SILVER))
-			return PLAYER_NAME.GOLD;
-		
-		// silver Rabbit
-//		if(to.getY() == 7 || controller.noRabbits(PLAYER_NAME.GOLD))
-//			return PLAYER_NAME.SILVER;
-		// one side no rabbits
-		
-		return null;
-	}
+//	private PLAYER_NAME getWinner(Position from, Position to) {
+//		FIGURE_NAME figureName = controller.getFigureName(to);
+//		if(!figureName.equals(FIGURE_NAME.R))
+//			return null;
+//		
+//		// gold Rabbit 
+//		if(to.getY() == 0 && controller.getPlayerName(to).equals(PLAYER_NAME.GOLD))
+//			return PLAYER_NAME.GOLD;
+//		
+//		// silver Rabbit
+////		if(to.getY() == 7 || controller.noRabbits(PLAYER_NAME.GOLD))
+////			return PLAYER_NAME.SILVER;
+//		// one side no rabbits
+//		
+//		return null;
+//	}
 
 	
 	private boolean isCaptured(Position from, Position to) {

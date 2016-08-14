@@ -52,6 +52,31 @@ public class RuelTest {
 	}
 
 	@Test
+	public void testIsRabbitMoveBackward() {
+		// Gold Rabbit up
+		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
+		assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
+
+		// Gold Rabbit wants go backward
+		assertFalse(controller.moveFigure(new Position(0, 4), new Position(0, 5)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+
+		controller.changePlayer();
+
+		// Silver Rabbit down
+		assertTrue(controller.moveFigure(new Position(7, 1), new Position(7, 2)));
+		assertTrue(controller.moveFigure(new Position(7, 2), new Position(7, 3)));
+
+		// Silver Rabbit wants go up
+		assertFalse(controller.moveFigure(new Position(7, 3), new Position(7, 2)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+
+		// Silver Rabbit wants move far away position
+		assertFalse(controller.moveFigure(new Position(7, 3), new Position(0, 4)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+	}
+
+	@Test
 	public void testIsHold() {
 		// Gold Camel
 		assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
@@ -144,6 +169,44 @@ public class RuelTest {
 		// -Test weaker figure Silver Camel will push Gold Elephant
 		assertFalse(controller.moveFigure(new Position(4, 3), new Position(3, 3)));
 		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+
+	}
+
+	@Test
+	public void testIsPushedRabbit() {
+		// Gold Elephant go up
+		assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
+		assertTrue(controller.moveFigure(new Position(4, 5), new Position(4, 4)));
+		controller.changePlayer();
+
+		// Silver Rabbit go down
+		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
+		assertTrue(controller.moveFigure(new Position(0, 2), new Position(0, 3)));
+		assertTrue(controller.moveFigure(new Position(0, 3), new Position(0, 4)));
+		controller.changePlayer();
+
+		// Gold Elephant go left
+		assertTrue(controller.moveFigure(new Position(4, 4), new Position(3, 4)));
+		controller.changePlayer();
+
+		// Silver Rabbit go right
+		assertTrue(controller.moveFigure(new Position(0, 4), new Position(1, 4)));
+		assertTrue(controller.moveFigure(new Position(1, 4), new Position(2, 4)));
+		controller.changePlayer();
+
+		// Gold Elephant will push Silver Rabbit up
+		assertFalse(controller.moveFigure(new Position(2, 4), new Position(2, 3)));
+		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+
+		// Gold Elephant push Silver Rabbit left
+		assertTrue(controller.moveFigure(new Position(2, 4), new Position(1, 4)));
+		assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());
+		assertTrue(controller.moveFigure(new Position(3, 4), new Position(2, 4)));
+
+		// Gold Elephant push Silver Rabbit down
+		assertTrue(controller.moveFigure(new Position(1, 4), new Position(1, 5)));
+		assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());
+		assertTrue(controller.moveFigure(new Position(2, 4), new Position(1, 4)));
 	}
 
 	@Test
@@ -229,40 +292,50 @@ public class RuelTest {
 		assertFalse(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
 		assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
 	}
-	
-	@Test
-	public void testGetWinner(){
-		//move Gold Rabbit up
-		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
-		assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
-		controller.changePlayer();
-		
-		// move first Silver Rabbits away
-		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
-		assertTrue(controller.moveFigure(new Position(0, 2), new Position(0, 3)));
-		assertTrue(controller.moveFigure(new Position(0, 3), new Position(1, 3)));
-		controller.changePlayer();
-		
-		// move Gold Rabbit up
-		assertTrue(controller.moveFigure(new Position(0, 4), new Position(0, 3)));
-		controller.changePlayer();
-		
-		// move second Silver Rabbit away
-		assertTrue(controller.moveFigure(new Position(0,0), new Position(0, 1)));
-		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
-		assertTrue(controller.moveFigure(new Position(0, 2), new Position(1, 2)));
-		controller.changePlayer();
-		
-		// disable Silver Dog
-		controller.disableFigure(new Position(1,1));
-		
-		//move Gold Rabbit up
-		assertTrue(controller.moveFigure(new Position(0, 3), new Position(0, 2)));
-		assertTrue(controller.moveFigure(new Position(0, 2), new Position(0, 1)));
-		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 0)));
-		assertEquals(GameStatus.FINISH, controller.getGameStatus());
-				
-	}
+
+	// @Test
+	// public void testGetWinner(){
+	// //move Gold Rabbit up
+	// assertTrue(controller.moveFigure(new Position(0, 6), new Position(0,
+	// 5)));
+	// assertTrue(controller.moveFigure(new Position(0, 5), new Position(0,
+	// 4)));
+	// controller.changePlayer();
+	//
+	// // move first Silver Rabbits away
+	// assertTrue(controller.moveFigure(new Position(0, 1), new Position(0,
+	// 2)));
+	// assertTrue(controller.moveFigure(new Position(0, 2), new Position(0,
+	// 3)));
+	// assertTrue(controller.moveFigure(new Position(0, 3), new Position(1,
+	// 3)));
+	// controller.changePlayer();
+	//
+	// // move Gold Rabbit up
+	// assertTrue(controller.moveFigure(new Position(0, 4), new Position(0,
+	// 3)));
+	// controller.changePlayer();
+	//
+	// // move second Silver Rabbit away
+	// assertTrue(controller.moveFigure(new Position(0,0), new Position(0, 1)));
+	// assertTrue(controller.moveFigure(new Position(0, 1), new Position(0,
+	// 2)));
+	// assertTrue(controller.moveFigure(new Position(0, 2), new Position(1,
+	// 2)));
+	// controller.changePlayer();
+	//
+	// // disable Silver Dog
+	// controller.disableFigure(new Position(1,1));
+	//
+	// //move Gold Rabbit up
+	// assertTrue(controller.moveFigure(new Position(0, 3), new Position(0,
+	// 2)));
+	// assertTrue(controller.moveFigure(new Position(0, 2), new Position(0,
+	// 1)));
+	// assertTrue(controller.moveFigure(new Position(0, 1), new Position(0,
+	// 0)));
+	// assertEquals(GameStatus.FINISH, controller.getGameStatus());
+	// }
 
 	@Test
 	public void testGetPossibleMoves() {

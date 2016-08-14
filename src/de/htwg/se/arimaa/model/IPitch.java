@@ -61,42 +61,48 @@ public interface IPitch {
 	/**
 	 * reduce the remainingMoves
 	 * 
-	 * @param count
-	 * @return false if count > remainingMoves
+	 * @return false if remaining moves == 0
 	 */
-	boolean reduceRemainingMoves(int count);
+	boolean reduceRemainingMoves();
 
 	/**
-	 * Give the figure name as pitch notation 
-	 * @param pos position on pitch
+	 * Give the figure name as pitch notation
+	 * 
+	 * @param pos
+	 *            position on pitch
 	 * @return name of the figure for pitch
 	 */
 	String getFigureNameForPitch(Position pos);
 
 	/**
 	 * get the name of the figure
-	 * @param pos a position on the pitch
-	 * @return figure name, else null 
+	 * 
+	 * @param pos
+	 *            a position on the pitch
+	 * @return figure name, else null
 	 */
 	FIGURE_NAME getFigureName(Position pos);
-	
+
 	/**
 	 * move a figure from a position to a another with no check of correctness
-	 * @param from a position on the pitch, must be a figure on cell
-	 * @param to position on the pitch, must be a free cell
+	 * 
+	 * @param from
+	 *            a position on the pitch, must be a figure on cell
+	 * @param to
+	 *            position on the pitch, must be a free cell
 	 */
 	void moveFigure(Position from, Position to);
 
-
-
 	/**
 	 * get the state if changing player is able
+	 * 
 	 * @return true if change player is able, else false
 	 */
 	boolean isChangePlayerEable();
-	
+
 	/**
 	 * disable figure
+	 * 
 	 * @param pos
 	 * @return false if no figure on the position
 	 */
@@ -104,6 +110,7 @@ public interface IPitch {
 
 	/**
 	 * tell if the given player has no rabbit figures on pitch
+	 * 
 	 * @param playerName
 	 * @return true if player has no rabbits left, else false
 	 */
