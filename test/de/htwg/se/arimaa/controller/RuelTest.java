@@ -359,6 +359,13 @@ public class RuelTest {
 		assertTrue(controller.moveFigure(new Position(0, 2), new Position(0, 1)));
 		assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 0)));
 		assertEquals(GameStatus.FINISH, controller.getGameStatus());
+		
+		
+		//no move now able
+		assertFalse(controller.moveFigure(new Position(7, 1), new Position(7, 2)));
+		//no change player able
+		controller.changePlayer();
+		assertEquals(PLAYER_NAME.GOLD, controller.getCurrentPlayerName());
 	}
 	
 	@Test
@@ -387,6 +394,13 @@ public class RuelTest {
 		assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 6)));
 		assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 7)));
 		assertEquals(GameStatus.FINISH, controller.getGameStatus());
+		
+		
+		//no move now able
+		assertFalse(controller.moveFigure(new Position(7, 6), new Position(7, 5)));
+		//no change player able
+		controller.changePlayer();
+		assertEquals(PLAYER_NAME.SILVER, controller.getCurrentPlayerName());
 	}
 
 	@Test

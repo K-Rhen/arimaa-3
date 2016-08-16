@@ -14,6 +14,7 @@ import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.command.UndoManager;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
+import jdk.internal.org.objectweb.asm.commons.GeneratorAdapter;
 
 public class ArimaaController extends Observable implements IArimaaController {
 	private UndoManager undoManager;
@@ -62,7 +63,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public void changePlayer() {
-		if (status.equals(GameStatus.PUSHFIGURE))
+		if (status.equals(GameStatus.PUSHFIGURE) ||status.equals(GameStatus.FINISH))
 			return;
 
 		pitch.changePlayer();
@@ -110,8 +111,10 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public boolean moveFigure(Position from, Position to) {
-		boolean moved = false;
+		if (status.equals(GameStatus.FINISH))
+			return false;
 
+		boolean moved = false;
 		// Preconditions
 		moved = rules.precondition(from, to);
 		if (moved) {

@@ -16,12 +16,15 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.IFigure;
@@ -240,6 +243,11 @@ public class PitchPanel extends JPanel implements IObserver {
 	@Override
 	public void update(Event e) {
 		this.repaint();
+		
+		GameStatus gs = controller.getGameStatus();
+		if (gs.equals(GameStatus.FINISH)) {
+			JOptionPane.showMessageDialog(null,controller.getStatusText(),"Some one has won the game", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 }
