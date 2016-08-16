@@ -17,7 +17,7 @@ public class Pitch implements IPitch {
 	private PLAYER_NAME currentPlayer;
 	private int remainingMoves;
 
-	private boolean changePlayerEable;
+
 
 	private static final int PITCHSIZE = 8;
 
@@ -30,8 +30,6 @@ public class Pitch implements IPitch {
 
 		currentPlayer = PLAYER_NAME.GOLD;
 		remainingMoves = 4;
-
-		changePlayerEable = false;
 	}
 
 	private void initializeDefaultPitch(List<IFigure> silverFigures, List<IFigure> goldFigures) {
@@ -109,11 +107,6 @@ public class Pitch implements IPitch {
 	
 		remainingMoves -= 1;
 		return true;
-	}
-
-	@Override
-	public boolean isChangePlayerEable() {
-		return changePlayerEable;
 	}
 
 	private IPlayer getPlayer(PLAYER_NAME playerName) {
@@ -207,12 +200,7 @@ public class Pitch implements IPitch {
 
 	@Override
 	public void changePlayer() {
-		if (!changePlayerEable)
-			return;
-
 		remainingMoves = 4;
-		changePlayerEable = false;
-
 		currentPlayer = PLAYER_NAME.invers(currentPlayer);
 	}
 
@@ -221,8 +209,6 @@ public class Pitch implements IPitch {
 		PLAYER_NAME playerName = getPlayerName(from);
 		IPlayer player = getPlayer(playerName);
 		player.moveFigure(from, to);
-
-		changePlayerEable = true;
 	}
 
 	@Override

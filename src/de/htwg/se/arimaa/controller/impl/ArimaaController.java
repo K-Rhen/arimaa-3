@@ -25,6 +25,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 	private GameStatus status;
 	private String statusText;
 
+	private boolean changePlayerEable;
+
 	@Inject
 	public ArimaaController() {
 		initArimaaController();
@@ -37,6 +39,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 		status = GameStatus.CREATE;
 		statusText = "New game started";
+
+		changePlayerEable = false;
 	}
 
 	@Override
@@ -63,10 +67,15 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public void changePlayer() {
-		if (status.equals(GameStatus.PUSHFIGURE) ||status.equals(GameStatus.FINISH))
+		if (!changePlayerEable)
+			return;
+
+		if (status.equals(GameStatus.PUSHFIGURE) || status.equals(GameStatus.FINISH))
 			return;
 
 		pitch.changePlayer();
+
+		changePlayerEable = false;
 
 		status = GameStatus.CHANGEPLAYER;
 		statusText = pitch.getCurrentPlayerName().toString() + " it’s your turn";
@@ -121,6 +130,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 			// Move the figure
 			undoManager.doCommand(new MoveFigureCommand(pitch, from, to));
+
+			changePlayerEable = true;
 
 			// reduce remaining moves
 			pitch.reduceRemainingMoves();
@@ -179,7 +190,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public boolean isChangePlayerEnable() {
-		return pitch.isChangePlayerEable() && !status.equals(GameStatus.PUSHFIGURE);
+		return changePlayerEable && !status.equals(GameStatus.PUSHFIGURE);
 	}
 
 	@Override

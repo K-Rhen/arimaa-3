@@ -58,12 +58,7 @@ public interface IPitch {
 	 */
 	void setRemainingMoves(int remainingMoves);
 
-	/**
-	 * reduce the remainingMoves
-	 * 
-	 * @return false if remaining moves == 0
-	 */
-	boolean reduceRemainingMoves();
+
 
 	/**
 	 * Give the figure name as pitch notation
@@ -94,13 +89,6 @@ public interface IPitch {
 	void moveFigure(Position from, Position to);
 
 	/**
-	 * get the state if changing player is able
-	 * 
-	 * @return true if change player is able, else false
-	 */
-	boolean isChangePlayerEable();
-
-	/**
 	 * disable figure
 	 * 
 	 * @param pos
@@ -115,4 +103,10 @@ public interface IPitch {
 	 * @return true if player has no rabbits left, else false
 	 */
 	boolean noRabbits(PLAYER_NAME playerName);
+
+	/**
+	 * reduche remaining moves
+	 * @return true if remaining moves > 0
+	 */
+	boolean reduceRemainingMoves();
 }
