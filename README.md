@@ -25,7 +25,7 @@ For more information about arimaa, go to **http://arimaa.com**
 
 ## Rules
 
-* goal + immobilation(no possible move)
+* win by immobilation(no possible move)
 * cyclomatic move
 
 ## UndoManager

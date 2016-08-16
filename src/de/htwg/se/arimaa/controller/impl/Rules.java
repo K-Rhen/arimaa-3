@@ -225,7 +225,7 @@ public class Rules extends Observable {
 		PLAYER_NAME winner = getWinner(from, to);
 		if (winner != null) {
 			statusText = winner.toString() + " won the game";
-			 status = GameStatus.FINISH;
+			status = GameStatus.FINISH;
 		}
 
 		// TODO circular move
@@ -233,33 +233,27 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	
 	private PLAYER_NAME getWinner(Position from, Position to) {
 		// elimination
-		if(controller.noRabbits(PLAYER_NAME.GOLD))
+		if (controller.noRabbits(PLAYER_NAME.GOLD))
 			return PLAYER_NAME.SILVER;
-		else if(controller.noRabbits(PLAYER_NAME.SILVER))
+		else if (controller.noRabbits(PLAYER_NAME.SILVER))
 			return PLAYER_NAME.GOLD;
-		
-		
-//		// goal
-//		FIGURE_NAME figureName = controller.getFigureName(to);
-//		if (!figureName.equals(FIGURE_NAME.R))
-//			return null;
-//
-//		PLAYER_NAME playerName = controller.getPlayerName(to);
-//		
-//		if (to.getY() == 0 && playerName.equals(PLAYER_NAME.GOLD))
-//			return PLAYER_NAME.GOLD;
-//		else if (to.getY() == 7 && playerName.equals(PLAYER_NAME.SILVER))
-//			return PLAYER_NAME.SILVER;
 
+		// goal
+		FIGURE_NAME figureName = controller.getFigureName(to);
+		if (figureName == null || !figureName.equals(FIGURE_NAME.R))
+			return null;
 
-		
-		
+		PLAYER_NAME playerName = controller.getPlayerName(to);
+
+		if (playerName.equals(PLAYER_NAME.GOLD) && to.getY() == 0)
+			return PLAYER_NAME.GOLD;
+		else if (playerName.equals(PLAYER_NAME.SILVER) && to.getY() == 7)
+			return PLAYER_NAME.SILVER;
+
 		// imobilisation
 
-		
 		return null;
 	}
 
