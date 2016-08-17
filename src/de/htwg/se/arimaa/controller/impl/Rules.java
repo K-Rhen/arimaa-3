@@ -316,15 +316,10 @@ public class Rules extends Observable {
 	private List<Position> getFreeOwnSurroundPositions(PLAYER_NAME playerName, Position pos) {
 		List<Position> canditates = new ArrayList<>();
 
-		// immobilaitons conflict
-		// if (controller.getPlayerName(pos) !=
-		// controller.getCurrentPlayerName())
-		// return canditates;
 		if (!controller.getPlayerName(pos).equals(playerName))
 			return canditates;
 
 		canditates = Position.getSurroundPositionForPitch(pos);
-
 		canditates.removeAll(getOccupiedPositions(canditates));
 
 		return canditates;
@@ -363,6 +358,19 @@ public class Rules extends Observable {
 		return occupied;
 	}
 
+	private List<Position> getPossibleMovesStateLess(PLAYER_NAME currenPlayerName, Position pos) {
+		List<Position> canditates = new ArrayList<>();
+		canditates = Position.getSurroundPositionForPitch(pos);
+		canditates.removeAll(getOccupiedPositions(canditates));
+
+		for (int i = canditates.size() - 1; i >= 0; i--) {
+			if (!preconditionStateLess(currenPlayerName, pos, canditates.get(i)))
+				canditates.remove(i);
+		}
+
+		return canditates;
+	}
+	
 	public List<Position> getPossibleMoves(PLAYER_NAME currenPlayerName, Position pos) {
 		List<Position> canditates = new ArrayList<>();
 		canditates = Position.getSurroundPositionForPitch(pos);
@@ -376,16 +384,5 @@ public class Rules extends Observable {
 		return canditates;
 	}
 	
-	private List<Position> getPossibleMovesStateLess(PLAYER_NAME currenPlayerName, Position pos) {
-		List<Position> canditates = new ArrayList<>();
-		canditates = Position.getSurroundPositionForPitch(pos);
-		canditates.removeAll(getOccupiedPositions(canditates));
-
-		for (int i = canditates.size() - 1; i >= 0; i--) {
-			if (!preconditionStateLess(currenPlayerName, pos, canditates.get(i)))
-				canditates.remove(i);
-		}
-
-		return canditates;
-	}
+	
 }
