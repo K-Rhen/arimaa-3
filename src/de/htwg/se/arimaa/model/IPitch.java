@@ -105,7 +105,7 @@ public interface IPitch {
 	boolean noRabbits(PLAYER_NAME playerName);
 
 	/**
-	 * reduche remaining moves
+	 * reduce remaining moves
 	 * @return true if remaining moves > 0
 	 */
 	boolean reduceRemainingMoves();

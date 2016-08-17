@@ -6,6 +6,7 @@ import java.util.List;
 import de.htwg.se.arimaa.controller.GameStatus;
 import de.htwg.se.arimaa.controller.IArimaaController;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
+import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Coordinate;
@@ -33,8 +34,8 @@ public class Rules extends Observable {
 		return statusText;
 	}
 
-	// TODO precondition RULES
-	public boolean precondition(Position from, Position to) {
+	// TODO
+	public boolean preconditionStateLess(PLAYER_NAME currenPlayerName, Position from, Position to) {
 		// from position is empty
 		PLAYER_NAME playerName = controller.getPlayerName(from);
 		if (playerName == null) {
@@ -51,13 +52,6 @@ public class Rules extends Observable {
 			return false;
 		}
 
-		// no moves remain
-		if (controller.getRemainingMoves() == 0) {
-			statusText = "No remain moves";
-			status = GameStatus.PRECONDITIONRULES_VIOLATED;
-			return false;
-		}
-
 		// is figure a rabbit move backwards
 		if (isRabbitMoveBackward(from, to)) {
 			statusText = "Rabbits can't go backwards";
@@ -66,16 +60,6 @@ public class Rules extends Observable {
 		}
 
 		// -PUSH
-		// pushed must be finished
-		if (controller.getGameStatus().equals(GameStatus.PUSHFIGURE)) {
-			Position lastFromPosition = controller.getLastMoveFromPosition();
-			if (!lastFromPosition.equals(to)) {
-				statusText = "First finish your push to " + Coordinate.convert(lastFromPosition);
-				status = GameStatus.PUSHFIGURE;
-				return false;
-			}
-		}
-
 		// is Pushed Start
 		if (isPushedStart(from, to)) {
 			statusText = "Figure is pushed";
@@ -98,7 +82,7 @@ public class Rules extends Observable {
 		}
 
 		// is to position a possible move
-		List<Position> possibleMoves = getFreeOwnSurroundPositions(from);
+		List<Position> possibleMoves = getFreeOwnSurroundPositions(currenPlayerName, from);
 		if (possibleMoves.isEmpty() || !possibleMoves.contains(to)) {
 			statusText = Coordinate.convert(to) + " is not a permitted position";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
@@ -108,6 +92,26 @@ public class Rules extends Observable {
 		status = GameStatus.MOVEFIGURE;
 		statusText = "from " + Coordinate.convert(from) + "  to " + Coordinate.convert(to);
 		return true;
+	}
+
+	public boolean precondition(PLAYER_NAME currenPlayerName, Position from, Position to) {
+		if (controller.getRemainingMoves() == 0) {
+			statusText = "No remain moves";
+			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			return false;
+		}
+
+		// pushed must be finished
+		if (controller.getGameStatus().equals(GameStatus.PUSHFIGURE)) {
+			Position lastFromPosition = controller.getLastMoveFromPosition();
+			if (!lastFromPosition.equals(to)) {
+				statusText = "First finish your push to " + Coordinate.convert(lastFromPosition);
+				status = GameStatus.PUSHFIGURE;
+				return false;
+			}
+		}
+
+		return preconditionStateLess(currenPlayerName, from, to);
 	}
 
 	private boolean isRabbitMoveBackward(Position from, Position to) {
@@ -234,6 +238,12 @@ public class Rules extends Observable {
 	}
 
 	private PLAYER_NAME getWinner(Position from, Position to) {
+		// immobilisation
+		if (isImmobiel(PLAYER_NAME.GOLD))
+			return PLAYER_NAME.SILVER;
+		if (isImmobiel(PLAYER_NAME.SILVER))
+			return PLAYER_NAME.GOLD;
+
 		// elimination
 		if (controller.noRabbits(PLAYER_NAME.GOLD))
 			return PLAYER_NAME.SILVER;
@@ -252,9 +262,29 @@ public class Rules extends Observable {
 		else if (playerName.equals(PLAYER_NAME.SILVER) && to.getY() == 7)
 			return PLAYER_NAME.SILVER;
 
-		// imobilisation
-
 		return null;
+	}
+
+	private boolean isImmobiel(PLAYER_NAME playerName) {
+		List<IFigure> figures = new ArrayList<>();
+		if (playerName.equals(PLAYER_NAME.GOLD))
+			figures = controller.getGoldFigures();
+		else
+			figures = controller.getSilverFigures();
+
+		Rules r = new Rules(controller);
+
+		int os = 0;
+		for (IFigure figure : figures) {
+			Position pos = figure.getPosition();
+			List<Position> possiblePosList = r.getPossibleMoves(playerName, pos);
+			if (!possiblePosList.isEmpty())
+				os++;
+		}
+
+		if (os == 0)
+			return true;
+		return false;
 	}
 
 	private boolean isCaptured(Position from, Position to) {
@@ -283,10 +313,14 @@ public class Rules extends Observable {
 		return result;
 	}
 
-	public List<Position> getFreeOwnSurroundPositions(Position pos) {
+	public List<Position> getFreeOwnSurroundPositions(PLAYER_NAME playerName, Position pos) {
 		List<Position> canditates = new ArrayList<>();
 
-		if (controller.getPlayerName(pos) != controller.getCurrentPlayerName())
+		// immobilaitons conflict
+		// if (controller.getPlayerName(pos) !=
+		// controller.getCurrentPlayerName())
+		// return canditates;
+		if (!controller.getPlayerName(pos).equals(playerName))
 			return canditates;
 
 		canditates = Position.getSurroundPositionForPitch(pos);
@@ -296,13 +330,13 @@ public class Rules extends Observable {
 		return canditates;
 	}
 
-	public List<Position> getPossibleMoves(Position pos) {
+	public List<Position> getPossibleMoves(PLAYER_NAME currenPlayerName, Position pos) {
 		List<Position> canditates = new ArrayList<>();
 		canditates = Position.getSurroundPositionForPitch(pos);
 		canditates.removeAll(getOccupiedPositions(canditates));
 
 		for (int i = canditates.size() - 1; i >= 0; i--) {
-			if (!precondition(pos, canditates.get(i)))
+			if (!preconditionStateLess(currenPlayerName, pos, canditates.get(i)))
 				canditates.remove(i);
 		}
 

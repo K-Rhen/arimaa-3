@@ -125,7 +125,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 		boolean moved = false;
 		// Preconditions
-		moved = rules.precondition(from, to);
+		PLAYER_NAME currenPlayerName = getCurrentPlayerName();
+		moved = rules.precondition(currenPlayerName, from, to);
 		if (moved) {
 
 			// Move the figure
@@ -184,8 +185,8 @@ public class ArimaaController extends Observable implements IArimaaController {
 
 	@Override
 	public List<Position> getPossibleMoves(Position from) {
-
-		return rules.getPossibleMoves(from);
+		PLAYER_NAME currenPlayerName = getCurrentPlayerName();
+		return rules.getPossibleMoves(currenPlayerName, from);
 	}
 
 	@Override
