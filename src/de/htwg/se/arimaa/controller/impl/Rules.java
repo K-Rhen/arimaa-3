@@ -111,7 +111,7 @@ public class Rules extends Observable {
 		return preconditionStateLess(currenPlayerName, from, to);
 	}
 
-	public boolean postcondition(Position from, Position to) {
+	public boolean postcondition(Position to) {
 		// trap rule
 		if (isCaptured()) {
 			statusText = "Figure captured";

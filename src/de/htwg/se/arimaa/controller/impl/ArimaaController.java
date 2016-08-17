@@ -138,7 +138,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 		}
 
 		// Postconditions
-		rules.postcondition(from, to);
+		rules.postcondition(to);
 
 		status = rules.getStatus();
 		statusText = rules.getStatusText();
