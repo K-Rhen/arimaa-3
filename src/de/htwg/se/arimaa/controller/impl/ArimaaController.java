@@ -14,7 +14,6 @@ import de.htwg.se.arimaa.model.impl.Pitch;
 import de.htwg.se.arimaa.util.command.UndoManager;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Position;
-import jdk.internal.org.objectweb.asm.commons.GeneratorAdapter;
 
 public class ArimaaController extends Observable implements IArimaaController {
 	private UndoManager undoManager;
