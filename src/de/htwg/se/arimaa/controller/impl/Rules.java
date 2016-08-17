@@ -114,6 +114,26 @@ public class Rules extends Observable {
 		return preconditionStateLess(currenPlayerName, from, to);
 	}
 
+	// TODO postcondition RULELS
+	public boolean postcondition(Position from, Position to) {
+		// trap rule
+		if (isCaptured(from, to)) {
+			statusText = "Figure captured";
+			status = GameStatus.CAPTURED;
+		}
+
+		// -game finish
+		PLAYER_NAME winner = getWinner(from, to);
+		if (winner != null) {
+			statusText = winner.toString() + " won the game";
+			status = GameStatus.FINISH;
+		}
+
+		// TODO circular move
+
+		return true;
+	}
+	
 	private boolean isRabbitMoveBackward(Position from, Position to) {
 		// is Figure a Rabbit
 		FIGURE_NAME figureName = controller.getFigureName(from);
@@ -159,14 +179,6 @@ public class Rules extends Observable {
 			return false;
 
 		return true;
-	}
-
-	private List<Position> getSurroundFigures(PLAYER_NAME playerName, Position pos) {
-		List<Position> canditates = new ArrayList<>();
-		canditates = Position.getSurroundPositionForPitch(pos);
-		canditates = getOccupiedPositions(canditates);
-
-		return getFigursPositionsFromPlayer(playerName, canditates);
 	}
 
 	private boolean isPushedStart(Position from, Position to) {
@@ -217,26 +229,6 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	// TODO postcondition RULELS
-	public boolean postcondition(Position from, Position to) {
-		// trap rule
-		if (isCaptured(from, to)) {
-			statusText = "Figure captured";
-			status = GameStatus.CAPTURED;
-		}
-
-		// -GAMEENDE
-		PLAYER_NAME winner = getWinner(from, to);
-		if (winner != null) {
-			statusText = winner.toString() + " won the game";
-			status = GameStatus.FINISH;
-		}
-
-		// TODO circular move
-
-		return true;
-	}
-
 	private PLAYER_NAME getWinner(Position from, Position to) {
 		// immobilisation
 		if (isImmobiel(PLAYER_NAME.GOLD))
@@ -277,7 +269,7 @@ public class Rules extends Observable {
 		int os = 0;
 		for (IFigure figure : figures) {
 			Position pos = figure.getPosition();
-			List<Position> possiblePosList = r.getPossibleMoves(playerName, pos);
+			List<Position> possiblePosList = r.getPossibleMovesStateLess(playerName, pos);
 			if (!possiblePosList.isEmpty())
 				os++;
 		}
@@ -313,7 +305,15 @@ public class Rules extends Observable {
 		return result;
 	}
 
-	public List<Position> getFreeOwnSurroundPositions(PLAYER_NAME playerName, Position pos) {
+	private List<Position> getSurroundFigures(PLAYER_NAME playerName, Position pos) {
+		List<Position> canditates = new ArrayList<>();
+		canditates = Position.getSurroundPositionForPitch(pos);
+		canditates = getOccupiedPositions(canditates);
+
+		return getFigursPositionsFromPlayer(playerName, canditates);
+	}
+	
+	private List<Position> getFreeOwnSurroundPositions(PLAYER_NAME playerName, Position pos) {
 		List<Position> canditates = new ArrayList<>();
 
 		// immobilaitons conflict
@@ -326,19 +326,6 @@ public class Rules extends Observable {
 		canditates = Position.getSurroundPositionForPitch(pos);
 
 		canditates.removeAll(getOccupiedPositions(canditates));
-
-		return canditates;
-	}
-
-	public List<Position> getPossibleMoves(PLAYER_NAME currenPlayerName, Position pos) {
-		List<Position> canditates = new ArrayList<>();
-		canditates = Position.getSurroundPositionForPitch(pos);
-		canditates.removeAll(getOccupiedPositions(canditates));
-
-		for (int i = canditates.size() - 1; i >= 0; i--) {
-			if (!preconditionStateLess(currenPlayerName, pos, canditates.get(i)))
-				canditates.remove(i);
-		}
 
 		return canditates;
 	}
@@ -376,4 +363,29 @@ public class Rules extends Observable {
 		return occupied;
 	}
 
+	public List<Position> getPossibleMoves(PLAYER_NAME currenPlayerName, Position pos) {
+		List<Position> canditates = new ArrayList<>();
+		canditates = Position.getSurroundPositionForPitch(pos);
+		canditates.removeAll(getOccupiedPositions(canditates));
+
+		for (int i = canditates.size() - 1; i >= 0; i--) {
+			if (!precondition(currenPlayerName, pos, canditates.get(i)))
+				canditates.remove(i);
+		}
+
+		return canditates;
+	}
+	
+	private List<Position> getPossibleMovesStateLess(PLAYER_NAME currenPlayerName, Position pos) {
+		List<Position> canditates = new ArrayList<>();
+		canditates = Position.getSurroundPositionForPitch(pos);
+		canditates.removeAll(getOccupiedPositions(canditates));
+
+		for (int i = canditates.size() - 1; i >= 0; i--) {
+			if (!preconditionStateLess(currenPlayerName, pos, canditates.get(i)))
+				canditates.remove(i);
+		}
+
+		return canditates;
+	}
 }
