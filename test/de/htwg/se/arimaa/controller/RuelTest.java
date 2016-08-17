@@ -156,8 +156,6 @@ public class RuelTest {
 
 		// Gold Elephant goes up and finish push
 		assertTrue(controller.moveFigure(new Position(4, 4), new Position(4, 3)));
-		System.out.println(controller.getPitchView());
-		System.out.println(controller.getGameStatus());
 		assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
 		assertEquals(2, controller.getRemainingMoves());
 
