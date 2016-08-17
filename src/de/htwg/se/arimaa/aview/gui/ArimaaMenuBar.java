@@ -6,7 +6,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -20,7 +19,7 @@ import de.htwg.se.arimaa.controller.IArimaaController;
 
 public class ArimaaMenuBar extends JMenuBar {
 	private static final Logger LOGGER = LogManager.getLogger(ArimaaMenuBar.class.getName());
-	
+
 	IArimaaController controller;
 
 	JMenu fileMenu;
@@ -102,7 +101,7 @@ public class ArimaaMenuBar extends JMenuBar {
 		if (imgURL != null) {
 			return new ImageIcon(imgURL);
 		} else {
-			LOGGER.error("Images: "+ path + "not found");
+			LOGGER.error("Images: " + path + "not found");
 			return null;
 		}
 	}

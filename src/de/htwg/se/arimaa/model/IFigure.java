@@ -28,12 +28,14 @@ public interface IFigure {
 
 	/**
 	 * set disable
+	 * 
 	 * @param state
 	 */
 	void setDisable(boolean state);
-	
+
 	/**
 	 * is disable
+	 * 
 	 * @return
 	 */
 	boolean isDisbale();

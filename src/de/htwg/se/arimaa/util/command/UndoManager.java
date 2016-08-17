@@ -25,7 +25,8 @@ public class UndoManager {
 	public void doCommand(UndoableMoveFigureCommand newCommand) {
 		newCommand.doCommand();
 		undoStack.push(newCommand);
-		redoStack = new LinkedList<UndoableMoveFigureCommand>(); // delete old branch
+		redoStack = new LinkedList<UndoableMoveFigureCommand>(); // delete old
+																	// branch
 	}
 
 	public void undoCommand() {
@@ -110,7 +111,7 @@ public class UndoManager {
 	public Position getLastMoveFromPosition() {
 		if (undoStack.isEmpty())
 			return null;
-		
+
 		return undoStack.peek().getFromPosition();
 	}
 

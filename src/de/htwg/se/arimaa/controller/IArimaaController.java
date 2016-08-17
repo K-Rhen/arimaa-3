@@ -115,52 +115,61 @@ public interface IArimaaController extends IObservable {
 	 * @return history of moves
 	 */
 	String getMoveHistoryText();
-	
+
 	/**
 	 * tells if the undo list is empty
+	 * 
 	 * @return true if empty, else false
 	 */
 	boolean isUndoListEmpty();
-	
+
 	/**
 	 * tells if the redo list is empty
+	 * 
 	 * @return true if empty, else false
 	 */
 	boolean isRedoListEmpty();
-	
+
 	/**
 	 * get all possible moves from given position an move remains
-	 * @param from the given position
+	 * 
+	 * @param from
+	 *            the given position
 	 * @return list of possible positions
 	 */
 	List<Position> getPossibleMoves(Position from);
 
 	/**
 	 * get state if change player is able
+	 * 
 	 * @return true if able, else false
 	 */
 	boolean isChangePlayerEnable();
 
 	/**
 	 * get the last figure name if a figure was moved before
+	 * 
 	 * @return last figure name, else null
 	 */
 	FIGURE_NAME getLastMoveFigureName();
 
 	/**
-	 * get the last moved figure position 
+	 * get the last moved figure position
+	 * 
 	 * @return position if exist, else null
 	 */
 	Position getLastMoveFromPosition();
 
 	/**
 	 * disable this figure
+	 * 
 	 * @param pos
 	 */
 	void disableFigure(Position pos);
 
 	/**
 	 * tell if the given player has no rabbit figures on pitch
+	 * 
 	 * @param playerName
 	 * @return true if player has no rabbits left, else false
 	 */

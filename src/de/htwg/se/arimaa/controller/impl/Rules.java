@@ -111,16 +111,15 @@ public class Rules extends Observable {
 		return preconditionStateLess(currenPlayerName, from, to);
 	}
 
-	// TODO postcondition RULELS
 	public boolean postcondition(Position from, Position to) {
 		// trap rule
-		if (isCaptured(from, to)) {
+		if (isCaptured()) {
 			statusText = "Figure captured";
 			status = GameStatus.CAPTURED;
 		}
 
 		// -game finish
-		PLAYER_NAME winner = getWinner(from, to);
+		PLAYER_NAME winner = getWinner(to);
 		if (winner != null) {
 			statusText = winner.toString() + " won the game";
 			status = GameStatus.FINISH;
@@ -130,7 +129,7 @@ public class Rules extends Observable {
 
 		return true;
 	}
-	
+
 	private boolean isRabbitMoveBackward(Position from, Position to) {
 		// is Figure a Rabbit
 		FIGURE_NAME figureName = controller.getFigureName(from);
@@ -142,10 +141,10 @@ public class Rules extends Observable {
 		if (direction == null)
 			return false;
 
-		if (playerName.equals(PLAYER_NAME.GOLD) && !direction.equals("s"))
+		if (playerName.equals(PLAYER_NAME.GOLD) && !"s".equals(direction))
 			return false;
 
-		if (playerName.equals(PLAYER_NAME.SILVER) && !direction.equals("n"))
+		if (playerName.equals(PLAYER_NAME.SILVER) && !"n".equals(direction))
 			return false;
 
 		return true;
@@ -226,7 +225,7 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	private PLAYER_NAME getWinner(Position from, Position to) {
+	private PLAYER_NAME getWinner(Position to) {
 		// immobilisation
 		if (isImmobiel(PLAYER_NAME.GOLD))
 			return PLAYER_NAME.SILVER;
@@ -276,7 +275,7 @@ public class Rules extends Observable {
 		return false;
 	}
 
-	private boolean isCaptured(Position from, Position to) {
+	private boolean isCaptured() {
 		List<Position> traps = new ArrayList<>();
 		traps.add(new Position(2, 2));
 		traps.add(new Position(5, 2));
@@ -309,7 +308,7 @@ public class Rules extends Observable {
 
 		return getFigursPositionsFromPlayer(playerName, canditates);
 	}
-	
+
 	private List<Position> getFreeOwnSurroundPositions(PLAYER_NAME playerName, Position pos) {
 		List<Position> canditates = new ArrayList<>();
 
@@ -367,7 +366,7 @@ public class Rules extends Observable {
 
 		return canditates;
 	}
-	
+
 	public List<Position> getPossibleMoves(PLAYER_NAME currenPlayerName, Position pos) {
 		List<Position> canditates = new ArrayList<>();
 		canditates = Position.getSurroundPositionForPitch(pos);
@@ -380,6 +379,5 @@ public class Rules extends Observable {
 
 		return canditates;
 	}
-	
-	
+
 }

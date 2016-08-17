@@ -43,6 +43,4 @@ public final class Coordinate {
 		return 56 - c;
 	}
 
-
-
 }

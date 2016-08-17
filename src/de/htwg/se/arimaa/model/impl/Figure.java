@@ -34,7 +34,7 @@ public class Figure implements IFigure {
 	public void setDisable(boolean state) {
 		disable = state;
 	}
-	
+
 	@Override
 	public boolean isDisbale() {
 		return disable;
@@ -44,7 +44,5 @@ public class Figure implements IFigure {
 	public String toString() {
 		return "{" + name + " " + position.toString() + "}";
 	}
-
-
 
 }

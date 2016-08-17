@@ -23,7 +23,7 @@ public class StatusMessage {
 
 		text.put(GameStatus.REDO, "REDO");
 		text.put(GameStatus.UNDO, "UNDO");
-		
+
 		text.put(GameStatus.PUSHFIGURE, "PUSHFIGURE");
 		text.put(GameStatus.CAPTURED, "CAPTURED");
 		text.put(GameStatus.FINISH, "FINISH");

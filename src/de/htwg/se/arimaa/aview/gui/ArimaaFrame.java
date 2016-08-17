@@ -92,7 +92,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 
 	@Override
 	public void update(Event e) {
-		statusPanel.setText(controller.getGameStatus(),controller.getStatusText());
+		statusPanel.setText(controller.getGameStatus(), controller.getStatusText());
 
 		GameStatus gs = controller.getGameStatus();
 		if (gs.equals(GameStatus.EXIT)) {

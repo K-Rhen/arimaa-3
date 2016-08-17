@@ -58,8 +58,6 @@ public interface IPitch {
 	 */
 	void setRemainingMoves(int remainingMoves);
 
-
-
 	/**
 	 * Give the figure name as pitch notation
 	 * 
@@ -106,6 +104,7 @@ public interface IPitch {
 
 	/**
 	 * reduce remaining moves
+	 * 
 	 * @return true if remaining moves > 0
 	 */
 	boolean reduceRemainingMoves();

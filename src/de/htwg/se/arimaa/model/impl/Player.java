@@ -26,7 +26,7 @@ public class Player implements IPlayer {
 	public FIGURE_NAME getFigure(Position pos) {
 		for (IFigure figure : figures) {
 			Position actFigurePos = figure.getPosition();
-			if (actFigurePos.equals(pos) && figure.isDisbale() == false)
+			if (actFigurePos.equals(pos) && !figure.isDisbale())
 				return figure.getName();
 		}
 		return null;
@@ -47,13 +47,13 @@ public class Player implements IPlayer {
 
 	@Override
 	public List<IFigure> getFigures() {
-		List<IFigure> tmpFigures  = figures;
-		
-		for(int i = tmpFigures.size()-1; i>=0; i--){
-			if(tmpFigures.get(i).isDisbale())
+		List<IFigure> tmpFigures = figures;
+
+		for (int i = tmpFigures.size() - 1; i >= 0; i--) {
+			if (tmpFigures.get(i).isDisbale())
 				tmpFigures.remove(i);
 		}
-		
+
 		return tmpFigures;
 	}
 

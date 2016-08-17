@@ -35,7 +35,7 @@ public interface IPlayer {
 	void moveFigure(Position start, Position end);
 
 	/**
-	 * disbale figure 
+	 * disable figure
 	 * 
 	 * @param pos
 	 *            position of the figure
@@ -49,7 +49,5 @@ public interface IPlayer {
 	 * @return list of figures
 	 */
 	List<IFigure> getFigures();
-
-	
 
 }

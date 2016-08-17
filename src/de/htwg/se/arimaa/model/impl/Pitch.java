@@ -17,8 +17,6 @@ public class Pitch implements IPitch {
 	private PLAYER_NAME currentPlayer;
 	private int remainingMoves;
 
-
-
 	private static final int PITCHSIZE = 8;
 
 	public Pitch() {
@@ -104,7 +102,7 @@ public class Pitch implements IPitch {
 	public boolean reduceRemainingMoves() {
 		if (remainingMoves == 0)
 			return false;
-	
+
 		remainingMoves -= 1;
 		return true;
 	}
@@ -226,7 +224,7 @@ public class Pitch implements IPitch {
 	@Override
 	public boolean noRabbits(PLAYER_NAME playerName) {
 		IPlayer player = getPlayer(playerName);
-		for( IFigure figure : player.getFigures()){
+		for (IFigure figure : player.getFigures()) {
 			if (figure.getName().equals(FIGURE_NAME.R))
 				return false;
 		}

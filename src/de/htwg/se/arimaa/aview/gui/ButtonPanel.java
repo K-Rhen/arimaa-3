@@ -57,10 +57,10 @@ public class ButtonPanel extends JPanel implements IObserver {
 
 	@Override
 	public void update(Event e) {
-			playerChangeButton.setEnabled(controller.isChangePlayerEnable());
-		
-			undoButton.setEnabled(!controller.isUndoListEmpty());
-			redoButton.setEnabled(!controller.isRedoListEmpty());
+		playerChangeButton.setEnabled(controller.isChangePlayerEnable());
+
+		undoButton.setEnabled(!controller.isUndoListEmpty());
+		redoButton.setEnabled(!controller.isRedoListEmpty());
 	}
 
 }

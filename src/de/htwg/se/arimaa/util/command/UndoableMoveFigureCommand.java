@@ -10,10 +10,10 @@ public interface UndoableMoveFigureCommand {
 	public void undoCommand();
 
 	public void redoCommand();
-	
+
 	public PLAYER_NAME getPlayerName();
-	
+
 	public FIGURE_NAME getFigureName();
-	
+
 	public Position getFromPosition();
 }

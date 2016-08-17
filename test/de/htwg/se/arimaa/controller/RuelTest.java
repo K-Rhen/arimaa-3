@@ -506,7 +506,7 @@ public class RuelTest {
 		assertTrue(controller.moveFigure(new Position(1, 2), new Position(1, 1)));
 		assertTrue(controller.moveFigure(new Position(1, 1), new Position(1, 0)));
 		controller.changePlayer();
-		
+
 		assertEquals(GameStatus.FINISH, controller.getGameStatus());
 	}
 
