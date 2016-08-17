@@ -140,7 +140,7 @@ public class PitchPanel extends JPanel implements IObserver {
 		try {
 			image = ImageIO.read(getClass().getResource("/" + name + ".png"));
 		} catch (Exception e) {
-			LOGGER.error("Images: " + name + "not found" + e.getMessage());
+			LOGGER.info("Images: " + name + "not found" + e.getMessage());
 		}
 		return image;
 	}

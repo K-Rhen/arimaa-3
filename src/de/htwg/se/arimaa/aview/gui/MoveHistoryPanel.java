@@ -12,8 +12,7 @@ public class MoveHistoryPanel extends JPanel implements IObserver {
 	IArimaaController controller;
 
 	private JTextArea historyTextArea;
-	private static final String newline = "\n";
-
+	
 	public MoveHistoryPanel(IArimaaController controller) {
 		this.controller = controller;
 		controller.addObserver(this);
@@ -26,7 +25,7 @@ public class MoveHistoryPanel extends JPanel implements IObserver {
 	}
 
 	public final void append(String line) {
-		historyTextArea.append(line + newline);
+		historyTextArea.append(line + "\n");
 	}
 
 	public void clear() {
