@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.SynchronousQueue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,6 @@ import de.htwg.se.arimaa.arimaa.ArimaaModule;
 import de.htwg.se.arimaa.model.FIGURE_NAME;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.position.Position;
-import oracle.jrockit.jfr.tools.ConCatRepository;
 
 public class RuelTest {
 

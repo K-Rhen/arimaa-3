@@ -12,7 +12,6 @@ import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Coordinate;
 import de.htwg.se.arimaa.util.position.Position;
 
-//TOOD refactor
 public class Rules extends Observable {
 
 	private IArimaaController controller;
@@ -34,7 +33,6 @@ public class Rules extends Observable {
 		return statusText;
 	}
 
-	// TODO
 	public boolean preconditionStateLess(PLAYER_NAME currenPlayerName, Position from, Position to) {
 		// from position is empty
 		PLAYER_NAME playerName = controller.getPlayerName(from);
@@ -59,9 +57,8 @@ public class Rules extends Observable {
 			return false;
 		}
 
-		// -PUSH
-		// is Pushed Start
-		if (isPushedStart(from, to)) {
+		// is pushed
+		if (isPushed(from, to)) {
 			statusText = "Figure is pushed";
 			status = GameStatus.PUSHFIGURE;
 			return true;
@@ -181,7 +178,7 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	private boolean isPushedStart(Position from, Position to) {
+	private boolean isPushed(Position from, Position to) {
 		PLAYER_NAME actPlayerName = controller.getPlayerName(from);
 		// actual move figure is from other player
 		if (actPlayerName == null || actPlayerName.equals(controller.getCurrentPlayerName()))
