@@ -10,5 +10,6 @@ public enum  GameStatus {
     UNDO, 
     PUSHFIGURE, 
     CAPTURED, 
-    FINISH; 
+    FINISH, 
+    CIRCULARMOVE; 
 }

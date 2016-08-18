@@ -121,11 +121,21 @@ public class Rules extends Observable {
 		if (isGameFinish(to))
 			return true;
 
-		// TODO circular move
-
+		// circular move
+		if(isCircularMove()){
+			statusText = "Last four moves are circular";
+			status = GameStatus.CIRCULARMOVE;
+		}
+		
 		return true;
 	}
 
+
+	private boolean isCircularMove(){
+		// TODO circular move and TEST
+		return false;
+	}
+	
 	private boolean isRabbitMoveBackward(Position from, Position to) {
 		// is Figure a Rabbit
 		FIGURE_NAME figureName = controller.getFigureName(from);
