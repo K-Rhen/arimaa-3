@@ -25,7 +25,7 @@ For more information about arimaa, go to **http://arimaa.com**
 
 ## Rules
 
-* cyclomatic move
+* circular move
 
 ## UndoManager
 
