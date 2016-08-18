@@ -35,16 +35,14 @@ public class Rules extends Observable {
 
 	public boolean preconditionStateLess(PLAYER_NAME currenPlayerName, Position from, Position to) {
 		// from position is empty
-		PLAYER_NAME playerName = controller.getPlayerName(from);
-		if (playerName == null) {
+		if (controller.getPlayerName(from) == null) {
 			statusText = "No figure on " + Coordinate.convert(from);
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
 		}
 
 		// to position is occupied
-		playerName = controller.getPlayerName(to);
-		if (playerName != null) {
+		if (controller.getPlayerName(to) != null) {
 			statusText = Coordinate.convert(from) + " is not empty";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
 			return false;
