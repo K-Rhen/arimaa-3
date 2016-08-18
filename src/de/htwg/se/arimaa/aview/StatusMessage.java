@@ -19,7 +19,6 @@ public class StatusMessage {
 		text.put(GameStatus.CHANGEPLAYER, "CHANGEPLAYER");
 
 		text.put(GameStatus.PRECONDITIONRULES_VIOLATED, "PRECONDITIONRULES_VIOLATED");
-		text.put(GameStatus.POSTCONDITIONRULES_VIOLATED, "POSTCONDITIONRULES_VIOLATED");
 
 		text.put(GameStatus.REDO, "REDO");
 		text.put(GameStatus.UNDO, "UNDO");
