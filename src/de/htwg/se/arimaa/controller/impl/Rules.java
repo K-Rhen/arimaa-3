@@ -119,11 +119,8 @@ public class Rules extends Observable {
 		}
 
 		// -game finish
-		PLAYER_NAME winner = getWinner(to);
-		if (winner != null) {
-			statusText = winner.toString() + " won the game";
-			status = GameStatus.FINISH;
-		}
+		if (isGameFinish(to)) 
+			return true;
 
 		// TODO circular move
 
@@ -225,20 +222,53 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	private PLAYER_NAME getWinner(Position to) {
-		// immobilisation
+	private boolean isGameFinish(Position to) {
+		PLAYER_NAME wonPlayerName = null;
+		// immobilization
+		wonPlayerName = isImmobile();
+		if (wonPlayerName != null) {
+			statusText = wonPlayerName + " won the game, by immobilization";
+			status = GameStatus.FINISH;
+			return true;
+		}
+
+		// elimination
+		wonPlayerName = isEliminated();
+		if (wonPlayerName != null) {
+			statusText = wonPlayerName + " won the game, by elimination";
+			status = GameStatus.FINISH;
+			return true;
+		}
+		
+		// goal
+		wonPlayerName = isGoal(to);
+		if (wonPlayerName != null) {
+			statusText = wonPlayerName + " won the game, by goal";
+			status = GameStatus.FINISH;
+			return true;
+		}
+
+		return false;
+	}
+	
+	private PLAYER_NAME isImmobile(){
 		if (isImmobiel(PLAYER_NAME.GOLD))
 			return PLAYER_NAME.SILVER;
 		if (isImmobiel(PLAYER_NAME.SILVER))
 			return PLAYER_NAME.GOLD;
+		return null;
+	}
 
-		// elimination
+	private PLAYER_NAME isEliminated() {
 		if (controller.noRabbits(PLAYER_NAME.GOLD))
 			return PLAYER_NAME.SILVER;
 		else if (controller.noRabbits(PLAYER_NAME.SILVER))
 			return PLAYER_NAME.GOLD;
+		
+		return null;
+	}
 
-		// goal
+	private PLAYER_NAME isGoal(Position to) {
 		FIGURE_NAME figureName = controller.getFigureName(to);
 		if (figureName == null || !figureName.equals(FIGURE_NAME.R))
 			return null;
