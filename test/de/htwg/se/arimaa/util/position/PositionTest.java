@@ -118,10 +118,10 @@ public class PositionTest {
 
 	@Test
 	public void testGetDirection() {
-		assertEquals("n", Position.getDirection(new Position(3, 3), new Position(3, 2)));
-		assertEquals("e", Position.getDirection(new Position(3, 3), new Position(4, 3)));
-		assertEquals("s", Position.getDirection(new Position(3, 3), new Position(3, 4)));
-		assertEquals("w", Position.getDirection(new Position(3, 3), new Position(2, 3)));
+		assertEquals(DIRECTION.NORD, Position.getDirection(new Position(3, 3), new Position(3, 2)));
+		assertEquals(DIRECTION.EAST, Position.getDirection(new Position(3, 3), new Position(4, 3)));
+		assertEquals(DIRECTION.SOUTH, Position.getDirection(new Position(3, 3), new Position(3, 4)));
+		assertEquals(DIRECTION.WEST, Position.getDirection(new Position(3, 3), new Position(2, 3)));
 		assertEquals(null, Position.getDirection(new Position(3, 3), new Position(0, 0)));
 	}
 }

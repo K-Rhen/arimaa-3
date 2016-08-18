@@ -10,6 +10,7 @@ import de.htwg.se.arimaa.model.IFigure;
 import de.htwg.se.arimaa.model.PLAYER_NAME;
 import de.htwg.se.arimaa.util.observer.Observable;
 import de.htwg.se.arimaa.util.position.Coordinate;
+import de.htwg.se.arimaa.util.position.DIRECTION;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class Rules extends Observable {
@@ -132,14 +133,14 @@ public class Rules extends Observable {
 			return false;
 
 		PLAYER_NAME playerName = controller.getPlayerName(from);
-		String direction = Position.getDirection(from, to);
+		DIRECTION direction = Position.getDirection(from, to);
 		if (direction == null)
 			return false;
 
-		if (playerName.equals(PLAYER_NAME.GOLD) && !"s".equals(direction))
+		if (playerName.equals(PLAYER_NAME.GOLD) && !DIRECTION.SOUTH.equals(direction))
 			return false;
 
-		if (playerName.equals(PLAYER_NAME.SILVER) && !"n".equals(direction))
+		if (playerName.equals(PLAYER_NAME.SILVER) && !DIRECTION.NORD.equals(direction))
 			return false;
 
 		return true;
