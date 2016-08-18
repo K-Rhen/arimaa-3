@@ -119,7 +119,7 @@ public class Rules extends Observable {
 		}
 
 		// -game finish
-		if (isGameFinish(to)) 
+		if (isGameFinish(to))
 			return true;
 
 		// TODO circular move
@@ -239,7 +239,7 @@ public class Rules extends Observable {
 			status = GameStatus.FINISH;
 			return true;
 		}
-		
+
 		// goal
 		wonPlayerName = isGoal(to);
 		if (wonPlayerName != null) {
@@ -250,11 +250,11 @@ public class Rules extends Observable {
 
 		return false;
 	}
-	
-	private PLAYER_NAME isImmobile(){
+
+	private PLAYER_NAME isImmobile() {
 		if (isImmobiel(PLAYER_NAME.GOLD))
 			return PLAYER_NAME.SILVER;
-		if (isImmobiel(PLAYER_NAME.SILVER))
+		else if (isImmobiel(PLAYER_NAME.SILVER))
 			return PLAYER_NAME.GOLD;
 		return null;
 	}
@@ -264,7 +264,7 @@ public class Rules extends Observable {
 			return PLAYER_NAME.SILVER;
 		else if (controller.noRabbits(PLAYER_NAME.SILVER))
 			return PLAYER_NAME.GOLD;
-		
+
 		return null;
 	}
 
