@@ -1,6 +1,5 @@
 ### Intellij ###
 .idea
-build
 *.iml
 
 ### Java ###
