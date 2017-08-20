@@ -31,8 +31,9 @@ dependencies {
 }
 
 sourceSets {
-    main.java.srcDir "src"
-    test.java.srcDir "test"
+    main.java.srcDir 'src'
+    main.resources.srcDir 'rsc'
+    test.java.srcDir 'test'
 }
 
 jar {

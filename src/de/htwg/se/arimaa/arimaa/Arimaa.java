@@ -27,24 +27,29 @@ public class Arimaa {
 
 		// init new game
 		controller.createNewGame();
+
+
+
+
 	}
 
 	public TextUI getTui() {
 		return tui;
 	}
 
+
 	public ArimaaFrame getGui() {
 		return gui;
 	}
 
-	public static Arimaa getInstance() {
+	private static Arimaa getInstance() {
 		if (instance == null) {
 			instance = new Arimaa();
 		}
 		return instance;
 	}
 
-	public boolean exit() {
+	private boolean exit() {
 		return controller.getGameStatus().equals(GameStatus.EXIT);
 	}
 

@@ -33,221 +33,218 @@ import de.htwg.se.arimaa.util.observer.IObserver;
 import de.htwg.se.arimaa.util.position.Position;
 
 public class PitchPanel extends JPanel implements IObserver {
-	private static final Logger LOGGER = LogManager.getLogger(PitchPanel.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(PitchPanel.class.getName());
 
-	IArimaaController controller;
+    private IArimaaController controller;
 
-	BufferedImage pitchImage;
-	Point pitchSizePoint = new Point(400, 400);
-	Map<FIGURE_NAME, BufferedImage> figuresImageGold;
-	Map<FIGURE_NAME, BufferedImage> figuresImageSilver;
-	Point figureSize = new Point(50, 50);
-	Point offsetPitch = new Point(20, 20);
+    private BufferedImage pitchImage;
+    private Point pitchSizePoint = new Point(400, 400);
+    private Map<FIGURE_NAME, BufferedImage> figuresImageGold;
+    private Map<FIGURE_NAME, BufferedImage> figuresImageSilver;
+    private Point figureSize = new Point(50, 50);
+    private Point offsetPitch = new Point(20, 20);
 
-	// Mouse
-	MouseFigure mouseFigure = null;
+    // Mouse
+    private MouseFigure mouseFigure = null;
 
-	public PitchPanel(IArimaaController controller) {
-		this.controller = controller;
-		controller.addObserver(this);
+    PitchPanel(IArimaaController controller) {
+        this.controller = controller;
+        controller.addObserver(this);
 
-		figuresImageGold = new EnumMap<>(FIGURE_NAME.class);
-		figuresImageSilver = new EnumMap<>(FIGURE_NAME.class);
+        figuresImageGold = new EnumMap<>(FIGURE_NAME.class);
+        figuresImageSilver = new EnumMap<>(FIGURE_NAME.class);
 
-		pitchImage = loadImage("BoardStoneSmall");
-		loadFiguresImage();
+        pitchImage = loadImage("BoardStoneSmall");
+        loadFiguresImage();
 
-		initGUI();
-	}
+        initGUI();
+    }
 
-	private void initGUI() {
-		this.setBorder(BorderFactory.createTitledBorder("Pitch"));
+    private void initGUI() {
+        this.setBorder(BorderFactory.createTitledBorder("Pitch"));
 
-		this.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				Point mouse = new Point(e.getX(), e.getY());
-				mouseReleasedHandler(mouse);
-			}
-		});
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                Point mouse = new Point(e.getX(), e.getY());
+                mouseReleasedHandler(mouse);
+            }
+        });
 
-		this.addMouseMotionListener(new MouseInputAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				Point mouse = new Point(e.getX(), e.getY());
-				mouseDraggedHandler(mouse);
-			}
+        this.addMouseMotionListener(new MouseInputAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                Point mouse = new Point(e.getX(), e.getY());
+                mouseDraggedHandler(mouse);
+            }
 
-		});
-	}
+        });
+    }
 
-	private void mouseReleasedHandler(Point mouse) {
-		Position temp = getCell(mouse);
+    private void mouseReleasedHandler(Point mouse) {
+        Position temp = getCell(mouse);
 
-		if (temp != null && mouseFigure != null && !mouseFigure.getFromPosition().equals(temp)) {
-			mouseFigure.setToPosition(temp);
-			controller.moveFigure(mouseFigure.getFromPosition(), mouseFigure.getToPosition());
-		}
+        if (temp != null && mouseFigure != null && !mouseFigure.getFromPosition().equals(temp)) {
+            mouseFigure.setToPosition(temp);
+            controller.moveFigure(mouseFigure.getFromPosition(), mouseFigure.getToPosition());
+        }
 
-		mouseFigure = null;
-		this.repaint();
-	}
+        mouseFigure = null;
+        this.repaint();
+    }
 
-	private void mouseDraggedHandler(Point mouse) {
-		if (mouseFigure == null) {
-			Position fromPos = getCell(mouse);
-			if (fromPos == null)
-				return;
+    private void mouseDraggedHandler(Point mouse) {
+        if (mouseFigure == null) {
+            Position fromPos = getCell(mouse);
+            if (fromPos == null)
+                return;
 
-			FIGURE_NAME figureName = controller.getFigureName(fromPos);
-			if (figureName == null)
-				return;
+            FIGURE_NAME figureName = controller.getFigureName(fromPos);
+            if (figureName == null)
+                return;
 
-			PLAYER_NAME playerName = controller.getPlayerName(fromPos);
-			mouseFigure = new MouseFigure(mouse, figureName, playerName, fromPos);
-		}
+            PLAYER_NAME playerName = controller.getPlayerName(fromPos);
+            mouseFigure = new MouseFigure(mouse, figureName, playerName, fromPos);
+        } else {
 
-		if (mouseFigure != null)
-			mouseFigure.setPoint(mouse);
+            mouseFigure.setPoint(mouse);
+        }
+        this.repaint();
+    }
 
-		this.repaint();
-	}
+    private Position getCell(Point mouse) {
+        if (!isPosInPitch(mouse))
+            return null;
 
-	private Position getCell(Point mouse) {
-		if (!isPosInPitch(mouse))
-			return null;
+        double px = mouse.getX() - offsetPitch.getX();
+        double py = mouse.getY() - offsetPitch.getY();
 
-		double px = mouse.getX() - offsetPitch.getX();
-		double py = mouse.getY() - offsetPitch.getY();
+        px = px / figureSize.getX();
+        py = py / figureSize.getY();
+        return new Position((int) px, (int) py);
+    }
 
-		px = px / figureSize.getX();
-		py = py / figureSize.getY();
-		return new Position((int) px, (int) py);
-	}
+    private boolean isPosInPitch(Point mouse) {
+        Rectangle inPitch = new Rectangle();
+        inPitch.setBounds(offsetPitch.x, offsetPitch.y, pitchSizePoint.x, pitchSizePoint.y);
 
-	private boolean isPosInPitch(Point mouse) {
-		Rectangle inPitch = new Rectangle();
-		inPitch.setBounds(offsetPitch.x, offsetPitch.y, pitchSizePoint.x, pitchSizePoint.y);
+        return inPitch.contains(mouse);
+    }
 
-		if (inPitch.contains(mouse))
-			return true;
+    private BufferedImage loadImage(String imageName) {
+        BufferedImage image = null;
+        String pathName = "/img/" + imageName + ".png";
+        try {
+            image = ImageIO.read(getClass().getResource(pathName));
+        } catch (Exception e) {
+            LOGGER.error("Can't find image: " + pathName);
+        }
+        return image;
+    }
 
-		return false;
-	}
+    private void loadFiguresImage() {
+        figuresImageGold.put(FIGURE_NAME.R, loadImage("GoldRabbit"));
+        figuresImageGold.put(FIGURE_NAME.C, loadImage("GoldCat"));
+        figuresImageGold.put(FIGURE_NAME.D, loadImage("GoldDog"));
+        figuresImageGold.put(FIGURE_NAME.H, loadImage("GoldHorse"));
+        figuresImageGold.put(FIGURE_NAME.M, loadImage("GoldCamel"));
+        figuresImageGold.put(FIGURE_NAME.E, loadImage("GoldElephant"));
 
-	private BufferedImage loadImage(String name) {
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(getClass().getResource("/" + name + ".png"));
-		} catch (Exception e) {
-			LOGGER.error(e);
-		}
-		return image;
-	}
+        figuresImageSilver.put(FIGURE_NAME.R, loadImage("SilverRabbit"));
+        figuresImageSilver.put(FIGURE_NAME.C, loadImage("SilverCat"));
+        figuresImageSilver.put(FIGURE_NAME.D, loadImage("SilverDog"));
+        figuresImageSilver.put(FIGURE_NAME.H, loadImage("SilverHorse"));
+        figuresImageSilver.put(FIGURE_NAME.M, loadImage("SilverCamel"));
+        figuresImageSilver.put(FIGURE_NAME.E, loadImage("SilverElephant"));
+    }
 
-	private void loadFiguresImage() {
-		figuresImageGold.put(FIGURE_NAME.R, loadImage("GoldRabbit"));
-		figuresImageGold.put(FIGURE_NAME.C, loadImage("GoldCat"));
-		figuresImageGold.put(FIGURE_NAME.D, loadImage("GoldDog"));
-		figuresImageGold.put(FIGURE_NAME.H, loadImage("GoldHorse"));
-		figuresImageGold.put(FIGURE_NAME.M, loadImage("GoldCamel"));
-		figuresImageGold.put(FIGURE_NAME.E, loadImage("GoldElephant"));
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		figuresImageSilver.put(FIGURE_NAME.R, loadImage("SilverRabbit"));
-		figuresImageSilver.put(FIGURE_NAME.C, loadImage("SilverCat"));
-		figuresImageSilver.put(FIGURE_NAME.D, loadImage("SilverDog"));
-		figuresImageSilver.put(FIGURE_NAME.H, loadImage("SilverHorse"));
-		figuresImageSilver.put(FIGURE_NAME.M, loadImage("SilverCamel"));
-		figuresImageSilver.put(FIGURE_NAME.E, loadImage("SilverElephant"));
-	}
+        // Paint the background.
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fillRect(0, 0, getSize().width, getSize().height);
 
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        // Paint pitch
+        g2d.drawImage(pitchImage, offsetPitch.x, offsetPitch.y, pitchSizePoint.x, pitchSizePoint.x, null);
 
-		// Paint the background.
-		g2d.setColor(Color.LIGHT_GRAY);
-		g2d.fillRect(0, 0, getSize().width, getSize().height);
+        // paint gold figures
+        List<IFigure> figuresGold = controller.getGoldFigures();
+        drawFigures(g2d, figuresImageGold, figuresGold, offsetPitch, figureSize);
+        // paint silver figures
+        List<IFigure> figuresSilver = controller.getSilverFigures();
+        drawFigures(g2d, figuresImageSilver, figuresSilver, offsetPitch, figureSize);
 
-		// Paint pitch
-		g2d.drawImage(pitchImage, offsetPitch.x, offsetPitch.y, pitchSizePoint.x, pitchSizePoint.x, null);
+        // Draw Mouse Figure
+        if (mouseFigure != null) {
+            drawPossiblePosition(g2d);
 
-		// paint gold figures
-		List<IFigure> figuresGold = controller.getGoldFigures();
-		drawFigures(g2d, figuresImageGold, figuresGold, offsetPitch, figureSize);
-		// paint silver figures
-		List<IFigure> figuresSilver = controller.getSilverFigures();
-		drawFigures(g2d, figuresImageSilver, figuresSilver, offsetPitch, figureSize);
+            drawMouseFigure(g2d);
+        }
+    }
 
-		// Draw Mouse Figure
-		if (mouseFigure != null) {
-			drawPossiblePosition(g2d);
+    private void drawMouseFigure(Graphics2D g2d) {
+        g2d.setColor(Color.green);
+        int mouseX = (int) mouseFigure.getX() - figureSize.x / 2;
+        int mouseY = (int) mouseFigure.getY() - figureSize.y / 2;
+        g2d.drawRect(mouseX, mouseY, figureSize.x, figureSize.y);
+        FIGURE_NAME figureName = mouseFigure.getFigureName();
+        BufferedImage figureImg = getFigureBufferedImage(figureName);
+        g2d.drawImage(figureImg, mouseX, mouseY, figureSize.x, figureSize.y, null);
+    }
 
-			drawMouseFigure(g2d);
-		}
-	}
+    private void drawPossiblePosition(Graphics2D g2d) {
+        List<Position> possibleMoves = controller.getPossibleMoves(mouseFigure.getFromPosition());
 
-	private void drawMouseFigure(Graphics2D g2d) {
-		g2d.setColor(Color.green);
-		int mouseX = (int) mouseFigure.getX() - figureSize.x / 2;
-		int mouseY = (int) mouseFigure.getY() - figureSize.y / 2;
-		g2d.drawRect(mouseX, mouseY, figureSize.x, figureSize.y);
-		FIGURE_NAME figureName = mouseFigure.getFigureName();
-		BufferedImage figureImg = getFigureBufferedImage(figureName);
-		g2d.drawImage(figureImg, mouseX, mouseY, figureSize.x, figureSize.y, null);
-	}
+        if (possibleMoves == null)
+            return;
 
-	private void drawPossiblePosition(Graphics2D g2d) {
-		List<Position> possibleMoves = controller.getPossibleMoves(mouseFigure.getFromPosition());
+        for (Position position : possibleMoves) {
+            Color transparentGreenColour = new Color(0, 200, 0, 100);
+            g2d.setColor(transparentGreenColour);
+            int posX = (int) (position.getX() * figureSize.x + offsetPitch.getX());
+            int posY = (int) (position.getY() * figureSize.y + offsetPitch.getX());
+            g2d.fill(new Rectangle2D.Double(posX, posY, figureSize.x, figureSize.y));
+        }
+    }
 
-		if (possibleMoves == null)
-			return;
+    private BufferedImage getFigureBufferedImage(FIGURE_NAME figureName) {
+        if (mouseFigure.getPlayer().equals(PLAYER_NAME.GOLD))
+            return figuresImageGold.get(figureName);
+        else
+            return figuresImageSilver.get(figureName);
+    }
 
-		for (Position position : possibleMoves) {
-			Color transparentGreenColour = new Color(0, 200, 0, 100);
-			g2d.setColor(transparentGreenColour);
-			int posX = (int) (position.getX() * figureSize.x + offsetPitch.getX());
-			int posY = (int) (position.getY() * figureSize.y + offsetPitch.getX());
-			g2d.fill(new Rectangle2D.Double(posX, posY, figureSize.x, figureSize.y));
-		}
-	}
+    private void drawFigures(Graphics2D g2d, Map<FIGURE_NAME, BufferedImage> figuresImage, List<IFigure> figure,
+                             Point offset, Point figuresize) {
+        for (IFigure f : figure) {
+            FIGURE_NAME fname = f.getName();
+            BufferedImage fimg = figuresImage.get(fname);
 
-	private BufferedImage getFigureBufferedImage(FIGURE_NAME figureName) {
-		if (mouseFigure.getPlayer().equals(PLAYER_NAME.GOLD))
-			return figuresImageGold.get(figureName);
-		else
-			return figuresImageSilver.get(figureName);
-	}
+            Position fpos = f.getPosition();
 
-	private void drawFigures(Graphics2D g2d, Map<FIGURE_NAME, BufferedImage> figuresImage, List<IFigure> figure,
-			Point offset, Point figuresize) {
-		for (IFigure f : figure) {
-			FIGURE_NAME fname = f.getName();
-			BufferedImage fimg = figuresImage.get(fname);
+            // skip if figure equals moving figure
+            if (mouseFigure != null && fpos.equals(mouseFigure.getFromPosition()))
+                continue;
 
-			Position fpos = f.getPosition();
+            int figureX = fpos.getX() * figuresize.x + offset.x;
+            int figureY = fpos.getY() * figuresize.y + offset.y;
+            g2d.drawImage(fimg, figureX, figureY, figuresize.x, figuresize.y, null);
+        }
+    }
 
-			// skip if figure equals moving figure
-			if (mouseFigure != null && fpos.equals(mouseFigure.getFromPosition()))
-				continue;
+    @Override
+    public void update(Event e) {
+        this.repaint();
 
-			int figureX = fpos.getX() * figuresize.x + offset.x;
-			int figureY = fpos.getY() * figuresize.y + offset.y;
-			g2d.drawImage(fimg, figureX, figureY, figuresize.x, figuresize.y, null);
-		}
-	}
-
-	@Override
-	public void update(Event e) {
-		this.repaint();
-
-		GameStatus gs = controller.getGameStatus();
-		if (gs.equals(GameStatus.FINISH)) {
-			JOptionPane.showMessageDialog(null, controller.getStatusText(), "Some one has won the game",
-					JOptionPane.INFORMATION_MESSAGE);
-		}
-	}
+        GameStatus gs = controller.getGameStatus();
+        if (gs.equals(GameStatus.FINISH)) {
+            JOptionPane.showMessageDialog(null, controller.getStatusText(), "Some one has won the game",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
 }
