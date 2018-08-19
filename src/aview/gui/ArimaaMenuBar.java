@@ -15,12 +15,6 @@ public class ArimaaMenuBar extends JMenuBar {
 
 	private IArimaaController controller;
 
-	private JMenu fileMenu;
-	private JMenuItem newMenuItem, quitMenuItem;
-
-	private JMenu infoMenu;
-	private JMenuItem helpMenuItem;
-
 	public ArimaaMenuBar(IArimaaController controller) {
 		this.controller = controller;
 		createFileMenu(controller);
@@ -28,10 +22,10 @@ public class ArimaaMenuBar extends JMenuBar {
 	}
 
 	private void createFileMenu(IArimaaController controller) {
-		fileMenu = new JMenu("File");
+		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 
-		newMenuItem = new JMenuItem("new game");
+		JMenuItem newMenuItem = new JMenuItem("new game");
 		newMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -50,7 +44,7 @@ public class ArimaaMenuBar extends JMenuBar {
 		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
 		fileMenu.add(newMenuItem);
 
-		quitMenuItem = new JMenuItem("quit");
+		JMenuItem quitMenuItem = new JMenuItem("quit");
 		quitMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -65,10 +59,10 @@ public class ArimaaMenuBar extends JMenuBar {
 	}
 
 	private void createInfoMenu() {
-		infoMenu = new JMenu("Info");
+		JMenu infoMenu = new JMenu("Info");
 		infoMenu.setMnemonic(KeyEvent.VK_F);
 
-		helpMenuItem = new JMenuItem("Help");
+		JMenuItem helpMenuItem = new JMenuItem("Help");
 		helpMenuItem.setMnemonic(KeyEvent.VK_H);
 		helpMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_DOWN_MASK));
 		helpMenuItem.addActionListener(new ActionListener() {
