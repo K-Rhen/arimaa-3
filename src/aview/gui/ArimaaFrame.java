@@ -16,13 +16,7 @@ public class ArimaaFrame extends JFrame implements IObserver {
 	private static final int DEFAULT_Y = 520;
 	private static final int DEFAULT_X = 720;
 
-	private InfoPanel infoPanel;
-	private PitchPanel pitchPanel;
-
-	private ButtonPanel buttonPanel;
 	private StatusPanel statusPanel;
-
-	private MoveHistoryPanel moveStatusPanel;
 
 	private Container pane;
 	private IArimaaController controller;
@@ -59,20 +53,20 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		leftPanel.setPreferredSize(new Dimension(440, 440));
 		centerPanel.add(leftPanel);
 
-		pitchPanel = new PitchPanel(controller);
+		PitchPanel pitchPanel = new PitchPanel(controller);
 		leftPanel.add(pitchPanel);
 
 		JPanel rightPanel = new JPanel();
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
 		centerPanel.add(rightPanel);
 
-		infoPanel = new InfoPanel(controller);
+		InfoPanel infoPanel = new InfoPanel(controller);
 		rightPanel.add(infoPanel);
 
-		moveStatusPanel = new MoveHistoryPanel(controller);
+		MoveHistoryPanel moveStatusPanel = new MoveHistoryPanel(controller);
 		rightPanel.add(moveStatusPanel);
 
-		buttonPanel = new ButtonPanel(controller);
+		ButtonPanel buttonPanel = new ButtonPanel(controller);
 		rightPanel.add(buttonPanel);
 
 		statusPanel = new StatusPanel();
