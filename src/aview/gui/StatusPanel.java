@@ -2,17 +2,23 @@ package aview.gui;
 
 import aview.StatusMessage;
 import controller.GameStatus;
+import controller.IArimaaController;
+import util.observer.Event;
+import util.observer.IObserver;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 
-public class StatusPanel extends JPanel {
+public class StatusPanel extends JPanel implements IObserver {
+    private IArimaaController controller;
 
-	private static final long serialVersionUID = -2136188660234901904L;
-	private final JLabel statusLabel = new JLabel("");
+    private final JLabel statusLabel = new JLabel("");
 
-	public StatusPanel() {
+	public StatusPanel(IArimaaController controller) {
+        this.controller = controller;
+        controller.addObserver(this);
+
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
@@ -26,4 +32,9 @@ public class StatusPanel extends JPanel {
 	public void clear() {
 		statusLabel.setText(" ");
 	}
+
+    @Override
+    public void update(Event e) {
+        setText(controller.getGameStatus(), controller.getStatusText());
+    }
 }
