@@ -163,8 +163,9 @@ public class Pitch implements IPitch {
 		if (figureAsString != null) {
 			sb.append(figureAsString);
 			sb.append(" ");
-		} else
+		} else {
 			sb.append("  ");
+		}
 
 		return sb.toString();
 	}
