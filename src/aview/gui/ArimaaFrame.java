@@ -16,8 +16,6 @@ public class ArimaaFrame extends JFrame implements IObserver {
 	private static final int DEFAULT_Y = 520;
 	private static final int DEFAULT_X = 720;
 
-	private StatusPanel statusPanel;
-
 	private Container pane;
 	private IArimaaController controller;
 
@@ -69,19 +67,16 @@ public class ArimaaFrame extends JFrame implements IObserver {
 		ButtonPanel buttonPanel = new ButtonPanel(controller);
 		rightPanel.add(buttonPanel);
 
-		statusPanel = new StatusPanel();
+		StatusPanel statusPanel = new StatusPanel(controller);
 		pane.add(statusPanel, BorderLayout.SOUTH);
 
 		setVisible(true);
 		repaint();
-
 	}
 
 	@Override
 	public void update(Event e) {
-		statusPanel.setText(controller.getGameStatus(), controller.getStatusText());
-
-		GameStatus gs = controller.getGameStatus();
+	    GameStatus gs = controller.getGameStatus();
 		if (gs.equals(GameStatus.EXIT)) {
 			this.setVisible(false);
 			this.dispose();
