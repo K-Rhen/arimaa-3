@@ -39,9 +39,8 @@ public class ArimaaMenuBar extends JMenuBar {
         fileMenu.add(newMenuItem);
 
         JMenuItem quitMenuItem = new JMenuItem("quit");
-        quitMenuItem.addActionListener(al -> {
-            controller.quitGame();
-        });
+        quitMenuItem.addActionListener(ae ->
+                controller.quitGame());
         quitMenuItem.setMnemonic(KeyEvent.VK_Q);
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
         fileMenu.add(quitMenuItem);
@@ -56,7 +55,7 @@ public class ArimaaMenuBar extends JMenuBar {
         JMenuItem helpMenuItem = new JMenuItem("Help");
         helpMenuItem.setMnemonic(KeyEvent.VK_H);
         helpMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_DOWN_MASK));
-        helpMenuItem.addActionListener(al -> {
+        helpMenuItem.addActionListener(ae -> {
             ImageIcon icon = createImageIcon("/img/GoldElephant.png");
 
             JOptionPane.showMessageDialog(null,
