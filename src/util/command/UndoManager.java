@@ -17,15 +17,15 @@ public class UndoManager {
     private UndoableMoveFigureCommand topCommand;
 
     public UndoManager() {
-        undoStack = new LinkedList<UndoableMoveFigureCommand>();
-        redoStack = new LinkedList<UndoableMoveFigureCommand>();
+        undoStack = new LinkedList<>();
+        redoStack = new LinkedList<>();
         topCommand = null;
     }
 
     public void doCommand(UndoableMoveFigureCommand newCommand) {
         newCommand.doCommand();
         undoStack.push(newCommand);
-        redoStack = new LinkedList<UndoableMoveFigureCommand>(); // delete old
+        redoStack = new LinkedList<>(); // delete old
         // branch
     }
 
