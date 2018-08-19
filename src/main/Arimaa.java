@@ -10,8 +10,6 @@ import controller.IArimaaController;
 import java.util.Scanner;
 
 public class Arimaa {
-
-	private static Scanner scanner;
 	private TextUI tui;
 	private ArimaaFrame gui;
 	protected IArimaaController controller;
@@ -55,7 +53,7 @@ public class Arimaa {
 	public static void main(final String[] args) {
 		Arimaa game = Arimaa.getInstance();
 
-		scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		while (!game.exit()) {
 			game.tui.processInputLine(scanner.next());
 		}
