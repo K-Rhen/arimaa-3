@@ -20,7 +20,7 @@ public class StatusPanel extends JPanel {
 	}
 
 	public final void setText(final GameStatus status, final String statusText) {
-		statusLabel.setText(StatusMessage.text.get(status) + " : " + statusText);
+		statusLabel.setText(StatusMessage.getText(status) + " : " + statusText);
 	}
 
 	public void clear() {
