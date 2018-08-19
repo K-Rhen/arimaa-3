@@ -15,23 +15,19 @@ public class StatusPanel extends JPanel implements IObserver {
 
     private final JLabel statusLabel = new JLabel("");
 
-	public StatusPanel(IArimaaController controller) {
+    public StatusPanel(IArimaaController controller) {
         this.controller = controller;
         controller.addObserver(this);
 
-		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-		add(statusLabel);
-	}
+        setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        add(statusLabel);
+    }
 
-	public final void setText(final GameStatus status, final String statusText) {
-		statusLabel.setText(StatusMessage.getText(status) + " : " + statusText);
-	}
-
-	public void clear() {
-		statusLabel.setText(" ");
-	}
+    public final void setText(final GameStatus status, final String statusText) {
+        statusLabel.setText(StatusMessage.getText(status) + " : " + statusText);
+    }
 
     @Override
     public void update(Event e) {
