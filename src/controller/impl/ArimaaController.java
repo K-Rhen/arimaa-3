@@ -135,7 +135,7 @@ public class ArimaaController extends Observable implements IArimaaController {
             pitch.reduceRemainingMoves();
         }
 
-        // postconditions
+        // postcondition
         rules.postcondition(to);
 
         status = rules.getStatus();

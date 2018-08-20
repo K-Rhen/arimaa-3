@@ -3,7 +3,7 @@ package util.position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Position {
+public final class Position {
     private int x;
     private int y;
 
@@ -11,13 +11,9 @@ public class Position {
         setPosition(x, y);
     }
 
-    private static boolean positionOnPitchXY(int x, int y) {
+    public static boolean validXY(int x, int y) {
         return x < 8 && y < 8 && x >= 0 && y >= 0;
 
-    }
-
-    public static boolean positionOnPitch(Position pos) {
-        return positionOnPitchXY(pos.x, pos.y);
     }
 
     public static List<Position> getSurroundPositionForPitch(Position pos) {
@@ -56,7 +52,7 @@ public class Position {
     }
 
     public void setPosition(int x, int y) {
-        if (!positionOnPitchXY(x, y))
+        if (!validXY(x, y))
             throw new IllegalArgumentException("position not on pitch");
 
         this.x = x;

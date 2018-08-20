@@ -58,7 +58,7 @@ public class UndoManager {
 
         PLAYER_NAME currentPlayerName = PLAYER_NAME.SILVER;
         int row = 0;
-        int collumn = 0;
+        int column = 0;
         for (int i = 0; i < undoList.size(); i++) {
             PLAYER_NAME ulPlayerName = undoList.get(i).getPlayerName();
             if (!currentPlayerName.equals(ulPlayerName)) {
@@ -67,8 +67,8 @@ public class UndoManager {
                 if (currentPlayerName.equals(PLAYER_NAME.GOLD))
                     row++;
 
-                if (i > 0 && collumn < 4) {
-                    collumn = 0;
+                if (i > 0 && column < 4) {
+                    column = 0;
                     sb.append("pass ");
                 }
 
@@ -80,7 +80,7 @@ public class UndoManager {
             }
 
             sb.append(undoList.get(i).toString() + " ");
-            collumn++;
+            column++;
         }
 
         return sb.toString();

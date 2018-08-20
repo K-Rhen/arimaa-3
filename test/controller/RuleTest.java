@@ -398,7 +398,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsImmobielGold() {
+    public void testIsImmobileGold() {
         // disable some gold figures
         controller.disableFigure(new Position(1, 7));
         controller.disableFigure(new Position(2, 7));
@@ -454,7 +454,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsImmobielSilver() {
+    public void testIsImmobileSilver() {
         // disable some silver figures
         controller.disableFigure(new Position(1, 0));
         controller.disableFigure(new Position(2, 0));
@@ -510,17 +510,17 @@ public class RuleTest {
     @Test
     public void testGetPossibleMoves() {
         // Gold Rabbit surround Position
-        List<Position> oughtGoldRabbitSuroundList = new ArrayList<>();
-        oughtGoldRabbitSuroundList.add(new Position(0, 5));
-        List<Position> isGoldRabbitSuroundList = new ArrayList<>();
-        isGoldRabbitSuroundList = controller.getPossibleMoves(new Position(0, 6));
-        assertEquals(oughtGoldRabbitSuroundList, isGoldRabbitSuroundList);
+        List<Position> oughtGoldRabbitSurroundList = new ArrayList<>();
+        oughtGoldRabbitSurroundList.add(new Position(0, 5));
+        List<Position> isGoldRabbitSurroundList = new ArrayList<>();
+        isGoldRabbitSurroundList = controller.getPossibleMoves(new Position(0, 6));
+        assertEquals(oughtGoldRabbitSurroundList, isGoldRabbitSurroundList);
 
         // Silver Rabbit surround Position
-        List<Position> oughtSilverRabbitSuroundList = new ArrayList<>();
-        List<Position> isSilverRabbitSuroundList = new ArrayList<>();
-        isSilverRabbitSuroundList = controller.getPossibleMoves(new Position(0, 1));
-        assertEquals(oughtSilverRabbitSuroundList, isSilverRabbitSuroundList);
+        List<Position> oughtSilverRabbitSurroundList = new ArrayList<>();
+        List<Position> isSilverRabbitSurroundList = new ArrayList<>();
+        isSilverRabbitSurroundList = controller.getPossibleMoves(new Position(0, 1));
+        assertEquals(oughtSilverRabbitSurroundList, isSilverRabbitSurroundList);
 
     }
 }

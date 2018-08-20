@@ -56,11 +56,11 @@ public class TextUI implements IObserver {
 	private String helpText() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nUse:\n");
-		sb.append("  a2-a3     -> move figure       [fromPosition-toPostion]\n");
+		sb.append("  a2-a3     -> move figure  [from position - to position]\n");
 		sb.append("  c         -> change player\n");
 		sb.append("  u         -> undo last move\n");
 		sb.append("  r         -> redo last move\n");
-		sb.append("  q         -> exit the programm\n");
+		sb.append("  q         -> exit the game\n");
 		return sb.toString();
 	}
 

@@ -26,12 +26,11 @@ public class PositionTest {
     }
 
     @Test
-    public void testPositionOnPitch() {
-        Position end = new Position(0, 0);
-        assertTrue(Position.positionOnPitch(end));
-
-        end = new Position(7, 7);
-        assertTrue(Position.positionOnPitch(end));
+    public void testValidXY() {
+        assertTrue(Position.validXY(0, 0));
+        assertTrue(Position.validXY(7, 7));
+        assertFalse(Position.validXY(-1, 5));
+        assertFalse(Position.validXY(5, -1));
     }
 
     @Test
@@ -114,7 +113,7 @@ public class PositionTest {
         assertEquals(DIRECTION.EAST, Position.getDirection(new Position(3, 3), new Position(4, 3)));
         assertEquals(DIRECTION.SOUTH, Position.getDirection(new Position(3, 3), new Position(3, 4)));
         assertEquals(DIRECTION.WEST, Position.getDirection(new Position(3, 3), new Position(2, 3)));
-        assertEquals(null, Position.getDirection(new Position(3, 3), new Position(0, 0)));
+        assertNull(Position.getDirection(new Position(3, 3), new Position(0, 0)));
     }
 
 }

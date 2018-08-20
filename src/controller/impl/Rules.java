@@ -34,7 +34,7 @@ public class Rules extends Observable {
 		return statusText;
 	}
 
-	private boolean preconditionStateLess(PLAYER_NAME currenPlayerName, Position from, Position to) {
+	private boolean preconditionStateLess(PLAYER_NAME currentPlayerName, Position from, Position to) {
 		// from position is empty
 		if (controller.getPlayerName(from) == null) {
 			statusText = "No figure on " + Coordinate.convert(from);
@@ -78,7 +78,7 @@ public class Rules extends Observable {
 		}
 
 		// is to position a possible move
-		List<Position> possibleMoves = getFreeOwnSurroundPositions(currenPlayerName, from);
+		List<Position> possibleMoves = getFreeOwnSurroundPositions(currentPlayerName, from);
 		if (possibleMoves.isEmpty() || !possibleMoves.contains(to)) {
 			statusText = Coordinate.convert(to) + " is not a permitted position";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
@@ -90,7 +90,7 @@ public class Rules extends Observable {
 		return true;
 	}
 
-	public boolean precondition(PLAYER_NAME currenPlayerName, Position from, Position to) {
+	public boolean precondition(PLAYER_NAME currentPlayerName, Position from, Position to) {
 		if (controller.getRemainingMoves() == 0) {
 			statusText = "No remain moves";
 			status = GameStatus.PRECONDITIONRULES_VIOLATED;
@@ -107,7 +107,7 @@ public class Rules extends Observable {
 			}
 		}
 
-		return preconditionStateLess(currenPlayerName, from, to);
+		return preconditionStateLess(currentPlayerName, from, to);
 	}
 
 	public boolean postcondition(Position to) {
@@ -117,7 +117,7 @@ public class Rules extends Observable {
 			status = GameStatus.CAPTURED;
 		}
 
-		// -game finish
+		// game finish
 		if (isGameFinish(to))
 			return true;
 
@@ -190,14 +190,14 @@ public class Rules extends Observable {
 			return false;
 
 		// actual move figure surround by a other player figure
-		List<Position> otherPlayerPositons = new ArrayList<>();
-		otherPlayerPositons = getFigursPositionsFromPlayer(controller.getCurrentPlayerName(), actSurroundPositions);
+		List<Position> otherPlayerPositions = new ArrayList<>();
+		otherPlayerPositions = getFiguresPositionsFromPlayer(controller.getCurrentPlayerName(), actSurroundPositions);
 
-		if (otherPlayerPositons.isEmpty())
+		if (otherPlayerPositions.isEmpty())
 			return false;
 
 		// other player figure stronger than actual move figure
-		FIGURE_NAME strongestOtherFigure = getStrongestFigure(otherPlayerPositons);
+		FIGURE_NAME strongestOtherFigure = getStrongestFigure(otherPlayerPositions);
 		FIGURE_NAME actFigureName = controller.getFigureName(from);
 		return strongestOtherFigure != null && strongestOtherFigure.compareTo(actFigureName) > 0;
 	}
@@ -249,9 +249,9 @@ public class Rules extends Observable {
 	}
 
 	private PLAYER_NAME isImmobile() {
-		if (isImmobiel(PLAYER_NAME.GOLD))
+		if (isImmobile(PLAYER_NAME.GOLD))
 			return PLAYER_NAME.SILVER;
-		else if (isImmobiel(PLAYER_NAME.SILVER))
+		else if (isImmobile(PLAYER_NAME.SILVER))
 			return PLAYER_NAME.GOLD;
 		return null;
 	}
@@ -280,7 +280,7 @@ public class Rules extends Observable {
 		return null;
 	}
 
-	private boolean isImmobiel(PLAYER_NAME playerName) {
+	private boolean isImmobile(PLAYER_NAME playerName) {
 		List<IFigure> figures = new ArrayList<>();
 		if (playerName.equals(PLAYER_NAME.GOLD))
 			figures = controller.getGoldFigures();
@@ -331,7 +331,7 @@ public class Rules extends Observable {
 		candidates = Position.getSurroundPositionForPitch(pos);
 		candidates = getOccupiedPositions(candidates);
 
-		return getFigursPositionsFromPlayer(playerName, candidates);
+		return getFiguresPositionsFromPlayer(playerName, candidates);
 	}
 
 	private List<Position> getFreeOwnSurroundPositions(PLAYER_NAME playerName, Position pos) {
@@ -360,7 +360,7 @@ public class Rules extends Observable {
 
 	}
 
-	private List<Position> getFigursPositionsFromPlayer(PLAYER_NAME playerName, List<Position> surroundPosList) {
+	private List<Position> getFiguresPositionsFromPlayer(PLAYER_NAME playerName, List<Position> surroundPosList) {
 		List<Position> posList = new ArrayList<>();
 		for (Position pos : surroundPosList) {
 			PLAYER_NAME actPlayerName = controller.getPlayerName(pos);
@@ -379,13 +379,13 @@ public class Rules extends Observable {
 		return occupied;
 	}
 
-	private List<Position> getPossibleMovesStateLess(PLAYER_NAME currenPlayerName, Position pos) {
+	private List<Position> getPossibleMovesStateLess(PLAYER_NAME currentPlayerName, Position pos) {
 		List<Position> candidates = new ArrayList<>();
 		candidates = Position.getSurroundPositionForPitch(pos);
 		candidates.removeAll(getOccupiedPositions(candidates));
 
 		for (int i = candidates.size() - 1; i >= 0; i--) {
-			if (!preconditionStateLess(currenPlayerName, pos, candidates.get(i)))
+			if (!preconditionStateLess(currentPlayerName, pos, candidates.get(i)))
 				candidates.remove(i);
 		}
 

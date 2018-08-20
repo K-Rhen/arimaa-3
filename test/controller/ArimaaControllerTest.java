@@ -54,7 +54,7 @@ public class ArimaaControllerTest {
     }
 
     @Test
-    public void testArimmaExit() {
+    public void testArimaaExit() {
         controller.quitGame();
         controller.getPitchView();
     }
@@ -73,7 +73,7 @@ public class ArimaaControllerTest {
     }
 
     @Test
-    public void testGetFigureNamebyPosition() {
+    public void testGetFigureNameByPosition() {
         assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 6)));
         assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 1)));
 
@@ -81,7 +81,7 @@ public class ArimaaControllerTest {
     }
 
     @Test
-    public void testGetPlayerNamebyPosition() {
+    public void testGetPlayerNameByPosition() {
         assertEquals(PLAYER_NAME.GOLD, controller.getPlayerName(new Position(0, 6)));
         assertEquals(PLAYER_NAME.SILVER, controller.getPlayerName(new Position(0, 1)));
 
