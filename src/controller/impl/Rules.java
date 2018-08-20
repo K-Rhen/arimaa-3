@@ -392,17 +392,17 @@ public class Rules extends Observable {
 		return canditates;
 	}
 
-	public List<Position> getPossibleMoves(PLAYER_NAME currenPlayerName, Position pos) {
-		List<Position> canditates = new ArrayList<>();
-		canditates = Position.getSurroundPositionForPitch(pos);
-		canditates.removeAll(getOccupiedPositions(canditates));
+    public List<Position> getPossibleMoves(PLAYER_NAME currentPlayerName, Position pos) {
+        //List<Position> candidates = new ArrayList<>();
+        List<Position> candidates = Position.getSurroundPositionForPitch(pos);
+        candidates.removeAll(getOccupiedPositions(candidates));
 
-		for (int i = canditates.size() - 1; i >= 0; i--) {
-			if (!precondition(currenPlayerName, pos, canditates.get(i)))
-				canditates.remove(i);
+        for (int i = candidates.size() - 1; i >= 0; i--) {
+            if (!precondition(currentPlayerName, pos, candidates.get(i)))
+                candidates.remove(i);
 		}
 
-		return canditates;
+        return candidates;
 	}
 
 }
