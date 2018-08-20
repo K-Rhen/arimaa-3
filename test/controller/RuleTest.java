@@ -28,13 +28,13 @@ public class RuleTest {
     @Test
     public void testFromPositionIsEmpty() {
         assertFalse(controller.moveFigure(new Position(0, 5), new Position(0, 6)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
     }
 
     @Test
     public void testToPositionIsOccupied() {
         assertFalse(controller.moveFigure(new Position(0, 6), new Position(1, 6)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class RuleTest {
         assertTrue(controller.moveFigure(new Position(0, 4), new Position(0, 3)));
         assertTrue(controller.moveFigure(new Position(0, 3), new Position(0, 2)));
         assertFalse(controller.moveFigure(new Position(0, 2), new Position(1, 2)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class RuleTest {
 
         // Gold Rabbit wants go backward
         assertFalse(controller.moveFigure(new Position(0, 4), new Position(0, 5)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
 
         controller.changePlayer();
 
@@ -65,11 +65,11 @@ public class RuleTest {
 
         // Silver Rabbit wants go up
         assertFalse(controller.moveFigure(new Position(7, 3), new Position(7, 2)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
 
         // Silver Rabbit wants move far away position
         assertFalse(controller.moveFigure(new Position(7, 3), new Position(0, 4)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class RuleTest {
         controller.changePlayer();
         // Gold camel wants to go right
         assertFalse(controller.moveFigure(new Position(3, 4), new Position(4, 4)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
         // Gold Cat came to help
         assertTrue(controller.moveFigure(new Position(2, 6), new Position(3, 6)));
         assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
@@ -113,7 +113,7 @@ public class RuleTest {
         assertTrue(controller.moveFigure(new Position(5, 4), new Position(4, 4)));
         // Gold Camel can't go right
         assertFalse(controller.moveFigure(new Position(4, 4), new Position(4, 5)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
         // Gold Elephants come help
         assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
         // Gold Camel no can go right
@@ -134,7 +134,7 @@ public class RuleTest {
 
         // Silver Camel would get pushed two right
         assertFalse(controller.moveFigure(new Position(4, 3), new Position(6, 3)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
 
         // Silver Camel get pushed right
         assertTrue(controller.moveFigure(new Position(4, 3), new Position(5, 3)));
@@ -164,7 +164,7 @@ public class RuleTest {
 
         // -Test weaker figure Silver Camel will push Gold Elephant
         assertFalse(controller.moveFigure(new Position(4, 3), new Position(3, 3)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
 
     }
 
@@ -192,7 +192,7 @@ public class RuleTest {
 
         // Gold Elephant will push Silver Rabbit up
         assertFalse(controller.moveFigure(new Position(2, 4), new Position(2, 3)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
 
         // Gold Elephant push Silver Rabbit left
         assertTrue(controller.moveFigure(new Position(2, 4), new Position(1, 4)));
@@ -220,7 +220,7 @@ public class RuleTest {
         assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
         // Gold Elephant would pull Silver camel left
         assertFalse(controller.moveFigure(new Position(4, 3), new Position(3, 3)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
         // Gold Elephant pull Silver camel down
         assertTrue(controller.moveFigure(new Position(4, 3), new Position(4, 4)));
         assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
@@ -282,11 +282,11 @@ public class RuleTest {
 
         // move a figure a grater distance than 1
         assertFalse(controller.moveFigure(new Position(0, 5), new Position(0, 2)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
 
         // other player figure wants move and Figure is not pulled or pushed
         assertFalse(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
-        assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
+        assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
     }
 
     @Test

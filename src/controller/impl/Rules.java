@@ -38,21 +38,21 @@ public class Rules extends Observable {
 		// from position is empty
 		if (controller.getPlayerName(from) == null) {
 			statusText = "No figure on " + Coordinate.convert(from);
-			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			status = GameStatus.PRECONDITION_RULES_VIOLATED;
 			return false;
 		}
 
 		// to position is occupied
 		if (controller.getPlayerName(to) != null) {
 			statusText = Coordinate.convert(from) + " is not empty";
-			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			status = GameStatus.PRECONDITION_RULES_VIOLATED;
 			return false;
 		}
 
 		// is figure a rabbit move backwards
 		if (isRabbitMoveBackward(from, to)) {
 			statusText = "Rabbits can't go backwards";
-			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			status = GameStatus.PRECONDITION_RULES_VIOLATED;
 			return false;
 		}
 
@@ -66,7 +66,7 @@ public class Rules extends Observable {
 		// is hold
 		if (isHold(from)) {
 			statusText = "Figure is hold";
-			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			status = GameStatus.PRECONDITION_RULES_VIOLATED;
 			return false;
 		}
 
@@ -81,7 +81,7 @@ public class Rules extends Observable {
 		List<Position> possibleMoves = getFreeOwnSurroundPositions(currentPlayerName, from);
 		if (possibleMoves.isEmpty() || !possibleMoves.contains(to)) {
 			statusText = Coordinate.convert(to) + " is not a permitted position";
-			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			status = GameStatus.PRECONDITION_RULES_VIOLATED;
 			return false;
 		}
 
@@ -93,7 +93,7 @@ public class Rules extends Observable {
 	public boolean precondition(PLAYER_NAME currentPlayerName, Position from, Position to) {
 		if (controller.getRemainingMoves() == 0) {
 			statusText = "No remain moves";
-			status = GameStatus.PRECONDITIONRULES_VIOLATED;
+			status = GameStatus.PRECONDITION_RULES_VIOLATED;
 			return false;
 		}
 
