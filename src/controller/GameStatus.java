@@ -8,7 +8,7 @@ public enum  GameStatus {
     PRECONDITION_RULES_VIOLATED,
     REDO,
     UNDO,
-    PUSHFIGURE,
+    PUSH_FIGURE,
     CAPTURED,
     FINISH,
     CIRCULARMOVE

@@ -68,7 +68,7 @@ public class ArimaaController extends Observable implements IArimaaController {
         if (!changePlayerEnable)
             return;
 
-        if (status.equals(GameStatus.PUSHFIGURE) || status.equals(GameStatus.FINISH))
+        if (status.equals(GameStatus.PUSH_FIGURE) || status.equals(GameStatus.FINISH))
             return;
 
         pitch.changePlayer();
@@ -188,7 +188,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
     @Override
     public boolean isChangePlayerEnable() {
-        return changePlayerEnable && !status.equals(GameStatus.PUSHFIGURE);
+        return changePlayerEnable && !status.equals(GameStatus.PUSH_FIGURE);
     }
 
     @Override

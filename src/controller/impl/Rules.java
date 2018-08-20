@@ -59,7 +59,7 @@ public class Rules extends Observable {
 		// is pushed
 		if (isPushed(from, to)) {
 			statusText = "Figure is pushed";
-			status = GameStatus.PUSHFIGURE;
+			status = GameStatus.PUSH_FIGURE;
 			return true;
 		}
 
@@ -98,11 +98,11 @@ public class Rules extends Observable {
 		}
 
 		// pushed must be finished
-		if (controller.getGameStatus().equals(GameStatus.PUSHFIGURE)) {
+		if (controller.getGameStatus().equals(GameStatus.PUSH_FIGURE)) {
 			Position lastFromPosition = controller.getLastMoveFromPosition();
 			if (!lastFromPosition.equals(to)) {
 				statusText = "First finish your push to " + Coordinate.convert(lastFromPosition);
-				status = GameStatus.PUSHFIGURE;
+				status = GameStatus.PUSH_FIGURE;
 				return false;
 			}
 		}

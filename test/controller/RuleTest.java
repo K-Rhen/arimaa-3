@@ -138,12 +138,12 @@ public class RuleTest {
 
         // Silver Camel get pushed right
         assertTrue(controller.moveFigure(new Position(4, 3), new Position(5, 3)));
-        assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.PUSH_FIGURE, controller.getGameStatus());
         assertEquals(3, controller.getRemainingMoves());
 
         // no other figure can be moved, test on Gold Rabbit
         assertFalse(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
-        assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.PUSH_FIGURE, controller.getGameStatus());
 
         // no player change possible
         controller.changePlayer();
@@ -196,12 +196,12 @@ public class RuleTest {
 
         // Gold Elephant push Silver Rabbit left
         assertTrue(controller.moveFigure(new Position(2, 4), new Position(1, 4)));
-        assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.PUSH_FIGURE, controller.getGameStatus());
         assertTrue(controller.moveFigure(new Position(3, 4), new Position(2, 4)));
 
         // Gold Elephant push Silver Rabbit down
         assertTrue(controller.moveFigure(new Position(1, 4), new Position(1, 5)));
-        assertEquals(GameStatus.PUSHFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.PUSH_FIGURE, controller.getGameStatus());
         assertTrue(controller.moveFigure(new Position(2, 4), new Position(1, 4)));
     }
 
