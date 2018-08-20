@@ -27,7 +27,7 @@ public class TextUI implements IObserver {
 				+ controller.getRemainingMoves() + "\n");
 		sb.append(controller.getPitchView());
 		sb.append("INFO: " + StatusMessage.getText(controller.getGameStatus()) + "\n");
-		sb.append("STATUSTEXT: " + controller.getStatusText() + "\n");
+        sb.append("STATUS TEXT: " + controller.getStatusText() + "\n");
 		sb.append("READY: :-");
 		return sb.toString();
 	}
