@@ -73,15 +73,18 @@ public class Position {
 
     @Override
     public boolean equals(Object obj) {
-        Position po = null;
-        if (obj instanceof Position)
-            po = (Position) obj;
-
-        if (po == null) {
+        if (obj == null)
             return false;
-        } else {
-            return po.x == x && po.y == y;
+
+        if (obj == this)
+            return true;
+
+        if (obj instanceof Position) {
+            Position position = (Position) obj;
+            return position.x == x && position.y == y;
         }
+
+        return false;
     }
 
     @Override
