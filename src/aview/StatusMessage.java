@@ -15,7 +15,7 @@ public class StatusMessage {
     static {
         text.put(GameStatus.CREATE, "CREATE");
         text.put(GameStatus.EXIT, "EXIT");
-        text.put(GameStatus.MOVEFIGURE, "MOVEFIGURE");
+        text.put(GameStatus.MOVE_FIGURE, "MOVE_FIGURE");
         text.put(GameStatus.CHANGEPLAYER, "CHANGEPLAYER");
 
         text.put(GameStatus.PRECONDITIONRULES_VIOLATED, "PRECONDITIONRULES_VIOLATED");

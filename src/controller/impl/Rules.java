@@ -73,7 +73,7 @@ public class Rules extends Observable {
 		// is pulled
 		if (isPulled(from, to)) {
 			statusText = "Figure is pulled";
-			status = GameStatus.MOVEFIGURE;
+			status = GameStatus.MOVE_FIGURE;
 			return true;
 		}
 
@@ -85,7 +85,7 @@ public class Rules extends Observable {
 			return false;
 		}
 
-		status = GameStatus.MOVEFIGURE;
+		status = GameStatus.MOVE_FIGURE;
 		statusText = "from " + Coordinate.convert(from) + "  to " + Coordinate.convert(to);
 		return true;
 	}

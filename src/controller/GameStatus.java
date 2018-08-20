@@ -3,7 +3,7 @@ package controller;
 public enum  GameStatus {
     CREATE,
     EXIT,
-    MOVEFIGURE,
+    MOVE_FIGURE,
     CHANGEPLAYER, 
     PRECONDITIONRULES_VIOLATED, 
     REDO,

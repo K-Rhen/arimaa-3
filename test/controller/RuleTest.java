@@ -92,7 +92,7 @@ public class RuleTest {
 
         // Gold Camel can no go right
         assertTrue(controller.moveFigure(new Position(3, 4), new Position(4, 4)));
-        assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
 
         controller.changePlayer();
         // Silver Camel go down
@@ -102,7 +102,7 @@ public class RuleTest {
         controller.changePlayer();
         // Gold Camel go left
         assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
-        assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
 
         controller.changePlayer();
         // Silver Elephant go down
@@ -118,7 +118,7 @@ public class RuleTest {
         assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
         // Gold Camel no can go right
         assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
-        assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
     }
 
     @Test
@@ -151,7 +151,7 @@ public class RuleTest {
 
         // Gold Elephant goes up and finish push
         assertTrue(controller.moveFigure(new Position(4, 4), new Position(4, 3)));
-        assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
         assertEquals(2, controller.getRemainingMoves());
 
         // change player now possible
@@ -160,7 +160,7 @@ public class RuleTest {
 
         // Silver Rabbit goes up, other moves now possible
         assertTrue(controller.moveFigure(new Position(0, 1), new Position(0, 2)));
-        assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
 
         // -Test weaker figure Silver Camel will push Gold Elephant
         assertFalse(controller.moveFigure(new Position(4, 3), new Position(3, 3)));
@@ -223,14 +223,14 @@ public class RuleTest {
         assertEquals(GameStatus.PRECONDITIONRULES_VIOLATED, controller.getGameStatus());
         // Gold Elephant pull Silver camel down
         assertTrue(controller.moveFigure(new Position(4, 3), new Position(4, 4)));
-        assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
         assertEquals(2, controller.getRemainingMoves());
 
         // Gold Elephant go right
         assertTrue(controller.moveFigure(new Position(5, 4), new Position(6, 4)));
         // Gold Elephant pull Silver camel right
         assertTrue(controller.moveFigure(new Position(4, 4), new Position(5, 4)));
-        assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
         assertEquals(0, controller.getRemainingMoves());
     }
 
@@ -241,7 +241,7 @@ public class RuleTest {
         assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
         // move Gold Cat into trap
         assertTrue(controller.moveFigure(new Position(2, 6), new Position(2, 5)));
-        assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
         // figure is in this trap
         assertEquals(FIGURE_NAME.C, controller.getFigureName(new Position(2, 5)));
         // move Gold Camel down
@@ -278,7 +278,7 @@ public class RuleTest {
     @Test
     public void testToPositionPossibleMove() {
         assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
-        assertEquals(GameStatus.MOVEFIGURE, controller.getGameStatus());
+        assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
 
         // move a figure a grater distance than 1
         assertFalse(controller.moveFigure(new Position(0, 5), new Position(0, 2)));
