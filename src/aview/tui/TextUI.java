@@ -48,9 +48,6 @@ public class TextUI implements IObserver {
 		} else {
             LOGGER.info("\'" + inputLine + "\' is a wrong input, type h for help");
 		}
-
-		// Print pitch
-		controller.getPitchView();
 	}
 
 	private String helpText() {
