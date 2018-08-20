@@ -15,7 +15,7 @@ public enum PLAYER_NAME {
 		}
 	}
 
-	public static PLAYER_NAME invers(PLAYER_NAME playerName) {
+    public static PLAYER_NAME invert(PLAYER_NAME playerName) {
 		if (playerName.equals(PLAYER_NAME.GOLD))
 			return PLAYER_NAME.SILVER;
 		else if (playerName.equals(PLAYER_NAME.SILVER))

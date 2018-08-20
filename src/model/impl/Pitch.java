@@ -196,7 +196,7 @@ public class Pitch implements IPitch {
 	@Override
 	public void changePlayer() {
 		remainingMoves = 4;
-		currentPlayer = PLAYER_NAME.invers(currentPlayer);
+        currentPlayer = PLAYER_NAME.invert(currentPlayer);
 	}
 
 	@Override

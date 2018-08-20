@@ -7,7 +7,7 @@ public final class Coordinate {
 
     public static Position convert(String input) {
         if (!input.matches("[a-h][1-8]"))
-            throw new IllegalArgumentException(input + " wrong coordinate formate");
+            throw new IllegalArgumentException(input + " wrong coordinate formatting");
 
         char[] parts = input.toCharArray();
 

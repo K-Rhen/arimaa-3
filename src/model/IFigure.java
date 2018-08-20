@@ -38,6 +38,6 @@ public interface IFigure {
      *
      * @return if disable
      */
-	boolean isDisbale();
+    boolean isDisabled();
 
 }

@@ -109,9 +109,9 @@ public class ArimaaControllerTest {
 
         controller.moveFigure(new Position(0, 6), new Position(0, 5));
 
-        String ougthText = "1g Ra2n ";
+        String oughtText = "1g Ra2n ";
         String isText = controller.getMoveHistoryText();
-        assertEquals(ougthText, isText);
+        assertEquals(oughtText, isText);
     }
 
     @Test

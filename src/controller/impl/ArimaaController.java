@@ -23,7 +23,7 @@ public class ArimaaController extends Observable implements IArimaaController {
     private GameStatus status;
     private String statusText;
 
-    private boolean changePlayerEable;
+    private boolean changePlayerEnable;
 
     @Inject
     public ArimaaController() {
@@ -38,7 +38,7 @@ public class ArimaaController extends Observable implements IArimaaController {
         status = GameStatus.CREATE;
         statusText = "New game started";
 
-        changePlayerEable = false;
+        changePlayerEnable = false;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
     @Override
     public void changePlayer() {
-        if (!changePlayerEable)
+        if (!changePlayerEnable)
             return;
 
         if (status.equals(GameStatus.PUSHFIGURE) || status.equals(GameStatus.FINISH))
@@ -73,7 +73,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
         pitch.changePlayer();
 
-        changePlayerEable = false;
+        changePlayerEnable = false;
 
         status = GameStatus.CHANGEPLAYER;
         statusText = pitch.getCurrentPlayerName().toString() + " it’s your turn";
@@ -122,20 +122,20 @@ public class ArimaaController extends Observable implements IArimaaController {
             return false;
 
         // Preconditions
-        PLAYER_NAME currenPlayerName = getCurrentPlayerName();
-        boolean moved = rules.precondition(currenPlayerName, from, to);
+        PLAYER_NAME currentPlayerName = getCurrentPlayerName();
+        boolean moved = rules.precondition(currentPlayerName, from, to);
         if (moved) {
 
             // Move the figure
             undoManager.doCommand(new MoveFigureCommand(pitch, from, to));
 
-            changePlayerEable = true;
+            changePlayerEnable = true;
 
             // reduce remaining moves
             pitch.reduceRemainingMoves();
         }
 
-        // Postconditions
+        // postconditions
         rules.postcondition(to);
 
         status = rules.getStatus();
@@ -182,13 +182,13 @@ public class ArimaaController extends Observable implements IArimaaController {
 
     @Override
     public List<Position> getPossibleMoves(Position from) {
-        PLAYER_NAME currenPlayerName = getCurrentPlayerName();
-        return rules.getPossibleMoves(currenPlayerName, from);
+        PLAYER_NAME currentPlayerName = getCurrentPlayerName();
+        return rules.getPossibleMoves(currentPlayerName, from);
     }
 
     @Override
     public boolean isChangePlayerEnable() {
-        return changePlayerEable && !status.equals(GameStatus.PUSHFIGURE);
+        return changePlayerEnable && !status.equals(GameStatus.PUSHFIGURE);
     }
 
     @Override

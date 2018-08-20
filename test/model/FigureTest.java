@@ -21,7 +21,7 @@ public class FigureTest {
     }
 
     @Test
-    public void testSetPositon() {
+    public void testSetPosition() {
         figure.setPosition(new Position(1, 1));
         pos = new Position(1, 1);
 
@@ -35,7 +35,7 @@ public class FigureTest {
 
     @Test
     public void testToString() {
-        String ougthText = "{R (0, 0)}";
-        assertEquals(ougthText, figure.toString());
+        String oughtText = "{R (0, 0)}";
+        assertEquals(oughtText, figure.toString());
     }
 }

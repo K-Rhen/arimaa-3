@@ -78,9 +78,9 @@ public class UndoManagerTest {
         pitch.changePlayer();
         undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 1), new Position(0, 2)));
 
-        String ougthText = "1g Ra2n pass \n1s ra7s ";
+        String oughtText = "1g Ra2n pass \n1s ra7s ";
         String isText = undoManager.toString();
-        assertEquals(ougthText, isText);
+        assertEquals(oughtText, isText);
     }
 
 }

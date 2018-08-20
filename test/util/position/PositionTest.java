@@ -20,7 +20,7 @@ public class PositionTest {
     public void testGetPosition() {
         assertEquals(0, position.getX());
         assertEquals(1, position.getY());
-        position.setPositon(1, 0);
+        position.setPosition(1, 0);
         assertEquals(1, position.getX());
         assertEquals(0, position.getY());
     }
@@ -59,9 +59,9 @@ public class PositionTest {
         Position pos = new Position(0, 1);
 
         assertTrue(position.equals(pos));
-        pos.setPositon(1, 0);
+        pos.setPosition(1, 0);
         assertFalse(position.equals(pos));
-        pos.setPositon(0, 0);
+        pos.setPosition(0, 0);
         assertFalse(position.equals(pos));
 
         assertFalse(position.equals(null));
@@ -115,7 +115,7 @@ public class PositionTest {
 
     @Test
     public void testGetDirection() {
-        assertEquals(DIRECTION.NORD, Position.getDirection(new Position(3, 3), new Position(3, 2)));
+        assertEquals(DIRECTION.NORTH, Position.getDirection(new Position(3, 3), new Position(3, 2)));
         assertEquals(DIRECTION.EAST, Position.getDirection(new Position(3, 3), new Position(4, 3)));
         assertEquals(DIRECTION.SOUTH, Position.getDirection(new Position(3, 3), new Position(3, 4)));
         assertEquals(DIRECTION.WEST, Position.getDirection(new Position(3, 3), new Position(2, 3)));

@@ -17,12 +17,12 @@ public class PitchTest {
     }
 
     @Test
-    public void testGetGoldPlayertest() {
+    public void testGetGoldPlayerTest() {
         assertEquals(PLAYER_NAME.GOLD, pitch.getGoldPlayer().getPlayerName());
     }
 
     @Test
-    public void testGetSilverPlayertest() {
+    public void testGetSilverPlayerTest() {
         assertEquals(PLAYER_NAME.SILVER, pitch.getSilverPlayer().getPlayerName());
     }
 

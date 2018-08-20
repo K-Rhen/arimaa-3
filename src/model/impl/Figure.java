@@ -9,8 +9,8 @@ public class Figure implements IFigure {
 	private FIGURE_NAME name;
 	private boolean disable;
 
-	public Figure(Position positon, FIGURE_NAME name) {
-		this.position = positon;
+    public Figure(Position position, FIGURE_NAME name) {
+        this.position = position;
 		this.name = name;
 		this.disable = false;
 	}
@@ -36,7 +36,7 @@ public class Figure implements IFigure {
 	}
 
 	@Override
-	public boolean isDisbale() {
+    public boolean isDisabled() {
 		return disable;
 	}
 

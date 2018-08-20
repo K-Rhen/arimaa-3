@@ -1,12 +1,12 @@
 package util.position;
 
 public enum DIRECTION {
-    NORD, EAST, SOUTH, WEST;
+    NORTH, EAST, SOUTH, WEST;
 
     @Override
     public String toString() {
         switch (this) {
-            case NORD:
+            case NORTH:
                 return "n";
             case EAST:
                 return "e";

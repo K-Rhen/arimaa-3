@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class RuelTest {
+public class RuleTest {
 
     private IArimaaController controller;
     private Injector injector = Guice.createInjector(new ArimaaModule());

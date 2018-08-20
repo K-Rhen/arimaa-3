@@ -210,20 +210,20 @@ public class PitchPanel extends JPanel implements IObserver {
     }
 
     private void drawFigures(Graphics2D g2d, Map<FIGURE_NAME, BufferedImage> figuresImage, List<IFigure> figure,
-                             Point offset, Point figuresize) {
+                             Point offset, Point figureSize) {
         for (IFigure f : figure) {
-            FIGURE_NAME fname = f.getName();
-            BufferedImage fimg = figuresImage.get(fname);
+            FIGURE_NAME figureName = f.getName();
+            BufferedImage image = figuresImage.get(figureName);
 
-            Position fpos = f.getPosition();
+            Position figurePosition = f.getPosition();
 
             // skip if figure equals moving figure
-            if (mouseFigure != null && fpos.equals(mouseFigure.getFromPosition()))
+            if (mouseFigure != null && figurePosition.equals(mouseFigure.getFromPosition()))
                 continue;
 
-            int figureX = fpos.getX() * figuresize.x + offset.x;
-            int figureY = fpos.getY() * figuresize.y + offset.y;
-            g2d.drawImage(fimg, figureX, figureY, figuresize.x, figuresize.y, null);
+            int figureX = figurePosition.getX() * figureSize.x + offset.x;
+            int figureY = figurePosition.getY() * figureSize.y + offset.y;
+            g2d.drawImage(image, figureX, figureY, figureSize.x, figureSize.y, null);
         }
     }
 

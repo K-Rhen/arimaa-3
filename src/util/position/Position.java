@@ -8,7 +8,7 @@ public class Position {
     private int y;
 
     public Position(int x, int y) {
-        setPositon(x, y);
+        setPosition(x, y);
     }
 
     private static boolean positionOnPitchXY(int x, int y) {
@@ -44,7 +44,7 @@ public class Position {
         int dy = to.getY() - from.getY();
 
         if (dx == 0 && dy == -1)
-            return DIRECTION.NORD;
+            return DIRECTION.NORTH;
         else if (dx == 1 && dy == 0)
             return DIRECTION.EAST;
         else if (dx == 0 && dy == 1)
@@ -55,7 +55,7 @@ public class Position {
         return null;
     }
 
-    public void setPositon(int x, int y) {
+    public void setPosition(int x, int y) {
         if (!positionOnPitchXY(x, y))
             throw new IllegalArgumentException("position not on pitch");
 

@@ -150,7 +150,7 @@ public class Rules extends Observable {
 		if (playerName.equals(PLAYER_NAME.GOLD) && !DIRECTION.SOUTH.equals(direction))
 			return false;
 
-		return !playerName.equals(PLAYER_NAME.SILVER) || DIRECTION.NORD.equals(direction);
+		return !playerName.equals(PLAYER_NAME.SILVER) || DIRECTION.NORTH.equals(direction);
 	}
 
 	private boolean isHold(Position pos) {
@@ -163,7 +163,7 @@ public class Rules extends Observable {
 			return false;
 
 		List<Position> otherFigures = new ArrayList<>();
-		PLAYER_NAME otherPlayerName = PLAYER_NAME.invers(ownPlayerName);
+		PLAYER_NAME otherPlayerName = PLAYER_NAME.invert(ownPlayerName);
 		otherFigures = getSurroundFigures(otherPlayerName, pos);
 
 		// own figure is not surrounded by a enemy
@@ -327,23 +327,23 @@ public class Rules extends Observable {
 	}
 
 	private List<Position> getSurroundFigures(PLAYER_NAME playerName, Position pos) {
-		List<Position> canditates = new ArrayList<>();
-		canditates = Position.getSurroundPositionForPitch(pos);
-		canditates = getOccupiedPositions(canditates);
+		List<Position> candidates = new ArrayList<>();
+		candidates = Position.getSurroundPositionForPitch(pos);
+		candidates = getOccupiedPositions(candidates);
 
-		return getFigursPositionsFromPlayer(playerName, canditates);
+		return getFigursPositionsFromPlayer(playerName, candidates);
 	}
 
 	private List<Position> getFreeOwnSurroundPositions(PLAYER_NAME playerName, Position pos) {
-		List<Position> canditates = new ArrayList<>();
+		List<Position> candidates = new ArrayList<>();
 
 		if (!controller.getPlayerName(pos).equals(playerName))
-			return canditates;
+			return candidates;
 
-		canditates = Position.getSurroundPositionForPitch(pos);
-		canditates.removeAll(getOccupiedPositions(canditates));
+		candidates = Position.getSurroundPositionForPitch(pos);
+		candidates.removeAll(getOccupiedPositions(candidates));
 
-		return canditates;
+		return candidates;
 	}
 
 	private FIGURE_NAME getStrongestFigure(List<Position> surroundPosList) {
@@ -380,16 +380,16 @@ public class Rules extends Observable {
 	}
 
 	private List<Position> getPossibleMovesStateLess(PLAYER_NAME currenPlayerName, Position pos) {
-		List<Position> canditates = new ArrayList<>();
-		canditates = Position.getSurroundPositionForPitch(pos);
-		canditates.removeAll(getOccupiedPositions(canditates));
+		List<Position> candidates = new ArrayList<>();
+		candidates = Position.getSurroundPositionForPitch(pos);
+		candidates.removeAll(getOccupiedPositions(candidates));
 
-		for (int i = canditates.size() - 1; i >= 0; i--) {
-			if (!preconditionStateLess(currenPlayerName, pos, canditates.get(i)))
-				canditates.remove(i);
+		for (int i = candidates.size() - 1; i >= 0; i--) {
+			if (!preconditionStateLess(currenPlayerName, pos, candidates.get(i)))
+				candidates.remove(i);
 		}
 
-		return canditates;
+		return candidates;
 	}
 
     public List<Position> getPossibleMoves(PLAYER_NAME currentPlayerName, Position pos) {
