@@ -36,7 +36,7 @@ public class TextUI implements IObserver {
 		if (inputLine.matches("q")) {
 			controller.quitGame();
 		} else if (inputLine.matches("h")) {
-			LOGGER.entry(helpText());
+            LOGGER.info(helpText());
 		} else if (inputLine.matches("c")) {
 			controller.changePlayer();
 		} else if (inputLine.matches("u")) {
@@ -46,7 +46,7 @@ public class TextUI implements IObserver {
 		} else if (inputLine.matches("[a-h][1-8]-[a-h][1-8]")) {
 			moveFigureByString(inputLine);
 		} else {
-			LOGGER.entry("\'" + inputLine + "\' is a wrong input, type h for help");
+            LOGGER.info("\'" + inputLine + "\' is a wrong input, type h for help");
 		}
 
 		// Print pitch
@@ -75,7 +75,7 @@ public class TextUI implements IObserver {
 	@Override
 	public void update(Event e) {
 		// Show TUI
-		LOGGER.entry(toString());
+        LOGGER.info(toString());
 	}
 
 }
