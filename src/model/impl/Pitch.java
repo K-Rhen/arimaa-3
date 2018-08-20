@@ -13,7 +13,7 @@ public class Pitch implements IPitch {
 	private PLAYER_NAME currentPlayer;
 	private int remainingMoves;
 
-	private static final int PITCHSIZE = 8;
+    private static final int PITCH_SIZE = 8;
 
 	public Pitch() {
 		List<IFigure> goldFigures = new ArrayList<>();
@@ -125,14 +125,14 @@ public class Pitch implements IPitch {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("+-------------SILVER------------+\n");
-		for (int y = 0; y < PITCHSIZE; y++) {
+        for (int y = 0; y < PITCH_SIZE; y++) {
 			if (y > 0)
 				sb.append("+---+---+---+---+---+---+---+---+\n");
 
 			sb.append(getPitchRow(y));
 
 			sb.append("| ");
-			sb.append(PITCHSIZE - y);
+            sb.append(PITCH_SIZE - y);
 			sb.append("\n");
 		}
 		sb.append("+--------------GOLD-------------+\n");
@@ -143,7 +143,7 @@ public class Pitch implements IPitch {
 	private String getPitchRow(int y) {
 		StringBuilder sb = new StringBuilder();
 
-		for (int x = 0; x < PITCHSIZE; x++) {
+        for (int x = 0; x < PITCH_SIZE; x++) {
 			if ((x == 2 || x == 5) && (y == 2 || y == 5))
 				sb.append("| # ");
 			else {
