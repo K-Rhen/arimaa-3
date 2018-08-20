@@ -45,7 +45,7 @@ public class ArimaaControllerTest {
         assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
         controller.changePlayer();
         assertEquals(PLAYER_NAME.SILVER, controller.getCurrentPlayerName());
-        assertEquals(GameStatus.CHANGEPLAYER, controller.getGameStatus());
+        assertEquals(GameStatus.CHANGE_PLAYER, controller.getGameStatus());
     }
 
     @Test

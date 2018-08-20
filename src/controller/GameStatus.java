@@ -4,7 +4,7 @@ public enum  GameStatus {
     CREATE,
     EXIT,
     MOVE_FIGURE,
-    CHANGEPLAYER, 
+    CHANGE_PLAYER,
     PRECONDITIONRULES_VIOLATED, 
     REDO,
     UNDO,

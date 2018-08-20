@@ -75,7 +75,7 @@ public class ArimaaController extends Observable implements IArimaaController {
 
         changePlayerEnable = false;
 
-        status = GameStatus.CHANGEPLAYER;
+        status = GameStatus.CHANGE_PLAYER;
         statusText = pitch.getCurrentPlayerName().toString() + " it’s your turn";
         notifyObservers();
     }
