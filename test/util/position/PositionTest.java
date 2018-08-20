@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class PositionTest {
 
-    Position position;
+    private Position position;
 
     @Before
     public void setUp() {
@@ -35,14 +35,14 @@ public class PositionTest {
     }
 
     @Test
-    public void testIlligalArgumentConstrukor() {
-        testIlligalArgumentConstrukorhelper(-1, 2);
-        testIlligalArgumentConstrukorhelper(1, 8);
-        testIlligalArgumentConstrukorhelper(8, 1);
-        testIlligalArgumentConstrukorhelper(2, -1);
+    public void illegalArgumentConstructor() {
+        illegalArgumentConstructorHelper(-1, 2);
+        illegalArgumentConstructorHelper(1, 8);
+        illegalArgumentConstructorHelper(8, 1);
+        illegalArgumentConstructorHelper(2, -1);
     }
 
-    private void testIlligalArgumentConstrukorhelper(int x, int y) {
+    private void illegalArgumentConstructorHelper(int x, int y) {
         @SuppressWarnings("unused")
         Position test = null;
         boolean catched = false;
