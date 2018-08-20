@@ -12,7 +12,7 @@ public class PositionTest {
     Position position;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         position = new Position(0, 1);
     }
 
@@ -84,7 +84,7 @@ public class PositionTest {
     }
 
     @Test
-    public void testGetSurroundPosition() {
+    public void getSurroundPositionForPitch() {
         List<Position> leftUpperCorner = Position.getSurroundPositionForPitch(new Position(0, 0));
         assertEquals(2, leftUpperCorner.size());
         assertTrue(leftUpperCorner.contains(new Position(0, 1)));
@@ -103,14 +103,14 @@ public class PositionTest {
         List<Position> rightBottomCorner = Position.getSurroundPositionForPitch(new Position(7, 7));
         assertEquals(2, rightBottomCorner.size());
         assertTrue(rightBottomCorner.contains(new Position(6, 7)));
-        assertTrue(rightBottomCorner.contains(new Position(7, 6)));
 
-        List<Position> middel = Position.getSurroundPositionForPitch(new Position(3, 3));
-        assertEquals(4, middel.size());
-        assertTrue(middel.contains(new Position(3, 2)));
-        assertTrue(middel.contains(new Position(3, 4)));
-        assertTrue(middel.contains(new Position(2, 3)));
-        assertTrue(middel.contains(new Position(4, 3)));
+        assertTrue(rightBottomCorner.contains(new Position(7, 6)));
+        List<Position> middle = Position.getSurroundPositionForPitch(new Position(3, 3));
+        assertEquals(4, middle.size());
+        assertTrue(middle.contains(new Position(3, 2)));
+        assertTrue(middle.contains(new Position(3, 4)));
+        assertTrue(middle.contains(new Position(2, 3)));
+        assertTrue(middle.contains(new Position(4, 3)));
     }
 
     @Test
@@ -121,4 +121,5 @@ public class PositionTest {
         assertEquals(DIRECTION.WEST, Position.getDirection(new Position(3, 3), new Position(2, 3)));
         assertEquals(null, Position.getDirection(new Position(3, 3), new Position(0, 0)));
     }
+
 }
