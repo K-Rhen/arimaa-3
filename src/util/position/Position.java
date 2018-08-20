@@ -89,10 +89,7 @@ public class Position {
 
     @Override
     public int hashCode() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.getX());
-        sb.append(this.getY());
-        return sb.toString().hashCode();
+        return this.toString().hashCode();
     }
 
     @Override

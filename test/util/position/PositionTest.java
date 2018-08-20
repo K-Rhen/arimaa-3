@@ -75,8 +75,7 @@ public class PositionTest {
 
     @Test
     public void testToString() {
-        String target = "(0, 1)";
-        assertEquals(target, position.toString());
+        assertEquals("(0, 1)", position.toString());
     }
 
     @Test
