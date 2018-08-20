@@ -124,7 +124,7 @@ public class Rules extends Observable {
 		// circular move
 		if(isCircularMove()){
 			statusText = "Last four moves are circular";
-			status = GameStatus.CIRCULARMOVE;
+            status = GameStatus.CIRCULAR_MOVE;
 		}
 		
 		return true;

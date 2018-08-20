@@ -11,5 +11,5 @@ public enum  GameStatus {
     PUSH_FIGURE,
     CAPTURED,
     FINISH,
-    CIRCULARMOVE
+    CIRCULAR_MOVE
 }
