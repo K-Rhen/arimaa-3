@@ -2,21 +2,22 @@ package model;
 
 import model.impl.Figure;
 import model.impl.Player;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import util.position.Position;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class PlayerTest {
     IPlayer player;
     List<IFigure> figures;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         figures = new ArrayList<>();
         figures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
         figures.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
@@ -37,9 +38,10 @@ public class PlayerTest {
         assertEquals(FIGURE_NAME.R, player.getFigure(new Position(1, 1)));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testMoveFigureException() {
-        player.moveFigure(new Position(1, 1), new Position(1, 0));
+        assertThrows(IllegalArgumentException.class, () ->
+                player.moveFigure(new Position(1, 1), new Position(1, 0)));
     }
 
     @Test

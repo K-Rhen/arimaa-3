@@ -4,19 +4,20 @@ import controller.impl.MoveFigureCommand;
 import model.FIGURE_NAME;
 import model.IPitch;
 import model.impl.Pitch;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import util.position.Position;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class UndoManagerTest {
 
     UndoManager undoManager;
     IPitch pitch;
 
-    @Before
+    @BeforeEach
     public void setup() {
         undoManager = new UndoManager();
         pitch = new Pitch();
@@ -43,7 +44,7 @@ public class UndoManagerTest {
         undoManager.undoCommand();
         assertEquals(p, pitch.toString());
         undoManager.redoCommand();
-        assertEquals(p, p.toString());
+        assertEquals(p, p);
     }
 
     @Test

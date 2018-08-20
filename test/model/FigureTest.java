@@ -1,20 +1,21 @@
 package model;
 
 import model.impl.Figure;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import util.position.Position;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class FigureTest {
 
     IFigure figure;
     Position pos;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         pos = new Position(0, 0);
         figure = new Figure(pos, FIGURE_NAME.R);
     }

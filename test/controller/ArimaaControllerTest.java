@@ -5,19 +5,20 @@ import com.google.inject.Injector;
 import main.ArimaaModule;
 import model.FIGURE_NAME;
 import model.PLAYER_NAME;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import util.position.Position;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class ArimaaControllerTest {
 
     private IArimaaController controller;
     private Injector injector = Guice.createInjector(new ArimaaModule());
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         controller = injector.getInstance(IArimaaController.class);
     }
 

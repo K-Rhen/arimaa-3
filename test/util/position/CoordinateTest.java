@@ -1,15 +1,15 @@
 package util.position;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class CoordinateTest {
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
 
     }
 
@@ -59,9 +59,9 @@ public class CoordinateTest {
         assertTrue(Coordinate.convert("h1").equals(new Position(7, 7)));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testCovertWrongFormat() {
-        Coordinate.convert("a9");
+        assertThrows(IllegalArgumentException.class, () -> Coordinate.convert("a9"));
     }
 
 }

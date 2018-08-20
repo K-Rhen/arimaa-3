@@ -1,17 +1,17 @@
 package util.position;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PositionTest {
 
     private Position position;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         position = new Position(0, 1);
     }

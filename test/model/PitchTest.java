@@ -1,17 +1,18 @@
 package model;
 
 import model.impl.Pitch;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import util.position.Position;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class PitchTest {
     IPitch pitch;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         pitch = new Pitch();
     }
 
