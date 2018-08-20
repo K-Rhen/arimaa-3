@@ -56,15 +56,11 @@ public class PositionTest {
 
     @Test
     public void testEqual() {
-        Position pos = new Position(0, 1);
-
-        assertTrue(position.equals(pos));
-        pos.setPosition(1, 0);
-        assertFalse(position.equals(pos));
-        pos.setPosition(0, 0);
-        assertFalse(position.equals(pos));
-
-        assertFalse(position.equals(null));
+        assertEquals(new Position(0, 1), position);
+        assertEquals(position, position);
+        assertNotEquals(new Position(1, 0), position);
+        assertNotEquals(new Position(0, 0), position);
+        assertNotEquals(position, null);
     }
 
     @Test
