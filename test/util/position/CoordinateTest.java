@@ -1,17 +1,12 @@
 package util.position;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class CoordinateTest {
-
-    @BeforeEach
-    void setUp() {
-
-    }
 
     @Test
     void testConvertPos() {
@@ -39,24 +34,24 @@ class CoordinateTest {
     @Test
     void testConvertString() {
         // first row
-        assertTrue(Coordinate.convert("a8").equals(new Position(0, 0)));
-        assertTrue(Coordinate.convert("b8").equals(new Position(1, 0)));
-        assertTrue(Coordinate.convert("c8").equals(new Position(2, 0)));
-        assertTrue(Coordinate.convert("d8").equals(new Position(3, 0)));
-        assertTrue(Coordinate.convert("e8").equals(new Position(4, 0)));
-        assertTrue(Coordinate.convert("f8").equals(new Position(5, 0)));
-        assertTrue(Coordinate.convert("g8").equals(new Position(6, 0)));
-        assertTrue(Coordinate.convert("h8").equals(new Position(7, 0)));
+        assertEquals(new Position(0, 0), Coordinate.convert("a8"));
+        assertEquals(new Position(1, 0), Coordinate.convert("b8"));
+        assertEquals(new Position(2, 0), Coordinate.convert("c8"));
+        assertEquals(new Position(3, 0), Coordinate.convert("d8"));
+        assertEquals(new Position(4, 0), Coordinate.convert("e8"));
+        assertEquals(new Position(5, 0), Coordinate.convert("f8"));
+        assertEquals(new Position(6, 0), Coordinate.convert("g8"));
+        assertEquals(new Position(7, 0), Coordinate.convert("h8"));
 
         // last row
-        assertTrue(Coordinate.convert("a1").equals(new Position(0, 7)));
-        assertTrue(Coordinate.convert("b1").equals(new Position(1, 7)));
-        assertTrue(Coordinate.convert("c1").equals(new Position(2, 7)));
-        assertTrue(Coordinate.convert("d1").equals(new Position(3, 7)));
-        assertTrue(Coordinate.convert("e1").equals(new Position(4, 7)));
-        assertTrue(Coordinate.convert("f1").equals(new Position(5, 7)));
-        assertTrue(Coordinate.convert("g1").equals(new Position(6, 7)));
-        assertTrue(Coordinate.convert("h1").equals(new Position(7, 7)));
+        assertEquals(new Position(0, 7), Coordinate.convert("a1"));
+        assertEquals(new Position(1, 7), Coordinate.convert("b1"));
+        assertEquals(new Position(2, 7), Coordinate.convert("c1"));
+        assertEquals(new Position(3, 7), Coordinate.convert("d1"));
+        assertEquals(new Position(4, 7), Coordinate.convert("e1"));
+        assertEquals(new Position(5, 7), Coordinate.convert("f1"));
+        assertEquals(new Position(6, 7), Coordinate.convert("g1"));
+        assertEquals(new Position(7, 7), Coordinate.convert("h1"));
     }
 
     @Test
