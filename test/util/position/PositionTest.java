@@ -7,17 +7,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PositionTest {
+class PositionTest {
 
     private Position position;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         position = new Position(0, 1);
     }
 
     @Test
-    public void testGetPosition() {
+    void testGetPosition() {
         assertEquals(0, position.getX());
         assertEquals(1, position.getY());
         position.setPosition(1, 0);
@@ -26,7 +26,7 @@ public class PositionTest {
     }
 
     @Test
-    public void testValidXY() {
+    void testValidXY() {
         assertTrue(Position.validXY(0, 0));
         assertTrue(Position.validXY(7, 7));
         assertFalse(Position.validXY(-1, 5));
@@ -34,7 +34,7 @@ public class PositionTest {
     }
 
     @Test
-    public void illegalArgumentConstructor() {
+    void illegalArgumentConstructor() {
         illegalArgumentConstructorHelper(-1, 2);
         illegalArgumentConstructorHelper(1, 8);
         illegalArgumentConstructorHelper(8, 1);
@@ -54,7 +54,7 @@ public class PositionTest {
     }
 
     @Test
-    public void testEqual() {
+    void testEqual() {
         assertEquals(new Position(0, 1), position);
         assertEquals(position, position);
         assertNotEquals(new Position(1, 0), position);
@@ -63,7 +63,7 @@ public class PositionTest {
     }
 
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         Position pos1 = new Position(0, 0);
         Position pos2 = new Position(0, 0);
         assertEquals(pos1.hashCode(), pos2.hashCode());
@@ -73,12 +73,12 @@ public class PositionTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertEquals("(0, 1)", position.toString());
     }
 
     @Test
-    public void getSurroundPositionForPitch() {
+    void getSurroundPositionForPitch() {
         List<Position> leftUpperCorner = Position.getSurroundPositionForPitch(new Position(0, 0));
         assertEquals(2, leftUpperCorner.size());
         assertTrue(leftUpperCorner.contains(new Position(0, 1)));
@@ -108,7 +108,7 @@ public class PositionTest {
     }
 
     @Test
-    public void testGetDirection() {
+    void testGetDirection() {
         assertEquals(DIRECTION.NORTH, Position.getDirection(new Position(3, 3), new Position(3, 2)));
         assertEquals(DIRECTION.EAST, Position.getDirection(new Position(3, 3), new Position(4, 3)));
         assertEquals(DIRECTION.SOUTH, Position.getDirection(new Position(3, 3), new Position(3, 4)));
