@@ -1,7 +1,9 @@
-package controller;
+package controller.impl;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import controller.GameStatus;
+import controller.IArimaaController;
 import main.ArimaaModule;
 import model.FIGURE_NAME;
 import model.PLAYER_NAME;
@@ -14,31 +16,29 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-public class RuleTest {
-
+class RulesTest {
     private IArimaaController controller;
     private Injector injector = Guice.createInjector(new ArimaaModule());
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         controller = injector.getInstance(IArimaaController.class);
     }
 
     @Test
-    public void testFromPositionIsEmpty() {
+    void testFromPositionIsEmpty() {
         assertFalse(controller.moveFigure(new Position(0, 5), new Position(0, 6)));
         assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
     }
 
     @Test
-    public void testToPositionIsOccupied() {
+    void testToPositionIsOccupied() {
         assertFalse(controller.moveFigure(new Position(0, 6), new Position(1, 6)));
         assertEquals(GameStatus.PRECONDITION_RULES_VIOLATED, controller.getGameStatus());
     }
 
     @Test
-    public void testNoMoveRemain() {
+    void testNoMoveRemain() {
         assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
         assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
         assertTrue(controller.moveFigure(new Position(0, 4), new Position(0, 3)));
@@ -48,7 +48,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsRabbitMoveBackward() {
+    void testIsRabbitMoveBackward() {
         // Gold Rabbit up
         assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
         assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
@@ -73,7 +73,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsHold() {
+    void testIsHold() {
         // Gold Camel
         assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
         assertTrue(controller.moveFigure(new Position(3, 5), new Position(3, 4)));
@@ -122,7 +122,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsPushed() {
+    void testIsPushed() {
         // Gold Elephant go up
         assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
         assertTrue(controller.moveFigure(new Position(4, 5), new Position(4, 4)));
@@ -169,7 +169,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsPushedRabbit() {
+    void testIsPushedRabbit() {
         // Gold Elephant go up
         assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
         assertTrue(controller.moveFigure(new Position(4, 5), new Position(4, 4)));
@@ -206,7 +206,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsPulled() {
+    void testIsPulled() {
         // Gold Elephant go up
         assertTrue(controller.moveFigure(new Position(4, 6), new Position(4, 5)));
         assertTrue(controller.moveFigure(new Position(4, 5), new Position(4, 4)));
@@ -235,7 +235,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsCaptured() {
+    void testIsCaptured() {
         // -TRAP bottom left
         // move Gold Camel up
         assertTrue(controller.moveFigure(new Position(3, 6), new Position(3, 5)));
@@ -276,7 +276,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testToPositionPossibleMove() {
+    void testToPositionPossibleMove() {
         assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
         assertEquals(GameStatus.MOVE_FIGURE, controller.getGameStatus());
 
@@ -290,7 +290,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testGetWinnerEliminationGold() {
+    void testGetWinnerEliminationGold() {
         // disable almost Gold Rabbits
         controller.disableFigure(new Position(0, 6));
         controller.disableFigure(new Position(0, 7));
@@ -310,7 +310,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testGetWinnerEliminationSilver() {
+    void testGetWinnerEliminationSilver() {
         // disable almost Silver Rabbits
         controller.disableFigure(new Position(0, 0));
         controller.disableFigure(new Position(0, 1));
@@ -334,7 +334,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testGetWinnerGoalGold() {
+    void testGetWinnerGoalGold() {
         // move Gold Rabbit up
         assertTrue(controller.moveFigure(new Position(0, 6), new Position(0, 5)));
         assertTrue(controller.moveFigure(new Position(0, 5), new Position(0, 4)));
@@ -364,7 +364,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testGetWinnerGoalSilver() {
+    void testGetWinnerGoalSilver() {
         // move Gold Rabbit
         assertTrue(controller.moveFigure(new Position(7, 6), new Position(7, 5)));
         controller.changePlayer();
@@ -398,7 +398,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsImmobileGold() {
+    void testIsImmobileGold() {
         // disable some gold figures
         controller.disableFigure(new Position(1, 7));
         controller.disableFigure(new Position(2, 7));
@@ -454,7 +454,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testIsImmobileSilver() {
+    void testIsImmobileSilver() {
         // disable some silver figures
         controller.disableFigure(new Position(1, 0));
         controller.disableFigure(new Position(2, 0));
@@ -508,7 +508,7 @@ public class RuleTest {
     }
 
     @Test
-    public void testGetPossibleMoves() {
+    void getPossibleMoves() {
         // Gold Rabbit surround Position
         List<Position> oughtGoldRabbitSurroundList = new ArrayList<>();
         oughtGoldRabbitSurroundList.add(new Position(0, 5));
@@ -521,6 +521,5 @@ public class RuleTest {
         List<Position> isSilverRabbitSurroundList = new ArrayList<>();
         isSilverRabbitSurroundList = controller.getPossibleMoves(new Position(0, 1));
         assertEquals(oughtSilverRabbitSurroundList, isSilverRabbitSurroundList);
-
     }
 }
