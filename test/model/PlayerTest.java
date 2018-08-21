@@ -12,12 +12,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class PlayerTest {
+class PlayerTest {
     IPlayer player;
     List<IFigure> figures;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         figures = new ArrayList<>();
         figures.add(new Figure(new Position(0, 0), FIGURE_NAME.R));
         figures.add(new Figure(new Position(1, 0), FIGURE_NAME.R));
@@ -26,12 +26,12 @@ public class PlayerTest {
     }
 
     @Test
-    public void testGetName() {
+    void testGetName() {
         assertEquals(PLAYER_NAME.GOLD, player.getPlayerName());
     }
 
     @Test
-    public void testMoveFigure() {
+    void testMoveFigure() {
         player.moveFigure(new Position(1, 0), new Position(1, 1));
 
         assertEquals(null, player.getFigure(new Position(1, 0)));
@@ -39,13 +39,13 @@ public class PlayerTest {
     }
 
     @Test
-    public void testMoveFigureException() {
+    void testMoveFigureException() {
         assertThrows(IllegalArgumentException.class, () ->
                 player.moveFigure(new Position(1, 1), new Position(1, 0)));
     }
 
     @Test
-    public void testGetFigure() {
+    void testGetFigure() {
         assertEquals(FIGURE_NAME.R, player.getFigure(new Position(0, 0)));
         assertEquals(null, player.getFigure(new Position(3, 4)));
 
@@ -54,14 +54,14 @@ public class PlayerTest {
     }
 
     @Test
-    public void testDisableFigure() {
+    void testDisableFigure() {
         assertFalse(player.disableFigure(new Position(0, 1)));
         assertTrue(player.disableFigure(new Position(0, 0)));
         assertEquals(null, player.getFigure(new Position(0, 0)));
     }
 
     @Test
-    public void testGetFigures() {
+    void testGetFigures() {
         player.disableFigure(new Position(0, 0));
         List<IFigure> figuresList = player.getFigures();
         IFigure figure = new Figure(new Position(0, 0), FIGURE_NAME.R);

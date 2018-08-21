@@ -8,40 +8,40 @@ import util.position.Position;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class PitchTest {
+class PitchTest {
     IPitch pitch;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         pitch = new Pitch();
     }
 
     @Test
-    public void testGetGoldPlayerTest() {
+    void testGetGoldPlayerTest() {
         assertEquals(PLAYER_NAME.GOLD, pitch.getGoldPlayer().getPlayerName());
     }
 
     @Test
-    public void testGetSilverPlayerTest() {
+    void testGetSilverPlayerTest() {
         assertEquals(PLAYER_NAME.SILVER, pitch.getSilverPlayer().getPlayerName());
     }
 
     @Test
-    public void testGetPlayerName() {
+    void testGetPlayerName() {
         assertEquals(PLAYER_NAME.GOLD, pitch.getPlayerName(new Position(0, 6)));
         assertEquals(PLAYER_NAME.SILVER, pitch.getPlayerName(new Position(0, 1)));
         assertEquals(null, pitch.getPlayerName(new Position(3, 3)));
     }
 
     @Test
-    public void testSetCurrentPlayer() {
+    void testSetCurrentPlayer() {
         assertEquals(PLAYER_NAME.GOLD, pitch.getCurrentPlayerName());
         pitch.setCurrentPlayer(PLAYER_NAME.SILVER);
         assertEquals(PLAYER_NAME.SILVER, pitch.getCurrentPlayerName());
     }
 
     @Test
-    public void testSetRemainingMoves() {
+    void testSetRemainingMoves() {
         assertEquals(4, pitch.getRemainingMoves());
         pitch.setRemainingMoves(-5);
         assertEquals(4, pitch.getRemainingMoves());
@@ -53,14 +53,14 @@ public class PitchTest {
     }
 
     @Test
-    public void testGetFigureName() {
+    void testGetFigureName() {
         assertEquals(null, pitch.getFigureName(new Position(0, 2)));
         assertEquals(FIGURE_NAME.R, pitch.getFigureName(new Position(0, 0)));
         assertEquals(FIGURE_NAME.R, pitch.getFigureName(new Position(0, 7)));
     }
 
     @Test
-    public void testChangePlayer() {
+    void testChangePlayer() {
         pitch.changePlayer();
         assertEquals(PLAYER_NAME.SILVER, pitch.getCurrentPlayerName());
         assertEquals(4, pitch.getRemainingMoves());
@@ -70,7 +70,7 @@ public class PitchTest {
     }
 
     @Test
-    public void testDisableFigure() {
+    void testDisableFigure() {
         assertFalse(pitch.disableFigure(new Position(0, 2)));
         assertTrue(pitch.disableFigure(new Position(0, 0)));
         assertEquals(null, pitch.getFigureName(new Position(0, 0)));
@@ -78,7 +78,7 @@ public class PitchTest {
     }
 
     @Test
-    public void testNoRabbits() {
+    void testNoRabbits() {
         assertFalse(pitch.noRabbits(PLAYER_NAME.GOLD));
 
         // Disable all Gold Rabbits
@@ -95,7 +95,7 @@ public class PitchTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String isString = pitch.toString();
         String oughtPitchString = "+-------------SILVER------------+\n" + "| r | r | r | d | d | r | r | r | 8\n"
                 + "+---+---+---+---+---+---+---+---+\n" + "| r | h | c | e | m | c | h | r | 7\n"

@@ -7,27 +7,27 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class ObserveTest {
+class ObserveTest {
     private boolean ping = false;
     private ObserverTest testObserver;
     private Observable testObservable;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         testObserver = new ObserverTest();
         testObservable = new Observable();
         testObservable.addObserver(testObserver);
     }
 
     @Test
-    public void testNotify() {
+    void testNotify() {
         assertFalse(ping);
         testObservable.notifyObservers();
         assertTrue(ping);
     }
 
     @Test
-    public void testRemove() {
+    void testRemove() {
         assertFalse(ping);
         testObservable.removeObserver(testObserver);
         testObservable.notifyObservers();
@@ -35,7 +35,7 @@ public class ObserveTest {
     }
 
     @Test
-    public void testRemoveAll() {
+    void testRemoveAll() {
         assertFalse(ping);
         testObservable.removeAllObservers();
         testObservable.notifyObservers();
@@ -44,7 +44,7 @@ public class ObserveTest {
 
     class ObserverTest implements IObserver {
         // @Override
-        public void update(Event e) {
+        void update(Event e) {
             ping = true;
         }
 

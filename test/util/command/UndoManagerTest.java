@@ -12,19 +12,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class UndoManagerTest {
+class UndoManagerTest {
 
     UndoManager undoManager;
     IPitch pitch;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         undoManager = new UndoManager();
         pitch = new Pitch();
     }
 
     @Test
-    public void testDoUndoRedo() {
+    void testDoUndoRedo() {
         undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
         assertEquals(null, pitch.getFigureNameForPitch(new Position(0, 6)));
         assertEquals("R", pitch.getFigureNameForPitch(new Position(0, 5)));
@@ -39,7 +39,7 @@ public class UndoManagerTest {
     }
 
     @Test
-    public void testEmptyUndoStack() {
+    void testEmptyUndoStack() {
         String p = pitch.toString();
         undoManager.undoCommand();
         assertEquals(p, pitch.toString());
@@ -48,7 +48,7 @@ public class UndoManagerTest {
     }
 
     @Test
-    public void testReset() {
+    void testReset() {
         undoManager.reset();
         assertEquals("", undoManager.toString());
 
@@ -57,7 +57,7 @@ public class UndoManagerTest {
     }
 
     @Test
-    public void testGetLastMoveFigureName() {
+    void testGetLastMoveFigureName() {
         assertEquals(null, undoManager.getLastMoveFigureName());
 
         undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
@@ -65,7 +65,7 @@ public class UndoManagerTest {
     }
 
     @Test
-    public void testGetLastMoveFromPosition() {
+    void testGetLastMoveFromPosition() {
         assertEquals(null, undoManager.getLastMoveFromPosition());
 
         undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
@@ -73,7 +73,7 @@ public class UndoManagerTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
         pitch.changePlayer();
         undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 1), new Position(0, 2)));

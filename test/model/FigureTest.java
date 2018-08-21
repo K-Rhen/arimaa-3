@@ -9,19 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class FigureTest {
+class FigureTest {
 
     IFigure figure;
     Position pos;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         pos = new Position(0, 0);
         figure = new Figure(pos, FIGURE_NAME.R);
     }
 
     @Test
-    public void testSetPosition() {
+    void testSetPosition() {
         figure.setPosition(new Position(1, 1));
         pos = new Position(1, 1);
 
@@ -29,12 +29,12 @@ public class FigureTest {
     }
 
     @Test
-    public void testGetName() {
+    void testGetName() {
         assertEquals(FIGURE_NAME.R, figure.getName());
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String oughtText = "{R (0, 0)}";
         assertEquals(oughtText, figure.toString());
     }
