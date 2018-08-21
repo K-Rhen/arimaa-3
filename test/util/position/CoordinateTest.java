@@ -6,15 +6,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class CoordinateTest {
+class CoordinateTest {
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
 
     }
 
     @Test
-    public void testConvertPos() {
+    void testConvertPos() {
         // first row
         assertEquals("a8", Coordinate.convert(new Position(0, 0)));
         assertEquals("b8", Coordinate.convert(new Position(1, 0)));
@@ -37,7 +37,7 @@ public class CoordinateTest {
     }
 
     @Test
-    public void testConvertString() {
+    void testConvertString() {
         // first row
         assertTrue(Coordinate.convert("a8").equals(new Position(0, 0)));
         assertTrue(Coordinate.convert("b8").equals(new Position(1, 0)));
@@ -60,7 +60,7 @@ public class CoordinateTest {
     }
 
     @Test
-    public void testCovertWrongFormat() {
+    void testCovertWrongFormat() {
         assertThrows(IllegalArgumentException.class, () -> Coordinate.convert("a9"));
     }
 
