@@ -512,14 +512,12 @@ class RulesTest {
         // Gold Rabbit surround Position
         List<Position> oughtGoldRabbitSurroundList = new ArrayList<>();
         oughtGoldRabbitSurroundList.add(new Position(0, 5));
-        List<Position> isGoldRabbitSurroundList = new ArrayList<>();
-        isGoldRabbitSurroundList = controller.getPossibleMoves(new Position(0, 6));
+        List<Position> isGoldRabbitSurroundList = controller.getPossibleMoves(new Position(0, 6));
         assertEquals(oughtGoldRabbitSurroundList, isGoldRabbitSurroundList);
 
         // Silver Rabbit surround Position
         List<Position> oughtSilverRabbitSurroundList = new ArrayList<>();
-        List<Position> isSilverRabbitSurroundList = new ArrayList<>();
-        isSilverRabbitSurroundList = controller.getPossibleMoves(new Position(0, 1));
+        List<Position> isSilverRabbitSurroundList = controller.getPossibleMoves(new Position(0, 1));
         assertEquals(oughtSilverRabbitSurroundList, isSilverRabbitSurroundList);
     }
 }
