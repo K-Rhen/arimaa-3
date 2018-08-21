@@ -393,7 +393,6 @@ class Rules extends Observable {
     }
 
     List<Position> getPossibleMoves(PLAYER_NAME currentPlayerName, Position pos) {
-        //List<Position> candidates = new ArrayList<>();
         List<Position> candidates = Position.getSurroundPositionForPitch(pos);
         candidates.removeAll(getOccupiedPositions(candidates));
 
