@@ -509,15 +509,15 @@ class RulesTest {
 
     @Test
     void getPossibleMoves() {
-        // Gold Rabbit surround Position
+        // Gold Rabbit surround Position - one
         List<Position> oughtGoldRabbitSurroundList = new ArrayList<>();
         oughtGoldRabbitSurroundList.add(new Position(0, 5));
         List<Position> isGoldRabbitSurroundList = controller.getPossibleMoves(new Position(0, 6));
         assertEquals(oughtGoldRabbitSurroundList, isGoldRabbitSurroundList);
 
-        // Silver Rabbit surround Position
-        List<Position> oughtSilverRabbitSurroundList = new ArrayList<>();
+        // Silver Rabbit surround Position - none
         List<Position> isSilverRabbitSurroundList = controller.getPossibleMoves(new Position(0, 1));
-        assertEquals(oughtSilverRabbitSurroundList, isSilverRabbitSurroundList);
+        assertEquals(new ArrayList<>(), isSilverRabbitSurroundList);
+
     }
 }
