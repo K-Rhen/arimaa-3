@@ -518,6 +518,5 @@ class RulesTest {
         // Silver Rabbit surround Position - none
         List<Position> isSilverRabbitSurroundList = controller.getPossibleMoves(new Position(0, 1));
         assertEquals(new ArrayList<>(), isSilverRabbitSurroundList);
-
     }
 }
