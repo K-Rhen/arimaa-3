@@ -43,8 +43,8 @@ class ObserveTest {
     }
 
     class ObserverTest implements IObserver {
-        // @Override
-        void update(Event e) {
+        @Override
+        public void update(Event e) {
             ping = true;
         }
 
