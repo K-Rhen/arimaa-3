@@ -34,7 +34,7 @@ class PlayerTest {
     void testMoveFigure() {
         player.moveFigure(new Position(1, 0), new Position(1, 1));
 
-        assertEquals(null, player.getFigure(new Position(1, 0)));
+        assertNull(player.getFigure(new Position(1, 0)));
         assertEquals(FIGURE_NAME.R, player.getFigure(new Position(1, 1)));
     }
 
@@ -47,17 +47,17 @@ class PlayerTest {
     @Test
     void testGetFigure() {
         assertEquals(FIGURE_NAME.R, player.getFigure(new Position(0, 0)));
-        assertEquals(null, player.getFigure(new Position(3, 4)));
+        assertNull(player.getFigure(new Position(3, 4)));
 
         player.disableFigure(new Position(0, 0));
-        assertEquals(null, player.getFigure(new Position(0, 0)));
+        assertNull(player.getFigure(new Position(0, 0)));
     }
 
     @Test
     void testDisableFigure() {
         assertFalse(player.disableFigure(new Position(0, 1)));
         assertTrue(player.disableFigure(new Position(0, 0)));
-        assertEquals(null, player.getFigure(new Position(0, 0)));
+        assertNull(player.getFigure(new Position(0, 0)));
     }
 
     @Test
