@@ -30,7 +30,7 @@ class PitchTest {
     void testGetPlayerName() {
         assertEquals(PLAYER_NAME.GOLD, pitch.getPlayerName(new Position(0, 6)));
         assertEquals(PLAYER_NAME.SILVER, pitch.getPlayerName(new Position(0, 1)));
-        assertEquals(null, pitch.getPlayerName(new Position(3, 3)));
+        assertNull(pitch.getPlayerName(new Position(3, 3)));
     }
 
     @Test
@@ -54,7 +54,7 @@ class PitchTest {
 
     @Test
     void testGetFigureName() {
-        assertEquals(null, pitch.getFigureName(new Position(0, 2)));
+        assertNull(pitch.getFigureName(new Position(0, 2)));
         assertEquals(FIGURE_NAME.R, pitch.getFigureName(new Position(0, 0)));
         assertEquals(FIGURE_NAME.R, pitch.getFigureName(new Position(0, 7)));
     }
@@ -73,8 +73,8 @@ class PitchTest {
     void testDisableFigure() {
         assertFalse(pitch.disableFigure(new Position(0, 2)));
         assertTrue(pitch.disableFigure(new Position(0, 0)));
-        assertEquals(null, pitch.getFigureName(new Position(0, 0)));
-        assertEquals(null, pitch.getPlayerName(new Position(0, 0)));
+        assertNull(pitch.getFigureName(new Position(0, 0)));
+        assertNull(pitch.getPlayerName(new Position(0, 0)));
     }
 
     @Test
@@ -107,7 +107,7 @@ class PitchTest {
                 + "+---+---+---+---+---+---+---+---+\n" + "| R | R | R | D | D | R | R | R | 1\n"
                 + "+--------------GOLD-------------+\n" + "  a   b   c   d   e   f   g   h\n";
 
-        assertTrue(oughtPitchString.equals(isString));
+        assertEquals(oughtPitchString, isString);
     }
 
 }
