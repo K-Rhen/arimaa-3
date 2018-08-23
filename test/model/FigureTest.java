@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import util.position.Position;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class FigureTest {
@@ -25,7 +24,7 @@ class FigureTest {
         figure.setPosition(new Position(1, 1));
         pos = new Position(1, 1);
 
-        assertTrue(pos.equals(figure.getPosition()));
+        assertEquals(new Position(1, 1), figure.getPosition());
     }
 
     @Test
