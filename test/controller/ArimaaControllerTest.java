@@ -77,7 +77,7 @@ class ArimaaControllerTest {
         assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 6)));
         assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 1)));
 
-        assertEquals(null, controller.getFigureName(new Position(0, 3)));
+        assertNull(controller.getFigureName(new Position(0, 3)));
     }
 
     @Test
@@ -85,21 +85,21 @@ class ArimaaControllerTest {
         assertEquals(PLAYER_NAME.GOLD, controller.getPlayerName(new Position(0, 6)));
         assertEquals(PLAYER_NAME.SILVER, controller.getPlayerName(new Position(0, 1)));
 
-        assertEquals(null, controller.getPlayerName(new Position(0, 2)));
+        assertNull(controller.getPlayerName(new Position(0, 2)));
     }
 
     @Test
     void testUndoRedo() {
         controller.moveFigure(new Position(0, 6), new Position(0, 5));
-        assertEquals(null, controller.getFigureName(new Position(0, 6)));
+        assertNull(controller.getFigureName(new Position(0, 6)));
         assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 5)));
 
         controller.undo();
         assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 6)));
-        assertEquals(null, controller.getFigureName(new Position(0, 5)));
+        assertNull(controller.getFigureName(new Position(0, 5)));
 
         controller.redo();
-        assertEquals(null, controller.getFigureName(new Position(0, 6)));
+        assertNull(controller.getFigureName(new Position(0, 6)));
         assertEquals(FIGURE_NAME.R, controller.getFigureName(new Position(0, 5)));
     }
 
