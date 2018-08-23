@@ -248,14 +248,14 @@ class RulesTest {
         assertTrue(controller.moveFigure(new Position(3, 5), new Position(3, 6)));
         assertEquals(GameStatus.CAPTURED, controller.getGameStatus());
         // no figure on this trap
-        assertEquals(null, controller.getFigureName(new Position(2, 5)));
+        assertNull(controller.getFigureName(new Position(2, 5)));
 
         // -TRAP bottom right
         // move Gold Cat into trap
         assertTrue(controller.moveFigure(new Position(5, 6), new Position(5, 5)));
         assertEquals(GameStatus.CAPTURED, controller.getGameStatus());
         // no figure on this trap
-        assertEquals(null, controller.getFigureName(new Position(5, 5)));
+        assertNull(controller.getFigureName(new Position(5, 5)));
 
         controller.changePlayer();
 
@@ -264,14 +264,14 @@ class RulesTest {
         assertTrue(controller.moveFigure(new Position(2, 1), new Position(2, 2)));
         assertEquals(GameStatus.CAPTURED, controller.getGameStatus());
         // no figure on this trap
-        assertEquals(null, controller.getFigureName(new Position(2, 2)));
+        assertNull(controller.getFigureName(new Position(2, 2)));
 
         // -TRAP top right
         // move Silver Cat into trap
         assertTrue(controller.moveFigure(new Position(5, 1), new Position(5, 2)));
         assertEquals(GameStatus.CAPTURED, controller.getGameStatus());
         // no figure on this trap
-        assertEquals(null, controller.getFigureName(new Position(5, 2)));
+        assertNull(controller.getFigureName(new Position(5, 2)));
 
     }
 

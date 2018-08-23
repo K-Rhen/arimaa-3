@@ -8,8 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import util.position.Position;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class UndoManagerTest {
@@ -26,15 +25,15 @@ class UndoManagerTest {
     @Test
     void testDoUndoRedo() {
         undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
-        assertEquals(null, pitch.getFigureNameForPitch(new Position(0, 6)));
+        assertNull(pitch.getFigureNameForPitch(new Position(0, 6)));
         assertEquals("R", pitch.getFigureNameForPitch(new Position(0, 5)));
 
         undoManager.undoCommand();
         assertEquals("R", pitch.getFigureNameForPitch(new Position(0, 6)));
-        assertEquals(null, pitch.getFigureNameForPitch(new Position(0, 5)));
+        assertNull(pitch.getFigureNameForPitch(new Position(0, 5)));
 
         undoManager.redoCommand();
-        assertEquals(null, pitch.getFigureNameForPitch(new Position(0, 6)));
+        assertNull(pitch.getFigureNameForPitch(new Position(0, 6)));
         assertEquals("R", pitch.getFigureNameForPitch(new Position(0, 5)));
     }
 
@@ -58,7 +57,7 @@ class UndoManagerTest {
 
     @Test
     void testGetLastMoveFigureName() {
-        assertEquals(null, undoManager.getLastMoveFigureName());
+        assertNull(undoManager.getLastMoveFigureName());
 
         undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
         assertEquals(FIGURE_NAME.R, undoManager.getLastMoveFigureName());
@@ -66,7 +65,7 @@ class UndoManagerTest {
 
     @Test
     void testGetLastMoveFromPosition() {
-        assertEquals(null, undoManager.getLastMoveFromPosition());
+        assertNull(undoManager.getLastMoveFromPosition());
 
         undoManager.doCommand(new MoveFigureCommand(pitch, new Position(0, 6), new Position(0, 5)));
         assertEquals(new Position(0, 6), undoManager.getLastMoveFromPosition());
