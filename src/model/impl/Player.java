@@ -63,11 +63,11 @@ public class Player implements IPlayer {
     public boolean disableFigure(Position pos) {
         if (getFigure(pos) == null)
             return false;
-        for (int i = 0; i < figures.size(); i++) {
-            IFigure figure = figures.get(i);
+        for (IFigure figure : figures) {
             if (figure.getPosition().equals(pos))
                 figure.setDisable(true);
         }
+
         return true;
     }
 
