@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <!-- For our tests we do not demand API documentation. -->
+    <!-- See http://checkstyle.sf.net/config_javadoc.html -->
+    <suppress files=".*(?:Test|TestBase|Tutorial)\.java$" checks="Javadoc.*"/>
+    <suppress files="[/\\]src[/\\]test[/\\]java[/\\].*\.java" checks="Javadoc.*"/>
+</suppressions>
