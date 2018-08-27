@@ -16,8 +16,8 @@ public class ArimaaFrame extends JFrame implements IObserver {
     private static final int DEFAULT_Y = 520;
     private static final int DEFAULT_X = 720;
 
-    private Container pane;
-    private IArimaaController controller;
+    private final Container pane;
+    private final IArimaaController controller;
 
     @Inject
     public ArimaaFrame(final IArimaaController controller) {

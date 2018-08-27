@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UndoManager {
 
-    private Deque<UndoableMoveFigureCommand> undoStack;
+    private final Deque<UndoableMoveFigureCommand> undoStack;
     private Deque<UndoableMoveFigureCommand> redoStack;
 
     private UndoableMoveFigureCommand topCommand;

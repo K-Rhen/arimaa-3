@@ -6,7 +6,7 @@ import util.position.Position;
 
 public class Figure implements IFigure {
 	private Position position;
-	private FIGURE_NAME name;
+	private final FIGURE_NAME name;
 	private boolean disable;
 
     public Figure(Position position, FIGURE_NAME name) {

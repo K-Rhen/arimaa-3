@@ -9,8 +9,8 @@ import java.awt.*;
 class MouseFigure {
 
     private Point mousePoint;
-    private FIGURE_NAME figureName;
-    private PLAYER_NAME playerName;
+    private final FIGURE_NAME figureName;
+    private final PLAYER_NAME playerName;
     private Position fromPosition;
     private Position toPosition;
 

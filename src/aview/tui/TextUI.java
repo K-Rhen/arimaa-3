@@ -12,7 +12,7 @@ import util.position.Position;
 public class TextUI implements IObserver {
 	private static final Logger LOGGER = LogManager.getLogger(TextUI.class.getName());
 
-	private IArimaaController controller;
+	private final IArimaaController controller;
 
 	public TextUI(IArimaaController controller) {
 		this.controller = controller;

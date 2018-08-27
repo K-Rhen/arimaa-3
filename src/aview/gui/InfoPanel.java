@@ -7,7 +7,7 @@ import util.observer.IObserver;
 import javax.swing.*;
 
 public class InfoPanel extends JPanel implements IObserver {
-	private IArimaaController controller;
+	private final IArimaaController controller;
 
 	private JLabel actPlayerLabel;
 	private JLabel moveRemainLabel;

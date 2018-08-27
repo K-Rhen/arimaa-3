@@ -26,14 +26,14 @@ import java.util.Map;
 public class PitchPanel extends JPanel implements IObserver {
     private static final Logger LOGGER = LogManager.getLogger(PitchPanel.class.getName());
 
-    private IArimaaController controller;
+    private final IArimaaController controller;
 
-    private BufferedImage pitchImage;
-    private Point pitchSizePoint = new Point(400, 400);
-    private Map<FIGURE_NAME, BufferedImage> figuresImageGold;
-    private Map<FIGURE_NAME, BufferedImage> figuresImageSilver;
-    private Point figureSize = new Point(50, 50);
-    private Point offsetPitch = new Point(20, 20);
+    private final BufferedImage pitchImage;
+    private final Point pitchSizePoint = new Point(400, 400);
+    private final Map<FIGURE_NAME, BufferedImage> figuresImageGold;
+    private final Map<FIGURE_NAME, BufferedImage> figuresImageSilver;
+    private final Point figureSize = new Point(50, 50);
+    private final Point offsetPitch = new Point(20, 20);
 
     // Mouse
     private MouseFigure mouseFigure = null;

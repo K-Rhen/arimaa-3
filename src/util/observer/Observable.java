@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Observable implements IObservable {
 
-    private List<IObserver> subscribers = new ArrayList<>(2);
+    private final List<IObserver> subscribers = new ArrayList<>(2);
 
     @Override
     public void addObserver(IObserver s) {

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pitch implements IPitch {
-	private Player goldPlayer;
-	private Player silverPlayer;
+	private final Player goldPlayer;
+	private final Player silverPlayer;
 
 	private PLAYER_NAME currentPlayer;
 	private int remainingMoves;

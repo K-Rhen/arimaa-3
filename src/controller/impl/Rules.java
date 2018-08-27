@@ -15,7 +15,7 @@ import java.util.List;
 
 class Rules extends Observable {
 
-    private IArimaaController controller;
+    private final IArimaaController controller;
     private GameStatus status;
     private String statusText;
 

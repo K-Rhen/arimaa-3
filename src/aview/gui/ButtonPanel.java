@@ -7,7 +7,7 @@ import util.observer.IObserver;
 import javax.swing.*;
 
 public class ButtonPanel extends JPanel implements IObserver {
-    private IArimaaController controller;
+    private final IArimaaController controller;
 
     private JButton playerChangeButton;
     private JButton undoButton;

@@ -11,7 +11,7 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 
 public class StatusPanel extends JPanel implements IObserver {
-    private IArimaaController controller;
+    private final IArimaaController controller;
 
     private final JLabel statusLabel = new JLabel("");
 

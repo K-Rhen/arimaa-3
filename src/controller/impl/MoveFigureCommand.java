@@ -9,13 +9,13 @@ import util.position.Position;
 
 public class MoveFigureCommand implements UndoableMoveFigureCommand {
 
-	private Position from;
-	private Position to;
-	private FIGURE_NAME figureName;
+	private final Position from;
+	private final Position to;
+	private final FIGURE_NAME figureName;
 
-	private IPitch pitch;
-	private PLAYER_NAME currentPlayerName;
-	private int remainingMoves;
+	private final IPitch pitch;
+	private final PLAYER_NAME currentPlayerName;
+	private final int remainingMoves;
 
 	private String moveNotation;
 
