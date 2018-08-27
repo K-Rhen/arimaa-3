@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UndoManagerTest {
 
-    UndoManager undoManager;
-    IPitch pitch;
+    private UndoManager undoManager;
+    private IPitch pitch;
 
     @BeforeEach
     void setup() {

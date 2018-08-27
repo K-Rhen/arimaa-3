@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class PitchTest {
-    IPitch pitch;
+    private IPitch pitch;
 
     @BeforeEach
     void setUp() {

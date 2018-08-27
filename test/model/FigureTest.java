@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FigureTest {
 
-    IFigure figure;
-    Position pos;
+    private IFigure figure;
+    private Position pos;
 
     @BeforeEach
     void setUp() {

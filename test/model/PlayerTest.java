@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class PlayerTest {
-    IPlayer player;
-    List<IFigure> figures;
+    private IPlayer player;
+    private List<IFigure> figures;
 
     @BeforeEach
     void setUp() {

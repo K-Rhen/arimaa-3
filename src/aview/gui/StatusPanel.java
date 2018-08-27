@@ -25,7 +25,7 @@ public class StatusPanel extends JPanel implements IObserver {
         add(statusLabel);
     }
 
-    public final void setText(final GameStatus status, final String statusText) {
+    private final void setText(final GameStatus status, final String statusText) {
         statusLabel.setText(StatusMessage.getText(status) + " : " + statusText);
     }
 

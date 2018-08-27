@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-public class ArimaaMenuBar extends JMenuBar {
+class ArimaaMenuBar extends JMenuBar {
     private static final Logger LOGGER = LogManager.getLogger(ArimaaMenuBar.class.getName());
 
     public ArimaaMenuBar(IArimaaController controller) {

@@ -12,7 +12,7 @@ import util.position.Position;
 public class TextUI implements IObserver {
 	private static final Logger LOGGER = LogManager.getLogger(TextUI.class.getName());
 
-	IArimaaController controller;
+	private IArimaaController controller;
 
 	public TextUI(IArimaaController controller) {
 		this.controller = controller;
@@ -61,7 +61,7 @@ public class TextUI implements IObserver {
 		return sb.toString();
 	}
 
-	public boolean moveFigureByString(String inputLine) {
+	private boolean moveFigureByString(String inputLine) {
 		String[] parts = inputLine.split("-");
 		Position from = Coordinate.convert(parts[0]);
 		Position to = Coordinate.convert(parts[1]);

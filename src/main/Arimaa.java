@@ -9,10 +9,10 @@ import controller.IArimaaController;
 
 import java.util.Scanner;
 
-public class Arimaa {
+class Arimaa {
     private TextUI tui;
     private ArimaaFrame gui;
-    protected IArimaaController controller;
+    private IArimaaController controller;
     private static Arimaa instance = null;
 
     private Arimaa() {

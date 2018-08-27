@@ -6,7 +6,7 @@ import util.position.Position;
 
 import java.awt.*;
 
-public class MouseFigure {
+class MouseFigure {
 
     private Point mousePoint;
     private FIGURE_NAME figureName;
