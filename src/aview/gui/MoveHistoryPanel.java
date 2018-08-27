@@ -22,14 +22,6 @@ public class MoveHistoryPanel extends JPanel implements IObserver {
 
 	}
 
-	public final void append(String line) {
-		historyTextArea.append(line + "\n");
-	}
-
-	public void clear() {
-		historyTextArea.setText("");
-	}
-
 	@Override
 	public void update(Event e) {
 
