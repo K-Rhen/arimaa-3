@@ -11,10 +11,7 @@ import java.awt.event.KeyEvent;
 public class ArimaaMenuBar extends JMenuBar {
     private static final Logger LOGGER = LogManager.getLogger(ArimaaMenuBar.class.getName());
 
-    private IArimaaController controller;
-
     public ArimaaMenuBar(IArimaaController controller) {
-        this.controller = controller;
         createFileMenu(controller);
         createInfoMenu();
     }
