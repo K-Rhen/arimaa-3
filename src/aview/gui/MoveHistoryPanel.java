@@ -7,7 +7,7 @@ import util.observer.IObserver;
 import javax.swing.*;
 
 public class MoveHistoryPanel extends JPanel implements IObserver {
-	private IArimaaController controller;
+    private final IArimaaController controller;
 
 	private final JTextArea historyTextArea;
 	

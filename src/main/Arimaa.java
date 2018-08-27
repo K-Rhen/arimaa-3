@@ -28,15 +28,6 @@ class Arimaa {
 
     }
 
-    public TextUI getTui() {
-        return tui;
-    }
-
-
-    public ArimaaFrame getGui() {
-        return gui;
-    }
-
     private static Arimaa getInstance() {
         if (instance == null) {
             instance = new Arimaa();
